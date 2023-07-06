@@ -81,9 +81,6 @@ const NationalAddress = () => {
               >
                 Save
               </Button>
-              <Button variant="contained" color="error">
-                Cancel
-              </Button>
             </GroupButtons>
           </Box>
         </FormWrapper>

@@ -1,10 +1,11 @@
 import * as React from "react";
 import Switch from "@mui/material/Switch";
-import { FormControlLabel } from "@mui/material";
+import { Content, Info, Title, Wrapper } from "./style";
 interface IProps {
   title: string;
+  info?: string;
 }
-export default function SwitchesComponent({ title }: IProps) {
+export default function SwitchesComponent({ title, info }: IProps) {
   const [checked, setChecked] = React.useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,19 +13,19 @@ export default function SwitchesComponent({ title }: IProps) {
   };
 
   return (
-    <>
-      <FormControlLabel
-        label={title}
-        control={
-          <Switch
-            checked={checked}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-            title={title}
-            required={true}
-          />
-        }
-      />
-    </>
+    <Wrapper>
+      <Title>{title}</Title>
+
+      <Content>
+        <Switch
+          checked={checked}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "controlled" }}
+          title={title}
+          required={true}
+        />
+        <Info>{info}</Info>
+      </Content>
+    </Wrapper>
   );
 }

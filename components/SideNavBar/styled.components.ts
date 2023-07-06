@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  background:${({ theme }) => theme.colors.darkblue3};
+  background:${({ theme }) => theme.colors.headersideBarBgColor};
   display: flex;
   flex-direction: column;
   width: 16rem;
@@ -21,14 +21,7 @@ export const Container = styled.div`
 export const SideBar = styled.div`
       padding: 10px;
 `;
-export const LogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.5s;
-  padding: 2px 6px 18px 6px;
-  border-bottom: 1px solid #363636c7;
-`;
+
 export const SideIconWrapper = styled.div`
   display: flex;
   border-bottom: 1px solid #ffffff1a;
@@ -38,7 +31,7 @@ export const SideIconWrapper = styled.div`
   align-items: center;
   > a {
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.white};
+    color:${({ theme }) => theme.colors.pageTextColor};
   }
   :hover {
     cursor: pointer;
@@ -59,11 +52,11 @@ export const IconWrapper = styled.div`
     theme.isLTR
       ? css`
           &.active {
-            transform: rotate(-90deg);
+            transform: rotate(90deg);
             transition: 0.5s;
           }
           &.In-active {
-            transform: rotate(90deg);
+            transform: rotate(-90deg);
             transition: 0.5s;
           }
         `
@@ -85,7 +78,7 @@ export const AccordionContainer = styled.div`
     border-bottom: 1px solid #ffffff1a;
   }
   & .MuiPaper-root {
-    background-color: ${({ theme }) => theme.colors.darkblue3};
+    background-color: ${({ theme }) => theme.colors.headersideBarBgColor};
     box-shadow: none;
     margin: 0;
     &.Mui-expanded {
@@ -111,9 +104,9 @@ export const PageWrapper = styled.div`
   padding-left: 22px;
   a {
     text-decoration: none;
-    color: #9f9f9f !important;
+    color: ${({ theme }) => theme.colors.pageTextColor} !important;
     text-decoration: none;
-    color: #fff;
+   
     display: flex;
   }
 `;
@@ -167,6 +160,6 @@ export const Company = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px 0px;
-  color: #fff;
+  color:${({ theme }) => theme.colors.pageTextColor};
   align-items: center;
 `;

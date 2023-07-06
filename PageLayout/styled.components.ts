@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const LayoutContainer = styled.div`
  display: flex;
 `
+export const LayoutWrapper = styled.div`
+
+`
 export const Wrapper = styled.div`
 display:flex ;
 flex-direction:column ;
@@ -13,6 +16,6 @@ flex-direction:column ;
 export const Children = styled.div`
 min-height:100vh ;
 padding:20px;
-background-color: #d5d5d5;
+background-color:${({ theme }) => theme.colors.pageBgColor};
 
 `

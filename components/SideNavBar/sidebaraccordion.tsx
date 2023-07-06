@@ -11,6 +11,7 @@ import {
 } from "./styled.components";
 import Link from "next/link";
 import IconComponent from "@/reuseableComponents/IconComponent";
+import { useTheme } from "styled-components";
 
 interface IPage {
   page_name: string;
@@ -27,6 +28,7 @@ interface IProps {
   sideBarMenuData?: IAccordion[];
 }
 const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
+  const { colors }: any = useTheme();
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
   const handleChange =
@@ -44,7 +46,7 @@ const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
             onChange={handleChange(item.panel)}
           >
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon htmlColor="white" />}
+              expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
@@ -52,14 +54,14 @@ const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
                 icon={item.icon}
                 width="20px"
                 height="20px"
-                fill="#fff"
+                fill={colors.pageTextColor}
               />
               <Typography
                 sx={{
                   width: "100%",
                   flexShrink: 0,
                   margin: "0px 10px",
-                  color: "white",
+                  color: `${colors.pageTextColor}`,
                 }}
               >
                 {item.module_name}
@@ -75,7 +77,7 @@ const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
                           icon={p.icon}
                           width="20px"
                           height="20px"
-                          fill="#fff"
+                          fill={colors.pageTextColor}
                         />
                         <Link href={p.page_link}>{p.page_name}</Link>
                       </PageLinkWrapper>

@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  Container,
-  IconWrapper,
-  LogoContainer,
-  SideBar,
-  SideIconWrapper,
-} from "./styled.components";
+import { Container, SideBar, SideIconWrapper } from "./styled.components";
 import SideBarAccordions from "./sidebaraccordion";
 import DashboardSvg from "@/public/icons/dashboard";
 import ArrowDown from "@/public/icons/arrowDownSvg";
@@ -13,7 +7,7 @@ import { useTheme } from "styled-components";
 import Profile from "./profile";
 
 const SideNavBar = () => {
-  const { colors } = useTheme();
+  const { colors }: any = useTheme();
   const [width, setWidth] = React.useState(false);
   const [show, setShow] = React.useState("");
   const handleWidth = () => {
@@ -214,7 +208,7 @@ const SideNavBar = () => {
       page: [
         {
           page_name: "Compnay Settings",
-          page_link: "company_settings",
+          page_link: "/super_admin/company_settings",
           icon: "",
         },
         {
@@ -224,7 +218,7 @@ const SideNavBar = () => {
         },
         {
           page_name: "Group Access Management",
-          page_link: "group_access_management",
+          page_link: "/super_admin/group_access_management",
           icon: "",
         },
         {
@@ -245,31 +239,25 @@ const SideNavBar = () => {
   ];
   return (
     <Container className={width ? "In-active" : "active"}>
-      <LogoContainer>
-        <a href={"/dashboard"}>
-          <img
-            src="/images/nafeth.png"
-            alt="logo"
-            width={150}
-            height={"100%"}
-          />
-        </a>
-      </LogoContainer>
       <SideBar>
         <Profile />
         <SideIconWrapper>
-          <DashboardSvg fill={colors.white} width="20px" height="20px" />
+          <DashboardSvg
+            fill={colors.pageTextColor}
+            width="20px"
+            height="20px"
+          />
           <a href="/dashboard" className={width ? "active" : "In-active"}>
             {"Dashboard"}
           </a>
         </SideIconWrapper>
         <SideBarAccordions sideBarMenuData={sideBarMenuData} />
-        <IconWrapper
+        {/* <IconWrapper
           onClick={handleWidth}
           className={width ? "In-active" : "active"}
         >
           <ArrowDown fill={"#fff"} width="30px" height="30px" />
-        </IconWrapper>
+        </IconWrapper> */}
       </SideBar>
     </Container>
   );

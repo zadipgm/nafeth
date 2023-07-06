@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Container, Title } from "./style";
-import GroupList from "./GroupList";
+import { Container, DataTableWrapper, Title } from "./style";
+import DataTable from "./GroupList";
+
 const GroupAccessManagement = () => {
   return (
     <Container>
       <Title>Group Access Management</Title>
-      <GroupList />
+      <DataTableWrapper>
+        <DataTable />
+      </DataTableWrapper>
     </Container>
   );
 };

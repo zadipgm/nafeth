@@ -8,6 +8,8 @@ interface IProps {
   type?: string;
   helperText?: string;
   classname?: string;
+  multiline?: boolean;
+  rows?: number;
 }
 const InputComponent = ({
   label,
@@ -17,6 +19,8 @@ const InputComponent = ({
   type,
   helperText,
   classname,
+  multiline,
+  rows,
 }: IProps) => {
   return (
     <>
@@ -30,6 +34,8 @@ const InputComponent = ({
         disabled={disabled}
         type={type}
         helperText={helperText}
+        multiline={multiline}
+        rows={rows}
       />
     </>
   );

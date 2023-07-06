@@ -95,7 +95,7 @@ const Nodhom = () => {
               color="success"
               className="nodhom-save-button"
             >
-              Update
+              Save
             </Button>
           </GroupButtons>
         </Box>

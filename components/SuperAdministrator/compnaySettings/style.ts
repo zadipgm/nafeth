@@ -2,16 +2,21 @@ import { styled } from "styled-components";
 
 export const Container = styled.div``;
 export const Title = styled.h2`
-  color: #606060;
+  color:${({ theme }) => theme.colors.pageTextColor};
   font-size: 22px;
-  margin: 0px 15px;
 `;
 export const FormContainer = styled.div`
   background-color: white;
   border-radius: 8px;
       margin: 30px 10px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
-export const FormWrapper = styled.div``;
+export const FormWrapper = styled.div`
+&.group-edit-list-form{
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray2};
+  margin-bottom:15px ;
+}
+`;
 export const GsettingsTitle = styled.div`
 display: flex;
 gap: 24.5%;
@@ -41,7 +46,7 @@ font-size: 20px;
   }
   &.custom-settings {
     margin-top: 15px;
-    background-color:${({ theme }) => theme.colors.darkblue3};
+    background-color:${({ theme }) => theme.colors.headersideBarBgColor};
   }
   &.nodhom{
     background-color: #44A0E1;
@@ -60,7 +65,7 @@ export const FormBox = styled.div`
   flex-direction: column;
   gap: 24px;
   & .MuiInputBase-root {
-    color: rgb(0 0 0 / 53%);
+    color: ${({ theme }) => theme.colors.pageTextColor};
   }
   &.tajeer {
     flex-direction: row;
@@ -96,6 +101,35 @@ export const FormBox = styled.div`
     width: 32%;
     justify-content: space-between;
     gap: 2px;
+  }
+  &.group-edit-form{
+    flex-direction: row;
+    width: 100%;
+    & .MuiFormControl-root{
+      width: 50%;
+    }
+  }
+  &.group-edit-form-checkbox{
+    width: 100%;
+    .group-switches{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    > div {
+      width: 25%;
+    }
+  }
+    
+  }
+  &.group-switches{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    > div {
+      width: 20%;
+    }
   }
 `;
 
@@ -157,7 +191,7 @@ export const GroupButtons = styled.div`
       background-color: ${({ theme }) => theme.colors.lightblue1};
     }
     &.custom-settings-save-button{
-      background-color: ${({ theme }) => theme.colors.darkblue3};
+      background-color: ${({ theme }) => theme.colors.headersideBarBgColor};
     }
     &.nodhom-save-button{
       background-color: ${({ theme }) => theme.colors.lightBlue1};

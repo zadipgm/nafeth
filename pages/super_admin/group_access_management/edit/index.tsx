@@ -1,11 +1,11 @@
 import type { ReactElement } from "react";
 
 import Layout from "@/PageLayout";
-import { NextPageWithLayout } from "../_app";
-import GroupAccessManagement from "@/components/SuperAdministrator/GroupAccessManagement";
+import { NextPageWithLayout } from "@/pages/_app";
+import GroupEditForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupEditList";
 
 const Page: NextPageWithLayout = () => {
-  return <GroupAccessManagement />;
+  return <GroupEditForm title={"Group Access Edit"} />;
 };
 Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
