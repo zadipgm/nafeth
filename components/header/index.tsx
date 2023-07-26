@@ -3,9 +3,6 @@ import * as React from "react";
 import { useTheme } from "styled-components";
 import {
   Container,
-  IconWrapper,
-  LangButton,
-  Langwrapper,
   LightMood,
   LogoContainer,
   LogoutWrapper,
@@ -14,90 +11,61 @@ import {
 } from "./styled.components";
 import { useRouter } from "next/router";
 import LogoutSvg from "@/public/icons/logoutSvg";
-import NotificationSvg from "@/public/icons/notificationSvg";
-import LightMoodSvg from "@/public/icons/lightmoodSvg";
-import DarkMoodSvg from "@/public/icons/darkmoodSvg";
+import NightlightRoundOutlinedIcon from "@mui/icons-material/NightlightRoundOutlined";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { isTheme } from "@/_helpers/getTheme";
+import BellIcon from "@/public/icons/bellIconSvg";
+import LangButtons from "@/reuseableComponents/LangButton";
+import LangaugeButtons from "@/reuseableComponents/LangButton";
+import { Tooltip } from "@nextui-org/react";
+import { Badge } from "@mui/material";
+import Image from "next/image";
 interface IProps {
-  themeToggler: string | (() => void);
+  themeToggler: () => void;
   theme: string;
 }
 const Header = ({ themeToggler, theme }: IProps) => {
   const router = useRouter();
-
-  const { locale, colors }: any = useTheme();
-  const changeLocale = React.useCallback(() => {
-    if (locale === "en-US" || locale === "en") {
-      router.push(`${router.asPath}`, `${router.asPath}`, {
-        locale: "en",
-      });
-    } else {
-      router.push(`${router.asPath}`, `${router.asPath}`, { locale: "ar" });
-    }
-  }, [locale]);
-
+  const { colors }: any = useTheme();
+  const ThemeToggle = () => {
+    themeToggler();
+    let localTheme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", localTheme);
+  };
   return (
     <>
       <Container>
         <LogoContainer>
           <a href={"/dashboard"}>
-            <img
-              src="/images/nafeth.png"
-              alt="logo"
-              width={150}
-              height={"100%"}
-            />
+            <Image src="/images/pro2.webp" alt="logo" width={140} height={66} />
           </a>
         </LogoContainer>
         <Wrappper>
           {theme === "light" ? (
-            <LightMood onClick={themeToggler as VoidFunction}>
-              <LightMoodSvg
-                width="40px"
-                height="40px"
-                fill={colors.pageTextColor}
-              />
+            <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
+              <Tooltip content="Dark mood" color="invert" placement="leftStart">
+                <NightlightRoundOutlinedIcon />
+              </Tooltip>
             </LightMood>
           ) : (
-            <LightMood onClick={themeToggler as VoidFunction}>
-              <DarkMoodSvg
-                width="40px"
-                height="40px"
-                fill={colors.pageTextColor}
-              />
+            <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
+              <Tooltip content="Light mood" placement="leftStart">
+                <LightModeIcon className="dark" />
+              </Tooltip>
             </LightMood>
           )}
           <NotificationIcon>
-            <NotificationSvg
-              width="40px"
-              height="40px"
-              fill={colors.pageTextColor}
-            />
+            <Badge color="secondary" badgeContent={2} showZero>
+              <BellIcon
+                width="30px"
+                height="30px"
+                fill={colors.pageTextColor}
+              />
+            </Badge>
           </NotificationIcon>
-          {locale === "ar" ? (
-            <Langwrapper onClick={() => changeLocale()}>
-              <LangButton href={`/en${router.asPath}`}>
-                <IconWrapper>
-                  <img width="30px" height="30px" src="/images/us.svg" />
-                </IconWrapper>
-                EN
-              </LangButton>
-            </Langwrapper>
-          ) : (
-            <Langwrapper>
-              <LangButton href={`/ar${router.asPath}`}>
-                <IconWrapper onClick={() => changeLocale()}>
-                  <img width="30" height="30" src="/images/saudi.svg" />
-                </IconWrapper>
-                AR
-              </LangButton>
-            </Langwrapper>
-          )}
-          <LogoutWrapper>
-            <LogoutSvg
-              fill={colors.pageTextColor}
-              width={"25px"}
-              height={"25px"}
-            />{" "}
+          <LangaugeButtons title_en="ENGLISH" title_ar="العربية" />
+          <LogoutWrapper onClick={() => router.push("/login")}>
+            <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}
             <span>Logout</span>
           </LogoutWrapper>
         </Wrappper>

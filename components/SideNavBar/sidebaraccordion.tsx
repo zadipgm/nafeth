@@ -52,20 +52,23 @@ const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
             >
               <IconComponent
                 icon={item.icon}
-                width="20px"
-                height="20px"
+                width="25px"
+                height="25px"
                 fill={colors.pageTextColor}
               />
-              <Typography
-                sx={{
-                  width: "100%",
-                  flexShrink: 0,
-                  margin: "0px 10px",
-                  color: `${colors.pageTextColor}`,
-                }}
-              >
-                {item.module_name}
-              </Typography>
+              <div>
+                <Typography
+                  sx={{
+                    width: "100%",
+                    flexShrink: 0,
+                    margin: "0px 10px",
+                    color: `${colors.pageTextColor}`,
+                  }}
+                  component={"span"}
+                >
+                  {item.module_name}
+                </Typography>
+              </div>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>

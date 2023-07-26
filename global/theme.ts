@@ -7,10 +7,14 @@ declare module "styled-components" {
     | typeof import("../locales/en").default;
     direction: "rtl" | "ltr";
     isLTR: boolean;
+    isLight: string,
+    isDark: string,
+    themeToggle: () => void;
     device: "mobile" | "desktop" | "tablet";
     isRTL: boolean;
     locale: "ar" | "en-US" | "en";
     colors: {
+      bussinesBlue: string;
       themeColor: string;
       lightThemeColor: string;
       darkBlue: string;
@@ -24,13 +28,17 @@ declare module "styled-components" {
       gray1: string;
       gray2: string;
       gray3: string;
-      green: string;
+      nafethBlue: string;
+      purple: string;
       lightGreen: string,
+      lightRed: string;
       darkblue2: string;
       lightblue1: string;
-      headersideBarBgColor: string;
-      pageBgColor: string,
+      headerbgcolor: string
+      headersideBarbgcolor: string;
+      pagebgcolor: string,
       pageTextColor: string
+      headerSiderBarBorderColor: string
     };
   }
 }
@@ -41,7 +49,11 @@ export const lightTheme: DefaultTheme = {
   device: "mobile",
   isLTR: false,
   isRTL: true,
+  isLight: "light",
+  isDark: "",
+  themeToggle: () => { },
   colors: {
+    bussinesBlue: "#1976d2",
     themeColor: "linear-gradient(-49deg,#022646cc 22%,#12baff);",
     lightThemeColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
     headerLightColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
@@ -55,13 +67,17 @@ export const lightTheme: DefaultTheme = {
     gray1: "#5a5c69",
     gray2: "#cfcfcf",
     gray3: "#cfcfcf45",
-    green: "#26695c",
+    nafethBlue: "#1281C4",
+    purple: "#7828C8",
     lightGreen: "#25706278",
+    lightRed: "#ff000026",
     darkblue2: "#2a4158",
     lightblue1: "#1c8da4",
-    headersideBarBgColor: "#ababab",
-    pageBgColor: "#e3e3e3",
-    pageTextColor: "#000"
+    headersideBarbgcolor: "#ababab",
+    headerbgcolor: "#fff",
+    pagebgcolor: "#F4F6FA",
+    pageTextColor: "#222222ad",
+    headerSiderBarBorderColor: "#e6edef"
   },
 };
 
@@ -71,7 +87,11 @@ export const darkTheme: DefaultTheme = {
   device: "mobile",
   isLTR: false,
   isRTL: true,
+  isLight: "light",
+  isDark: "",
+  themeToggle: () => { },
   colors: {
+    bussinesBlue: "#1976d2",
     themeColor: "linear-gradient(-49deg,#022646cc 22%,#12baff);",
     lightThemeColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
     headerLightColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
@@ -85,14 +105,16 @@ export const darkTheme: DefaultTheme = {
     gray1: "#5a5c69",
     gray2: "#cfcfcf",
     gray3: "#cfcfcf45",
-    green: "#26695c",
+    nafethBlue: "#1281C4",
+    purple: "#7828C8",
     lightGreen: "#25706278",
     darkblue2: "#2a4158",
     lightblue1: "#1c8da4",
-    headersideBarBgColor: "#111727",
-    pageBgColor: "#202938",
+    lightRed: "#ff000026",
+    headersideBarbgcolor: "#111727",
+    headerbgcolor: "#111727",
+    pagebgcolor: "#202938",
     pageTextColor: "#ffffffb3",
+    headerSiderBarBorderColor: "#36405d"
   },
 };
-
-export default darkTheme;

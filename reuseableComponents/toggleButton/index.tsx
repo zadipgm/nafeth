@@ -4,25 +4,34 @@ import { Content, Info, Title, Wrapper } from "./style";
 interface IProps {
   title: string;
   info?: string;
+  value?: string;
+  onchange?: (event: any) => void;
+  checked?: boolean;
+  required?: boolean;
+  titlewidth?: string;
+  contentwidth?: string;
 }
-export default function SwitchesComponent({ title, info }: IProps) {
-  const [checked, setChecked] = React.useState(true);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
-
+export default function SwitchesComponent({
+  title,
+  info,
+  value,
+  onchange,
+  checked = false,
+  required = false,
+  titlewidth = "40%",
+  contentwidth = "60%",
+}: IProps) {
   return (
     <Wrapper>
-      <Title>{title}</Title>
-
-      <Content>
+      <Title titlewidth={titlewidth}>{title}</Title>
+      <Content contentwidth={contentwidth}>
         <Switch
           checked={checked}
-          onChange={handleChange}
+          onChange={onchange}
           inputProps={{ "aria-label": "controlled" }}
           title={title}
-          required={true}
+          required={required}
+          value={value}
         />
         <Info>{info}</Info>
       </Content>

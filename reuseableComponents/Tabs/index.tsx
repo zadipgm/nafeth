@@ -4,7 +4,8 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Span } from "./style";
+import { Span, Wrapper } from "./style";
+import { isTheme } from "@/_helpers/getTheme";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -46,39 +47,41 @@ export default function TabsComponent() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Span>Terms and Conditions</Span>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="English" {...a11yProps(0)} />
-          <Tab label="Arabic" {...a11yProps(1)} />
-        </Tabs>
+    <Wrapper color={isTheme().color}>
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Span color={isTheme().color}>Terms and Conditions</Span>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="English" {...a11yProps(0)} />
+            <Tab label="Arabic" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <TextField
+            id="filled-multiline-static"
+            label="Terms and Conditions"
+            multiline
+            rows={4}
+            variant="filled"
+            fullWidth
+          />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TextField
+            id="filled-multiline-static"
+            label="الأحكام والشروط"
+            multiline
+            rows={4}
+            variant="filled"
+            fullWidth
+            dir="RTL"
+          />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <TextField
-          id="filled-multiline-static"
-          label="Terms and Conditions"
-          multiline
-          rows={4}
-          variant="filled"
-          fullWidth
-        />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <TextField
-          id="filled-multiline-static"
-          label="الأحكام والشروط"
-          multiline
-          rows={4}
-          variant="filled"
-          fullWidth
-          dir="RTL"
-        />
-      </TabPanel>
-    </Box>
+    </Wrapper>
   );
 }

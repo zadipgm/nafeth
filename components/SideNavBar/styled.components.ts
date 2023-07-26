@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  background:${({ theme }) => theme.colors.headersideBarBgColor};
+  background:${({ theme }) => theme.colors.headerbgcolor};
   display: flex;
+  border-right: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};
   flex-direction: column;
-  width: 16rem;
+  width: 290px;
   min-height: 100vh;
   background-size: cover;
   transition: 0.5s;
@@ -19,19 +20,21 @@ export const Container = styled.div`
   }
 `;
 export const SideBar = styled.div`
-      padding: 10px;
+      /* padding: 10px; */
 `;
 
 export const SideIconWrapper = styled.div`
   display: flex;
-  border-bottom: 1px solid #ffffff1a;
-  padding: 10px 15px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+  padding: 15px 21px;
   gap: 10px;
   justify-content: flex-start;
   align-items: center;
   > a {
     text-decoration: none;
     color:${({ theme }) => theme.colors.pageTextColor};
+        font-weight: 600;
+    font-family: 'Cairo',sans-serif!important;
   }
   :hover {
     cursor: pointer;
@@ -75,10 +78,10 @@ export const IconWrapper = styled.div`
 export const AccordionContainer = styled.div`
   margin-bottom: 100px;
   & .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded{
-    border-bottom: 1px solid #ffffff1a;
+    /* border-bottom: 1px solid #ffffff1a; */
   }
   & .MuiPaper-root {
-    background-color: ${({ theme }) => theme.colors.headersideBarBgColor};
+    background-color: ${({ theme }) => theme.colors.headerbgcolor};
     box-shadow: none;
     margin: 0;
     &.Mui-expanded {
@@ -86,11 +89,25 @@ export const AccordionContainer = styled.div`
     }
     & .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded {
       min-height: 48px;
-      background-color: ${({ theme }) => theme.colors.green};
-      border-radius: 8px;
+      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      
+      svg{
+        path{
+          fill: #fff;
+        }
+      }
+      & .MuiTypography-root{
+        font-weight: 600;
+        color: #fff;
+       
+      }
     }
     & .MuiAccordionSummary-content {
       margin: 12px 0px;
+      & .MuiTypography-root{
+        font-weight: 600;
+        font-family: 'Cairo', sans-serif !important;
+      }
     }
   }
   & .MuiCollapse-root {
@@ -103,11 +120,16 @@ export const PageWrapper = styled.div`
   border-radius: 6px;
   padding-left: 22px;
   a {
+    /* color: ${({ theme }) => theme.colors.pageTextColor}; */
+    transition: 0.5s;
+    font-size: 13px;
+    color: #717171;
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.pageTextColor} !important;
-    text-decoration: none;
-   
     display: flex;
+    :hover{
+    color: ${({ theme }) => theme.colors.nafethBlue} !important;
+    transition: 0.5s;
+  }
   }
 `;
 export const PageLinkWrapper = styled.div`
@@ -116,13 +138,14 @@ export const PageLinkWrapper = styled.div`
    padding: 8px;
   }
   :hover{
-    background-color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.nafethBlue};
     border-radius: 6px;
   }
 `;
 export const ProfileContainer = styled.div`
-border-bottom: 1px solid #363636c7;
-margin-bottom:15px ;
+border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};;
+
+padding: 10px;
 `;
 export const SettingIconWrapper = styled.div`
  display: flex;
@@ -136,7 +159,7 @@ export const SettingIcon = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background-color: rgba(36, 105, 92, 0.1);
+  background-color: #1281c44a;
 `;
 export const ProfileImage = styled.div`
   display: flex;
@@ -152,7 +175,7 @@ export const Name = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px 0px;
-  color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.pageTextColor};
   align-items: center;
 `;
 

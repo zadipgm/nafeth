@@ -4,13 +4,13 @@ display: flex;
     justify-content: space-around;
     align-items: flex-start;
 `
-export const Title = styled.div`
-width: 40%;
+export const Title = styled.div<{ titlewidth: string }>`
+width: ${({ titlewidth }) => titlewidth};
 font-size: 18px;
 color:#1976d2;
 `
-export const Content = styled.div`
-width: 60%;
+export const Content = styled.div<{ contentwidth: string }>`
+width: ${({ contentwidth }) => contentwidth};
 `
 export const Info = styled.div`
     margin: 0px 13px;

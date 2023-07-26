@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import GroupEditForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupEditList";
+import GroupEditForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupEdit";
 
 const Page: NextPageWithLayout = () => {
   return <GroupEditForm title={"Group Access Edit"} />;

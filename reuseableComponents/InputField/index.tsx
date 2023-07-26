@@ -3,13 +3,17 @@ import TextField from "@mui/material/TextField";
 interface IProps {
   label?: string;
   placeholder?: string;
-  value?: string;
+  value?: string | number;
   disabled?: boolean;
   type?: string;
   helperText?: string;
   classname?: string;
   multiline?: boolean;
   rows?: number;
+  name?: string;
+  onChange?: (e: any) => void;
+  required?: boolean;
+  error?: boolean;
 }
 const InputComponent = ({
   label,
@@ -21,6 +25,10 @@ const InputComponent = ({
   classname,
   multiline,
   rows,
+  name = "text",
+  onChange,
+  required,
+  error = false,
 }: IProps) => {
   return (
     <>
@@ -36,6 +44,10 @@ const InputComponent = ({
         helperText={helperText}
         multiline={multiline}
         rows={rows}
+        onChange={onChange}
+        name={name}
+        required={required}
+        error={error}
       />
     </>
   );

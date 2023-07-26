@@ -2,9 +2,9 @@ import * as React from "react";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppContext, AppProps } from "next/app";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
-import theme, { darkTheme, lightTheme } from "../global/theme";
+import "../styles/globals.css";
+import { darkTheme, lightTheme } from "../global/theme";
 import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -27,13 +27,14 @@ const MyApp = ({
   locale,
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
-  const [theme, themeToggler] = useDarkMode();
+  const [theme] = useDarkMode();
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
   // @ts-ignore
   themeMode.translations = translations;
   themeMode.isLTR = locale === "en-US" || locale === "en";
   themeMode.isRTL = locale === "ar";
+
   themeMode.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
 
   return getLayout(

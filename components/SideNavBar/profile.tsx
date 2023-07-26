@@ -9,12 +9,14 @@ import {
   SettingIconWrapper,
 } from "./styled.components";
 import Image from "next/image";
+import { useTheme } from "styled-components";
 const ProfileComponent = () => {
+  const { colors } = useTheme();
   return (
     <ProfileContainer>
       <SettingIconWrapper>
         <SettingIcon>
-          <SettingsSvg fill="transparent" />
+          <SettingsSvg fill={colors.nafethBlue} />
         </SettingIcon>
       </SettingIconWrapper>
       <ProfileImage>

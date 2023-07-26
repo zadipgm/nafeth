@@ -5,6 +5,7 @@ import DashboardSvg from "@/public/icons/dashboard";
 import ArrowDown from "@/public/icons/arrowDownSvg";
 import { useTheme } from "styled-components";
 import Profile from "./profile";
+import Link from "next/link";
 
 const SideNavBar = () => {
   const { colors }: any = useTheme();
@@ -23,7 +24,7 @@ const SideNavBar = () => {
       page: [
         {
           page_name: "Rent a Car",
-          page_link: "/",
+          page_link: "/car_rent",
           icon: "",
         },
         {
@@ -43,7 +44,7 @@ const SideNavBar = () => {
         },
         {
           page_name: "Dispute Contract",
-          page_link: "/dashboard/all_users",
+          page_link: "",
           icon: "",
         },
       ],
@@ -53,7 +54,7 @@ const SideNavBar = () => {
       module_name: "Company Rental",
       icon: "BuildingSvg",
       page_name: "Trainers",
-      page_link: "/dashboard/trainers",
+      page_link: "",
       page: [
         {
           page_name: "Company Contracts",
@@ -207,13 +208,13 @@ const SideNavBar = () => {
       icon: "superAdminSvg",
       page: [
         {
-          page_name: "Compnay Settings",
+          page_name: "Company Settings",
           page_link: "/super_admin/company_settings",
           icon: "",
         },
         {
           page_name: "Branch management",
-          page_link: "",
+          page_link: "/super_admin/branch_management",
           icon: "",
         },
         {
@@ -244,12 +245,12 @@ const SideNavBar = () => {
         <SideIconWrapper>
           <DashboardSvg
             fill={colors.pageTextColor}
-            width="20px"
-            height="20px"
+            width="25px"
+            height="25px"
           />
-          <a href="/dashboard" className={width ? "active" : "In-active"}>
+          <Link href="/dashboard" className={width ? "active" : "In-active"}>
             {"Dashboard"}
-          </a>
+          </Link>
         </SideIconWrapper>
         <SideBarAccordions sideBarMenuData={sideBarMenuData} />
         {/* <IconWrapper

@@ -3,9 +3,9 @@ import * as React from "react";
 import { Wrapper } from "./style";
 interface IProps {
   icon?: string;
-  fill: string;
-  width: string;
-  height: string;
+  fill?: string;
+  width?: string;
+  height?: string;
 }
 const IconComponent: React.FC<IProps> = ({ icon, fill, width, height }) => {
   const Icon: React.ComponentType<{
@@ -20,7 +20,11 @@ const IconComponent: React.FC<IProps> = ({ icon, fill, width, height }) => {
   );
   return (
     <Wrapper>
-      <Icon fill={fill} width={width} height={height} />
+      <Icon
+        fill={fill as string}
+        width={width as string}
+        height={height as string}
+      />
     </Wrapper>
   );
 };

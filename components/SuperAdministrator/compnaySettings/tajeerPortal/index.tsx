@@ -16,16 +16,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "styled-components";
 import Input from "@/reuseableComponents/InputField";
+import { isTheme } from "@/_helpers/getTheme";
 const TajeerPortal = () => {
   const { translations } = useTheme();
   return (
     <>
       <FormContainer>
-        <GsettingsTitle className="tajeer">
-          <h2>Tajeer Portal Details</h2>
-        </GsettingsTitle>
         <CardContainer>
-          <Logo bgColor={"#2a4158"}>
+          <Logo bgcolor={"#2a4158"}>
             <Image
               src="/images/tajeer.png"
               alt="nodhom"
@@ -33,7 +31,7 @@ const TajeerPortal = () => {
               height={100}
             />
             <Text>
-              {translations.tajeer}
+              {translations?.tajeer}
               <br />
               <Link href={"https://services.taajeer.com/"}>
                 https://services.taajeer.com/.
@@ -41,7 +39,7 @@ const TajeerPortal = () => {
             </Text>
           </Logo>
         </CardContainer>
-        <FormWrapper>
+        <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"
             sx={{
@@ -53,7 +51,7 @@ const TajeerPortal = () => {
             autoComplete="off"
           >
             <FormBoxWrapper>
-              <FormBox className="tajeer">
+              <FormBox className="tajeer" color={isTheme().color}>
                 <Input
                   label="Tajeer Application ID"
                   placeholder="c49fda9f"

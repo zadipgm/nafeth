@@ -2,15 +2,13 @@ import styled from "styled-components";
 
 
 export const Container = styled.div`
-  background-color:${({ theme }) => theme.colors.headersideBarBgColor};
+  background-color: ${({ theme }) => theme.colors.headerbgcolor};
   border-radius: 12px;
   padding: 15px;
+      margin: 30px 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
-export const Title = styled.h1`
-  color:${({ theme }) => theme.colors.pageTextColor};
-  font-size: 24px;
-`;
+
 export const ModuleTitlesWrapper = styled.div`
 display: flex;
 justify-content: space-between;
@@ -23,9 +21,6 @@ export const ModuleTitle = styled.h2`
     margin: 0px 105px;
   }
 `;
-export const ModuleContainer = styled.div`
-
-`
 export const ModulePages = styled.div`
 display: flex;
 justify-content: space-between;
@@ -84,9 +79,8 @@ export const ModulePermission = styled.div`
 
 `;
 export const DataTableWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.headersideBarBgColor};
   border-radius: 19px;
-  margin: 30px 10px;
+  
   color: ${({ theme }) => theme.colors.pageTextColor};
   &.nextui-table-cell{
     color: ${({ theme }) => theme.colors.pageTextColor} !important;

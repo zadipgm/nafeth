@@ -7,5 +7,5 @@ export const RadioButton = styled.div`
 `
 export const Title = styled.h3`
 font-size: 18px;
-color: ${({ theme }) => theme.colors.darkmood.lightBlue};
+color: ${({ theme }) => theme.colors.lightBlue};
 `

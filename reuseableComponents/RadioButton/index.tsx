@@ -32,7 +32,7 @@ const RadioButttons = ({ title, value, onchage, data, color }: IProps) => {
                 value={val.value}
                 control={
                   <Radio
-                    color={color}
+                    color={"primary"}
                     value={val.value}
                     checked={val.value === value}
                   />

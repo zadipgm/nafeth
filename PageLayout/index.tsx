@@ -1,19 +1,12 @@
 import { ReactElement } from "react";
 import * as React from "react";
 import { ThemeProvider } from "styled-components";
-
-import {
-  Children,
-  LayoutContainer,
-  LayoutWrapper,
-  Wrapper,
-} from "./styled.components";
-import theme, { darkTheme, lightTheme } from "../global/theme";
+import { Children, LayoutContainer, Wrapper } from "./styled.components";
+import { darkTheme, lightTheme } from "../global/theme";
 import SideNavBar from "@/components/SideNavBar";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
-
 interface IProps {
   children: ReactElement;
 }
@@ -32,10 +25,12 @@ const Layout: React.FC<IProps> = ({ children }) => {
   return (
     <>
       <ThemeProvider theme={themeMode}>
-        <Header themeToggler={themeToggler} theme={theme} />
+        <Header
+          themeToggler={themeToggler as () => void}
+          theme={theme as string}
+        />
         <LayoutContainer>
           <SideNavBar />
-
           <Wrapper>
             <Children>{children}</Children>
             <Footer />

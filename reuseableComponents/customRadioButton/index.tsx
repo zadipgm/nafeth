@@ -14,7 +14,6 @@ const CustomRadioButton = ({ permissions, getvalue }: IProps) => {
   const handleSelectChange = (value: string) => {
     setSelect(value);
     getvalue(value);
-    console.log("setting", value);
   };
   return (
     <Wrapper>

@@ -1,15 +1,21 @@
 import * as React from "react";
-import { Container, DataTableWrapper, Title } from "./style";
+import { Container, DataTableWrapper } from "./style";
 import DataTable from "./GroupList";
+import { Title } from "../compnaySettings/style";
+import { isTheme } from "@/_helpers/getTheme";
+import { useTheme } from "styled-components";
 
 const GroupAccessManagement = () => {
+  const { isDark }: any = useTheme();
   return (
-    <Container>
-      <Title>Group Access Management</Title>
-      <DataTableWrapper>
-        <DataTable />
-      </DataTableWrapper>
-    </Container>
+    <>
+      <Title color={isTheme().color}>Company Settings</Title>
+      <Container>
+        <DataTableWrapper>
+          <DataTable />
+        </DataTableWrapper>
+      </Container>
+    </>
   );
 };
 export default GroupAccessManagement;

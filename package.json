@@ -15,17 +15,21 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.1",
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/material": "^5.14.0",
     "@mui/x-data-grid": "^6.8.0",
     "@next/font": "^13.4.6",
     "@nextui-org/react": "^1.0.0-beta.13",
+    "@react-google-maps/api": "^2.19.0",
     "@types/node": "20.1.7",
     "@types/react-dom": "18.2.4",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "formik": "^2.4.0",
+    "js-cookie": "^3.0.5",
     "material-react-table": "^1.14.0",
     "next": "13.4.2",
     "next-themes": "^0.2.1",
@@ -38,7 +42,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.13",
+    "@types/google.maps": "^3.53.4",
+    "@types/react": "^18.2.15",
     "@types/styled-components": "^5.1.26"
   }
 }
