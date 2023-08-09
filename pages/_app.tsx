@@ -2,10 +2,12 @@ import * as React from "react";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppContext, AppProps } from "next/app";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
-import theme from "../global/theme";
+import "../styles/globals.css";
+import { darkTheme, lightTheme } from "../global/theme";
 import { ThemeProvider } from "styled-components";
+import { useDarkMode } from "@/hooks/useDarkLightMood";
+import { LoginProvider } from "@/context";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -26,12 +28,15 @@ const MyApp = ({
   locale,
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
+  const [theme] = useDarkMode();
 
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
   // @ts-ignore
-  theme.translations = translations;
-  theme.isLTR = locale === "en-US" || locale === "en";
-  theme.isRTL = locale === "ar";
-  theme.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
+  themeMode.translations = translations;
+  themeMode.isLTR = locale === "en-US" || locale === "en";
+  themeMode.isRTL = locale === "ar";
+
+  themeMode.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
 
   return getLayout(
     <>
@@ -42,9 +47,13 @@ const MyApp = ({
           content="width=device-width, height=device-height ,initial-scale=1.0, shrink-to-fit=no"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <LoginProvider>
+        {/* <ModuleProvider> */}
+        <ThemeProvider theme={themeMode}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+        {/* </ModuleProvider> */}
+      </LoginProvider>
     </>
   );
 };

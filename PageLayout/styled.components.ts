@@ -1,18 +1,24 @@
+import { isTheme } from "@/models/istheme";
 import styled from "styled-components";
-
 export const LayoutContainer = styled.div`
  display: flex;
 `
 export const Wrapper = styled.div`
 display:flex ;
 flex-direction:column ;
-    background-color: #f8f9fc;
-    width: 100%;
-    overflow-x: hidden;
+justify-content: space-between;
+width: 100%;
+overflow-x: hidden;
+background-color: ${({ theme }) => theme.colors.pagebgcolor};
+color: ${({ theme }) => theme.colors.pageTextColor};
 `
 export const Children = styled.div`
-min-height:100vh ;
 padding:20px;
-background-color: #d5d5d5;
-
 `
+export const CommonContainer = styled.div<{ istheme: isTheme }>`
+  padding: 15px;
+  background-color: ${({ istheme }) => istheme.bcolor};
+  color: ${({ istheme }) => istheme.color};
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`;

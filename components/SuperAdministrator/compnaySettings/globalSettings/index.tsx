@@ -17,14 +17,17 @@ import Image from "next/image";
 import { cities, countries } from "@/global/fakeData";
 import InputComponent from "@/reuseableComponents/InputField";
 import { TextField } from "@mui/material";
+import { isTheme } from "@/_helpers/getTheme";
+import { useTheme } from "styled-components";
 const GlobalSettings = () => {
+  const { isDark }: any = useTheme();
   return (
     <>
       <FormContainer>
         <GsettingsTitle>
           <h2>Global Settings</h2>
         </GsettingsTitle>
-        <FormWrapper>
+        <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
           <Box
             component="form"
             sx={{
@@ -36,7 +39,7 @@ const GlobalSettings = () => {
             autoComplete="off"
           >
             <FormBoxWrapper>
-              <FormBox>
+              <FormBox color={isTheme().color}>
                 <InputComponent
                   label="Registration Date"
                   value={"20-01-01"}
@@ -48,7 +51,7 @@ const GlobalSettings = () => {
                 />
                 <InputComponent label="PO Box Number" placeholder="12345" />
               </FormBox>
-              <FormBox>
+              <FormBox color={isTheme().color}>
                 <InputComponent
                   label="CR Expiry Date"
                   placeholder="2023-12-31"
@@ -58,7 +61,7 @@ const GlobalSettings = () => {
                 <InputComponent label="CR Number" placeholder="7001234576" />
                 <InputComponent label="Fax Number" placeholder="966114003880" />
               </FormBox>
-              <FormBox>
+              <FormBox color={isTheme().color}>
                 <InputComponent
                   label="Company Domain Alias"
                   value={"BETA"}
@@ -68,7 +71,7 @@ const GlobalSettings = () => {
                   id="outlined-select-currency"
                   select
                   label="Country"
-                  defaultValue="Saudi Arabia"
+                  defaultValue="183"
                 >
                   {countries.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -84,13 +87,13 @@ const GlobalSettings = () => {
               </FormBox>
             </FormBoxWrapper>
             <FormBoxWrapper>
-              <FormBox className="global-settings1">
+              <FormBox className="global-settings1" color={isTheme().color}>
                 <InputComponent label="SMS Balance" value={"9"} disabled />
                 <TextField
                   id="outlined-select-currency"
                   select
                   label="City"
-                  defaultValue="Riyadh"
+                  defaultValue="83"
                 >
                   {cities.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -100,10 +103,11 @@ const GlobalSettings = () => {
                 </TextField>
                 <InputComponent label="Phone Number" placeholder="581955852" />
               </FormBox>
-              <FormBox className="global-settings">
+              <FormBox className="global-settings" color={isTheme().color}>
                 <CompnayLogo>
                   <InputComponent
                     label=""
+                    classname="company-logo"
                     type="file"
                     helperText="Maximum Size 1mb"
                   />
@@ -123,9 +127,6 @@ const GlobalSettings = () => {
                 className="global-settings-save-button"
               >
                 Save
-              </Button>
-              <Button variant="contained" color="error">
-                Cancel
               </Button>
             </GroupButtons>
           </Box>

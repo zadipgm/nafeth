@@ -18,17 +18,15 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "styled-components";
-import Input from "@/reuseableComponents/InputField";
+import { isTheme } from "@/_helpers/getTheme";
+import InputComponent from "@/reuseableComponents/InputField";
 const NationalAddress = () => {
   const { translations } = useTheme();
   return (
     <>
       <FormContainer>
-        <GsettingsTitle className="national-address">
-          <h2>National Address</h2>
-        </GsettingsTitle>
         <CardContainer>
-          <Logo bgColor="#1c8da4">
+          <Logo bgcolor="#1c8da4">
             <Image
               src="/images/spl.svg"
               alt="nodhom"
@@ -36,7 +34,7 @@ const NationalAddress = () => {
               height={100}
             />
             <Text>
-              {translations.spl}
+              {translations?.spl}
               <br />
               <Link href={"https://splonline.com.sa/"}>
                 https://splonline.com.sa/.
@@ -44,7 +42,7 @@ const NationalAddress = () => {
             </Text>
           </Logo>
         </CardContainer>
-        <FormWrapper>
+        <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"
             sx={{
@@ -56,20 +54,24 @@ const NationalAddress = () => {
             autoComplete="off"
           >
             <FormBoxWrapper>
-              <FormBox className="national-address">
-                <Input label="Building No." placeholder="2222" value={""} />
-                <Input
+              <FormBox className="national-address" color={isTheme().color}>
+                <InputComponent
+                  label="Building No."
+                  placeholder="2222"
+                  value={""}
+                />
+                <InputComponent
                   label="Street Name"
                   placeholder="Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh"
                 />
-                <Input label="District" placeholder="Al Malaz" />
+                <InputComponent label="District" placeholder="Al Malaz" />
               </FormBox>
-              <FormBox className="national-address">
-                <Input label="City" placeholder="Riyadh" value={""} />
-                <Input label="Country" placeholder="Saudi Arabia" />
+              <FormBox className="national-address" color={isTheme().color}>
+                <InputComponent label="City" placeholder="Riyadh" value={""} />
+                <InputComponent label="Country" placeholder="Saudi Arabia" />
                 <ZipCode>
-                  <Input label="ZIP Code" placeholder="12665" />
-                  <Input label="ZIP Code" placeholder="12665" />
+                  <InputComponent label="ZIP Code" placeholder="12665" />
+                  <InputComponent label="ZIP Code" placeholder="12665" />
                 </ZipCode>
               </FormBox>
             </FormBoxWrapper>
@@ -80,9 +82,6 @@ const NationalAddress = () => {
                 className="national-address-save-button"
               >
                 Save
-              </Button>
-              <Button variant="contained" color="error">
-                Cancel
               </Button>
             </GroupButtons>
           </Box>

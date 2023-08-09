@@ -13,11 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { TAMM_Authorization, days, hours, minutes } from "@/global/fakeData";
-import RadioButttons from "@/reuseableComponents/RadioButton";
 import TabsComponent from "@/reuseableComponents/Tabs";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import InputComponent from "@/reuseableComponents/InputField";
+import { isTheme } from "@/_helpers/getTheme";
+import { useTheme } from "styled-components";
 const CustomSettings = () => {
+  const { isDark }: any = useTheme();
   const [value, setValue] = React.useState("active");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,10 +28,10 @@ const CustomSettings = () => {
   return (
     <>
       <FormContainer>
-        <GsettingsTitle className="custom-settings">
+        <GsettingsTitle className="custom-settings" color={isTheme().color}>
           <h2>Custom Settings</h2>
         </GsettingsTitle>
-        <FormWrapper>
+        <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
           <Box
             component="form"
             sx={{
@@ -41,7 +43,7 @@ const CustomSettings = () => {
             autoComplete="off"
           >
             <FormBoxWrapper>
-              <FormBox className="custom-settings">
+              <FormBox className="custom-settings" color={isTheme().color}>
                 <ZipCode>
                   <TextField
                     id="outlined-select-currency"
@@ -85,7 +87,7 @@ const CustomSettings = () => {
                   placeholder="10"
                 />
               </FormBox>
-              <FormBox>
+              <FormBox color={isTheme().color}>
                 <TextField
                   id="outlined-select-currency"
                   select
@@ -105,7 +107,10 @@ const CustomSettings = () => {
                 />
                 <InputComponent label="Tax Number" placeholder="1233212" />
               </FormBox>
-              <FormBox className="custom-settings-last-child">
+              <FormBox
+                className="custom-settings-last-child"
+                color={isTheme().color}
+              >
                 <ZipCode>
                   <TextField
                     id="outlined-select-currency"
@@ -139,13 +144,17 @@ const CustomSettings = () => {
                   value={""}
                 />
 
-                <SwitchesComponent title="TAMM Authorization Mandatory" />
+                <SwitchesComponent
+                  title="TAMM Authorization Mandatory"
+                  titlewidth="70%"
+                  contentwidth="30%"
+                />
               </FormBox>
             </FormBoxWrapper>
 
             <FormBoxWrapper className="tabs">
-              <FormBox className="tabs">
-                <TabsComponent />
+              <FormBox className="tabs" color={isTheme().color}>
+                <TabsComponent description="Terms and Conditions" />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>
@@ -155,9 +164,6 @@ const CustomSettings = () => {
                 className="custom-settings-save-button"
               >
                 Save
-              </Button>
-              <Button variant="contained" color="error">
-                Cancel
               </Button>
             </GroupButtons>
           </Box>

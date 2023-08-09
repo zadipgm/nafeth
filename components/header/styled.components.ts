@@ -1,36 +1,63 @@
 import styled, { css } from "styled-components";
 export const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+  justify-content: space-between;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 0px 12px;
   width: 100%;
   gap: 35px;
-  height: 84.5px;
-  background-color: ${({ theme }) => theme.colors.darkblue3};
-  ${({ theme }) =>
-    theme.isLTR
-      ? css`
-          border-left: 1px solid #363636c7;
-        `
-      : css`
-          border-right: 1px solid #363636c7;
-        `}
+  height: 71.5px;
+  background-color: ${({ theme }) => theme.colors.headerbgcolor};
+ 
 `;
-export const LightMood = styled.div`
+export const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  padding: 0px 10px;
+`;
+export const LightMood = styled.div<{ color?: string }>`
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .dark{
+    color: ${({ color }) => color};
+  }
+   >svg{
+        margin-top: 4px;
+  }
 `;
+export const Wrappper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+`
 export const LogoutWrapper = styled.div`
   display: flex;
   justify-content: center;
-  color: #b5bcbc;
-  background-color:${({ theme }) => theme.colors.lightGreen};
-  padding: 6px 11px;
+  color: ${({ theme }) => theme.colors.pageTextColor};
+  background-color:${({ theme }) => theme.colors.lightRed};
+  padding: 4px 11px;
   align-items: center;
   cursor: pointer;
   border-radius: 6px;
   gap: 6px;
+   ${({ theme }) =>
+    theme.isLTR
+      ? css`
+          flex-direction: row-reverse;
+        `
+      : css`
+          flex-direction: row-reverse;
+          svg{
+            transform: rotate(180deg);
+          }
+        `}
   
 `;
 export const ProfileImageContainer = styled.div`
@@ -50,50 +77,18 @@ export const ProfileImageContainer = styled.div`
     }
   }
 `;
-export const Langwrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: 0.5s;
-  color: ${({ theme }) => theme.colors.black1};
-  :hover {
-    transition: 0.5s;
-    cursor: pointer;
-    a {
-      color: #fff;
-    }
-    > div > svg {
-      stroke: ${({ theme }) => theme.colors.white};
-    }
-  }
-`;
-export const LangButton = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  color: #b5bcbc;
-  text-decoration: none;
-  &.mobile-lang {
-    padding: 0px 12px;
-    background: #fff;
-    color: #044783;
-    margin: 5px;
-    font-size: 16px;
-  }
-`;
 
-export const IconWrapper = styled.div`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
+
+
 export const NotificationIcon = styled.div`
   cursor: pointer;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  >svg{
+        margin-top: 4px;
+  }
 `;
 export const LogoutContainer = styled.div`
   > a {

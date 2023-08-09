@@ -1,24 +1,51 @@
-const EditSvg = ({
-  width = "24",
-  height = "24",
-  className = "inline vMiddle",
-  fill = "#0d4a76",
+type IconProps = {
+  fill?: string;
+  size?: string | number;
+  height?: string | number;
+  width?: string | number;
+  label?: string;
+};
+
+export const EditSvg: React.FC<IconProps> = ({
+  fill,
+  size,
+  height,
+  width,
+  ...props
 }) => {
   return (
     <svg
-      width={width}
-      height={height}
-      className={className}
-      viewBox="0 0 1920 1920"
+      width={size || width || 24}
+      height={size || height || 24}
+      viewBox="0 0 20 20"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      fill={fill}
+      {...props}
     >
       <path
-        xmlns="http://www.w3.org/2000/svg"
-        d="M277.974 49.076c65.267-65.379 171.733-65.49 237.448 0l232.186 232.187 1055.697 1055.809L1919.958 1920l-582.928-116.653-950.128-950.015 79.15-79.15 801.792 801.68 307.977-307.976-907.362-907.474L281.22 747.65 49.034 515.464c-65.379-65.603-65.379-172.069 0-237.448Zm1376.996 1297.96-307.977 307.976 45.117 45.116 384.999 77.023-77.023-385-45.116-45.116ZM675.355 596.258l692.304 692.304-79.149 79.15-692.304-692.305 79.149-79.15ZM396.642 111.88c-14.33 0-28.547 5.374-39.519 16.345l-228.94 228.94c-21.718 21.718-21.718 57.318 0 79.149l153.038 153.037 308.089-308.09-153.037-153.036c-10.972-10.971-25.301-16.345-39.63-16.345Z"
-        fillRule="evenodd"
+        d="M11.05 3.00002L4.20835 10.2417C3.95002 10.5167 3.70002 11.0584 3.65002 11.4334L3.34169 14.1334C3.23335 15.1084 3.93335 15.775 4.90002 15.6084L7.58335 15.15C7.95835 15.0834 8.48335 14.8084 8.74168 14.525L15.5834 7.28335C16.7667 6.03335 17.3 4.60835 15.4583 2.86668C13.625 1.14168 12.2334 1.75002 11.05 3.00002Z"
+        stroke={fill}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.90833 4.20831C10.2667 6.50831 12.1333 8.26665 14.45 8.49998"
+        stroke={fill}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.5 18.3333H17.5"
+        stroke={fill}
+        strokeWidth={1.5}
+        strokeMiterlimit={10}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
-export default EditSvg;

@@ -2,16 +2,18 @@ interface IProps {
   fill?: string;
   height?: string;
   width?: string;
+  classname?: string;
 }
 const ArrowDown = ({
   fill = "#86b820",
   height = "24",
   width = "24",
+  classname = "arrow-down",
 }: IProps) => {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="inline vMiddle ml8"
+      className={classname}
       width={width}
       height={height}
       data-name="iconCheckedCircle"

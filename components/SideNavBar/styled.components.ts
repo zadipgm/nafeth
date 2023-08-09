@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  background:${({ theme }) => theme.colors.darkblue3};
+  background: ${({ theme }) => theme.colors.headerbgcolor};
   display: flex;
+  border-right: 1px solid
+    ${({ theme }) => theme.colors.headerSiderBarBorderColor};
   flex-direction: column;
-  width: 16rem;
+  width: 290px;
   min-height: 100vh;
   background-size: cover;
   transition: 0.5s;
@@ -19,26 +21,22 @@ export const Container = styled.div`
   }
 `;
 export const SideBar = styled.div`
-      padding: 10px;
+  /* padding: 10px; */
 `;
-export const LogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.5s;
-  padding: 2px 6px 18px 6px;
-  border-bottom: 1px solid #363636c7;
-`;
+
 export const SideIconWrapper = styled.div`
   display: flex;
-  border-bottom: 1px solid #ffffff1a;
-  padding: 10px 15px;
+  border-bottom: 1px solid
+    ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+  padding: 15px 21px;
   gap: 10px;
   justify-content: flex-start;
   align-items: center;
   > a {
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.pageTextColor};
+    font-weight: 600;
+    font-family: "Cairo", sans-serif !important;
   }
   :hover {
     cursor: pointer;
@@ -59,11 +57,11 @@ export const IconWrapper = styled.div`
     theme.isLTR
       ? css`
           &.active {
-            transform: rotate(-90deg);
+            transform: rotate(90deg);
             transition: 0.5s;
           }
           &.In-active {
-            transform: rotate(90deg);
+            transform: rotate(-90deg);
             transition: 0.5s;
           }
         `
@@ -81,11 +79,8 @@ export const IconWrapper = styled.div`
 
 export const AccordionContainer = styled.div`
   margin-bottom: 100px;
-  & .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded{
-    border-bottom: 1px solid #ffffff1a;
-  }
   & .MuiPaper-root {
-    background-color: ${({ theme }) => theme.colors.darkblue3};
+    background-color: ${({ theme }) => theme.colors.headerbgcolor};
     box-shadow: none;
     margin: 0;
     &.Mui-expanded {
@@ -93,11 +88,24 @@ export const AccordionContainer = styled.div`
     }
     & .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded {
       min-height: 48px;
-      background-color: ${({ theme }) => theme.colors.green};
-      border-radius: 8px;
+      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+      & .MuiTypography-root {
+        font-weight: 600;
+        color: #fff;
+      }
     }
     & .MuiAccordionSummary-content {
       margin: 12px 0px;
+      & .MuiTypography-root {
+        font-weight: 600;
+        font-family: "Cairo", sans-serif !important;
+        padding: 0px;
+      }
     }
   }
   & .MuiCollapse-root {
@@ -108,34 +116,73 @@ export const AccordionContainer = styled.div`
 `;
 export const PageWrapper = styled.div`
   border-radius: 6px;
-  padding-left: 22px;
-  a {
-    text-decoration: none;
-    color: #9f9f9f !important;
-    text-decoration: none;
-    color: #fff;
+  &.group_access {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  & .MuiTimelineItem-root {
+    &:before {
+      all: unset;
+    }
+    .MuiTypography-root {
+      padding: 0px;
+    }
+    .MuiTimelineDot-root {
+      margin: 5px 0px;
+      &.active {
+        background-color: ${({ theme }) => theme.colors.nafethBlue};
+      }
+    }
+    .MuiTimelineConnector-root {
+      &.active {
+        background-color: ${({ theme }) => theme.colors.nafethBlue};
+      }
+    }
+  }
+  a {
+    transition: 0.5s;
+    font-size: 13px;
+    color: #717171;
+    text-decoration: none;
+    display: flex;
+    :hover {
+      color: ${({ theme }) => theme.colors.nafethBlue} !important;
+      transition: 0.5s;
+    }
   }
 `;
 export const PageLinkWrapper = styled.div`
-  >a{
-    font-size:14px;
-   padding: 8px;
+  &.active {
+    > a {
+      color: ${({ theme }) => theme.colors.nafethBlue};
+    }
   }
-  :hover{
-    background-color: ${({ theme }) => theme.colors.green};
+  > a {
+    font-size: 14px;
+    padding: 2px 8px;
+  }
+  &:hover {
+    color: ${({ theme }) => theme.colors.nafethBlue};
     border-radius: 6px;
   }
 `;
+
+
+
 export const ProfileContainer = styled.div`
-border-bottom: 1px solid #363636c7;
-margin-bottom:15px ;
+  border-bottom: 1px solid
+    ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+
+  padding: 10px;
 `;
 export const SettingIconWrapper = styled.div`
- display: flex;
-  justify-content: flex-end;
+  display: flex;
+  justify-content: flex - end;
   align-items: center;
-`
+`;
 export const SettingIcon = styled.div`
   display: flex;
   justify-content: center;
@@ -143,30 +190,30 @@ export const SettingIcon = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background-color: rgba(36, 105, 92, 0.1);
+  background-color: #1281c44a;
 `;
 export const ProfileImage = styled.div`
-  display: flex;
-  
-  justify-content: center;
-  align-items: center;
+display: flex;
+
+justify-content: center;
+align-items: center;
   > img {
-    border-radius: 100%;
-    border: 10px solid rgba(36, 105, 92, 0.1);
-  }
+  border-radius: 100%;
+  border: 10px solid rgba(36, 105, 92, 0.1);
+}
 `;
 export const Name = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 10px 0px;
-  color: ${({ theme }) => theme.colors.green};
-  align-items: center;
+display: flex;
+justify-content: center;
+margin: 10px 0px;
+color: ${({ theme }) => theme.colors.pageTextColor};
+align-items: center;
 `;
 
 export const Company = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 10px 0px;
-  color: #fff;
-  align-items: center;
+display: flex;
+justify-content: center;
+margin: 10px 0px;
+color:${({ theme }) => theme.colors.pageTextColor};
+align-items: center;
 `;

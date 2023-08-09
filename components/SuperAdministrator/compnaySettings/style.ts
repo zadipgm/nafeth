@@ -1,66 +1,91 @@
+
 import { styled } from "styled-components";
 
 export const Container = styled.div``;
-export const Title = styled.h2`
-  color: #606060;
+export const Title = styled.h2<{ color: string }>`
+   color: ${({ theme }) => theme.colors.nafethBlue};
   font-size: 22px;
-  margin: 0px 15px;
+  margin: 0 10px;
 `;
 export const FormContainer = styled.div`
-  background-color: white;
+  
   border-radius: 8px;
-      margin: 30px 10px;
+  margin: 30px 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
-export const FormWrapper = styled.div``;
-export const GsettingsTitle = styled.div`
-display: flex;
-gap: 24.5%;
-padding:10px 15px;
-align-items: center;
-text-align: center;
-color: #d9d9d9;
-background-color: ${({ theme }) => theme.colors.green};
-border-top-right-radius: 8px;
-border-top-left-radius: 8px;
-font-size: 20px;
->img{
-  border-radius: 6px;
-}
->h2{
-  font-size: 20px;
-  color: white;
-}
+export const FormWrapper = styled.div<{ bcolor: string; color: string }>`
+  background-color: ${({ bcolor }) => bcolor};
+  color: ${({ color }) => color};
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  &.group-edit-list-form {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray2};
+    margin-bottom: 15px;
+  }
+`;
+export const GsettingsTitle = styled.div<{ color?: string }>`
+  display: flex;
+  gap: 24.5%;
+  padding: 0px 15px;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  background-color: ${({ theme }) => theme.colors.nafethBlue};
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  font-size: 16px;
+  > img {
+    border-radius: 8px;
+  }
+  > h2 {
+    font-size: 16px;
+    color: #fff;
+  }
 
-  &.tajeer {
-    margin-top: 15px;
-    background-color: #2a4158;
-  }
-  &.national-address {
-    margin-top: 15px;
-    background-color: #1c8da4;
-  }
+  
+  
   &.custom-settings {
     margin-top: 15px;
-    background-color:${({ theme }) => theme.colors.darkblue3};
+    background-color: ${({ theme }) => theme.colors.bussinesBlue};
   }
-  &.nodhom{
-    background-color: #44A0E1;
-  }
+  
 `;
 export const ImageWrapper = styled.div`
-width: 195px;
-height: 66px;
-border-radius: 6px;
-background-color: white;
-`
-export const FormBox = styled.div`
+  width: 195px;
+  height: 66px;
+  border-radius: 8px;
+  background-color: white;
+`;
+export const FormBox = styled.div<{ color: string }>`
   display: flex;
   justify-content: flex-start;
   width: 32%;
   flex-direction: column;
   gap: 24px;
+  & .MuiFormControl-root {
+    &.company-logo{
+      & .MuiInputBase-root{
+        > input{
+          -webkit-text-fill-color: #818181 !important;
+        }
+      }
+    }
+    & .MuiFormHelperText-root {
+      color: ${({ color }) => color};
+    }
+    & .MuiFormLabel-root {
+      color: ${({ theme }) => theme.colors.nafethBlue};
+    }
+  }
   & .MuiInputBase-root {
-    color: rgb(0 0 0 / 53%);
+    > input {
+      -webkit-text-fill-color: ${({ color }) => color} !important;
+    }
+    color: ${({ color }) => color};
+    & .MuiOutlinedInput-notchedOutline {
+      border-color: ${({ theme }) => theme.colors.nafethBlue} !important;
+      color: ${({ color }) => color};
+    }
   }
   &.tajeer {
     flex-direction: row;
@@ -87,15 +112,42 @@ export const FormBox = styled.div`
   &.nodhom-last-child {
     width: 17%;
   }
-  &.global-settings1{
+  &.global-settings1 {
     width: 66%;
     justify-content: space-between;
-    
   }
-  &.global-settings{
+  &.global-settings {
     width: 32%;
     justify-content: space-between;
     gap: 2px;
+  }
+  &.group-edit-form {
+    flex-direction: row;
+    width: 100%;
+    & .MuiFormControl-root {
+      width: 50%;
+    }
+  }
+  &.group-edit-form-checkbox {
+    width: 100%;
+    .group-switches {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      > div {
+        width: 25%;
+      }
+    }
+  }
+  &.group-switches {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    > div {
+      width: 20%;
+    }
   }
 `;
 
@@ -116,12 +168,12 @@ export const ZipCode = styled.div`
   }
 `;
 export const CompnayLogo = styled.div`
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 100%;
   > img {
-    border-radius: 6px;
+    border-radius: 8px;
   }
 `;
 export const FormBoxWrapper = styled.div`
@@ -145,48 +197,52 @@ export const GroupButtons = styled.div`
   align-items: center;
   gap: 12px;
   padding: 12px;
-  & .MuiButtonBase-root{
+  & .MuiButtonBase-root {
     width: 170px;
-    &.global-settings-save-button{
-      background-color: ${({ theme }) => theme.colors.green};
+    &.global-settings-save-button {
+      background-color: ${({ theme }) => theme.colors.nafethBlue};
     }
-    &.tajeer-portal-details-save-button{
+    &.tajeer-portal-details-save-button {
       background-color: ${({ theme }) => theme.colors.darkblue2};
     }
-    &.national-address-save-button{
+    &.national-address-save-button {
       background-color: ${({ theme }) => theme.colors.lightblue1};
     }
-    &.custom-settings-save-button{
-      background-color: ${({ theme }) => theme.colors.darkblue3};
+    &.custom-settings-save-button {
+      background-color: ${({ theme }) => theme.colors.bussinesBlue};
     }
-    &.nodhom-save-button{
+    &.nodhom-save-button {
       background-color: ${({ theme }) => theme.colors.lightBlue1};
+    }
+    &.add-branch-save-button {
+      background-color: ${({ theme }) => theme.colors.purple};
     }
   }
 `;
 // Nodhom component Style
 
-
 export const CardContainer = styled.div`
- 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 `;
-export const Logo = styled.div<{ bgColor?: string }>`
+export const Logo = styled.div<{ bgcolor?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 15px;
   width: 100%;
   gap: 15px;
-  background-color: ${({ bgColor }) => bgColor};
-  >img{
-    border-radius: 6px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  background-color: ${({ bgcolor }) => bgcolor};
+  > img {
+    border-radius: 8px;
   }
 `;
 export const Text = styled.div`
-color: #fff;
+  color: #fff;
   > a {
     color: #fff;
     text-decoration: none;

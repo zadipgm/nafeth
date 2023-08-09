@@ -1,0 +1,58 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import { Container } from "./style";
+import { isTheme } from "@/_helpers/getTheme";
+import { useTheme } from "styled-components";
+
+type Anchor = "top" | "left" | "bottom" | "right";
+interface IAnchor {
+  top: boolean;
+  left: boolean;
+  bottom: boolean;
+  right: boolean;
+}
+interface IProps {
+  state: IAnchor;
+  toggleDrawer: (param1: Anchor, param2: boolean) => void;
+  children: React.ReactElement;
+}
+const DrawerComponent = ({ state, toggleDrawer, children }: IProps) => {
+  const { colors } = useTheme();
+  const list = (anchor: Anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 400 }}
+      role="presentation"
+      onClick={() => toggleDrawer(anchor, false)}
+      onKeyDown={() => toggleDrawer(anchor, false)}
+    >
+      {children}
+    </Box>
+  );
+
+  return (
+    <Container bcolor={isTheme().bcolor} color={isTheme().color}>
+      {(["left", "right", "top", "bottom"] as const).map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={() => toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </Container>
+  );
+};
+export default DrawerComponent;

@@ -21,11 +21,14 @@ import GlobalSettings from "./globalSettings";
 import TajeerPortal from "./tajeerPortal";
 import NationalAddress from "./nationalAddress";
 import CustomSettings from "./customSettings";
+import { useTheme } from "styled-components";
+import { isTheme } from "@/_helpers/getTheme";
 
 const CompnaySettings = () => {
+  const { isDark }: any = useTheme();
   return (
     <Container>
-      <Title>Company Settings</Title>
+      <Title color={isTheme().color}>Company Settings</Title>
       <GlobalSettings />
       <CustomSettings />
       <TajeerPortal />
