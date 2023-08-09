@@ -21,6 +21,7 @@ import {
   ForgotPassWord,
   BiLangWrapper,
 } from "./styled.components";
+import Swal from "sweetalert2";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import SimpleSnackbar from "@/reuseableComponents/Snackbar";
@@ -31,12 +32,15 @@ import {
   LangButton,
   Langwrapper,
 } from "@/reuseableComponents/LangButton/style";
-
+import UsersSvg from "@/public/icons/USERS";
+import withReactContent from "sweetalert2-react-content";
+import { GlobalUserContext } from "@/context";
+import { handleLogin } from "@/api/login";
 const LoginScreen = () => {
   const router = useRouter();
   const { locale, colors, translations }: any = useTheme();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [userName, setUserName] = React.useState("");
+  const [userPassword, setUserPassword] = React.useState("");
   const [isComplete, setIsComplete] = React.useState(false);
   const [passwordShown, setPasswordShown] = React.useState(false);
 
@@ -53,19 +57,30 @@ const LoginScreen = () => {
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
-
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    setEmail(value);
-  };
-
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    setPassword(value);
-  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push("/dashboard");
+    handleLogin(userName, userPassword, "/login", "nafeth")
+      .then((res) => {
+        if (res.message === "Success") {
+          localStorage.setItem("menu", JSON.stringify(res));
+          setIsComplete(true);
+          setTimeout(() => {
+            Swal.fire("", "You are logged in successfully!", "success");
+          }, 1000);
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 3000);
+        }
+      })
+      .catch((error) => {
+        setIsComplete(false);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "user name or password incorrect",
+        });
+        console.log(error);
+      });
   };
   return (
     <>
@@ -73,7 +88,7 @@ const LoginScreen = () => {
         <ContentWrapper>
           <LogoWrapper>
             <Logo
-              src="/images/nafeth1.svg"
+              src="/images/nafeth.svg"
               alt="logo"
               width={200}
               height={"100%"}
@@ -82,13 +97,14 @@ const LoginScreen = () => {
           <Form onSubmit={(e: any) => handleSubmit(e)}>
             <Wrapper>
               <SvgWrapper>
-                <EmailSvg width="25px" height="25px" fill={colors.lightBlue} />
+                <UsersSvg width="25px" height="25px" fill={colors.lightBlue} />
               </SvgWrapper>
               <Input
-                type="email"
-                placeholder={translations?.enterEmail}
+                type="text"
+                placeholder={"user name..."}
                 required
-                onChange={(e: any) => handleEmail(e)}
+                value={userName}
+                onChange={(e: any) => setUserName(e.target.value)}
               />
             </Wrapper>
             <Wrapper className="password">
@@ -101,9 +117,10 @@ const LoginScreen = () => {
               </SvgWrapper>
               <Input
                 type={passwordShown ? "text" : "password"}
-                placeholder={translations?.password}
+                placeholder={"password..."}
                 required
-                onChange={(e: any) => handlePassword(e)}
+                value={userPassword}
+                onChange={(e: any) => setUserPassword(e.target.value)}
               />
               <EyesWrapper onClick={togglePassword}>
                 {passwordShown ? (
@@ -117,6 +134,7 @@ const LoginScreen = () => {
             <SpinnerWrapper>
               {locale === "en" ? (
                 <Input
+                  disabled={isComplete}
                   type="submit"
                   className={`login login-${isComplete}`}
                   value={"Login"}
@@ -130,7 +148,7 @@ const LoginScreen = () => {
               )}
               {isComplete && (
                 <Box>
-                  <CircularProgress />
+                  <CircularProgress color="secondary" />
                 </Box>
               )}
             </SpinnerWrapper>
@@ -146,7 +164,12 @@ const LoginScreen = () => {
                   <Langwrapper onClick={() => changeLocale()}>
                     <LangButton href={`/en${router.asPath}`}>
                       <IconWrapper>
-                        <img width="30px" height="30px" src="/images/us.svg" />
+                        <img
+                          width="30px"
+                          height="30px"
+                          src="/images/us.svg"
+                          alt="uk"
+                        />
                       </IconWrapper>
                       EN
                     </LangButton>
@@ -155,7 +178,12 @@ const LoginScreen = () => {
                   <Langwrapper>
                     <LangButton href={`/ar${router.asPath}`}>
                       <IconWrapper onClick={() => changeLocale()}>
-                        <img width="30" height="30" src="/images/saudi.svg" />
+                        <img
+                          width="30"
+                          height="30"
+                          src="/images/saudi.svg"
+                          alt="saudi"
+                        />
                       </IconWrapper>
                       AR
                     </LangButton>

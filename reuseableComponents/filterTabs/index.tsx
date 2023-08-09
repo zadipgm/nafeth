@@ -5,11 +5,12 @@ interface IProps {
   handleClick: (param: string) => void;
   label: string;
   title: string[];
+  classname?: string;
 }
-const FilterTabs = ({ handleClick, label, title }: IProps) => {
+const FilterTabs = ({ handleClick, label, title, classname }: IProps) => {
   return (
     <>
-      <ContractTabs>
+      <ContractTabs className={classname}>
         <Stack spacing={2} direction="row">
           {title.map((t, index) => {
             return (

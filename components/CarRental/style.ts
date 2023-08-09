@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 export const Container = styled.div``;
 export const CardListWrapper = styled.div<{ bcolor: string; color: string }>`
   width: 100%;
-  margin-top: 70px;
+  margin-top: 27px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 20px;
   border-radius: 8px;
@@ -13,16 +13,17 @@ export const CardListWrapper = styled.div<{ bcolor: string; color: string }>`
 export const CarRentPageTitle = styled.h2`
   font-size: 18px;
   color: #1281c4;
+  margin: 0;
 `;
 export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
 display: flex;
-justify-content: center;
+justify-content: flex-start;
 align-items: center;
 flex-wrap: wrap;
 gap: 20px;
 `;
 export const Car = styled.div<{ bcolor?: string; color?: string }>`
-  width: 23.7%;
+  width: 24%;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
   padding: 15px;
@@ -208,4 +209,45 @@ font-weight: 700;
   }
 }
 `;
+export const CarDetailsTitle = styled.h3`
+text-align: center;
+    background: ${({ theme }) => theme.colors.nafethBlue};
+    margin: 0;
+    padding: 12px;
+    color: #fff;
+`
+export const DetailList = styled.ul`
+list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  .rent-button{
+    position: absolute;
+    bottom: 0;
+    padding: 12px;
+    width: 100%;
+    border-radius: inherit;
+    font-weight: 600;
+  }
+`
+export const DetailListItem = styled.li`
+width: 100%;
+display:flex;
+padding:15px;
+justify-content:space-between;
+align-items: center;
+ transition: .5s;
+border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+&:hover{
+  transition: .5s;
+  background-color: #f1f1f1;
+}
+`
+export const Strongtext = styled.strong`
 
+`
+export const Spantext = styled.span``

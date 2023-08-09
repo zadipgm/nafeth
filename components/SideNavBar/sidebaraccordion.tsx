@@ -4,6 +4,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
 import {
   AccordionContainer,
   PageLinkWrapper,
@@ -12,86 +18,159 @@ import {
 import Link from "next/link";
 import IconComponent from "@/reuseableComponents/IconComponent";
 import { useTheme } from "styled-components";
-
-interface IPage {
-  page_name: string;
-  page_link: string;
-  icon?: string;
-}
-interface IAccordion {
-  module_name: string;
-  icon: string;
-  page?: IPage[];
-  panel: string;
-}
+import { userImenuContext } from "@/context";
+import CustomCheckbox from "@/reuseableComponents/customCheckbox";
 interface IProps {
-  sideBarMenuData?: IAccordion[];
+  sideBarMenuData?: any;
+  active_link?: boolean;
+  access_group_class?: string;
+  showcheckboxes?: boolean;
+  onchange?: (e: any) => void;
 }
-const SideBarAccordions = ({ sideBarMenuData }: IProps) => {
-  const { colors }: any = useTheme();
+const SideBarAccordions = ({
+  sideBarMenuData,
+  active_link,
+  access_group_class,
+  showcheckboxes = false,
+  onchange,
+}: IProps) => {
+  const { colors, isLTR }: any = useTheme();
   const [expanded, setExpanded] = React.useState<string | false>(false);
-
+  const [classname, setClassName] = React.useState("");
+  const [toggle, settoggle] = React.useState(false);
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-
+  const handleClassess = (val: string) => {
+    console.log("handleClassess", val);
+    setClassName(val);
+  };
   return (
     <AccordionContainer>
-      {sideBarMenuData?.map((item, index) => {
-        return (
-          <Accordion
-            key={index}
-            expanded={expanded === item.panel}
-            onChange={handleChange(item.panel)}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <IconComponent
-                icon={item.icon}
-                width="25px"
-                height="25px"
-                fill={colors.pageTextColor}
-              />
-              <div>
-                <Typography
-                  sx={{
-                    width: "100%",
-                    flexShrink: 0,
-                    margin: "0px 10px",
-                    color: `${colors.pageTextColor}`,
-                  }}
-                  component={"span"}
+      {sideBarMenuData?.map(
+        (
+          item: {
+            icon: string | undefined;
+            name_en:
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                  any,
+                  string | React.JSXElementConstructor<any>
                 >
-                  {item.module_name}
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | React.PromiseLikeOfReactNode
+              | null
+              | undefined;
+            name_ar:
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                  any,
+                  string | React.JSXElementConstructor<any>
+                >
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | React.PromiseLikeOfReactNode
+              | null
+              | undefined;
+            menu: any[];
+          },
+          index: React.Key | null | undefined
+        ) => {
+          return (
+            <Accordion
+              key={index}
+              expanded={expanded === `${index}`}
+              onChange={handleChange(`${index}`)}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <IconComponent
+                  icon={item.icon}
+                  width="25px"
+                  height="25px"
+                  fill={colors.pageTextColor}
+                />
+                <div>
+                  <Typography
+                    sx={{
+                      width: "100%",
+                      flexShrink: 0,
+                      margin: "0px 10px",
+                      color: `${colors.pageTextColor}`,
+                    }}
+                    component={"span"}
+                  >
+                    {isLTR ? item.name_en : item.name_ar}
+                  </Typography>
+                </div>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  <PageWrapper className={access_group_class}>
+                    {item?.menu?.map((p, i) => {
+                      return (
+                        <TimelineItem
+                          key={i}
+                          onClick={() => handleClassess(p.name_en)}
+                        >
+                          <TimelineSeparator>
+                            <TimelineDot
+                              className={
+                                classname === p.name_en ? "active" : ""
+                              }
+                            />
+                            <TimelineConnector
+                              className={
+                                classname === p.name_en ? "active" : ""
+                              }
+                            />
+                          </TimelineSeparator>
+                          <TimelineContent>
+                            <PageLinkWrapper
+                              key={i}
+                              className={
+                                classname === p.name_en ? "active" : ""
+                              }
+                            >
+                              <Link
+                                href={active_link === false ? "#" : `/${p.url}`}
+                              >
+                                {isLTR ? p.name_en : p.name_ar}
+                              </Link>
+                              {showcheckboxes && (
+                                <CustomCheckbox
+                                  id={p.id}
+                                  name_en={p.name_en}
+                                  name_ar={p.name_ar}
+                                  get={p.get}
+                                  post={p.post}
+                                  put={p.put}
+                                  del={p.del}
+                                  url={p.url}
+                                  onchange={onchange}
+                                />
+                              )}
+                            </PageLinkWrapper>
+                          </TimelineContent>
+                        </TimelineItem>
+                      );
+                    })}
+                  </PageWrapper>
                 </Typography>
-              </div>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                <PageWrapper>
-                  {item?.page?.map((p, i) => {
-                    return (
-                      <PageLinkWrapper key={i}>
-                        <IconComponent
-                          icon={p.icon}
-                          width="20px"
-                          height="20px"
-                          fill={colors.pageTextColor}
-                        />
-                        <Link href={p.page_link}>{p.page_name}</Link>
-                      </PageLinkWrapper>
-                    );
-                  })}
-                </PageWrapper>
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        );
-      })}
+              </AccordionDetails>
+            </Accordion>
+          );
+        }
+      )}
     </AccordionContainer>
   );
 };

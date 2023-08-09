@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div``;
 export const Title = styled.h2<{ color: string }>`
-   color: ${({ color }) => color};
+   color: ${({ theme }) => theme.colors.nafethBlue};
   font-size: 22px;
   margin: 0 10px;
 `;
@@ -74,7 +74,7 @@ export const FormBox = styled.div<{ color: string }>`
       color: ${({ color }) => color};
     }
     & .MuiFormLabel-root {
-      color: ${({ color }) => color};
+      color: ${({ theme }) => theme.colors.nafethBlue};
     }
   }
   & .MuiInputBase-root {
@@ -83,7 +83,7 @@ export const FormBox = styled.div<{ color: string }>`
     }
     color: ${({ color }) => color};
     & .MuiOutlinedInput-notchedOutline {
-      border-color: ${({ color }) => color} !important;
+      border-color: ${({ theme }) => theme.colors.nafethBlue} !important;
       color: ${({ color }) => color};
     }
   }

@@ -7,6 +7,7 @@ import SideNavBar from "@/components/SideNavBar";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
+import { LoginProvider } from "@/context";
 interface IProps {
   children: ReactElement;
 }
@@ -25,17 +26,19 @@ const Layout: React.FC<IProps> = ({ children }) => {
   return (
     <>
       <ThemeProvider theme={themeMode}>
-        <Header
-          themeToggler={themeToggler as () => void}
-          theme={theme as string}
-        />
-        <LayoutContainer>
-          <SideNavBar />
-          <Wrapper>
-            <Children>{children}</Children>
-            <Footer />
-          </Wrapper>
-        </LayoutContainer>
+        <LoginProvider>
+          <Header
+            themeToggler={themeToggler as () => void}
+            theme={theme as string}
+          />
+          <LayoutContainer>
+            <SideNavBar />
+            <Wrapper>
+              <Children>{children}</Children>
+              <Footer />
+            </Wrapper>
+          </LayoutContainer>
+        </LoginProvider>
       </ThemeProvider>
     </>
   );

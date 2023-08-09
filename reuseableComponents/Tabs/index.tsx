@@ -38,8 +38,18 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
-export default function TabsComponent() {
+interface IProps {
+  description: string;
+  onChange?: (e: any) => void;
+  name_en?: string;
+  name_ar?: string;
+}
+export default function TabsComponent({
+  description,
+  onChange,
+  name_en,
+  name_ar,
+}: IProps) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -50,7 +60,7 @@ export default function TabsComponent() {
     <Wrapper color={isTheme().color}>
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Span color={isTheme().color}>Terms and Conditions</Span>
+          <Span color={isTheme().color}>{description}</Span>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -68,6 +78,8 @@ export default function TabsComponent() {
             rows={4}
             variant="filled"
             fullWidth
+            name={name_en}
+            onChange={onChange}
           />
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -79,6 +91,8 @@ export default function TabsComponent() {
             variant="filled"
             fullWidth
             dir="RTL"
+            name={name_ar}
+            onChange={onChange}
           />
         </TabPanel>
       </Box>

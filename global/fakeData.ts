@@ -67,594 +67,6 @@ export const accessModule = [
     { value: "0", label: "No Access" },
     { value: "1", label: "Access" },
 ];
-export const GroupData = [
-    { module: "Dashboard", icon: "dashboard", subpages: [] },
-    {
-        module: "Car Rental",
-        icon: "carRentSvg",
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Rent A Car",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: " Contract Management",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Returned Car",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Promotion",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Disputed Contracts",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-    {
-        module: "Company Rental",
-        icon: "BuildingSvg",
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Company Contracts",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Company Closed List",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Balance Statements",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-    {
-        module: "Customer",
-        icon: "client_partnerSvg",
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Customer List",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Price List",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Loyalty",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-    {
-        module: "Car Management",
-        icon: "carManageSvg",
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Car List",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Send/Receive Cars",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Car Alert",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Accessories",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Car Service Alert",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Bulk Pricing",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-    {
-        module: "Payments",
-        icon: "PaymentSvg",
-
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Receivables",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Payables",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "E-Invoices",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-    {
-        module: "Workshop",
-        icon: "workshopSvg",
-        subpages: [],
-    },
-    {
-        module: "Analytics",
-        icon: "analyticsSvg",
-        subpages: [],
-    },
-    {
-        module: "User Management",
-        icon: "usersSvg",
-        subpages: [],
-    },
-    {
-        module: "Reports",
-        icon: "reportSvg",
-        subpages: [],
-    },
-    {
-        module: "Super Administrator",
-        icon: "superAdminSvg",
-        subpages: [
-            {
-                page_name_ar: "",
-                page_name_en: "Company settings",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Branch Management",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Group Access Management",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Maintenance Branch",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Notification settings",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-            {
-                page_name_ar: "",
-                page_name_en: "Super Administrator",
-                permissions: [
-                    { label: "none", value: "0" },
-                    { label: "view", value: "1" },
-                    { label: "edit", value: "2" },
-                    { label: "create", value: "3" },
-                    { label: "full", value: "4" },
-                ],
-            },
-        ],
-    },
-];
-
-export const sideMenuData = [
-    {
-        module: "Car",
-        pages: [
-            {
-                module_name: "Car Rental",
-                icon: "carRentSvg",
-                page: [
-                    {
-                        page_name: "Rent a Car",
-                        page_link: "/",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Contract Management",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Returned",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Promotion",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Dispute Contract",
-                        page_link: "/dashboard/all_users",
-                        icon: "",
-                    },
-                ],
-                panel: "panel1",
-            },
-            {
-                module_name: "Car Management",
-                icon: "carManageSvg",
-                page: [
-                    {
-                        page_name: "Car List",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Send/Receive Cars",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Car Alerts",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Accessories",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Car Service List",
-                        page_link: "",
-                        icon: "",
-                    },
-                    {
-                        page_name: "Bulk Pricing",
-                        page_link: "",
-                        icon: "",
-                    },
-                ],
-                panel: "panel2",
-            },
-            {
-                module_name: "Workshops",
-                icon: "workshopSvg",
-                page: [
-                    {
-                        page_name: "Workshop",
-                        page_link: "",
-                        icon: "",
-                    },
-                ],
-                panel: "panel3",
-            },
-        ],
-    },
-
-    // {
-    //     module_name: "Company Rental",
-    //     icon: "BuildingSvg",
-    //     page_name: "Trainers",
-    //     page_link: "/dashboard/trainers",
-    //     page: [
-    //         {
-    //             page_name: "Company Contracts",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Company Close List",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Balance Statements",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel2",
-    // },
-    // {
-    //     module_name: "Customers",
-    //     icon: "client_partnerSvg",
-    //     page: [
-    //         {
-    //             page_name: "Customers List",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Price List",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Loyalty",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel3",
-    // },
-
-    // {
-    //     module_name: "Payments",
-    //     icon: "PaymentSvg",
-    //     page: [
-    //         {
-    //             page_name: "Receivables",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Payables",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "E-Invoices",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel5",
-    // },
-    // {
-    //     module_name: "Workshops",
-    //     icon: "workshopSvg",
-    //     page: [
-    //         {
-    //             page_name: "Workshop",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel6",
-    // },
-    // {
-    //     module_name: "Analytics",
-    //     icon: "analyticsSvg",
-    //     page: [
-    //         {
-    //             page_name: "Analytics",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel7",
-    // },
-    // {
-    //     module_name: "User Management",
-    //     icon: "usersSvg",
-    //     page: [
-    //         {
-    //             page_name: "User Management",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel8",
-    // },
-    // {
-    //     module_name: "Reports",
-    //     icon: "reportSvg",
-    //     page: [
-    //         {
-    //             page_name: "Reports",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-    //     panel: "panel9",
-    // },
-    // {
-    //     module_name: "Super Administrator",
-    //     icon: "superAdminSvg",
-    //     page: [
-    //         {
-    //             page_name: "Compnay Settings",
-    //             page_link: "/super_admin/company_settings",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Branch management",
-    //             page_link: "/super_admin/branch_management",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Group Access Management",
-    //             page_link: "/super_admin/group_access_management",
-    //             icon: "",
-    //         },
-    //         {
-    //             page_name: "Maintenance branch",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-
-    //         {
-    //             page_name: "Notification Settings",
-    //             page_link: "",
-    //             icon: "",
-    //         },
-    //     ],
-
-    //     panel: "panel10",
-    // },
-];
-
 export const Contracts = [
     {
         contract_number: "100061",
@@ -753,7 +165,6 @@ export const Contracts = [
         return_date: "2023-01-20",
     },
 ];
-
 export const header_card = [
     {
         color: "#1281C4",
@@ -774,24 +185,16 @@ export const header_card = [
         bcolor: "#24971959",
         card_number: "20,425",
         car_title: "Cash Registered",
-        icon: "cashSvg",
+        icon: "payments",
     },
     {
         color: "#800080",
         bcolor: "#8000806b",
         card_number: "20,425",
         car_title: "Disputed contract",
-        icon: "disputeContactSvg",
-    },
-    {
-        color: "#13ae05",
-        bcolor: "#24971959",
-        card_number: "20,425",
-        car_title: "Open Contract",
-        icon: "cashSvg",
+        icon: "contracts",
     },
 ];
-
 export const car_specs = [
     {
         make_model: "Hyundai Elentra",
@@ -799,12 +202,20 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "manual",
         mileage: "22432",
-        type: "sedan",
         rented_times: "12",
         car_plate: "1253 VDJ",
         color: "red",
         icon: "hyundaiSvg",
         fuel_type: "petrol 91",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "economic",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Toyota Camry",
@@ -812,12 +223,20 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "auto",
         mileage: "22432",
-        type: "sedan",
         rented_times: "4",
         car_plate: "123 MNA",
         color: "black",
         icon: "toyotaSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "pickup",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "XLT (200A) 4X2",
@@ -825,12 +244,20 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "auto",
         mileage: "22432",
-        type: "suv",
         rented_times: "12",
         car_plate: "1253 VDJ",
         color: "blue",
         icon: "fordSvg",
         fuel_type: "petrol 91",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "suv",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Toyota Hilux Double Cab",
@@ -838,12 +265,20 @@ export const car_specs = [
         rent_per_day: "150",
         transmition: "auto",
         mileage: "22432",
-        type: "pickup",
         rented_times: "1",
         car_plate: "1245 TUR",
         color: "black",
         icon: "toyotaSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "economic",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Kia Picanto",
@@ -851,12 +286,20 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "auto",
         mileage: "22432",
-        type: "economic",
         rented_times: "12",
         car_plate: "4467 KYT",
         color: "blue",
         icon: "kiaSvg",
         fuel_type: "petrol 91",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "pickup",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Hyundai Tucson",
@@ -865,11 +308,19 @@ export const car_specs = [
         transmition: "auto",
         mileage: "224432",
         rented_times: "3",
-        type: "suv",
         car_plate: "1773 HGF",
         color: "Purple",
         icon: "hyundaiSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "suv",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Honda Accord",
@@ -877,12 +328,20 @@ export const car_specs = [
         rent_per_day: "100",
         transmition: "auto",
         mileage: "224377",
-        type: "sedan",
         rented_times: "15",
         car_plate: "8976 ANP",
         color: "lightgray",
         icon: "hondaSvg",
         fuel_type: "petrol 91",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "economic",
+        dail_km_limit: "200.00",
     },
 
     {
@@ -891,12 +350,19 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "auto",
         mileage: "22432",
-        type: "suv",
         rented_times: "12",
         car_plate: "1253 VDJ",
         color: "purple",
         icon: "kiaSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "suv",
     },
     {
         make_model: "Nissan Sunny",
@@ -904,12 +370,19 @@ export const car_specs = [
         rent_per_day: "100",
         transmition: "auto",
         mileage: "274422",
-        type: "sedan",
         rented_times: "12",
         car_plate: "1783 UNS",
         color: "black",
         icon: "nissanSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "pickup",
     },
     {
         make_model: "Hyundai Elentra",
@@ -917,12 +390,20 @@ export const car_specs = [
         rent_per_day: "120",
         transmition: "auto",
         mileage: "22432",
-        type: "sedan",
         rented_times: "12",
         car_plate: "1253 VDJ",
         color: "brown",
         icon: "hyundaiSvg",
         fuel_type: "petrol 91",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "sedan",
+        dail_km_limit: "200.00",
     },
     {
         make_model: "Nissan Patrol Pickup",
@@ -930,11 +411,70 @@ export const car_specs = [
         rent_per_day: "100",
         transmition: "manual",
         mileage: "34432",
-        type: "pickup",
         rented_times: "12",
         car_plate: "5534 NIA",
         color: "white",
         icon: "nisaanSvg",
         fuel_type: "petrol 95",
+        daily_rent: "100.00",
+        weekly_rent: "80:00",
+        monthly_rent: "70.00",
+        extra_km_price: "0.25",
+        per_extra_kM: "23.00",
+        insurance_provider: "sanad Insurance",
+        plate_type: "Private",
+        car_type: "pickup",
+        dail_km_limit: "200.00",
+    },
+];
+export const Car_chart_data = [
+    { id: 0, value: 10, label: "Sedan" },
+    { id: 1, value: 15, label: "Econimic" },
+    { id: 2, value: 20, label: "Pickup" },
+    { id: 2, value: 20, label: "SUV" },
+];
+export const Contracts_chart_data = [
+    { id: 0, value: 10, label: "All" },
+    { id: 1, value: 15, label: "Individual" },
+    { id: 2, value: 20, label: "Compnay" },
+];
+export const switch_data = [
+    {
+        title: "Edit dates",
+        info: "Giving the ability to user to change the date",
+        name: "isDateEnable",
+    },
+    {
+        title: "Block Customer",
+        info: "Giving the user the ability to block customer",
+        name: "isBlockEnable",
+    }, {
+        title: "Status",
+        info: "Determine if the user account active or inactive",
+        name: "active",
+    }, {
+        title: "Delete Contract",
+        info: "Giving the user the ability to delete the closed contract",
+        name: "isDeleteContract",
+    }, {
+        title: "Discount Receipt",
+        info: "Give the user the authority to discount the Pending Receivables.",
+        name: "isDiscountReceipt",
+    }, {
+        title: "Delete Receipts",
+        info: "Give the user the authority to delete the Pending Payables and Receiables. Liquidation bonds are not included in this property",
+        name: "isDeleteAvailable",
+    }, {
+        title: "Resend To Nozhum",
+        info: "For establishments that have activated the link with the systems program, giving the authority to resend all contracts and operations to systems",
+        name: "isReSendNozumAvailable",
+    }, {
+        title: "Tajeer Rent contract is mandatory",
+        info: "You can force the user to issue and return contracts for the rental platform only from the Ministry of Transport, when you activate this feature for the user, he cannot issue regular lease contracts or return them",
+        name: "isTajeerAvailable",
+    }, {
+        title: "Quick customer creation",
+        info: "When this option is disabled, the user will not be able to add a new customer quickly through the Create Lease Contract page, and it requires adding the customer on the Customers page and then opening a new contract for him",
+        name: "isQuickAddCustomer",
     },
 ];

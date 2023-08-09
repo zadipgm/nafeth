@@ -1,4 +1,3 @@
-import SettingsSvg from "@/public/icons/settingSvg";
 import * as React from "react";
 import {
   Company,
@@ -10,6 +9,7 @@ import {
 } from "./styled.components";
 import Image from "next/image";
 import { useTheme } from "styled-components";
+import SettingsSvg from "@/public/icons/settings";
 const ProfileComponent = () => {
   const { colors } = useTheme();
   return (

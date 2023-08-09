@@ -18,9 +18,9 @@ export const ContractsTitle = styled.h2`
 `;
 export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 100%;
-  margin-top: 70px;
+  margin-top: 30px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 8px;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
@@ -46,10 +46,31 @@ export const SearchTabsWrapper = styled.div<{ bcolor?: string; color?: string; }
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 10px 0px;
   gap: 20px;
-  margin: 20px 0px;
-  .search-input{
-    width: 100%;
+  .search-input-car{
+    width: 74.4%;
+  margin: 0;
+  color: ${({ color }) => color};
+  background-color: ${({ bcolor }) => bcolor};
+     > label{
+      color: ${({ color }) => color};
+  background-color: ${({ bcolor }) => bcolor};
+
+  }
+  & .MuiInputBase-root{
+    > fieldset{
+      border-color: ${({ color }) => color};
+  background-color: ${({ bcolor }) => bcolor};
+    }
+  }
+  }
+  .search-input-dashboard{
+  width: 79%;
+  margin: 0;
+  color: ${({ color }) => color};
+  background-color: ${({ bcolor }) => bcolor};
+  
   }
 `;
 

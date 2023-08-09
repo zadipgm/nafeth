@@ -154,7 +154,7 @@ const CustomSettings = () => {
 
             <FormBoxWrapper className="tabs">
               <FormBox className="tabs" color={isTheme().color}>
-                <TabsComponent />
+                <TabsComponent description="Terms and Conditions" />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>

@@ -23,10 +23,10 @@ const TajeerPortal = () => {
     <>
       <FormContainer>
         <CardContainer>
-          <Logo bgcolor={"#2a4158"}>
+          <Logo bgcolor={"#8E3A47"}>
             <Image
               src="/images/tajeer.png"
-              alt="nodhom"
+              alt="tajeer"
               width={270}
               height={100}
             />

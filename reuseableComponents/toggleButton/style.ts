@@ -12,10 +12,10 @@ color:#1976d2;
 export const Content = styled.div<{ contentwidth: string }>`
 width: ${({ contentwidth }) => contentwidth};
 `
-export const Info = styled.div`
+export const Info = styled.div<{ color: string }>`
     margin: 0px 13px;
     line-height: 14px;
-    color: ${({ theme }) => theme.colors.pageTextColor};;
+    color: ${({ color }) => color};;
     text-align: justify;
     font-size: 12px;
 `

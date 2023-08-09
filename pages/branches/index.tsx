@@ -1,9 +1,10 @@
 import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
-import { NextPageWithLayout } from "../../_app";
 import BranchManagmentScreen from "@/components/SuperAdministrator/BranchManagement";
 import { GetStaticProps } from "next";
+import { encode as base64_encode } from "base-64";
 import { IBranchList } from "@/models/branch";
+import { NextPageWithLayout } from "../_app";
 const Page: NextPageWithLayout = ({ branches }: any) => {
   return <BranchManagmentScreen branches={branches} />;
 };
@@ -15,7 +16,13 @@ export default Page;
 export const getStaticProps: GetStaticProps<{
   branches: IBranchList;
 }> = async () => {
-  const res = await fetch("https://appapi.nafeth.sa/api/branches/beta");
+  let auth = base64_encode(`${"admin"}:${"admin"}`);
+  const res = await fetch("https://appapi.nafeth.sa/api/settings/branches/", {
+    headers: {
+      Authorization: `Basic ${auth}`,
+      company: "nafeth",
+    },
+  });
   const branches = await res.json();
   return { props: { branches } };
 };

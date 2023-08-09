@@ -1,18 +1,26 @@
 import * as React from "react";
 import { Container, DataTableWrapper } from "./style";
-import DataTable from "./GroupList";
 import { Title } from "../compnaySettings/style";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
-
-const GroupAccessManagement = () => {
+import TableComponent from "@/reuseableComponents/TableComponent";
+import { IGroups } from "@/models/groups";
+interface IProps {
+  data: IGroups;
+}
+const GroupAccessManagement = ({ data }: IProps) => {
   const { isDark }: any = useTheme();
+
   return (
     <>
-      <Title color={isTheme().color}>Company Settings</Title>
-      <Container>
+      <Title color={isTheme().color}>Group Access Management</Title>
+      <Container color={isTheme().color} bcolor={isTheme().bcolor}>
         <DataTableWrapper>
-          <DataTable />
+          <TableComponent
+            tableData={data.result}
+            headerValue={["name_en", "description_en", "active"]}
+            isDeleteAble={false}
+          />
         </DataTableWrapper>
       </Container>
     </>

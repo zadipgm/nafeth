@@ -14,7 +14,11 @@ import {
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import InputComponent from "@/reuseableComponents/InputField";
-import { Contracts, header_card } from "@/global/fakeData";
+import {
+  Contracts,
+  Contracts_chart_data,
+  header_card,
+} from "@/global/fakeData";
 import Button from "@mui/material/Button";
 import IconComponent from "@/reuseableComponents/IconComponent";
 import CarContractNumberSvg from "@/public/icons/carContractNumberSvg";
@@ -23,6 +27,7 @@ import Link from "next/link";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import HeaderCard from "@/reuseableComponents/HeaderCards";
 import FilterTabs from "@/reuseableComponents/filterTabs";
+import { Grow } from "@mui/material";
 type Anchor = "top" | "left" | "bottom" | "right";
 const Dashboard = () => {
   const [state, setState] = React.useState({
@@ -37,13 +42,7 @@ const Dashboard = () => {
   const [all, setAll] = React.useState(true);
   const [company, setCompany] = React.useState(false);
   const [individual, setIndividual] = React.useState(false);
-  const icon = [
-    "idSvg",
-    "lexusSvg",
-    "usersSvg",
-    "issueDateSvg",
-    "returnDateSvg",
-  ];
+  const icon = ["idSvg", "lexusSvg", "USERS", "issueDateSvg", "returnDateSvg"];
   const handleClick = (value: string) => {
     setLabel(value);
     if (value === "all") {
@@ -70,7 +69,11 @@ const Dashboard = () => {
   return (
     <>
       <Container>
-        <HeaderCard card={header_card} title="Welcome Muhammad" />
+        <HeaderCard
+          card={header_card}
+          title="Welcome Muhammad"
+          chart_data={Contracts_chart_data}
+        />
         <ListWrapper bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
           <ContractsTitle>Available Contracts</ContractsTitle>
           <SearchTabsWrapper
@@ -83,69 +86,82 @@ const Dashboard = () => {
               title={["all", "company", "individual"]}
               label={label}
               handleClick={handleClick}
+              classname="dashbord-contract-tab"
             />
             <InputComponent
               type="search"
               placeholder="Search contract"
               label="Search contract"
               // onChange={(e) => handleChange(e)}
-              classname="search-input"
+              classname="search-input-dashboard"
             />
           </SearchTabsWrapper>
           <ContractWrapper>
             {Contracts.slice(0, show).map((item: any, i) => {
               return (
-                <ContractCard
-                  cardcolor={isTheme()?.cardcolor}
-                  color={isTheme()?.color}
+                <Grow
+                  in={true}
+                  style={{ transformOrigin: "0 0 " }}
+                  {...(true ? { timeout: 2000 } : {})}
                   key={i}
-                  onClick={() =>
-                    toggleDrawer(locale === "en" ? "right" : "left", true)
-                  }
                 >
-                  <SvgKeysWrapper
-                    className="contract_number"
+                  <ContractCard
+                    cardcolor={isTheme()?.cardcolor}
                     color={isTheme()?.color}
+                    key={i}
+                    onClick={() =>
+                      toggleDrawer(locale === "en" ? "right" : "left", true)
+                    }
                   >
-                    <ContactNumberWrapper>
-                      <CarContractNumberSvg
-                        width="30px"
-                        height="30px"
-                        fill={isTheme().color}
-                      />
-                      <Keys>{"Contract Number"}</Keys>
-                    </ContactNumberWrapper>
-                    <div>{item.contract_number}</div>
-                  </SvgKeysWrapper>
-                  {Object.keys(Contracts[i])
-                    .filter((key) => key !== "contract_number")
-                    .map((key, index) => {
-                      return (
-                        <>
-                          <DataWrapper>
-                            <SvgKeysWrapper>
-                              <IconComponent
-                                width="30px"
-                                height="30px"
-                                icon={icon[index]}
-                                fill={isTheme().color}
-                              />
+                    <SvgKeysWrapper
+                      className="contract_number"
+                      color={isTheme()?.color}
+                    >
+                      <ContactNumberWrapper>
+                        <CarContractNumberSvg
+                          width="30px"
+                          height="30px"
+                          fill={isTheme().color}
+                        />
+                        <Keys>{"Contract Number"}</Keys>
+                      </ContactNumberWrapper>
+                      <div>{item.contract_number}</div>
+                    </SvgKeysWrapper>
+                    {Object.keys(Contracts[i])
+                      .filter((key) => key !== "contract_number")
+                      .map((key, index) => {
+                        return (
+                          <>
+                            <DataWrapper>
+                              <SvgKeysWrapper>
+                                <IconComponent
+                                  width="30px"
+                                  height="30px"
+                                  icon={icon[index]}
+                                  fill={isTheme().color}
+                                />
 
-                              <Keys>{key.replaceAll("_", " ")}</Keys>
-                            </SvgKeysWrapper>
-                            <div>{item[key]}</div>
-                          </DataWrapper>
-                        </>
-                      );
-                    })}
-                  <Link href={"#"} onClick={() => toggleDrawer("right", true)}>
-                    <ArrowCircleSvg />
-                  </Link>
-                </ContractCard>
+                                <Keys>{key.replaceAll("_", " ")}</Keys>
+                              </SvgKeysWrapper>
+                              <div>{item[key]}</div>
+                            </DataWrapper>
+                          </>
+                        );
+                      })}
+                    <Link
+                      href={"#"}
+                      onClick={() => toggleDrawer("right", true)}
+                    >
+                      <ArrowCircleSvg />
+                    </Link>
+                  </ContractCard>
+                </Grow>
               );
             })}
           </ContractWrapper>
-          <DrawerComponent state={state} toggleDrawer={toggleDrawer} />
+          <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
+            <h3>Contract Detail</h3>
+          </DrawerComponent>
           {show === Contracts.length ? (
             ""
           ) : (

@@ -7,6 +7,7 @@ import "../styles/globals.css";
 import { darkTheme, lightTheme } from "../global/theme";
 import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
+import { LoginProvider } from "@/context";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -46,9 +47,13 @@ const MyApp = ({
           content="width=device-width, height=device-height ,initial-scale=1.0, shrink-to-fit=no"
         />
       </Head>
-      <ThemeProvider theme={themeMode}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <LoginProvider>
+        {/* <ModuleProvider> */}
+        <ThemeProvider theme={themeMode}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+        {/* </ModuleProvider> */}
+      </LoginProvider>
     </>
   );
 };

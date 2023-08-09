@@ -20,6 +20,7 @@ import LangaugeButtons from "@/reuseableComponents/LangButton";
 import { Tooltip } from "@nextui-org/react";
 import { Badge } from "@mui/material";
 import Image from "next/image";
+import Cookies from "js-cookie";
 interface IProps {
   themeToggler: () => void;
   theme: string;
@@ -31,6 +32,13 @@ const Header = ({ themeToggler, theme }: IProps) => {
     themeToggler();
     let localTheme = theme === "dark" ? "light" : "dark";
     localStorage.setItem("theme", localTheme);
+  };
+  const handleLogout = () => {
+    Cookies.remove("userName");
+    Cookies.remove("userPassword");
+    Cookies.remove("company");
+    Cookies.remove("menu");
+    router.push("/login");
   };
   return (
     <>
@@ -64,7 +72,7 @@ const Header = ({ themeToggler, theme }: IProps) => {
             </Badge>
           </NotificationIcon>
           <LangaugeButtons title_en="ENGLISH" title_ar="العربية" />
-          <LogoutWrapper onClick={() => router.push("/login")}>
+          <LogoutWrapper onClick={handleLogout}>
             <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}
             <span>Logout</span>
           </LogoutWrapper>

@@ -29,7 +29,6 @@ const EditBranch = ({ branches }: IProps) => {
   const [message, setMessage] = React.useState("");
   const [color, setColor] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  console.log("here is branch", branches[0]);
 
   const [tajeer, setTajeer] = React.useState("11001100110011");
   const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {

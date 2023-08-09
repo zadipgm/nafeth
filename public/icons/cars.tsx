@@ -1,4 +1,4 @@
-const CarRent = ({
+const CarRentSvg = ({
   width = "24",
   height = "24",
   className = "inline vMiddle",
@@ -17,4 +17,4 @@ const CarRent = ({
     </svg>
   );
 };
-export default CarRent;
+export default CarRentSvg;

@@ -10,6 +10,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Container } from "./style";
+import { isTheme } from "@/_helpers/getTheme";
+import { useTheme } from "styled-components";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IAnchor {
@@ -21,45 +24,23 @@ interface IAnchor {
 interface IProps {
   state: IAnchor;
   toggleDrawer: (param1: Anchor, param2: boolean) => void;
+  children: React.ReactElement;
 }
-const DrawerComponent = ({ state, toggleDrawer }: IProps) => {
+const DrawerComponent = ({ state, toggleDrawer, children }: IProps) => {
+  const { colors } = useTheme();
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 550 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 400 }}
       role="presentation"
       onClick={() => toggleDrawer(anchor, false)}
       onKeyDown={() => toggleDrawer(anchor, false)}
     >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {children}
     </Box>
   );
 
   return (
-    <div>
+    <Container bcolor={isTheme().bcolor} color={isTheme().color}>
       {(["left", "right", "top", "bottom"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Drawer
@@ -71,7 +52,7 @@ const DrawerComponent = ({ state, toggleDrawer }: IProps) => {
           </Drawer>
         </React.Fragment>
       ))}
-    </div>
+    </Container>
   );
 };
 export default DrawerComponent;
