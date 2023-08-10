@@ -8,7 +8,6 @@ import {
   FormWrapper,
   GroupButtons,
   GsettingsTitle,
-  Title,
   ZipCode,
 } from "./style";
 import Button from "@mui/material/Button";
@@ -23,12 +22,12 @@ import NationalAddress from "./nationalAddress";
 import CustomSettings from "./customSettings";
 import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
+import { Title } from "../BranchManagement/style";
 
 const CompnaySettings = () => {
   const { isDark }: any = useTheme();
   return (
     <Container>
-      <Title color={isTheme().color}>Company Settings</Title>
       <GlobalSettings />
       <CustomSettings />
       <TajeerPortal />

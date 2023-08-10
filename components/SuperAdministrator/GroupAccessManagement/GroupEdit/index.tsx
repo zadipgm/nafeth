@@ -11,10 +11,8 @@ import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Container, SwitchContainer, SwitchWrapper } from "../style";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
-import TabsComponent from "@/reuseableComponents/Tabs";
 import { switch_data } from "@/global/fakeData";
 import SideBarAccordions from "@/components/SideNavBar/sidebaraccordion";
-import { IModuleTypes } from "@/models/module";
 import { useRouter } from "next/router";
 import { encode as base64_encode } from "base-64";
 import axios from "axios";
@@ -23,30 +21,33 @@ import Swal from "sweetalert2";
 import { Title } from "../../BranchManagement/style";
 interface IProps {
   title: string;
-  data: IModuleTypes[];
+  result: any[];
 }
-export default function GroupAddForm({ title, data }: IProps) {
+export default function GroupEditForm({ title, result }: IProps) {
+  console.log(result);
   const { colors } = useTheme();
   const router = useRouter();
-  let getMenu = data.map((item) => item.menu);
-  let getMenuInOneArray = getMenu.flatMap((menu) => menu);
+  let getMenu = result[0].menu;
+  let getFlatArrayFromMenu = getMenu.map((i: any) => i.menu);
+  let getMenuInOneArray = getFlatArrayFromMenu.flatMap((menu: any) => menu);
   let addGroupObj = {
-    name_en: "",
-    name_ar: "",
-    description_en: "",
-    description_ar: "",
-    active: "Y",
-    isDateEnable: "N",
-    isBlockEnable: "N",
-    isTajeerAvailable: "N",
-    isDeleteAvailable: "N",
-    isReSendNozumAvailable: "N",
-    isQuickAddCustomer: "N",
-    isDiscountReceipt: "N",
-    isDeleteContract: "N",
+    name_en: result[0].name_en,
+    name_ar: result[0].name_ar,
+    description_en: result[0].description_en,
+    description_ar: result[0].description_ar,
+    active: result[0].active,
+    isDateEnable: result[0].isDateEnable,
+    isBlockEnable: result[0].isBlockEnable,
+    isTajeerAvailable: result[0].isTajeerAvailable,
+    isDeleteAvailable: result[0].isDeleteAvailable,
+    isReSendNozumAvailable: result[0].isReSendNozumAvailable,
+    isQuickAddCustomer: result[0].isQuickAddCustomer,
+    isDiscountReceipt: result[0].isDiscountReceipt,
+    isDeleteContract: result[0].isDeleteContract,
     role: "User",
     menu: getMenuInOneArray,
   };
+  console.log("here is menu array", getMenuInOneArray);
   const [formData, setFormData] = React.useState(addGroupObj);
   React.useEffect(() => {}, [formData]);
   const HanldeSwtiches = (e: { target: { name: any; checked: any } }) => {
@@ -64,18 +65,7 @@ export default function GroupAddForm({ title, data }: IProps) {
         ...formData,
         menu: [...formData.menu, checkboxdata],
       });
-      // const uniqObjs: any = [];
-      // const dupeObjs: any = [];
-      // formData.menu.forEach((obj) =>
-      //   [uniqObjs, dupeObjs][
-      //     +(
-      //       formData.menu.map((obj) => obj.id).filter((id) => id === obj.id)
-      //         .length > 1
-      //     )
-      //   ].push(obj)
-      // );
-      // console.log("uniqObjs:", uniqObjs);
-      // console.log("dupeObjs:", dupeObjs);
+      console.log("here is check data", formData.menu);
     },
     [formData]
   );
@@ -88,13 +78,17 @@ export default function GroupAddForm({ title, data }: IProps) {
       company: getCompany(),
     };
     axios
-      .post("https://appapi.nafeth.sa/api/settings/groups", body, {
-        headers: headers,
-      })
+      .put(
+        `https://appapi.nafeth.sa/api/settings/groups/${result[0].groupId}`,
+        body,
+        {
+          headers: headers,
+        }
+      )
       .then((response) => {
         response;
-        Swal.fire("Thank you!", "Group has been added.", "success");
-        // router.push("/groups");
+        Swal.fire("Thank you!", "Group has been update.", "success");
+        router.push("/groups");
       })
       .catch((error) => {
         Swal.fire({
@@ -132,12 +126,16 @@ export default function GroupAddForm({ title, data }: IProps) {
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
+                  defaultValue={result[0].name_en}
+                  value={formData.name_en}
                 />
                 <InputComponent
                   label="اسم عربي"
                   placeholder="زيشان"
                   onChange={hanldeFormData}
                   name="name_ar"
+                  value={formData.name_ar}
+                  defaultValue={result[0].name_ar}
                 />
               </FormBox>
             </FormBoxWrapper>
@@ -153,6 +151,7 @@ export default function GroupAddForm({ title, data }: IProps) {
                   name="description_en"
                   multiline
                   rows={4}
+                  defaultValue={result[0].description_en}
                 />
                 <InputComponent
                   label="الوصف العربي"
@@ -162,6 +161,7 @@ export default function GroupAddForm({ title, data }: IProps) {
                   multiline
                   rows={4}
                   type="textarea"
+                  defaultValue={result[0].description_ar}
                 />
               </FormBox>
             </FormBoxWrapper>
@@ -180,6 +180,9 @@ export default function GroupAddForm({ title, data }: IProps) {
                             info={item.info}
                             onchange={HanldeSwtiches}
                             name={item.name}
+                            defaultChecked={
+                              result[0][item.name] === "Y" ? true : false
+                            }
                           />
                         </div>
                       );
@@ -190,7 +193,7 @@ export default function GroupAddForm({ title, data }: IProps) {
             </FormBoxWrapper>
           </Box>
           <SideBarAccordions
-            sideBarMenuData={data}
+            sideBarMenuData={result[0].menu}
             active_link={false}
             showcheckboxes={true}
             access_group_class={"group_access"}

@@ -2,15 +2,13 @@ import type { ReactElement } from "react";
 
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import GroupEditForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupAdd";
-import GroupAccessManagement from "@/components/SuperAdministrator/GroupAccessManagement";
 import { IModuleTypes } from "@/models/module";
 import { GetServerSideProps } from "next";
-import { fetchModules } from "@/api/fetchmodules";
+import { fetchModules } from "@/api/fetchapis/fetchmodules";
+import GroupAddForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupAdd";
 
 const Page: NextPageWithLayout = ({ result }: any) => {
-  console.log("her eis ", result);
-  return <GroupEditForm title="Add Group" data={result} />;
+  return <GroupAddForm title="Add Group" data={result} />;
 };
 Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
@@ -30,5 +28,6 @@ export const getServerSideProps: GetServerSideProps<{
     company as string
   );
   const result = await res;
+
   return { props: result };
 };

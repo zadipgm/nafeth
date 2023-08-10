@@ -1,11 +1,11 @@
 import * as React from "react";
 import BranchList from "./BranchList";
-import { getBranches } from "@/fetchApi";
-import { IBranch, IBranchList, IBranches } from "@/models/branch";
+import { IBranchModel } from "@/models/branch";
+import { ICountriesModel } from "@/models/country";
 interface IProps {
-  branches: IBranchList[];
+  branches: IBranchModel;
 }
 const BranchManagmentScreen = ({ branches }: IProps) => {
-  return <BranchList branch={branches} />;
+  return <BranchList branches={branches} />;
 };
 export default BranchManagmentScreen;

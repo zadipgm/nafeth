@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { TAMM_Authorization, days, hours, minutes } from "@/global/fakeData";
+import { days, hours, minutes } from "@/global/fakeData";
 import TabsComponent from "@/reuseableComponents/Tabs";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import InputComponent from "@/reuseableComponents/InputField";

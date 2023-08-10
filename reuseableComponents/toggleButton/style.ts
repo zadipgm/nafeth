@@ -3,6 +3,9 @@ export const Wrapper = styled.div`
 display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    &.branch-switch{
+        width: 50%;
+    }
 `
 export const Title = styled.div<{ titlewidth: string }>`
 width: ${({ titlewidth }) => titlewidth};

@@ -18,15 +18,26 @@ import InputComponent from "../InputField";
 import { isTheme } from "@/_helpers/getTheme";
 import { CommonContainer } from "@/PageLayout/styled.components";
 import { IGroups } from "@/models/groups";
-import { getName } from "@/_helpers/getName";
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
+import { fetchGroups } from "@/api/fetchapis/groups";
 interface IProps {
   tableData: any;
   headerValue: string[];
   isDeleteAble?: boolean;
+  isDuplicate?: boolean;
+  linkPageUrl?: string;
+  page_color?: string;
 }
-const TableComponent = ({ tableData, headerValue, isDeleteAble }: IProps) => {
+const TableComponent = ({
+  tableData,
+  headerValue,
+  isDeleteAble,
+  isDuplicate,
+  linkPageUrl,
+  page_color,
+}: IProps) => {
   const [search, setSearch] = React.useState(tableData);
   const router = useRouter();
   const renderTableHeader = React.useCallback(() => {
@@ -40,6 +51,16 @@ const TableComponent = ({ tableData, headerValue, isDeleteAble }: IProps) => {
       });
     }
   }, []);
+  const handleDuplicates = async (item: any) => {
+    let userName = getName() as string;
+    let userPassWord = getPassword() as string;
+    let company = getCompany() as string;
+    let duplicateUrl = `/settings/groups/${item.groupId}/duplicate`;
+    let url = "/settings/groups";
+    await fetchGroups(userName, userPassWord, duplicateUrl, company);
+    const res = await fetchGroups(userName, userPassWord, url, company);
+    setSearch(res.result);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = e.target.value;
@@ -54,19 +75,22 @@ const TableComponent = ({ tableData, headerValue, isDeleteAble }: IProps) => {
     setSearch(filteredData);
   };
 
-  const hanldeEdit = (item: any) => {
+  const hanldeEdit = (id: any) => {
     router.push({
-      pathname: `/groups/edit/${item.id}`,
+      pathname: `/${linkPageUrl}/edit/${id}`,
     });
   };
   return (
     <CommonContainer istheme={isTheme()}>
       <InputWrapper istheme={isTheme()}>
         <Fab
-          color="primary"
-          aria-label="add"
-          style={{ margin: "12px 0px" }}
-          onClick={() => router.push("/groups/add")}
+          aria-label={"add"}
+          style={{
+            margin: "12px 0px",
+            backgroundColor: `${page_color}`,
+            color: "white",
+          }}
+          onClick={() => router.push(`/${linkPageUrl}/add` as string)}
         >
           <AddIcon />
         </Fab>
@@ -81,8 +105,8 @@ const TableComponent = ({ tableData, headerValue, isDeleteAble }: IProps) => {
       <Table>
         <tbody>
           <TRow>{renderTableHeader()}</TRow>
-          {search &&
-            search.map((item: any, index: number) => {
+          {search.length > 0 &&
+            search?.map((item: any, index: number) => {
               return (
                 <TRow key={index}>
                   {headerValue.map((key: any, index: any) => {
@@ -92,22 +116,30 @@ const TableComponent = ({ tableData, headerValue, isDeleteAble }: IProps) => {
                     <ToolTipWrapper>
                       <Tooltip content="Details" color="invert">
                         <IconButton>
-                          <EyeSvg size={20} fill="#000000" />
+                          <EyeSvg size={20} fill={page_color} />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip content="Duplicate" color="secondary">
-                        <IconButton>
-                          <DublicateSvg
-                            width={"25px"}
-                            height="25px"
-                            fill={"#7828C8"}
-                          />
-                        </IconButton>
-                      </Tooltip>
+                      {isDuplicate && (
+                        <Tooltip
+                          content="Duplicate"
+                          color="secondary"
+                          onClick={() => handleDuplicates(item)}
+                        >
+                          <IconButton>
+                            <DublicateSvg
+                              width={"25px"}
+                              height="25px"
+                              fill={page_color}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       <Tooltip
                         content="Edit"
                         color="primary"
-                        onClick={() => hanldeEdit(item)}
+                        onClick={() =>
+                          hanldeEdit(item.id ? item.id : item.groupId)
+                        }
                       >
                         <IconButton>
                           <EditSvg size={20} fill={"#0072F5"} />
