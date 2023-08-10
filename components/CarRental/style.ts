@@ -216,6 +216,10 @@ text-align: center;
     padding: 12px;
     color: #fff;
 `
+export const CarDetailWrapper = styled.div<{ color: string, bcolor: string }>`
+background-color: ${({ bcolor }) => bcolor};
+    color: ${({ color }) => color};
+`
 export const DetailList = styled.ul`
 list-style-type: none;
     display: flex;
@@ -225,6 +229,7 @@ list-style-type: none;
     width: 100%;
     padding: 0;
     margin: 0;
+    
   .rent-button{
     position: absolute;
     bottom: 0;
@@ -245,6 +250,7 @@ border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor
 &:hover{
   transition: .5s;
   background-color: #f1f1f1;
+  color: #000;
 }
 `
 export const Strongtext = styled.strong`

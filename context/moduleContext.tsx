@@ -1,4 +1,4 @@
-import { fetchModules } from "@/api/fetchmodules";
+import { fetchModules } from "@/api/fetchapis/fetchmodules";
 import { IModuleTypes } from "@/models/module";
 import Cookies from "js-cookie";
 import React, { createContext } from "react";

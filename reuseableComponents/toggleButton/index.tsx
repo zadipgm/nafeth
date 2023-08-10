@@ -13,6 +13,8 @@ interface IProps {
   titlewidth?: string;
   contentwidth?: string;
   name?: string;
+  defaultChecked?: boolean;
+  classname?: string;
 }
 export default function SwitchesComponent({
   title,
@@ -23,19 +25,22 @@ export default function SwitchesComponent({
   titlewidth = "40%",
   contentwidth = "60%",
   name,
+  defaultChecked = false,
+  classname,
 }: IProps) {
   const { colors } = useTheme();
-  const [checked, setIscheked] = React.useState(false);
+  const [checked, setIscheked] = React.useState(defaultChecked);
   const handleChecked = (e: any) => {
     setIscheked(!checked);
     onchange?.(e);
   };
   return (
-    <Wrapper>
+    <Wrapper className={classname}>
       <Title titlewidth={titlewidth}>{title}</Title>
       <Content contentwidth={contentwidth}>
         <Switch
           checked={checked}
+          defaultChecked={defaultChecked}
           onChange={handleChecked}
           title={title}
           required={required}

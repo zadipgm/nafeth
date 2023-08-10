@@ -14,6 +14,7 @@ interface IProps {
   onChange?: (e: any) => void;
   required?: boolean;
   error?: boolean;
+  defaultValue?: string | number;
 }
 const InputComponent = ({
   label,
@@ -29,6 +30,7 @@ const InputComponent = ({
   onChange,
   required,
   error = false,
+  defaultValue,
 }: IProps) => {
   return (
     <>
@@ -48,6 +50,7 @@ const InputComponent = ({
         name={name}
         required={required}
         error={error}
+        defaultValue={defaultValue}
       />
     </>
   );

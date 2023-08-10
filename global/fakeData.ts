@@ -49,7 +49,7 @@ export const tajeerLicense = [
     { value: "11002300110011", label: "11002300110011" },
 ];
 export const cities = [
-    { value: 83, label: "Riyadh" },
+    { value: 7, label: "Riyadh" },
     { value: 31, label: "Dammam" },
     { value: 32, label: "Tabuk" },
     { value: 33, label: "Jeddah" },

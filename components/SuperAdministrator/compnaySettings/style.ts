@@ -2,14 +2,10 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div``;
-export const Title = styled.h2<{ color: string }>`
-   color: ${({ theme }) => theme.colors.nafethBlue};
-  font-size: 22px;
-  margin: 0 10px;
-`;
+
 export const FormContainer = styled.div`
   
-  border-radius: 8px;
+
   margin: 30px 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
@@ -128,6 +124,20 @@ export const FormBox = styled.div<{ color: string }>`
       width: 50%;
     }
   }
+  &.group-edit-form-description{
+    flex-direction: row;
+    width: 100%;
+    & .MuiFormControl-root {
+      width: 50%;
+    }
+  }
+  &.regions{
+    flex-direction: row;
+    width: 100%;
+    & .regions-dropdown{
+      width: 100%;
+    }
+  }
   &.group-edit-form-checkbox {
     width: 100%;
     .group-switches {
@@ -203,7 +213,7 @@ export const GroupButtons = styled.div`
       background-color: ${({ theme }) => theme.colors.nafethBlue};
     }
     &.tajeer-portal-details-save-button {
-      background-color: ${({ theme }) => theme.colors.darkblue2};
+      background-color: #8e3a47;
     }
     &.national-address-save-button {
       background-color: ${({ theme }) => theme.colors.lightblue1};

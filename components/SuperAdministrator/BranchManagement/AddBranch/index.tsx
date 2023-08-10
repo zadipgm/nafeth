@@ -9,41 +9,49 @@ import {
 } from "../../compnaySettings/style";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import InputComponent from "@/reuseableComponents/InputField";
-import { cities, countries, tajeerLicense } from "@/global/fakeData";
+import { tajeerLicense } from "@/global/fakeData";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { useRouter } from "next/router";
 import SimpleSnackbar from "@/reuseableComponents/Snackbar";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import SimpleGoogleMap from "@/reuseableComponents/map/googlemap";
-
-const AddBranch = () => {
+import { ICountriesModel } from "@/models/country";
+import { ICitiesModel } from "@/models/city";
+import { IRegions } from "@/models/regions";
+import { createBranches } from "@/api/postApis/createBranch";
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import Swal from "sweetalert2";
+interface IProps {
+  countries: ICountriesModel;
+  cities: ICitiesModel;
+  regions: IRegions;
+}
+const AddBranch = ({ countries, cities, regions }: IProps) => {
   let obj = {
     name_en: "",
     name_ar: "",
-    countryId: "null",
-    cityId: "null",
+    regionId: 2,
+    countryId: 183,
+    cityId: 80,
     address: "",
     email: "",
-    phone: "null",
-    poBox: "null",
-    fax: "null",
-    tajeerLicenseNo: "",
+    phone: "",
+    poBox: "",
+    fax: "",
+    tajeerLicenseNo: "11001100110011",
     latitude: "",
     longitude: "",
-    active: "",
-    userID: "null",
+    active: "N",
   };
   const [data, setData] = React.useState(obj);
-  const [checked, setChecked] = React.useState(true);
-  const [message, setMessage] = React.useState("");
-  const [color, setColor] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const { isDark } = useTheme();
-  const [tajeer, setTajeer] = React.useState("11001100110011");
+  const { isLTR, colors } = useTheme();
   const router = useRouter();
-  const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+  const handleChangeStatus = (e: { target: { name: any; checked: any } }) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.checked === true ? "Y" : "N",
+    });
   };
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
@@ -51,61 +59,50 @@ const AddBranch = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleChangeTajeer = (e: { target: { name: any; value: any } }) => {
-    setTajeer(e.target.value);
-  };
-  const handleClick = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let obj = {
+    let body = {
       name_en: data.name_en,
       name_ar: data.name_ar,
-      countryId: 2,
-      cityId: 1,
+      regionId: data.regionId,
+      countryId: data.countryId,
+      cityId: data.cityId,
       address: data.address,
       email: data.email,
-      phone: Number(data?.phone),
-      poBox: Number(data?.poBox),
-      fax: Number(data?.fax),
-      tajeerLicenseNo: tajeer,
+      phone: parseInt(data.phone),
+      poBox: parseInt(data.poBox),
+      fax: parseInt(data.fax),
+      tajeerLicenseNo: data.tajeerLicenseNo,
       latitude: data.latitude,
       longitude: data.longitude,
-      active: checked ? "Y" : "N",
-      userID: 1,
+      active: data.active,
     };
-    try {
-      await axios.post("https://appapi.nafeth.sa/api/branches/beta", obj);
-      handleClick();
-      setMessage("Branch Added successfully!");
-      setTimeout(() => {
-        router.push("/super_admin/branch_management/");
-      }, 2000);
-      setColor("#0d880d");
-    } catch (e) {
-      handleClick();
-      setMessage("Branch Added successfully!");
-      setColor("#ec0e0e");
-      console.log(e);
-      setMessage("try again");
-    }
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
+    let url = "settings/branches";
+
+    await createBranches(userName, userPassword, url, company, body).then(
+      (res: any) => {
+        if (res.message === "Success") {
+          Swal.fire("Thank you!", "Branch has been Created!.", "success");
+          router.push("/branches");
+        } else {
+          console.log(res);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      }
+    );
   };
 
   return (
     <>
-      <SimpleSnackbar
-        open={open}
-        handleClose={handleClose}
-        message={message}
-        color={color}
-      />
-
       <AddBranchContainer>
-        <Title>
+        <Title color={colors.purple}>
           <h2>Add New Branch</h2>
         </Title>
         <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -130,40 +127,37 @@ const AddBranch = () => {
                   name={"name_en"}
                   onChange={handleChange}
                   required={true}
-                  // error={data.name_en.length <= 1 ? true : false}
-                  // helperText={
-                  //   data.name_en.length <= 1 ? "Please enter name in english" : ""
-                  // }
                 />
                 <TextField
-                  id="outlined-select-currency"
                   select
                   label="City"
-                  defaultValue="83"
+                  name="cityId"
+                  onChange={handleChange}
+                  value={data.cityId}
+                  required
                 >
-                  {cities.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+                  {cities.result.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_en}
                     </MenuItem>
                   ))}
                 </TextField>
                 <InputComponent
                   label="Phone"
-                  placeholder="0581955852"
+                  placeholder="966581955852"
                   type="text"
-                  value={!Number(data.phone) ? "" : data.phone}
+                  value={!Number(data.phone) ? "" : Number(data.phone)}
                   name={"phone"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
                 <TextField
-                  id="outlined-select-currency"
                   select
                   label="License Number - Tajeer"
-                  defaultValue="11001100110011"
-                  onChange={handleChangeTajeer}
+                  onChange={handleChange}
+                  value={data.tajeerLicenseNo}
+                  name="tajeerLicenseNo"
+                  required
                 >
                   {tajeerLicense.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -186,7 +180,7 @@ const AddBranch = () => {
                 />
                 <InputComponent
                   label="Address"
-                  placeholder="7001234576"
+                  placeholder="al malaz riyadh saudi arabia 11546..."
                   type="text"
                   value={data.address}
                   name={"address"}
@@ -199,7 +193,7 @@ const AddBranch = () => {
                   label="Fax Number"
                   placeholder="966114003880"
                   type="text"
-                  value={!Number(data.fax) ? "" : data.fax}
+                  value={!Number(data.fax) ? "" : Number(data.fax)}
                   name={"fax"}
                   onChange={handleChange}
                   required={true}
@@ -220,14 +214,16 @@ const AddBranch = () => {
               </FormBox>
               <FormBox color={isTheme().color}>
                 <TextField
-                  id="outlined-select-currency"
                   select
                   label="Country"
-                  defaultValue="183"
+                  name="countryId"
+                  value={data.countryId}
+                  required
+                  onChange={handleChange}
                 >
-                  {countries.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+                  {countries.result.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_en}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -239,19 +235,15 @@ const AddBranch = () => {
                   name={"email"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
                 <InputComponent
                   label="PO BOX"
-                  placeholder="966114003880"
+                  placeholder="1234"
                   type="text"
                   name={"poBox"}
-                  value={!Number(data.poBox) ? "" : data.poBox}
+                  value={!Number(data.poBox) ? "" : Number(data.poBox)}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
                 <InputComponent
                   label="Longitude"
@@ -261,19 +253,34 @@ const AddBranch = () => {
                   name={"longitude"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
               </FormBox>
             </FormBoxWrapper>
             <FormBoxWrapper>
-              <FormBox color={isTheme().color}>
+              <FormBox color={isTheme().color} className="regions">
                 <SwitchesComponent
                   title="Active/Inactive"
-                  value={checked ? "Y" : "N"}
-                  checked={checked}
+                  info={""}
                   onchange={(e) => handleChangeStatus(e)}
+                  name={"active"}
+                  classname={"branch-switch"}
+                  value={data.active}
                 />
+                <TextField
+                  select
+                  label="Region"
+                  defaultValue={regions.result[0].id}
+                  name="regionId"
+                  value={data.regionId}
+                  onChange={handleChange}
+                  className="regions-dropdown"
+                >
+                  {regions.result.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_en}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </FormBox>
             </FormBoxWrapper>
 

@@ -1,28 +1,28 @@
-export interface IBranch {
-    id?: string | number;
-    name_en?: string;
-    name_ar?: string;
-    countryId?: number;
-    cityId?: number;
-    address: string;
-    email: string;
-    phone: number;
-    poBox: number;
-    fax: number;
-    tajeerLicenseNo: string;
-    latitude: string;
-    longitude: string;
-    active: string;
-    userID: number;
+import { ICity } from "./city"
+import { ICountry } from "./country"
+import { IRegionsResult } from "./regions"
+
+interface Ibranch {
+    id: 2,
+    name_en: string
+    name_ar: string
+    address: string
+    email: string
+    phone: 0,
+    poBox: 96651313131,
+    fax: 0,
+    tajeerLicenseNo: string
+    latitude: string
+    longitude: string
+    active: string
+    userID: 0,
+    country: ICountry,
+    city: ICity
+    region: IRegionsResult
 }
-export interface IBranches {
-    branches: IBranch[];
-}
-export interface IBranchList {
-    name_en?: string;
-    name_ar?: string;
-    address?: string;
-    email: string;
-    phone: number;
-    active: string;
+
+export interface IBranchModel {
+    message: string;
+    result: Ibranch[]
+
 }

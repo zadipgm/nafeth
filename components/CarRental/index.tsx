@@ -4,6 +4,7 @@ import {
   ButtonWrapper,
   Car,
   CarColor,
+  CarDetailWrapper,
   CarDetailsTitle,
   CarMakeModel,
   CarMakeModelWrapper,
@@ -257,61 +258,63 @@ const CarRent = () => {
         <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
           <div>
             <CarDetailsTitle>Car Details</CarDetailsTitle>
-            <DetailList>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />
-                <Strongtext>Daily Rent</Strongtext>
-                <Spantext>{car_specs[0].daily_rent}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />{" "}
-                <Strongtext>Weekly Rent</Strongtext>
-                <Spantext>{car_specs[0].weekly_rent}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />
-                <Strongtext>Monthly Rent</Strongtext>
-                <Spantext>{car_specs[0].monthly_rent}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarManageSvg width="30px" height="30px" />
-                <Strongtext>Extra KM Price</Strongtext>
-                <Spantext>{car_specs[0].extra_km_price}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarMileageSvg width="30px" height="30px" />
-                <Strongtext>Per Extra KM</Strongtext>
-                <Spantext>{car_specs[0].per_extra_kM}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarInsuranceSvg width="30px" height="30px" />{" "}
-                <Strongtext>Insurance Provider</Strongtext>
-                <Spantext>{car_specs[0].insurance_provider}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarPlateSvg width="30px" height="30px" />{" "}
-                <Strongtext>Plate Type</Strongtext>
-                <Spantext>{car_specs[0].plate_type}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <EconomicSvg width="30px" height="30px" />
-                <Strongtext>Car Type</Strongtext>
-                <Spantext>{car_specs[0].car_type}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarPetrolSvg width="30px" height="30px" />
-                <Strongtext>Fuel Type</Strongtext>
-                <Spantext>{car_specs[0].fuel_type}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarExtraKmLimitSvg width="30px" height="30px" />
-                <Strongtext>Daily KM Limit</Strongtext>
-                <Spantext>{car_specs[0].dail_km_limit}</Spantext>
-              </DetailListItem>
-              <Button variant="contained" className="rent-button">
-                Rent
-              </Button>
-            </DetailList>
+            <CarDetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
+              <DetailList>
+                <DetailListItem>
+                  <CarRentSvg width="30px" height="30px" />
+                  <Strongtext>Daily Rent</Strongtext>
+                  <Spantext>{car_specs[0].daily_rent}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarRentSvg width="30px" height="30px" />{" "}
+                  <Strongtext>Weekly Rent</Strongtext>
+                  <Spantext>{car_specs[0].weekly_rent}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarRentSvg width="30px" height="30px" />
+                  <Strongtext>Monthly Rent</Strongtext>
+                  <Spantext>{car_specs[0].monthly_rent}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarManageSvg width="30px" height="30px" />
+                  <Strongtext>Extra KM Price</Strongtext>
+                  <Spantext>{car_specs[0].extra_km_price}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarMileageSvg width="30px" height="30px" />
+                  <Strongtext>Per Extra KM</Strongtext>
+                  <Spantext>{car_specs[0].per_extra_kM}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarInsuranceSvg width="30px" height="30px" />{" "}
+                  <Strongtext>Insurance Provider</Strongtext>
+                  <Spantext>{car_specs[0].insurance_provider}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarPlateSvg width="30px" height="30px" />{" "}
+                  <Strongtext>Plate Type</Strongtext>
+                  <Spantext>{car_specs[0].plate_type}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <EconomicSvg width="30px" height="30px" />
+                  <Strongtext>Car Type</Strongtext>
+                  <Spantext>{car_specs[0].car_type}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarPetrolSvg width="30px" height="30px" />
+                  <Strongtext>Fuel Type</Strongtext>
+                  <Spantext>{car_specs[0].fuel_type}</Spantext>
+                </DetailListItem>
+                <DetailListItem>
+                  <CarExtraKmLimitSvg width="30px" height="30px" />
+                  <Strongtext>Daily KM Limit</Strongtext>
+                  <Spantext>{car_specs[0].dail_km_limit}</Spantext>
+                </DetailListItem>
+                <Button variant="contained" className="rent-button">
+                  Rent
+                </Button>
+              </DetailList>
+            </CarDetailWrapper>
           </div>
         </DrawerComponent>
       </CardListWrapper>

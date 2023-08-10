@@ -38,10 +38,10 @@ const CustomCheckbox = ({
     id: id,
     name_en: name_en,
     name_ar: name_ar,
-    get: 0,
-    post: 0,
-    put: 0,
-    del: 0,
+    get: get,
+    post: post,
+    put: put,
+    del: del,
     url: url,
   };
   const [formData, setFormData] = React.useState(data);
@@ -69,6 +69,7 @@ const CustomCheckbox = ({
           onChange={(e) => handleChange(e)}
           name={"get"}
           value={"get"}
+          defaultChecked={get === 1 ? true : false}
         />
         <SpanText aria-disabled>{"view"}</SpanText>
         <ViewSvg width="20px" height="20px" fill={colors.purple} />
@@ -82,6 +83,7 @@ const CustomCheckbox = ({
               onChange={(e) => handleChange(e)}
               name={"post"}
               value={"post"}
+              defaultChecked={post === 1 ? true : false}
             />
             <SpanText aria-disabled>{"create"}</SpanText>
             <CreateSvg width="20px" height="20px" fill={colors.green} />
@@ -93,6 +95,7 @@ const CustomCheckbox = ({
               onChange={(e) => handleChange(e)}
               name={"put"}
               value={"put"}
+              defaultChecked={put === 1 ? true : false}
             />
             <SpanText aria-disabled>{"edit"}</SpanText>
             <EditSvg width="20px" height="20px" fill={colors.nafethBlue} />
@@ -104,6 +107,7 @@ const CustomCheckbox = ({
               onChange={(e) => handleChange(e)}
               name={"del"}
               value={"del"}
+              defaultChecked={del === 1 ? true : false}
             />
             <SpanText aria-disabled>{"delete"}</SpanText>
             <DeleteSvg width="20px" height="20px" fill={colors.red} />

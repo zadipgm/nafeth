@@ -5,7 +5,7 @@ export const Container = styled.div<{ bcolor: string; color: string }>`
   /* background-color: ${({ bcolor }) => bcolor}; */
   color: ${({ color }) => color};
   border-radius: 12px;
-  padding: 15px;
+ 
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 `;
 

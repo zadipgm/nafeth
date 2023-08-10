@@ -20,5 +20,7 @@ export const CommonContainer = styled.div<{ istheme: isTheme }>`
   background-color: ${({ istheme }) => istheme.bcolor};
   color: ${({ istheme }) => istheme.color};
   border-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
