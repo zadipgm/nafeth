@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { IModuleTypes } from "@/models/module";
 import { GetServerSideProps } from "next";
 import { fetchModules } from "@/api/fetchapis/fetchmodules";
-import GroupAddForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupAdd";
+import GroupAddForm from "@/components/GlobalSettings/GroupAccessManagement/GroupAdd";
 
 const Page: NextPageWithLayout = ({ result }: any) => {
   return <GroupAddForm title="Add Group" data={result} />;

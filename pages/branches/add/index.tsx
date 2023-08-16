@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import AddBranch from "@/components/SuperAdministrator/BranchManagement/AddBranch";
+import AddBranch from "@/components/GlobalSettings/BranchManagement/AddBranch";
 import { fetchCountries } from "@/api/fetchapis/fetchCountries";
 import { ICountriesModel } from "@/models/country";
 import { GetServerSideProps } from "next";

@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
-import EditBranch from "@/components/SuperAdministrator/BranchManagement/EditBranch";
+import EditBranch from "@/components/GlobalSettings/BranchManagement/EditBranch";
 import { NextPageWithLayout } from "@/pages/_app";
 import React from "react";
 import { GetServerSideProps } from "next";

@@ -1,4 +1,3 @@
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -24,8 +23,6 @@ import {
 import Swal from "sweetalert2";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import SimpleSnackbar from "@/reuseableComponents/Snackbar";
-import EmailSvg from "@/public/icons/emailSvg";
 import PassWordSvg from "@/public/icons/passwordSvg";
 import {
   IconWrapper,
@@ -33,9 +30,8 @@ import {
   Langwrapper,
 } from "@/reuseableComponents/LangButton/style";
 import UsersSvg from "@/public/icons/USERS";
-import withReactContent from "sweetalert2-react-content";
-import { GlobalUserContext } from "@/context";
-import { handleLogin } from "@/api/login";
+import { handleLogin } from "@/api/fetchapis/login";
+import Cookies from "js-cookie";
 const LoginScreen = () => {
   const router = useRouter();
   const { locale, colors, translations }: any = useTheme();
@@ -67,6 +63,7 @@ const LoginScreen = () => {
           setTimeout(() => {
             Swal.fire("", "You are logged in successfully!", "success");
           }, 1000);
+          Cookies.set("isLogin", "true");
           setTimeout(() => {
             router.push("/dashboard");
           }, 3000);

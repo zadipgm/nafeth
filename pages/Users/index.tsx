@@ -1,29 +1,34 @@
 import type { ReactElement } from "react";
+
 import Layout from "@/PageLayout";
-import BranchManagmentScreen from "@/components/GlobalSettings/BranchManagement";
+import { NextPageWithLayout } from "@/pages/_app";
+import { IModuleTypes } from "@/models/module";
 import { GetServerSideProps } from "next";
-import { NextPageWithLayout } from "../_app";
-import { IBranchModel } from "@/models/branch";
-import { fetchBranches } from "@/api/fetchapis/fetchBranches";
-const Page: NextPageWithLayout = (branches: any) => {
-  return <BranchManagmentScreen branches={branches} />;
+import { fetchModules } from "@/api/fetchapis/fetchmodules";
+import UserList from "@/components/GlobalSettings/usersSettings";
+import { IUser } from "@/models/userModel";
+
+const Page: NextPageWithLayout = ({ result }: any) => {
+  return <UserList data={result} />;
 };
 Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
 export default Page;
 export const getServerSideProps: GetServerSideProps<{
-  data: IBranchModel[];
+  result: IUser[];
 }> = async (ctx) => {
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchBranches(
+  const res = await fetchModules(
     userName as string,
     userPassword as string,
-    "/settings/branches",
+    "/settings/Users",
     company as string
   );
-  const branches = await res;
-  return { props: branches };
+  const result = await res;
+
+  return { props: result };
 };

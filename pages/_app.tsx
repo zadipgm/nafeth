@@ -8,6 +8,8 @@ import { darkTheme, lightTheme } from "../global/theme";
 import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
 import { LoginProvider } from "@/context";
+import Cookies from "js-cookie";
+import { Router, useRouter } from "next/router";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -28,6 +30,7 @@ const MyApp = ({
   locale,
 }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
+  const router = useRouter();
   const [theme] = useDarkMode();
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
@@ -37,7 +40,14 @@ const MyApp = ({
   themeMode.isRTL = locale === "ar";
 
   themeMode.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
-
+  const isLogin = Cookies.get("isLogin");
+  React.useEffect(() => {
+    if (isLogin === "true") {
+      router.push({ pathname: router.asPath });
+    } else {
+      router.push({ pathname: "/login" });
+    }
+  }, [isLogin]);
   return getLayout(
     <>
       <Head>
