@@ -1,7 +1,7 @@
 import React, { useContext, type ReactElement } from "react";
 import { encode as base64_encode } from "base-64";
 import Layout from "@/PageLayout";
-import GroupAccessManagement from "@/components/SuperAdministrator/GroupAccessManagement";
+import GroupAccessManagement from "@/components/GlobalSettings/GroupAccessManagement";
 import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
 import { IGroups } from "@/models/groups";

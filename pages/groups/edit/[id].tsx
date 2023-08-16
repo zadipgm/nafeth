@@ -2,11 +2,9 @@ import type { ReactElement } from "react";
 
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import { IModuleTypes } from "@/models/module";
 import { GetServerSideProps } from "next";
-import { fetchModules } from "@/api/fetchapis/fetchmodules";
 import { IGroups } from "@/models/groups";
-import GroupEditForm from "@/components/SuperAdministrator/GroupAccessManagement/GroupEdit";
+import GroupEditForm from "@/components/GlobalSettings/GroupAccessManagement/GroupEdit";
 import { fetchGroups } from "@/api/fetchapis/groups";
 
 const Page: NextPageWithLayout = ({ result }: IGroups[] | any) => {

@@ -8,9 +8,16 @@ import { styled } from "styled-components";
 //   border-radius: 10px;
 //   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 // `;
-export const Table = styled.table`
+export const Table = styled.table<{ color: string }>`
   border-collapse: collapse;
   width: 100%;
+  & .MuiPagination-root{
+    margin-top:10px ;
+    .Mui-selected{
+      background-color: ${({ color }) => color};
+      color:white
+    }
+  }
 `;
 export const InputWrapper = styled.div<{ istheme: isTheme }>`
   width: 100%;

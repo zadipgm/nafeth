@@ -209,9 +209,9 @@ font-weight: 700;
   }
 }
 `;
-export const CarDetailsTitle = styled.h3`
+export const CarDetailsTitle = styled.h3<{ color: string }>`
 text-align: center;
-    background: ${({ theme }) => theme.colors.nafethBlue};
+    background: ${({ color }) => color};
     margin: 0;
     padding: 12px;
     color: #fff;

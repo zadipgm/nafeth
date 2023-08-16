@@ -1,6 +1,6 @@
 import axios from "axios";
 import { encode as base64_encode } from "base-64";
-export const createPost = async (
+export const Update = async (
   userName: string,
   userPassword: string,
   url: string,
@@ -13,7 +13,7 @@ export const createPost = async (
     company: company,
   };
   try {
-    const res = await axios.post(`https://appapi.nafeth.sa/api/${url}`, body, {
+    const res = await axios.put(`https://appapi.nafeth.sa/api/${url}`, body, {
       headers: headers,
     });
     return res;

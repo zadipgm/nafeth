@@ -257,7 +257,9 @@ const CarRent = () => {
         </CarWrapper>
         <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
           <div>
-            <CarDetailsTitle>Car Details</CarDetailsTitle>
+            <CarDetailsTitle color={colors.nafethBlue}>
+              Car Details
+            </CarDetailsTitle>
             <CarDetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
               <DetailList>
                 <DetailListItem>

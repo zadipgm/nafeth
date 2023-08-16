@@ -38,6 +38,7 @@ const Header = ({ themeToggler, theme }: IProps) => {
     Cookies.remove("userPassword");
     Cookies.remove("company");
     Cookies.remove("menu");
+    Cookies.remove("isLogin");
     router.push("/login");
   };
   return (

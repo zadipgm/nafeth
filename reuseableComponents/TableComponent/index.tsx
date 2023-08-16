@@ -12,7 +12,8 @@ import { Tooltip } from "@nextui-org/react";
 import { EyeSvg } from "@/public/icons/eyeSvg";
 import DublicateSvg from "@/public/icons/DublicateSvg";
 import { useRouter } from "next/router";
-import { Fab, IconButton } from "@mui/material";
+import { Fab, IconButton, Pagination } from "@mui/material";
+
 import AddIcon from "@mui/icons-material/Add";
 import InputComponent from "../InputField";
 import { isTheme } from "@/_helpers/getTheme";
@@ -22,6 +23,27 @@ import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
 import { fetchGroups } from "@/api/fetchapis/groups";
+import PaginationComponent from "../Pagination";
+import usePagination from "@/hooks/usePagination";
+import DrawerComponent from "../Drawer";
+import {
+  CarDetailWrapper,
+  CarDetailsTitle,
+  DetailList,
+  DetailListItem,
+  Spantext,
+  Strongtext,
+} from "@/components/CarRental/style";
+import CarRentSvg from "@/public/icons/cars";
+import CarManageSvg from "@/public/icons/carManageSvg";
+import CarMileageSvg from "@/public/icons/carMileageSvg";
+import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
+import CarPlateSvg from "@/public/icons/carPlateSvg";
+import EconomicSvg from "@/public/icons/economic";
+import CarPetrolSvg from "@/public/icons/carPetrolSvg";
+import CarExtraKmLimitSvg from "@/public/icons/carExtraKmLimitSvg";
+import { useTheme } from "styled-components";
+type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   tableData: any;
   headerValue: string[];
@@ -29,6 +51,7 @@ interface IProps {
   isDuplicate?: boolean;
   linkPageUrl?: string;
   page_color?: string;
+  sideBarTitle?: string;
 }
 const TableComponent = ({
   tableData,
@@ -37,11 +60,26 @@ const TableComponent = ({
   isDuplicate,
   linkPageUrl,
   page_color,
+  sideBarTitle,
 }: IProps) => {
-  const [search, setSearch] = React.useState(tableData);
+  const { locale } = useTheme();
+  const [page, setPage] = React.useState(1);
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  console.log(tableData);
+  const PER_PAGE = 10;
+  const dataLength = tableData?.length;
+  console.log("dataLength", dataLength);
+  const count = Math.ceil(dataLength / PER_PAGE);
+  const _DATA = usePagination(tableData, PER_PAGE);
+  const [search, setSearch] = React.useState(_DATA.currentData());
   const router = useRouter();
   const renderTableHeader = React.useCallback(() => {
-    if (tableData.length > 0) {
+    if (tableData?.length > 0) {
       return headerValue.map((key: string, index: any) => {
         return (
           <THead key={key}>
@@ -51,10 +89,12 @@ const TableComponent = ({
       });
     }
   }, []);
+
   const handleDuplicates = async (item: any) => {
     let userName = getName() as string;
     let userPassWord = getPassword() as string;
     let company = getCompany() as string;
+
     let duplicateUrl = `/settings/groups/${item.groupId}/duplicate`;
     let url = "/settings/groups";
     await fetchGroups(userName, userPassWord, duplicateUrl, company);
@@ -65,13 +105,15 @@ const TableComponent = ({
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = e.target.value;
     let keys = headerValue.map((key: any, index) => key);
-    let filteredData = tableData.filter((item: any, index: number) => {
-      return (
-        item[keys[0]].toLocaleLowerCase().includes(value) ||
-        item[keys[1]].toLocaleLowerCase().includes(value) ||
-        item[keys[2]].toLocaleLowerCase().includes(value)
-      );
-    });
+    let filteredData = _DATA
+      .currentData()
+      .filter((item: any, index: number) => {
+        return (
+          item[keys[0]].toLocaleLowerCase().includes(value) ||
+          item[keys[1]].toLocaleLowerCase().includes(value) ||
+          item[keys[2]].toLocaleLowerCase().includes(value)
+        );
+      });
     setSearch(filteredData);
   };
 
@@ -79,6 +121,17 @@ const TableComponent = ({
     router.push({
       pathname: `/${linkPageUrl}/edit/${id}`,
     });
+  };
+
+  const handleChangePagination = (event: any, value: number) => {
+    setPage(value);
+    console.log("here");
+    _DATA.jump(value);
+    setSearch(_DATA.currentData());
+  };
+  const toggleDrawer = (anchor: Anchor, open: boolean, item?: any) => {
+    setState({ ...state, [anchor]: open });
+    console.log(item);
   };
   return (
     <CommonContainer istheme={isTheme()}>
@@ -102,10 +155,10 @@ const TableComponent = ({
           classname="search-input"
         />
       </InputWrapper>
-      <Table>
+      <Table color={page_color as string}>
         <tbody>
           <TRow>{renderTableHeader()}</TRow>
-          {search.length > 0 &&
+          {search?.length > 0 &&
             search?.map((item: any, index: number) => {
               return (
                 <TRow key={index}>
@@ -114,7 +167,17 @@ const TableComponent = ({
                   })}
                   <TData>
                     <ToolTipWrapper>
-                      <Tooltip content="Details" color="invert">
+                      <Tooltip
+                        content="Details"
+                        color="invert"
+                        onClick={() =>
+                          toggleDrawer(
+                            locale === "en" ? "right" : "left",
+                            true,
+                            item
+                          )
+                        }
+                      >
                         <IconButton>
                           <EyeSvg size={20} fill={page_color} />
                         </IconButton>
@@ -158,7 +221,74 @@ const TableComponent = ({
               );
             })}
         </tbody>
+        <Pagination
+          count={count}
+          page={page}
+          className="pagination"
+          onChange={handleChangePagination}
+        />
       </Table>
+      <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
+        <div>
+          <CarDetailsTitle color={page_color as string}>
+            {sideBarTitle}
+          </CarDetailsTitle>
+          <CarDetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
+            <DetailList>
+              <DetailListItem>
+                <CarRentSvg width="30px" height="30px" />
+                <Strongtext>Daily Rent</Strongtext>
+                <Spantext>{"car_specs[0].daily_rent"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarRentSvg width="30px" height="30px" />{" "}
+                <Strongtext>Weekly Rent</Strongtext>
+                <Spantext>{"car_specs[0].weekly_rent"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarRentSvg width="30px" height="30px" />
+                <Strongtext>Monthly Rent</Strongtext>
+                <Spantext>{"car_specs[0].monthly_rent"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarManageSvg width="30px" height="30px" />
+                <Strongtext>Extra KM Price</Strongtext>
+                <Spantext>{"car_specs[0].extra_km_price"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarMileageSvg width="30px" height="30px" />
+                <Strongtext>Per Extra KM</Strongtext>
+                <Spantext>{"car_specs[0].per_extra_kM"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarInsuranceSvg width="30px" height="30px" />{" "}
+                <Strongtext>Insurance Provider</Strongtext>
+                <Spantext>{"car_specs[0].insurance_provider"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarPlateSvg width="30px" height="30px" />{" "}
+                <Strongtext>Plate Type</Strongtext>
+                <Spantext>{"car_specs[0].plate_type"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <EconomicSvg width="30px" height="30px" />
+                <Strongtext>Car Type</Strongtext>
+                <Spantext>{"car_specs[0].car_type"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarPetrolSvg width="30px" height="30px" />
+                <Strongtext>Fuel Type</Strongtext>
+                <Spantext>{"car_specs[0].fuel_type"}</Spantext>
+              </DetailListItem>
+              <DetailListItem>
+                <CarExtraKmLimitSvg width="30px" height="30px" />
+                <Strongtext>Daily KM Limit</Strongtext>
+                <Spantext>{"car_specs[0].dail_km_limit"}</Spantext>
+              </DetailListItem>
+            </DetailList>
+          </CarDetailWrapper>
+        </div>
+      </DrawerComponent>
     </CommonContainer>
   );
 };
