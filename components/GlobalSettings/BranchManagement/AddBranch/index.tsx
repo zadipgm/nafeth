@@ -12,7 +12,6 @@ import InputComponent from "@/reuseableComponents/InputField";
 import { tajeerLicense } from "@/global/fakeData";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { useRouter } from "next/router";
-import SimpleSnackbar from "@/reuseableComponents/Snackbar";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import SimpleGoogleMap from "@/reuseableComponents/map/googlemap";

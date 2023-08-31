@@ -5,7 +5,6 @@ import GroupAccessManagement from "@/components/GlobalSettings/GroupAccessManage
 import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
 import { IGroups } from "@/models/groups";
-import { fetchGroups } from "@/api/fetchapis/groups";
 import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (data: any) => {

@@ -11,7 +11,7 @@ const LangaugeButtons = ({ title_ar, title_en }: IProps) => {
   const { locale } = useTheme();
   const router = useRouter();
   const changeLocale = React.useCallback(() => {
-    if (locale === "en-US" || locale === "en") {
+    if (locale === "en") {
       router.push(`${router.asPath}`, `${router.asPath}`, {
         locale: "en",
       });

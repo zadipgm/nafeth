@@ -5,7 +5,6 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
 import { IGroups } from "@/models/groups";
 import GroupEditForm from "@/components/GlobalSettings/GroupAccessManagement/GroupEdit";
-import { fetchGroups } from "@/api/fetchapis/groups";
 import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = ({ result }: IGroups[] | any) => {
