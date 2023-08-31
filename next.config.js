@@ -16,7 +16,7 @@ const nextConfig = {
   transpilePackages: ["@mui/x-charts"],
   i18n: {
     locales: ["ar", "en"],
-    defaultLocale: "ar",
+    defaultLocale: "en",
     localeDetection: false,
   },
   compiler: {

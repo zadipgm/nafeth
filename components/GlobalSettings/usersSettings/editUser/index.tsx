@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Title } from "../../BranchManagement/style";
 import { useTheme } from "styled-components";
-import { AddUserContainer, PasswordWrapper } from "../style";
+import { Container, PasswordWrapper } from "../style";
 import {
   FormBox,
   FormBoxWrapper,
@@ -112,7 +112,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
     }
   };
   return (
-    <AddUserContainer>
+    <Container>
       <Title color={colors.darkYellow}>
         <h2>Edit User</h2>
       </Title>
@@ -325,7 +325,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </AddUserContainer>
+    </Container>
   );
 };
 export default EditUser;

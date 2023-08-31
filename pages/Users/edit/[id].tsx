@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
-import { fetchModules } from "@/api/fetchapis/fetchmodules";
+import { fetchData } from "@/api/fetchapis/fetchData";
 import { IBaseBranch, IGroup, IManager, IUser } from "@/models/userModel";
 import EditUser from "@/components/GlobalSettings/usersSettings/editUser";
 
@@ -31,25 +31,25 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchModules(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     `/settings/Users/${ctx.query.id}`,
     company as string
   );
-  const managerResponse = await fetchModules(
+  const managerResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Managers",
     company as string
   );
-  const baseBranchResponse = await fetchModules(
+  const baseBranchResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Branches",
     company as string
   );
-  const groupResponse = await fetchModules(
+  const groupResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Groups",

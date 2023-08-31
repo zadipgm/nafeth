@@ -12,12 +12,83 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.headerbgcolor};
  
 `;
+export const HeadersContainer = styled.div`
+.mobile{
+  @media (max-width: 600px) {
+    display: block;
+  }
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+.desktop{
+  @media (max-width: 600px) {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
+`
+export const BurgerMenu = styled.div`
+display:none ;
+>svg {
+  width: 50px;
+    height: 50px;
+    display: block;
+}
+@media(max-width:600px){
+  display:block ;
+}
+@media(min-width:600px) {
+  display:block ;
+}
+
+`
+export const CloseIconWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+export const LangButton = styled.a`
+text-decoration:none ;
+display: inline-block;
+padding: .75rem 1.15rem;
+border-radius: 10px;
+
+text-transform: uppercase;
+font-size: 16px;
+transition: all .6s;
+z-index: 1;
+transition:.5s ;
+cursor: pointer;
+border:none ;
+margin: 0px 11px ;
+:hover{
+background-color:#6fc5e8;
+transition:.6s;
+}
+&.mobile-lang {
+  padding: 6px 12px;
+    background: #fff;
+    color: #044783;
+    margin: 5px;
+    font-size: 16px;
+}
+`
 export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.5s;
-  padding: 0px 10px;
+  padding: 9px 0px 0px 0px;
+  &.mobile{
+    justify-content: space-between;
+    padding:6px;
+    @media(max-width:600px){
+  display:flex ;
+}
+  }
 `;
 export const LightMood = styled.div<{ color?: string }>`
   cursor: pointer;

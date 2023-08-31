@@ -25,15 +25,22 @@ interface IProps {
   state: IAnchor;
   toggleDrawer: (param1: Anchor, param2: boolean) => void;
   children: React.ReactElement;
+  width?: string;
+  open?: boolean;
 }
-const DrawerComponent = ({ state, toggleDrawer, children }: IProps) => {
+const DrawerComponent = ({
+  state,
+  toggleDrawer,
+  children,
+  width,
+  open = true,
+}: IProps) => {
   const { colors } = useTheme();
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 400 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : width }}
       role="presentation"
-      onClick={() => toggleDrawer(anchor, false)}
-      onKeyDown={() => toggleDrawer(anchor, false)}
+      onClick={() => toggleDrawer(anchor, open)}
     >
       {children}
     </Box>

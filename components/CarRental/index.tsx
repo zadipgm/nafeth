@@ -1,59 +1,54 @@
 import * as React from "react";
 import {
-  ALsaudia,
-  ButtonWrapper,
-  Car,
-  CarColor,
-  CarDetailWrapper,
-  CarDetailsTitle,
-  CarMakeModel,
-  CarMakeModelWrapper,
-  CarPlateIcon,
-  CarRentPageTitle,
-  CarSpecsWrapper,
-  CarTransmitionWrapper,
-  CarTypeIconWrapper,
-  CarWrapper,
+  DetailWrapper,
+  DetailsTitle,
   CardListWrapper,
   Container,
   DetailList,
   DetailListItem,
-  Span,
   Spantext,
-  Strong,
   Strongtext,
-  TD,
-  Table,
+  ViewsWrapper,
+  GridViewWrapper,
+  ListViewWrapper,
 } from "./style";
+import { useRouter } from "next/router";
+import AddIcon from "@mui/icons-material/Add";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import HeaderCard from "@/reuseableComponents/HeaderCards";
-import { Car_chart_data, car_specs, header_card } from "@/global/fakeData";
-import CarYearSvg from "@/public/icons/carYearSvg";
-import NumberOfRentedSvg from "@/public/icons/numberOfRentedSvg";
+import {
+  Car_chart_data,
+  header_card,
+  header_card_dashboard,
+} from "@/global/fakeData";
 import CarMileageSvg from "@/public/icons/carMileageSvg";
 import { Tooltip } from "@nextui-org/react";
-import { Button, Grow } from "@mui/material";
+import { Button, Fab, Grow } from "@mui/material";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-import IconComponent from "@/reuseableComponents/IconComponent";
-import { SearchTabsWrapper } from "../Dashboard/style";
 import InputComponent from "@/reuseableComponents/InputField";
-import FilterTabs from "@/reuseableComponents/filterTabs";
 import DrawerComponent from "@/reuseableComponents/Drawer";
-import SaLogoSvg from "@/public/icons/saLogoSvg";
 import CarPetrolSvg from "@/public/icons/carPetrolSvg";
-import { GlobalUserContext } from "@/context";
-import EconomicSvg from "@/public/icons/economic";
 import CarPlateSvg from "@/public/icons/carPlateSvg";
-import CarManagementSvg from "@/public/icons/carManagementSvg";
 import CarManageSvg from "@/public/icons/carManageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
-import CarExtraKmLimitSvg from "@/public/icons/carExtraKmLimitSvg";
 import CarRentSvg from "@/public/icons/cars";
+import { ICarModel } from "@/models/carmodel";
+import EconomicSvg from "@/public/icons/Economic";
+import { SearchBarWrapper, SearchTabsWrapper } from "../contracts/style";
+import CarListView from "./ListView";
+import CarGridView from "./gridView";
+import GridView from "@/public/icons/gridView";
+import ListView from "@/public/icons/tableView";
 type Anchor = "top" | "left" | "bottom" | "right";
-const CarRent = () => {
-  const { colors, locale } = useTheme();
-  const { menu } = React.useContext(GlobalUserContext);
+interface ICarProps {
+  cars: ICarModel;
+  page?: string;
+  title: string;
+}
+const CarRent = ({ cars, page, title }: ICarProps) => {
+  const router = useRouter();
+  const { colors, locale, isMobile } = useTheme();
   const [label, setLabel] = React.useState("sedan");
   const [state, setState] = React.useState({
     top: false,
@@ -65,262 +60,218 @@ const CarRent = () => {
   const [company, setPickup] = React.useState(false);
   const [individual, setSuv] = React.useState(false);
   const [economic, setEconomic] = React.useState(false);
-  const handleClick = (value: string) => {
-    console.log(value);
-    setLabel(value);
-    if (value === "sedan") {
-      setSedan(true);
-      setSuv(false);
-      setPickup(false);
-      setEconomic(false);
-    }
-    if (value === "suv") {
-      setSedan(false);
-      setSuv(true);
-      setPickup(false);
-      setEconomic(false);
-    }
-    if (value === "pickup") {
-      setSedan(false);
-      setSuv(false);
-      setPickup(true);
-      setEconomic(false);
-    }
-    if (value === "economic") {
-      setSedan(false);
-      setSuv(false);
-      setPickup(false);
-      setEconomic(true);
-    }
-  };
-  const toggleDrawer = (anchor: Anchor, open: boolean) => {
+  const [carDetails, setCarDetails] = React.useState<any>();
+  const [show, setShow] = React.useState(8);
+  const [list, setList] = React.useState(true);
+  const [grid, setGrid] = React.useState(false);
+  const toggleDrawer = (anchor: Anchor, open: boolean, car?: any) => {
+    console.log("toggleDrawer", car);
+    setCarDetails(car);
     setState({ ...state, [anchor]: open });
     console.log(state);
   };
+  const handleEdit = (id: number) => {
+    router.push({
+      pathname: `/cars/edit/${id}`,
+    });
+  };
 
+  const handleView = (val: string) => {
+    if (val === "grid") {
+      setGrid(true);
+      setList(false);
+    }
+    if (val === "list") {
+      setGrid(false);
+      setList(true);
+    }
+  };
   return (
-    <Container>
-      <HeaderCard
-        title="Rent a Car"
-        card={header_card}
-        chart_data={Car_chart_data}
-      />
-      <CardListWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-        <CarRentPageTitle>Available Cars</CarRentPageTitle>
-        <SearchTabsWrapper
-          bcolor={isTheme()?.bcolor}
-          color={isTheme()?.inputColor}
+    <>
+      <Container>
+        {page === "dashboard" ? (
+          <HeaderCard
+            title={"Welcome Mhammad Zeshan"}
+            card={header_card_dashboard}
+            chart_data={Car_chart_data}
+            chartTitle="Base Branch"
+            page="dashboard"
+          />
+        ) : (
+          <HeaderCard
+            title={"Car Management"}
+            card={header_card}
+            chart_data={Car_chart_data}
+            chartTitle="Car summary"
+            page="car-management"
+          />
+        )}
+        <CardListWrapper
+          bcolor={isTheme().bcolor}
+          color={isTheme().color}
+          className="car-management"
         >
-          {/* // contract tabs */}
-          <FilterTabs
-            title={["sedan", "suv", "pick up", "economic"]}
-            handleClick={handleClick}
-            label={label}
-            classname="car-tabs"
-          />
-          <InputComponent
-            type="search"
-            placeholder="Search car by plate number or car model"
-            label="Search Cars"
-            // onChange={(e) => handleChange(e)}
-            classname="search-input-car"
-          />
-        </SearchTabsWrapper>
-        <CarWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-          {car_specs.map((car, index) => {
-            return (
-              <Grow
-                in={true}
-                style={{ transformOrigin: "0 0 0" }}
-                {...(true ? { timeout: 2000 } : {})}
-                key={index}
-              >
-                <Car
-                  bcolor={isTheme().cardcolor}
-                  color={isTheme().color}
-                  key={index}
+          <SearchTabsWrapper
+            bcolor={isTheme()?.bcolor}
+            color={isTheme()?.inputColor}
+          >
+            <ViewsWrapper>
+              <Tooltip content={"Grid View"} color={"success"}>
+                <GridViewWrapper
+                  onClick={() => handleView("grid")}
+                  className={grid ? "active" : ""}
                 >
-                  <CarMakeModelWrapper>
-                    <CarMakeModel color={isTheme().color}>
-                      <IconComponent
-                        width="30px"
-                        height="30px"
-                        fill={isTheme().color}
-                        icon={car.icon}
-                      />{" "}
-                      <div>{car.make_model}</div>
-                    </CarMakeModel>
-                    <CarColor color={car.color}></CarColor>
-                  </CarMakeModelWrapper>
-                  <Strong color={isTheme().color}>{car.rent_per_day}</Strong>
-                  <Span color={isTheme().color}>/day</Span>
-                  <CarTypeIconWrapper>
-                    <div>
-                      <IconComponent
-                        width="100px"
-                        height="100"
-                        fill={isTheme().color}
-                        icon={car.car_type}
-                      />
-                    </div>
-                    <Table color={isTheme().color}>
-                      <tbody>
-                        <tr>
-                          <TD className="border-bottom">١٣٥٧</TD>
-                          <TD className="border-bottom">اات</TD>
-                          <TD className="alsaudia" color={isTheme().color}>
-                            <SaLogoSvg fill={isTheme().color} />
-                            <ALsaudia color={isTheme().color}>
-                              السعودية
-                            </ALsaudia>
-                          </TD>
-                        </tr>
-                        <tr>
-                          <TD>1357</TD>
-                          <TD>caa</TD>
-                          <TD className="KSA">
-                            <p>
-                              K<br></br>S<br></br>A
-                            </p>
-                          </TD>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </CarTypeIconWrapper>
-                  <CarSpecsWrapper>
-                    <CarTransmitionWrapper>
-                      <Tooltip content="Car Year" color={"warning"}>
-                        <CarYearSvg
-                          width="25px"
-                          height="25px"
-                          fill={isTheme().color}
-                        />
-                        <p>{car.year}</p>
-                      </Tooltip>
-                    </CarTransmitionWrapper>{" "}
-                    <CarTransmitionWrapper>
-                      <Tooltip content="Fuel Type" color={"success"}>
-                        <CarPetrolSvg
-                          width="25px"
-                          height="25px"
-                          fill={isTheme().color}
-                        />
-                        <p>{car.fuel_type}</p>
-                      </Tooltip>
-                    </CarTransmitionWrapper>{" "}
-                    <CarTransmitionWrapper>
-                      <Tooltip content="Time Rented" color={"primary"}>
-                        <NumberOfRentedSvg
-                          width="25px"
-                          height="25px"
-                          fill={isTheme().color}
-                        />
-                        <p>{car.rented_times}</p>
-                      </Tooltip>
-                    </CarTransmitionWrapper>{" "}
-                    <CarTransmitionWrapper>
-                      <Tooltip content="Mileage" color={"secondary"}>
-                        <CarMileageSvg
-                          width="25px"
-                          height="25px"
-                          fill={isTheme().color}
-                        />
-                        <p>{car.mileage}</p>
-                      </Tooltip>
-                    </CarTransmitionWrapper>
-                  </CarSpecsWrapper>
-                  <ButtonWrapper>
-                    <Button variant="outlined" className="detail">
-                      Rent
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        toggleDrawer(locale === "en" ? "right" : "left", true)
-                      }
-                      className="detail"
-                      variant="outlined"
-                      endIcon={
-                        <ArrowCircleSvg
-                          width="15px"
-                          height="15px"
-                          fill={colors.nafethBlue}
-                        />
-                      }
-                    >
-                      Details
-                    </Button>
-                  </ButtonWrapper>
-                </Car>
-              </Grow>
-            );
-          })}
-        </CarWrapper>
-        <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
-          <div>
-            <CarDetailsTitle color={colors.nafethBlue}>
-              Car Details
-            </CarDetailsTitle>
-            <CarDetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
-              <DetailList>
-                <DetailListItem>
-                  <CarRentSvg width="30px" height="30px" />
-                  <Strongtext>Daily Rent</Strongtext>
-                  <Spantext>{car_specs[0].daily_rent}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarRentSvg width="30px" height="30px" />{" "}
-                  <Strongtext>Weekly Rent</Strongtext>
-                  <Spantext>{car_specs[0].weekly_rent}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarRentSvg width="30px" height="30px" />
-                  <Strongtext>Monthly Rent</Strongtext>
-                  <Spantext>{car_specs[0].monthly_rent}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarManageSvg width="30px" height="30px" />
-                  <Strongtext>Extra KM Price</Strongtext>
-                  <Spantext>{car_specs[0].extra_km_price}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarMileageSvg width="30px" height="30px" />
-                  <Strongtext>Per Extra KM</Strongtext>
-                  <Spantext>{car_specs[0].per_extra_kM}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarInsuranceSvg width="30px" height="30px" />{" "}
-                  <Strongtext>Insurance Provider</Strongtext>
-                  <Spantext>{car_specs[0].insurance_provider}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarPlateSvg width="30px" height="30px" />{" "}
-                  <Strongtext>Plate Type</Strongtext>
-                  <Spantext>{car_specs[0].plate_type}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <EconomicSvg width="30px" height="30px" />
-                  <Strongtext>Car Type</Strongtext>
-                  <Spantext>{car_specs[0].car_type}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarPetrolSvg width="30px" height="30px" />
-                  <Strongtext>Fuel Type</Strongtext>
-                  <Spantext>{car_specs[0].fuel_type}</Spantext>
-                </DetailListItem>
-                <DetailListItem>
-                  <CarExtraKmLimitSvg width="30px" height="30px" />
-                  <Strongtext>Daily KM Limit</Strongtext>
-                  <Spantext>{car_specs[0].dail_km_limit}</Spantext>
-                </DetailListItem>
-                <Button variant="contained" className="rent-button">
-                  Rent
-                </Button>
-              </DetailList>
-            </CarDetailWrapper>
-          </div>
-        </DrawerComponent>
-      </CardListWrapper>
-    </Container>
+                  <GridView
+                    width="35px"
+                    height="35px"
+                    fill={colors.nafethBlue}
+                  />
+                </GridViewWrapper>
+              </Tooltip>
+              <Tooltip content={"List View"} color={"success"}>
+                <ListViewWrapper
+                  onClick={() => handleView("list")}
+                  className={list ? "active" : ""}
+                >
+                  <ListView
+                    width="40px"
+                    height="40px"
+                    fill={colors.nafethBlue}
+                  />
+                </ListViewWrapper>
+              </Tooltip>
+            </ViewsWrapper>
+            <SearchBarWrapper
+              bcolor={isTheme()?.bcolor}
+              color={isTheme()?.inputColor}
+              className={page}
+            >
+              <Fab
+                aria-label={"add"}
+                style={{
+                  margin: "12px 0px",
+                  backgroundColor: `${colors.nafethBlue}`,
+                  color: "white",
+                  width: `${isMobile ? "100%" : "17%"}`,
+                  borderRadius: "8px",
+                }}
+                onClick={() => router.push(`/cars/add` as string)}
+              >
+                Add Car
+                <AddIcon />
+              </Fab>
+              <InputComponent
+                type="search"
+                placeholder="Search car by plate number or car model"
+                label="Search Cars by plate number or car model"
+                classname="search-input-car"
+              />
+            </SearchBarWrapper>
+          </SearchTabsWrapper>
+          {list && (
+            <CarListView
+              cars={cars}
+              page={page}
+              show={show}
+              handleEdit={handleEdit}
+              toggleDrawer={toggleDrawer}
+            />
+          )}
+          {grid && (
+            <CarGridView
+              cars={cars}
+              page={page}
+              show={show}
+              handleEdit={handleEdit}
+              toggleDrawer={toggleDrawer}
+            />
+          )}
+          <DrawerComponent
+            state={state}
+            toggleDrawer={toggleDrawer}
+            width="400px"
+          >
+            <div>
+              <DetailsTitle color={colors.nafethBlue}>Car Details</DetailsTitle>
+              <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
+                <DetailList>
+                  <DetailListItem>
+                    <CarRentSvg width="30px" height="30px" />
+                    <Strongtext>Daily Rent</Strongtext>
+                    <Spantext>{carDetails?.dailyRent}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarRentSvg width="30px" height="30px" />{" "}
+                    <Strongtext>Weekly Rent</Strongtext>
+                    <Spantext>{carDetails?.weeklyRent}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarRentSvg width="30px" height="30px" />
+                    <Strongtext>Monthly Rent</Strongtext>
+                    <Spantext>{carDetails?.monthlyRent}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarManageSvg width="30px" height="30px" />
+                    <Strongtext>Daily KM Limit</Strongtext>
+                    <Spantext>{carDetails?.dailyKMlimit}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarMileageSvg width="30px" height="30px" />
+                    <Strongtext>Per Extra KM</Strongtext>
+                    <Spantext>{carDetails?.perExtraKM}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarInsuranceSvg width="30px" height="30px" />{" "}
+                    <Strongtext>Insurance Provider</Strongtext>
+                    <Spantext>{carDetails?.insurance.name_en}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarPlateSvg width="30px" height="30px" />{" "}
+                    <Strongtext>Plate Type</Strongtext>
+                    <Spantext>{carDetails?.plateType.name_en}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <EconomicSvg width="30px" height="30px" />
+                    <Strongtext>Car Type</Strongtext>
+                    <Spantext>{carDetails?.carType.name_en}</Spantext>
+                  </DetailListItem>
+                  <DetailListItem>
+                    <CarPetrolSvg width="30px" height="30px" />
+                    <Strongtext>Fuel Type</Strongtext>
+                    <Spantext>{carDetails?.fuelType.name_en}</Spantext>
+                  </DetailListItem>
+                  <Button
+                    variant="contained"
+                    className="rent-button"
+                    onClick={() => router.push("/cars/rent/")}
+                  >
+                    Rent
+                  </Button>
+                </DetailList>
+              </DetailWrapper>
+            </div>
+          </DrawerComponent>
+          {show === cars.result.length ? (
+            ""
+          ) : (
+            <Button
+              variant={"contained"}
+              onClick={() => setShow(show + 4)}
+              className="load-more"
+              endIcon={
+                <ArrowCircleSvg
+                  width="15px"
+                  height="15px"
+                  fill={colors.white}
+                />
+              }
+            >
+              View more
+            </Button>
+          )}
+        </CardListWrapper>
+      </Container>
+    </>
   );
 };
 export default CarRent;

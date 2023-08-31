@@ -25,6 +25,10 @@ export const InputWrapper = styled.div<{ istheme: isTheme }>`
   justify-content: flex-start;
   align-items: center;
   gap: 12px;
+  &.customer-page{
+
+    padding: 0px 20px;
+  }
   & .search-input {
     width: 100%;
   }

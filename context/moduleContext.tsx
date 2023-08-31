@@ -1,4 +1,4 @@
-import { fetchModules } from "@/api/fetchapis/fetchmodules";
+import { fetchData } from "@/api/fetchapis/fetchData";
 import { IModuleTypes } from "@/models/module";
 import Cookies from "js-cookie";
 import React, { createContext } from "react";
@@ -41,7 +41,7 @@ export const ModuleProvider = ({ children }: any) => {
   const fetch = async () => {
     // debugger;
     setLoading(true);
-    await fetchModules(userName, userPassword, "/settings/modules", company)
+    await fetchData(userName, userPassword, "/settings/modules", company)
       .then((modules) => setMenu(modules))
       .catch((err) => console.log(err));
     setLoading(false);

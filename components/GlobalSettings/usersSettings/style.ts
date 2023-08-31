@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const AddUserContainer = styled.div`
+export const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
 `;

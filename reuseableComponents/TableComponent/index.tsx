@@ -18,17 +18,14 @@ import AddIcon from "@mui/icons-material/Add";
 import InputComponent from "../InputField";
 import { isTheme } from "@/_helpers/getTheme";
 import { CommonContainer } from "@/PageLayout/styled.components";
-import { IGroups } from "@/models/groups";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
-import { fetchGroups } from "@/api/fetchapis/groups";
-import PaginationComponent from "../Pagination";
 import usePagination from "@/hooks/usePagination";
 import DrawerComponent from "../Drawer";
 import {
-  CarDetailWrapper,
-  CarDetailsTitle,
+  DetailWrapper,
+  DetailsTitle,
   DetailList,
   DetailListItem,
   Spantext,
@@ -39,10 +36,12 @@ import CarManageSvg from "@/public/icons/carManageSvg";
 import CarMileageSvg from "@/public/icons/carMileageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
 import CarPlateSvg from "@/public/icons/carPlateSvg";
-import EconomicSvg from "@/public/icons/economic";
+import EconomicSvg from "@/public/icons/Economic";
 import CarPetrolSvg from "@/public/icons/carPetrolSvg";
 import CarExtraKmLimitSvg from "@/public/icons/carExtraKmLimitSvg";
 import { useTheme } from "styled-components";
+import { fetchData } from "@/api/fetchapis/fetchData";
+import FilterTabs from "../filterTabs";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   tableData: any;
@@ -52,6 +51,10 @@ interface IProps {
   linkPageUrl?: string;
   page_color?: string;
   sideBarTitle?: string;
+  size?: string;
+  isEditAble?: boolean;
+  showAddButton?: boolean;
+  addButtonText?: string;
 }
 const TableComponent = ({
   tableData,
@@ -61,6 +64,10 @@ const TableComponent = ({
   linkPageUrl,
   page_color,
   sideBarTitle,
+  size,
+  isEditAble,
+  showAddButton,
+  addButtonText,
 }: IProps) => {
   const { locale } = useTheme();
   const [page, setPage] = React.useState(1);
@@ -73,11 +80,35 @@ const TableComponent = ({
   console.log(tableData);
   const PER_PAGE = 10;
   const dataLength = tableData?.length;
-  console.log("dataLength", dataLength);
   const count = Math.ceil(dataLength / PER_PAGE);
   const _DATA = usePagination(tableData, PER_PAGE);
   const [search, setSearch] = React.useState(_DATA.currentData());
+  const [drawerData, setDrawerData] = React.useState<any>();
   const router = useRouter();
+  const [label, setLabel] = React.useState("Payables");
+  const [Payables, setPayables] = React.useState(true);
+  const [Receivables, setReceivables] = React.useState(false);
+  const [Invoice, setInvoice] = React.useState(false);
+
+  const handleClick = (value: string) => {
+    console.log(value);
+    setLabel(value);
+    if (value === "Payables") {
+      setPayables(true);
+      setInvoice(false);
+      setReceivables(false);
+    }
+    if (value === "Receivables") {
+      setPayables(false);
+      setInvoice(false);
+      setReceivables(true);
+    }
+    if (value === "Tax Invoice") {
+      setPayables(false);
+      setInvoice(true);
+      setReceivables(false);
+    }
+  };
   const renderTableHeader = React.useCallback(() => {
     if (tableData?.length > 0) {
       return headerValue.map((key: string, index: any) => {
@@ -97,8 +128,8 @@ const TableComponent = ({
 
     let duplicateUrl = `/settings/groups/${item.groupId}/duplicate`;
     let url = "/settings/groups";
-    await fetchGroups(userName, userPassWord, duplicateUrl, company);
-    const res = await fetchGroups(userName, userPassWord, url, company);
+    await fetchData(userName, userPassWord, duplicateUrl, company);
+    const res = await fetchData(userName, userPassWord, url, company);
     setSearch(res.result);
   };
 
@@ -130,29 +161,40 @@ const TableComponent = ({
     setSearch(_DATA.currentData());
   };
   const toggleDrawer = (anchor: Anchor, open: boolean, item?: any) => {
+    setDrawerData(item);
     setState({ ...state, [anchor]: open });
-    console.log(item);
   };
+  const filters = ["Payables", "Receivables", "Tax Invoice"];
   return (
     <CommonContainer istheme={isTheme()}>
       <InputWrapper istheme={isTheme()}>
-        <Fab
-          aria-label={"add"}
-          style={{
-            margin: "12px 0px",
-            backgroundColor: `${page_color}`,
-            color: "white",
-          }}
-          onClick={() => router.push(`/${linkPageUrl}/add` as string)}
-        >
-          <AddIcon />
-        </Fab>
+        <FilterTabs
+          title={filters}
+          handleClick={handleClick}
+          label={label}
+          classname={"car-tabs"}
+        />
+        {showAddButton && (
+          <Fab
+            aria-label={"add"}
+            style={{
+              margin: "12px 0px",
+              backgroundColor: `${page_color}`,
+              color: "white",
+              width: "12%",
+              borderRadius: "8px",
+            }}
+            onClick={() => router.push(`/${linkPageUrl}/add` as string)}
+          >
+            {addButtonText} <AddIcon />
+          </Fab>
+        )}
         <InputComponent
           type="search"
-          placeholder="Search branch"
-          label="Search branch"
+          placeholder="Search "
+          label="Search "
           onChange={(e) => handleChange(e)}
-          classname="search-input"
+          classname="search-input-payment"
         />
       </InputWrapper>
       <Table color={page_color as string}>
@@ -197,17 +239,19 @@ const TableComponent = ({
                           </IconButton>
                         </Tooltip>
                       )}
-                      <Tooltip
-                        content="Edit"
-                        color="primary"
-                        onClick={() =>
-                          hanldeEdit(item.id ? item.id : item.groupId)
-                        }
-                      >
-                        <IconButton>
-                          <EditSvg size={20} fill={"#0072F5"} />
-                        </IconButton>
-                      </Tooltip>
+                      {isEditAble && (
+                        <Tooltip
+                          content="Edit"
+                          color="primary"
+                          onClick={() =>
+                            hanldeEdit(item.id ? item.id : item.groupId)
+                          }
+                        >
+                          <IconButton>
+                            <EditSvg size={20} fill={"#0072F5"} />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       {isDeleteAble && (
                         <Tooltip content="Delete" color="error">
                           <IconButton>
@@ -228,67 +272,41 @@ const TableComponent = ({
           onChange={handleChangePagination}
         />
       </Table>
-      <DrawerComponent state={state} toggleDrawer={toggleDrawer}>
-        <div>
-          <CarDetailsTitle color={page_color as string}>
-            {sideBarTitle}
-          </CarDetailsTitle>
-          <CarDetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
-            <DetailList>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />
-                <Strongtext>Daily Rent</Strongtext>
-                <Spantext>{"car_specs[0].daily_rent"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />{" "}
-                <Strongtext>Weekly Rent</Strongtext>
-                <Spantext>{"car_specs[0].weekly_rent"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarRentSvg width="30px" height="30px" />
-                <Strongtext>Monthly Rent</Strongtext>
-                <Spantext>{"car_specs[0].monthly_rent"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarManageSvg width="30px" height="30px" />
-                <Strongtext>Extra KM Price</Strongtext>
-                <Spantext>{"car_specs[0].extra_km_price"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarMileageSvg width="30px" height="30px" />
-                <Strongtext>Per Extra KM</Strongtext>
-                <Spantext>{"car_specs[0].per_extra_kM"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarInsuranceSvg width="30px" height="30px" />{" "}
-                <Strongtext>Insurance Provider</Strongtext>
-                <Spantext>{"car_specs[0].insurance_provider"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarPlateSvg width="30px" height="30px" />{" "}
-                <Strongtext>Plate Type</Strongtext>
-                <Spantext>{"car_specs[0].plate_type"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <EconomicSvg width="30px" height="30px" />
-                <Strongtext>Car Type</Strongtext>
-                <Spantext>{"car_specs[0].car_type"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarPetrolSvg width="30px" height="30px" />
-                <Strongtext>Fuel Type</Strongtext>
-                <Spantext>{"car_specs[0].fuel_type"}</Spantext>
-              </DetailListItem>
-              <DetailListItem>
-                <CarExtraKmLimitSvg width="30px" height="30px" />
-                <Strongtext>Daily KM Limit</Strongtext>
-                <Spantext>{"car_specs[0].dail_km_limit"}</Spantext>
-              </DetailListItem>
-            </DetailList>
-          </CarDetailWrapper>
-        </div>
-      </DrawerComponent>
+      {state.right && (
+        <DrawerComponent state={state} toggleDrawer={toggleDrawer} width={size}>
+          <div>
+            <DetailsTitle color={page_color as string}>
+              {sideBarTitle}
+            </DetailsTitle>
+            <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
+              {drawerData && (
+                <DetailList>
+                  {Object.keys(search[0]).map((key: string, i) => {
+                    console.log(
+                      "here is key: " + JSON.stringify(drawerData).split("{")
+                    );
+
+                    return key === "city" ||
+                      key === "country" ||
+                      key === "region" ||
+                      key === "baseBranch" ||
+                      key === "group" ||
+                      key === "manager" ||
+                      key === "menu" ? (
+                      ""
+                    ) : (
+                      <DetailListItem>
+                        <Strongtext>{key}</Strongtext>
+                        <Spantext>{drawerData[key]}</Spantext>
+                      </DetailListItem>
+                    );
+                  })}
+                </DetailList>
+              )}
+            </DetailWrapper>
+          </div>
+        </DrawerComponent>
+      )}
     </CommonContainer>
   );
 };

@@ -6,6 +6,7 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
 import { IGroups } from "@/models/groups";
 import { fetchGroups } from "@/api/fetchapis/groups";
+import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (data: any) => {
   return <GroupAccessManagement data={data} />;
@@ -21,7 +22,7 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchGroups(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     "/settings/groups",

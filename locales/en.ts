@@ -4,7 +4,11 @@ const english = {
   tajeer: "The car rental sector remains a vital and essential sector. So we introduced Tajeer. An easy-to-access platform that helps you systematize car renting operations and issue unified rental contracts to preserve all relevant parties' rights.",
   copyRights: "© 2008 - 2023 Information Zad Group, All Rights Reserved.",
   forgotpassword: "Forgot Password?",
-
+  pagenotfound: {
+    message: " Sorry... You are unable to access this page",
+    description:
+      "The page you are trying to access no longer exits, is unavailable due to technical issues, or you have entered the wrong link.",
+  },
 }
 
 

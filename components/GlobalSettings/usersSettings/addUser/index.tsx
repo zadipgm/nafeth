@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Title } from "../../BranchManagement/style";
 import { useTheme } from "styled-components";
-import { AddUserContainer, PasswordWrapper } from "../style";
+import { Container, PasswordWrapper } from "../style";
 import {
   FormBox,
   FormBoxWrapper,
@@ -104,7 +104,7 @@ const AddUser = ({ manager, group, baseBranch }: IProps) => {
     }
   };
   return (
-    <AddUserContainer>
+    <Container>
       <Title color={colors.darkYellow}>
         <h2>Add New User</h2>
       </Title>
@@ -320,7 +320,7 @@ const AddUser = ({ manager, group, baseBranch }: IProps) => {
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </AddUserContainer>
+    </Container>
   );
 };
 export default AddUser;

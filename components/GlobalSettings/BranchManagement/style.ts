@@ -18,5 +18,10 @@ export const Title = styled.div<{ color: string }>`
   border-top-left-radius: 8px;
   > h2 {
     font-size: 16px;
+    letter-spacing: 1.5px;
+  }
+  > h3 {
+    font-size: 16px;
+    letter-spacing: 1.5px;
   }
 `;

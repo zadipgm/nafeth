@@ -6,6 +6,9 @@ display: flex;
     &.branch-switch{
         width: 50%;
     }
+    &.branch-switch{
+        width:32%;
+    }
     &.user-switch{
         width: 100%;
             height: 56px;

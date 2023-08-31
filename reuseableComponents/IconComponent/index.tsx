@@ -6,13 +6,20 @@ interface IProps {
   fill?: string;
   width?: string;
   height?: string;
+  stroke?: string;
 }
-const IconComponent: React.FC<IProps> = ({ icon, fill, width, height }) => {
+const IconComponent: React.FC<IProps> = ({
+  icon,
+  fill,
+  width,
+  height,
+  stroke,
+}) => {
   const Icon: React.ComponentType<{
     fill: string;
     width: string;
     height: string;
-    classname?: string;
+    stroke?: string;
   }> = dynamic(() =>
     import(`../../public/icons/${icon ?? ""}`).then((mod) => {
       return mod.default;
@@ -24,6 +31,7 @@ const IconComponent: React.FC<IProps> = ({ icon, fill, width, height }) => {
         fill={fill as string}
         width={width as string}
         height={height as string}
+        stroke={stroke}
       />
     </Wrapper>
   );

@@ -154,6 +154,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                     placeholder="12665"
                     defaultValue={national_addressValues.zipCode1}
                     name="zipCode1"
+                    classname="zip-code"
                     onChange={(e) => onChangeHandler(e)}
                   />
                   <InputComponent
@@ -161,6 +162,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                     placeholder="12665"
                     defaultValue={national_addressValues.zipCode2}
                     name="zipCode2"
+                    classname="zip-code"
                     onChange={(e) => onChangeHandler(e)}
                   />
                 </ZipCode>

@@ -4,7 +4,7 @@ import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import { IModuleTypes } from "@/models/module";
 import { GetServerSideProps } from "next";
-import { fetchModules } from "@/api/fetchapis/fetchmodules";
+import { fetchData } from "@/api/fetchapis/fetchData";
 import GroupAddForm from "@/components/GlobalSettings/GroupAccessManagement/GroupAdd";
 
 const Page: NextPageWithLayout = ({ result }: any) => {
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchModules(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     "/settings/modules",

@@ -3,9 +3,9 @@ import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import AddUser from "@/components/GlobalSettings/usersSettings/addUser";
-import { fetchModules } from "@/api/fetchapis/fetchmodules";
 import { IBaseBranch, IGroup, IManager } from "@/models/userModel";
 import { GetServerSideProps } from "next";
+import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
@@ -30,19 +30,19 @@ export const getServerSideProps: GetServerSideProps<{
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
 
-  const managerResponse = await fetchModules(
+  const managerResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Managers",
     company as string
   );
-  const baseBranchResponse = await fetchModules(
+  const baseBranchResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Branches",
     company as string
   );
-  const groupResponse = await fetchModules(
+  const groupResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/Groups",

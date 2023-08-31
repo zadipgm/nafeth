@@ -4,7 +4,7 @@ import BranchManagmentScreen from "@/components/GlobalSettings/BranchManagement"
 import { GetServerSideProps } from "next";
 import { NextPageWithLayout } from "../_app";
 import { IBranchModel } from "@/models/branch";
-import { fetchBranches } from "@/api/fetchapis/fetchBranches";
+import { fetchData } from "@/api/fetchapis/fetchData";
 const Page: NextPageWithLayout = (branches: any) => {
   return <BranchManagmentScreen branches={branches} />;
 };
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchBranches(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     "/settings/branches",

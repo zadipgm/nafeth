@@ -161,18 +161,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                     ))}
                   </TextField>
                 </ZipCode>
-                {/* <ZipCode>
-                  <InputComponent
-                    label="Owner ID"
-                    placeholder="2529283364"
-                    classname="owner-id"
-                  />
-                  <InputComponent
-                    label="Version Number"
-                    placeholder="3"
-                    classname="version-number"
-                  />
-                </ZipCode> */}
                 <InputComponent
                   label="Maximum km adjustment"
                   placeholder="10"
@@ -242,17 +230,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   name="taxNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                {/* <InputComponent
-                  label="Naql Authority License"
-                  placeholder="1234542"
-                  value={""}
-                /> */}
-
-                {/* <SwitchesComponent
-                  title="TAMM Authorization Mandatory"
-                  titlewidth="70%"
-                  contentwidth="30%"
-                /> */}
               </FormBox>
             </FormBoxWrapper>
 
@@ -269,6 +246,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   defaultValue={customValues.terms_en}
                   rows={3}
                   onChange={(e) => onChangeHandler(e)}
+                  classname="group-edit-form-description"
                 />
                 <InputComponent
                   label="الوصف العربي"
@@ -278,6 +256,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   defaultValue={customValues.terms_ar}
                   rows={3}
                   type="textarea"
+                  classname="group-edit-form-description"
                   onChange={(e) => onChangeHandler(e)}
                 />
               </FormBox>
