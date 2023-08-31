@@ -4,10 +4,10 @@ import { ThemeProvider } from "styled-components";
 import { Children, LayoutContainer, Wrapper } from "./styled.components";
 import { darkTheme, lightTheme } from "../global/theme";
 import SideNavBar from "@/components/SideNavBar";
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
 import { LoginProvider } from "@/context";
+import Header from "@/components/header";
 interface IProps {
   children: ReactElement;
 }

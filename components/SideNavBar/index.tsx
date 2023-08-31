@@ -9,23 +9,25 @@ import { GlobalUserContext } from "@/context";
 
 const SideNavBar = () => {
   const { menu } = React.useContext(GlobalUserContext);
-  const { colors }: any = useTheme();
+  const { colors, isMobile } = useTheme();
 
   return (
-    <Container>
-      <SideBar>
-        <Profile />
-        <SideIconWrapper>
-          <DashboardSvg
-            fill={colors.pageTextColor}
-            width="23px"
-            height="23px"
-          />
-          <Link href="/dashboard">{"Dashboard"}</Link>
-        </SideIconWrapper>
-        <SideBarAccordions sideBarMenuData={menu.result} />
-      </SideBar>
-    </Container>
+    <>
+      <Container className="desktop">
+        <SideBar>
+          <Profile />
+          <SideIconWrapper>
+            <DashboardSvg
+              fill={colors.pageTextColor}
+              width="23px"
+              height="23px"
+            />
+            <Link href="/">{"Dashboard"}</Link>
+          </SideIconWrapper>
+          <SideBarAccordions sideBarMenuData={menu.result} />
+        </SideBar>
+      </Container>
+    </>
   );
 };
 export default SideNavBar;

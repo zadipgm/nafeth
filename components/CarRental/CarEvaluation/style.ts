@@ -2,6 +2,9 @@ import { styled } from "styled-components";
 
 export const EvaluationContainer = styled.div`
   width: 50%;
+    @media (max-width: 600px) {
+ width: 100%;
+}
 `;
 export const EvaluationWrapper = styled.div`
   display: flex;
@@ -15,6 +18,9 @@ export const TextWrapper = styled.div`
 `;
 export const EvaluationSubmit = styled.input`
   width: 250px;
+    @media (max-width: 600px) {
+ width: 100%;
+}
   padding: 11px;
   margin: 7px 0px;
   border-radius: 5px;
@@ -30,8 +36,8 @@ export const EvaluationSubmit = styled.input`
   }
 `;
 export const InputEvaluationWrapper = styled.div<{
-    bcolor?: string;
-    color?: string;
+  bcolor?: string;
+  color?: string;
 }>`
   & .evaluation-input {
     width: 100%;

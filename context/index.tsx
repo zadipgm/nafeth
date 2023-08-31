@@ -1,9 +1,5 @@
-import { handleLogin } from "@/api/login";
 import React, { createContext } from "react";
-import { encode as base64_encode } from "base-64";
-import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { IGroups } from "@/models/groups";
 // Global menu context
 interface result {
   name_en: string;

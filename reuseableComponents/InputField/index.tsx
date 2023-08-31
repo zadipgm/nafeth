@@ -1,5 +1,6 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
+import { Container } from "./style";
 interface IProps {
   label?: string;
   placeholder?: string;
@@ -12,6 +13,7 @@ interface IProps {
   rows?: number;
   name?: string;
   onChange?: (e: any) => void;
+  onBlur?: (e: any) => void;
   required?: boolean;
   error?: boolean;
   defaultValue?: string | number;
@@ -28,12 +30,13 @@ const InputComponent = ({
   rows,
   name = "text",
   onChange,
+  onBlur,
   required,
   error = false,
   defaultValue,
 }: IProps) => {
   return (
-    <>
+    <Container className={classname}>
       <TextField
         className={classname}
         id="outlined-basic"
@@ -46,13 +49,20 @@ const InputComponent = ({
         helperText={helperText}
         multiline={multiline}
         rows={rows}
+        onBlur={onBlur}
         onChange={onChange}
         name={name}
+        InputProps={{
+          inputProps: {
+            max: 1,
+            min: 1,
+          },
+        }}
         required={required}
         error={error}
         defaultValue={defaultValue}
       />
-    </>
+    </Container>
   );
 };
 export default InputComponent;

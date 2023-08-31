@@ -111,6 +111,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   placeholder="c49fda9f"
                   defaultValue={tajeer_portal.tajeerAppId}
                   name="tajeerAppId"
+                  classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputComponent
@@ -118,6 +119,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   placeholder="0a0ecdd133cbda8414c36b1d9f8f8f51"
                   defaultValue={tajeer_portal.tajeerAppKey}
                   name="tajeerAppKey"
+                  classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputComponent
@@ -125,6 +127,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   placeholder="YXBpVXNlcjEwNjYzNzk6RXZpbHNpZGUwMDch"
                   defaultValue={tajeer_portal.tajeerUserCreditials}
                   name="tajeerUserCreditials"
+                  classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
               </FormBox>
@@ -136,6 +139,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   placeholder="1234542"
                   defaultValue={tajeer_portal.tajeerAuthorityLicense}
                   name="tajeerAuthorityLicense"
+                  classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
               </FormBox>

@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import { IGroups } from "@/models/groups";
 import GroupEditForm from "@/components/GlobalSettings/GroupAccessManagement/GroupEdit";
 import { fetchGroups } from "@/api/fetchapis/groups";
+import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = ({ result }: IGroups[] | any) => {
   return <GroupEditForm title={"Group Access Edit"} result={result} />;
@@ -22,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchGroups(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     `/settings/groups/${ctx.query.id}`,

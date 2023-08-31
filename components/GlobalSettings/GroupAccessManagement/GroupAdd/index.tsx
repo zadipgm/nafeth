@@ -132,12 +132,14 @@ export default function GroupAddForm({ title, data }: IProps) {
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
+                  classname="group-edit-form"
                 />
                 <InputComponent
                   label="اسم عربي"
                   placeholder="زيشان"
                   onChange={hanldeFormData}
                   name="name_ar"
+                  classname="group-edit-form"
                 />
               </FormBox>
             </FormBoxWrapper>
@@ -152,6 +154,7 @@ export default function GroupAddForm({ title, data }: IProps) {
                   onChange={hanldeFormData}
                   name="description_en"
                   multiline
+                  classname="group-edit-form-description"
                   rows={4}
                 />
                 <InputComponent
@@ -161,6 +164,7 @@ export default function GroupAddForm({ title, data }: IProps) {
                   name="description_ar"
                   multiline
                   rows={4}
+                  classname="group-edit-form-description"
                   type="textarea"
                 />
               </FormBox>

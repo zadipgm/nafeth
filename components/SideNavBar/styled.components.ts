@@ -10,7 +10,12 @@ export const Container = styled.div`
   min-height: 100vh;
   background-size: cover;
   transition: 0.5s;
-
+  @media (max-width: 600px) {
+    display: none;
+  }
+  @media (min-width: 600px) {
+    display: block;
+  }
   &.active {
     width: 21%;
     transition: 0.5s;
@@ -124,6 +129,7 @@ export const PageWrapper = styled.div`
     flex-wrap: wrap;
   }
   & .MuiTimelineItem-root {
+    min-height: 42px;
     &:before {
       all: unset;
     }

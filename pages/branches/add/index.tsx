@@ -3,13 +3,11 @@ import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import AddBranch from "@/components/GlobalSettings/BranchManagement/AddBranch";
-import { fetchCountries } from "@/api/fetchapis/fetchCountries";
 import { ICountriesModel } from "@/models/country";
 import { GetServerSideProps } from "next";
-import { fetchCities } from "@/api/fetchapis/fetchCities";
 import { ICitiesModel } from "@/models/city";
-import { fetchRegions } from "@/api/fetchapis/fetchRegions";
 import { IRegions } from "@/models/regions";
+import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
@@ -34,19 +32,19 @@ export const getServerSideProps: GetServerSideProps<{
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
 
-  const countryResponse = await fetchCountries(
+  const countryResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/countries",
     company as string
   );
-  const cityResponse = await fetchCities(
+  const cityResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/cities",
     company as string
   );
-  const regionResponse = await fetchRegions(
+  const regionResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/regions",

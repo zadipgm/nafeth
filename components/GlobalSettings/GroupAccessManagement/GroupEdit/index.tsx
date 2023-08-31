@@ -126,6 +126,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
+                  classname="group-edit-form"
                   defaultValue={result[0].name_en}
                   value={formData.name_en}
                 />
@@ -134,6 +135,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                   placeholder="زيشان"
                   onChange={hanldeFormData}
                   name="name_ar"
+                  classname="group-edit-form"
                   value={formData.name_ar}
                   defaultValue={result[0].name_ar}
                 />
@@ -150,6 +152,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                   onChange={hanldeFormData}
                   name="description_en"
                   multiline
+                  classname="group-edit-form-description"
                   rows={4}
                   defaultValue={result[0].description_en}
                 />
@@ -158,6 +161,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                   placeholder=" الرجاء الدخول هنا....."
                   onChange={hanldeFormData}
                   name="description_ar"
+                  classname="group-edit-form-description"
                   multiline
                   rows={4}
                   type="textarea"

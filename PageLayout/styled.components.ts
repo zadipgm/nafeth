@@ -24,3 +24,9 @@ export const CommonContainer = styled.div<{ istheme: isTheme }>`
   border-top-right-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
+export const LoadingContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+
+`

@@ -1,4 +1,4 @@
-import { fetchCities } from "@/api/fetchapis/fetchCities";
+import { fetchData } from "@/api/fetchapis/fetchData";
 import { ICitiesModel, ICity } from "@/models/city";
 import Cookies from "js-cookie";
 import React from "react";
@@ -22,7 +22,7 @@ export const CityProvider = (props: any) => {
   let userPassword = Cookies.get("userPassword") as string;
   let company = Cookies.get("company") as string;
   const fetchMyData = async () => {
-    const res = await fetchCities(
+    const res = await fetchData(
       userName,
       userPassword,
       "/lookup/cities",

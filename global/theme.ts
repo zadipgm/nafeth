@@ -10,9 +10,9 @@ declare module "styled-components" {
     isLight: string,
     isDark: string,
     themeToggle: () => void;
-    device: "mobile" | "desktop" | "tablet";
+    isMobile: boolean
     isRTL: boolean;
-    locale: "ar" | "en-US" | "en";
+    locale: "ar" | "en";
     colors: {
       bussinesBlue: string;
       themeColor: string;
@@ -31,6 +31,7 @@ declare module "styled-components" {
       nafethBlue: string;
       purple: string;
       darkYellow: string;
+      cyan: string;
       green: string
       lightGreen: string,
       lightRed: string;
@@ -48,7 +49,7 @@ declare module "styled-components" {
 export const lightTheme: DefaultTheme = {
   locale: "en",
   direction: "rtl",
-  device: "mobile",
+  isMobile: true,
   isLTR: false,
   isRTL: true,
   isLight: "light",
@@ -67,8 +68,9 @@ export const lightTheme: DefaultTheme = {
     black: "#000",
     black1: "#292929",
     gray1: "#5a5c69",
-    gray2: "#cfcfcf",
-    gray3: "#cfcfcf45", green: "#13ae05",
+    cyan: "#09AACD",
+    gray2: "#a19c9c",
+    gray3: "#cfcfcf45", green: "#22741bb5",
     nafethBlue: "#1281C4",
     purple: "#7828C8",
     darkYellow: "#936316",
@@ -87,7 +89,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   locale: "en",
   direction: "rtl",
-  device: "mobile",
+  isMobile: true,
   isLTR: false,
   isRTL: true,
   isLight: "light",
@@ -103,13 +105,13 @@ export const darkTheme: DefaultTheme = {
     lightBlue: "#1976d2",
     lightBlue1: "#44A0E1",
     white: "#fff",
-    black: "#000",
+    black: "#000", cyan: "#09AACD",
     black1: "#292929",
     gray1: "#5a5c69",
-    gray2: "#cfcfcf",
+    gray2: "#a19c9c",
     gray3: "#cfcfcf45",
     nafethBlue: "#1281C4",
-    green: "#13ae05",
+    green: "#22741bb5",
     purple: "#7828C8",
     darkYellow: "#936316",
     lightGreen: "#25706278",

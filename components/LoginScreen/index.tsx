@@ -66,7 +66,7 @@ const LoginScreen = () => {
           Cookies.set("isLogin", "true");
           setTimeout(() => {
             router.push("/dashboard");
-          }, 3000);
+          }, 2000);
         }
       })
       .catch((error) => {

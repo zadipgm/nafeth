@@ -5,10 +5,7 @@ import { NextPageWithLayout } from "@/pages/_app";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { IBranchModel } from "@/models/branch";
-import { fetchBranches } from "@/api/fetchapis/fetchBranches";
-import { fetchCountries } from "@/api/fetchapis/fetchCountries";
-import { fetchCities } from "@/api/fetchapis/fetchCities";
-import { fetchRegions } from "@/api/fetchapis/fetchRegions";
+import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
@@ -31,25 +28,25 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchBranches(
+  const res = await fetchData(
     userName as string,
     userPassword as string,
     `/settings/branches/${ctx.query.id}`,
     company as string
   );
-  const countryResponse = await fetchCountries(
+  const countryResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/countries",
     company as string
   );
-  const cityResponse = await fetchCities(
+  const cityResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/cities",
     company as string
   );
-  const regionResponse = await fetchRegions(
+  const regionResponse = await fetchData(
     userName as string,
     userPassword as string,
     "/lookup/regions",
@@ -59,7 +56,6 @@ export const getServerSideProps: GetServerSideProps<{
   const cities = await cityResponse;
   const regions = await regionResponse;
   const branches = await res;
-  console.log(branches.result);
   return {
     props: {
       branches: branches,

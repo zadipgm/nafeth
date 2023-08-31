@@ -19,6 +19,9 @@ import Grow from "@mui/material/Grow";
 import { PieChart } from "@mui/x-charts/PieChart";
 import CarEvaluiation from "@/components/CarRental/CarEvaluation";
 import MUIPaiChart from "../MuiCharts";
+import { LineChart } from "@mui/x-charts/LineChart";
+import MuiLineChart from "../lineChart";
+import MainSectionCard from "./mainSectionCard";
 
 interface ICardProps {
   color: string;
@@ -36,55 +39,21 @@ interface IProps {
   card: ICardProps[];
   title: string;
   chart_data: IChartData[];
+  page: string;
+  chartTitle: string;
 }
-const HeaderCard = ({ card, title, chart_data }: IProps) => {
+const HeaderCard = ({ card, title, chart_data, page, chartTitle }: IProps) => {
   const { colors } = useTheme();
   return (
     <>
+      <DashboardTitle>{title}</DashboardTitle>
       <HeaderContainer>
-        <MUIPaiChart chart_data={chart_data} title={"Car Types"} />
-        <Wrapper bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
-          <HeaderCardsSection>
-            <CardContainer>
-              <DashboardTitle>{title}</DashboardTitle>
-              <CardInnerWrapper>
-                {card.map((c, key) => {
-                  return (
-                    <Grow
-                      in={true}
-                      style={{ transformOrigin: "0 0 0" }}
-                      {...(true ? { timeout: 2000 } : {})}
-                    >
-                      <Card
-                        cardcolor={isTheme()?.cardcolor}
-                        icolor={c.color}
-                        key={key}
-                      >
-                        <IconWrapper bcolor={c.bcolor}>
-                          <IconComponent
-                            width="50px"
-                            height="50px"
-                            fill={c.color}
-                            icon={c.icon}
-                          />
-                        </IconWrapper>
-                        <ContentWrapper>
-                          <Number color={isTheme()?.color}>
-                            {c.card_number}
-                          </Number>
-                          <CardTitle color={isTheme()?.color}>
-                            {c.car_title}
-                          </CardTitle>
-                        </ContentWrapper>
-                      </Card>
-                    </Grow>
-                  );
-                })}
-              </CardInnerWrapper>
-            </CardContainer>
-            <CarEvaluiation />
-          </HeaderCardsSection>
-        </Wrapper>
+        <MUIPaiChart
+          chart_data={chart_data}
+          title={chartTitle}
+          classname={page}
+        />
+        <MainSectionCard card={card} page={page} />
       </HeaderContainer>
     </>
   );
