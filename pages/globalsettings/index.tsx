@@ -4,7 +4,6 @@ import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import CompnaySettings from "@/components/GlobalSettings/compnaySettings";
 import { GetServerSideProps } from "next";
-import { fetchGlobalSettings } from "@/api/fetchapis/fetchGlobalSettings";
 import { fetchData } from "@/api/fetchapis/fetchData";
 
 const Page: NextPageWithLayout = (result: any) => {
