@@ -53,7 +53,6 @@ const Nodhom = ({ nozhum }: ISettings) => {
       password: nozhumValues.password,
       enabled: nozhumValues.enabled,
     };
-    console.log(body);
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
@@ -61,7 +60,6 @@ const Nodhom = ({ nozhum }: ISettings) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.message);
         if (res.status === 200) {
           Swal.fire(
             "Thank you!",

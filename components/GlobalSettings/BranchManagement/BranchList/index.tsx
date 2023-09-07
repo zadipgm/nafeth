@@ -11,7 +11,6 @@ interface IProps {
   branches: IBranchModel;
 }
 const BranchList = ({ branches }: IProps) => {
-  console.log(branches);
   const { locale, colors }: any = useTheme();
 
   return (

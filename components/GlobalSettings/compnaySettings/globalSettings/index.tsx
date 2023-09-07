@@ -38,7 +38,6 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
       ...globalValues,
       [e.target.name]: e.target.value,
     });
-    console.log("onChange", globalValues);
   };
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -62,7 +61,6 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.message);
         if (res.status === 200) {
           Swal.fire(
             "Thank you!",

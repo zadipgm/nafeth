@@ -695,13 +695,13 @@ export const IDIcon = styled.div`
 
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
-export const CarListViewContainer = styled.div`
+export const ListViewContainer = styled.div`
 
   
  `
 
 
-export const CarListViewWrapper = styled.div`
+export const GlobalListViewWrapper = styled.div`
  margin: 12px 0px;
   padding: 0px 15px 10px 15px;
  border-radius: 8px;
@@ -712,12 +712,18 @@ export const CarListViewWrapper = styled.div`
   gap: 12px;
   flex-wrap: wrap;
 `
-export const CarModelListViewWrapper = styled.div`
+export const ModelListViewWrapper = styled.div`
   width: 32%;
   font-size: 18px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  .contract{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
   .make-model{
     font-size: 22px;
     font-weight: 700;
@@ -818,6 +824,11 @@ gap: 8px;
   /* } */
 `
 export const CarTypeSvgWrapper = styled.div`
+>span{
+     font-size: 22px;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.nafethBlue}
+}
 width: 32%;
 display: flex;
     flex-direction: column;

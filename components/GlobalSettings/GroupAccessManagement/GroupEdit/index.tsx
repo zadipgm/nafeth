@@ -24,7 +24,6 @@ interface IProps {
   result: any[];
 }
 export default function GroupEditForm({ title, result }: IProps) {
-  console.log(result);
   const { colors } = useTheme();
   const router = useRouter();
   let getMenu = result[0].menu;
@@ -47,7 +46,6 @@ export default function GroupEditForm({ title, result }: IProps) {
     role: "User",
     menu: getMenuInOneArray,
   };
-  console.log("here is menu array", getMenuInOneArray);
   const [formData, setFormData] = React.useState(addGroupObj);
   React.useEffect(() => {}, [formData]);
   const HanldeSwtiches = (e: { target: { name: any; checked: any } }) => {
@@ -65,7 +63,6 @@ export default function GroupEditForm({ title, result }: IProps) {
         ...formData,
         menu: [...formData.menu, checkboxdata],
       });
-      console.log("here is check data", formData.menu);
     },
     [formData]
   );

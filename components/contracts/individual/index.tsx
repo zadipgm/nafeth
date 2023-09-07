@@ -39,8 +39,11 @@ import {
   DetailListItem,
   DetailWrapper,
   DetailsTitle,
+  GridViewWrapper,
+  ListViewWrapper,
   Spantext,
   Strongtext,
+  ViewsWrapper,
 } from "@/components/CarRental/style";
 import { useRouter } from "next/router";
 import ReturnSvg from "@/public/icons/returnSvg";
@@ -54,6 +57,9 @@ import ReturnDateSvg from "@/public/icons/returnDateSvg";
 import SedanSvg from "@/public/icons/Sedan";
 import SuvSvg from "@/public/icons/SUV";
 import DisputeSvg from "@/public/icons/DisputeSvg";
+import ContractListView from "../contractListView";
+import GridView from "@/public/icons/gridView";
+import ListView from "@/public/icons/tableView";
 type Anchor = "top" | "left" | "bottom" | "right";
 const ContractPage = () => {
   const [state, setState] = React.useState({
@@ -70,28 +76,11 @@ const ContractPage = () => {
   const [company, setCompany] = React.useState(false);
   const [individual, setIndividual] = React.useState(false);
   const icon = ["idSvg", "lexusSvg", "USERS", "issueDateSvg", "returnDateSvg"];
-  const handleClick = (value: string) => {
-    setLabel(value);
-    if (value === "all") {
-      setAll(true);
-      setIndividual(false);
-      setCompany(false);
-    }
-    if (value === "company") {
-      setAll(false);
-      setIndividual(false);
-      setCompany(true);
-    }
-    if (value === "individual") {
-      setAll(false);
-      setIndividual(true);
-      setCompany(false);
-    }
-  };
+  const [list, setList] = React.useState(true);
+  const [grid, setGrid] = React.useState(false);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => {
     setState({ ...state, [anchor]: open });
-    console.log(state);
   };
   const car = {
     plateText1_ar: "ا",
@@ -102,31 +91,62 @@ const ContractPage = () => {
     plateText2_en: "A",
     plateText3_en: "N",
   };
+  const handleView = (val: string) => {
+    if (val === "grid") {
+      setGrid(true);
+      setList(false);
+    }
+    if (val === "list") {
+      setGrid(false);
+      setList(true);
+    }
+  };
   return (
     <>
-      <HeaderCard
+      {/* <HeaderCard
         card={header_card_dashboard}
         page={"contracts"}
         title="Open Contracts"
         chartTitle="Contracts"
         chart_data={Contracts_chart_data}
-      />
+      /> */}
       <Container>
         <ListWrapper bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
           <Title color={colors.nafethBlue}>
             <h2>Contracts</h2>
           </Title>
           <ContractsTitle></ContractsTitle>
+
           <SearchTabsWrapper
             bcolor={isTheme()?.bcolor}
             color={isTheme()?.color}
           >
-            <FilterTabs
-              title={["all", "company", "individual"]}
-              label={label}
-              handleClick={handleClick}
-              classname="dashbord-contract-tab"
-            />
+            <ViewsWrapper>
+              <Tooltip content={"Grid View"} color={"success"}>
+                <GridViewWrapper
+                  onClick={() => handleView("grid")}
+                  className={grid ? "active" : ""}
+                >
+                  <GridView
+                    width="35px"
+                    height="35px"
+                    fill={colors.nafethBlue}
+                  />
+                </GridViewWrapper>
+              </Tooltip>
+              <Tooltip content={"List View"} color={"success"}>
+                <ListViewWrapper
+                  onClick={() => handleView("list")}
+                  className={list ? "active" : ""}
+                >
+                  <ListView
+                    width="40px"
+                    height="40px"
+                    fill={colors.nafethBlue}
+                  />
+                </ListViewWrapper>
+              </Tooltip>
+            </ViewsWrapper>
             <InputComponent
               type="search"
               placeholder="Search contract"
@@ -135,142 +155,166 @@ const ContractPage = () => {
               classname="search-input-dashboard"
             />
           </SearchTabsWrapper>
-          <ContractWrapper>
-            {Contracts.slice(0, show).map((item: any, i) => {
-              return (
-                <Grow
-                  in={true}
-                  style={{ transformOrigin: "0 0 " }}
-                  {...(true ? { timeout: 2000 } : {})}
-                  key={i}
-                >
-                  <ContractCard
-                    cardcolor={isTheme()?.cardcolor}
-                    color={isTheme()?.color}
+          {list && (
+            <ContractListView
+              // show={show}
+
+              toggleDrawer={toggleDrawer}
+              keys={[
+                "contract_number",
+                "dailyRent",
+                "customer_name",
+                "advance_amount",
+                "rental_cost",
+                "checkout_time",
+                "issue_date",
+                "return_date",
+                "active",
+              ]}
+            />
+          )}
+          {grid && (
+            <ContractWrapper>
+              {Contracts.slice(0, show).map((item: any, i) => {
+                return (
+                  <Grow
+                    in={true}
+                    style={{ transformOrigin: "0 0 " }}
+                    {...(true ? { timeout: 2000 } : {})}
                     key={i}
                   >
-                    <SvgKeysWrapper
-                      className="contract_number"
+                    <ContractCard
+                      cardcolor={isTheme()?.cardcolor}
                       color={isTheme()?.color}
+                      key={i}
                     >
-                      <ContactNumberWrapper>
-                        <Tooltip content="Car Plate" color={"warning"}>
-                          <CarPlate car={car} classname="contract-page" />
+                      <SvgKeysWrapper
+                        className="contract_number"
+                        color={isTheme()?.color}
+                      >
+                        <ContactNumberWrapper>
+                          <Tooltip content="Car Plate" color={"warning"}>
+                            <CarPlate car={car} classname="contract-page" />
+                          </Tooltip>
+                        </ContactNumberWrapper>
+                      </SvgKeysWrapper>
+                      <List className="contract-list">
+                        <Tooltip content="Contract Number" color={"secondary"}>
+                          <ListItem>
+                            <CarContractNumberSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>{Contracts[0].contract_number}</span>
+                          </ListItem>
                         </Tooltip>
-                      </ContactNumberWrapper>
-                    </SvgKeysWrapper>
-                    <List className="contract-list">
-                      <Tooltip content="Contract Number" color={"secondary"}>
-                        <ListItem>
-                          <CarContractNumberSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].contract_number}</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="Make/Model" color={"error"}>
-                        <ListItem>
-                          <CarYearSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].make_model}</span>
-                        </ListItem>
-                      </Tooltip>
+                        <Tooltip content="Make/Model" color={"error"}>
+                          <ListItem>
+                            <CarYearSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>
+                              {Contracts[0].make?.name_en}{" "}
+                              {Contracts[0].model?.name_en}
+                              {Contracts[0].year}
+                            </span>
+                          </ListItem>
+                        </Tooltip>
 
-                      <Tooltip content="Customer Name" color={"secondary"}>
-                        <ListItem>
-                          <CardUserSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].customer_name}</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="Issue Date" color={"primary"}>
-                        <ListItem>
-                          <IssueDateSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].issue_date}</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="Return Date" color={"invert"}>
-                        <ListItem>
-                          <ReturnDateSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].return_date}</span>
-                        </ListItem>
-                      </Tooltip>
+                        <Tooltip content="Customer Name" color={"secondary"}>
+                          <ListItem>
+                            <CardUserSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>{Contracts[0].customer_name}</span>
+                          </ListItem>
+                        </Tooltip>
+                        <Tooltip content="Issue Date" color={"primary"}>
+                          <ListItem>
+                            <IssueDateSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>{Contracts[0].issue_date}</span>
+                          </ListItem>
+                        </Tooltip>
+                        <Tooltip content="Return Date" color={"invert"}>
+                          <ListItem>
+                            <ReturnDateSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>{Contracts[0].return_date}</span>
+                          </ListItem>
+                        </Tooltip>
 
-                      <Tooltip content="Car type" color={"secondary"}>
-                        <ListItem>
-                          <SuvSvg
-                            width="25px"
-                            height="25px"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>{Contracts[0].car_type}</span>
-                        </ListItem>
-                      </Tooltip>
-                    </List>
-                    <ButtonWrapper>
-                      <Button
-                        variant={"outlined"}
-                        className="details"
-                        onClick={() => toggleDrawer("right", true)}
-                        endIcon={
-                          <ArrowCircleSvg
-                            width="15px"
-                            height="15px"
-                            fill={colors.nafethBlue}
-                          />
-                        }
-                      >
-                        Details
-                      </Button>
-                      <Button
-                        variant={"outlined"}
-                        className="retrun"
-                        onClick={() => router.push("/return")}
-                        endIcon={
-                          <ReturnSvg
-                            width="15px"
-                            height="15px"
-                            fill={colors.nafethBlue}
-                          />
-                        }
-                      >
-                        Return
-                      </Button>{" "}
-                      <Button
-                        variant={"outlined"}
-                        className="dispute"
-                        endIcon={
-                          <DisputeSvg
-                            width="15px"
-                            height="15px"
-                            fill={colors.red}
-                          />
-                        }
-                      >
-                        Dispute
-                      </Button>
-                    </ButtonWrapper>
-                  </ContractCard>
-                </Grow>
-              );
-            })}
-          </ContractWrapper>
+                        <Tooltip content="Car type" color={"secondary"}>
+                          <ListItem>
+                            <SuvSvg
+                              width="25px"
+                              height="25px"
+                              fill={colors.nafethBlue}
+                            />
+                            <span>{Contracts[0].car_type}</span>
+                          </ListItem>
+                        </Tooltip>
+                      </List>
+                      <ButtonWrapper>
+                        <Button
+                          variant={"outlined"}
+                          className="details"
+                          onClick={() => toggleDrawer("right", true)}
+                          endIcon={
+                            <ArrowCircleSvg
+                              width="15px"
+                              height="15px"
+                              fill={colors.nafethBlue}
+                            />
+                          }
+                        >
+                          Details
+                        </Button>
+                        <Button
+                          variant={"outlined"}
+                          className="retrun"
+                          onClick={() => router.push("/return")}
+                          endIcon={
+                            <ReturnSvg
+                              width="15px"
+                              height="15px"
+                              fill={colors.nafethBlue}
+                            />
+                          }
+                        >
+                          Return
+                        </Button>{" "}
+                        <Button
+                          variant={"outlined"}
+                          className="dispute"
+                          endIcon={
+                            <DisputeSvg
+                              width="15px"
+                              height="15px"
+                              fill={colors.red}
+                            />
+                          }
+                        >
+                          Dispute
+                        </Button>
+                      </ButtonWrapper>
+                    </ContractCard>
+                  </Grow>
+                );
+              })}
+            </ContractWrapper>
+          )}
           <DrawerComponent
             state={state}
             toggleDrawer={toggleDrawer}

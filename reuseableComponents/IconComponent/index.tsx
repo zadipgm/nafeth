@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import * as React from "react";
 import { Wrapper } from "./style";
 interface IProps {
-  icon?: string;
+  icon?: string | false;
   fill?: string;
   width?: string;
   height?: string;

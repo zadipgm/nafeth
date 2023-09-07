@@ -16,7 +16,7 @@ const ViewSvg = ({
       <g
         id="Page-1"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill={fill}
         fill-rule="evenodd"
       >

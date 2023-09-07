@@ -38,6 +38,7 @@ import DrawerComponent from "@/reuseableComponents/Drawer";
 import { Tooltip } from "@nextui-org/react";
 import CloseSvg from "@/public/icons/closeSvg";
 import { GroupButtons } from "../GlobalSettings/compnaySettings/style";
+import { ICustomers, customer } from "@/models/customers";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   addable: boolean;
@@ -47,6 +48,7 @@ interface IProps {
   page_color: string;
   title: string;
   onCustomerSelected?: () => void;
+  customers: ICustomers;
 }
 const CustomersList = ({
   addable,
@@ -55,13 +57,16 @@ const CustomersList = ({
   details,
   page_color,
   title,
+  customers,
   onCustomerSelected,
 }: IProps) => {
+  console.log("customers", customers);
   const [show, setShow] = React.useState(8);
   const [open, setOpen] = React.useState(false);
   const [isBlock, setisBlock] = React.useState(false);
   const [buttonValue, setButtonValue] = React.useState("Block");
-  const { locale, colors }: any = useTheme();
+  const [customerDetail, setCustomerDetail] = React.useState<customer>();
+  const { locale, colors } = useTheme();
   const router = useRouter();
   const [prohibitedValue, setprohibitedValue] = React.useState("");
   const [state, setState] = React.useState({
@@ -74,21 +79,32 @@ const CustomersList = ({
     console.log("here is toggleDrawer", anchor, open);
     setOpen(true);
     setState({ ...state, [anchor]: open });
+    setCustomerDetail(item);
   };
   const hanldeBlock = () => {
     setisBlock(!isBlock);
   };
+
+  // find max Customer number
+  const findMaxNumber = customers.result.map((n) => n.id);
+  let max_number = Math.max(...findMaxNumber) + 1;
+
   const handleEdit = (id: number) => {
-    router.push({ pathname: `/customers/edit/${id}` });
+    router.push({
+      pathname: `/customers/edit/${id}`,
+    });
   };
+
   const hanldeSave = (val: string) => {
     setButtonValue(val);
     setisBlock(false);
   };
+
   const handleChange = (e: { target: { value: any } }) => {
     let value = e.target.value;
     setprohibitedValue(value);
   };
+
   return (
     <Container>
       <Title color={page_color}>
@@ -105,7 +121,12 @@ const CustomersList = ({
               width: "12%",
               borderRadius: "8px",
             }}
-            onClick={() => router.push(`/customers/add` as string)}
+            onClick={() =>
+              router.push({
+                pathname: `/customers/add` as string,
+                query: { max_number: max_number },
+              })
+            }
           >
             Add Customer <AddIcon />
           </Fab>
@@ -119,162 +140,161 @@ const CustomersList = ({
         </InputWrapper>
 
         <CustomerCardContainer>
-          {[1, 2, 3, 4, 5, 67, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-            .slice(0, show)
-            .map((item, index) => {
-              return (
-                <Grow
-                  in={true}
-                  style={{ transformOrigin: "0 0 0" }}
-                  {...(true ? { timeout: 2000 } : {})}
-                  key={index}
-                >
-                  <CustomerCardWrapper>
-                    <FullNameWrapper>
-                      <span>Muhammad Zeshan Aslam</span>
-                    </FullNameWrapper>
-                    <List>
-                      <Tooltip content="Customer Type" color={"warning"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="carduserSvg"
+          {customers?.result?.slice(0, show).map((item, index) => {
+            return (
+              <Grow
+                in={true}
+                style={{ transformOrigin: "0 0 0" }}
+                {...(true ? { timeout: 2000 } : {})}
+                key={index}
+              >
+                <CustomerCardWrapper>
+                  <FullNameWrapper>
+                    <span>{item[`fullname_${locale}`]}</span>
+                  </FullNameWrapper>
+                  <List>
+                    <Tooltip content="Customer Type" color={"warning"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="carduserSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.category[`name_${locale}`]}</span>
+                      </ListItem>
+                    </Tooltip>
+                    <Tooltip content="Customer ID" color={"error"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="idSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.idNumber}</span>
+                      </ListItem>
+                    </Tooltip>
+                    <Tooltip content="ID Expiry" color={"secondary"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="issueDateSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.idExpiryDate_hijri}</span>
+                      </ListItem>
+                    </Tooltip>
+                    <Tooltip content="Phone" color={"primary"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="phoneSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.mobileNo}</span>
+                      </ListItem>
+                    </Tooltip>{" "}
+                    <Tooltip content="City" color={"invert"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="homeSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.residentCity[`name_${locale}`]}</span>
+                      </ListItem>
+                    </Tooltip>{" "}
+                    <Tooltip content="License Number" color={"success"}>
+                      <ListItem>
+                        <IconComponent
+                          width="25px"
+                          height="25px"
+                          icon="reportSvg"
+                          fill={colors.nafethBlue}
+                        />
+                        <span>{item.licenseNo}</span>
+                      </ListItem>
+                    </Tooltip>
+                  </List>
+                  <ButtonWrapper className="customer">
+                    {addable && (
+                      <Button
+                        className="add"
+                        variant="outlined"
+                        onClick={onCustomerSelected}
+                        endIcon={
+                          <AddIcon
+                            width="15px"
+                            height="15px"
                             fill={colors.nafethBlue}
                           />
-                          <span>Individual</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="Customer ID" color={"error"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="idSvg"
+                        }
+                      >
+                        Add
+                      </Button>
+                    )}
+                    {editable && (
+                      <Button
+                        className="edit"
+                        variant="outlined"
+                        endIcon={
+                          <EditSvg
+                            width="15px"
+                            height="15px"
                             fill={colors.nafethBlue}
                           />
-                          <span>2325293362</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="ID Expiry" color={"secondary"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="issueDateSvg"
+                        }
+                        onClick={() => handleEdit(item.id)}
+                      >
+                        Edit
+                      </Button>
+                    )}
+                    {deleteable && (
+                      <Button
+                        className="delete"
+                        variant="outlined"
+                        endIcon={
+                          <DeleteSvg
+                            width="15px"
+                            height="15px"
+                            fill={colors.red}
+                          />
+                        }
+                      >
+                        delete
+                      </Button>
+                    )}
+                    {details && (
+                      <Button
+                        onClick={() =>
+                          toggleDrawer(
+                            locale === "en" ? "right" : "left",
+                            true,
+                            item
+                          )
+                        }
+                        className="details"
+                        variant="outlined"
+                        endIcon={
+                          <ArrowCircleSvg
+                            width="15px"
+                            height="15px"
                             fill={colors.nafethBlue}
                           />
-                          <span>22/06/1446</span>
-                        </ListItem>
-                      </Tooltip>
-                      <Tooltip content="Phone" color={"primary"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="phoneSvg"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>966581955852</span>
-                        </ListItem>
-                      </Tooltip>{" "}
-                      <Tooltip content="City" color={"invert"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="homeSvg"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>Riyadh</span>
-                        </ListItem>
-                      </Tooltip>{" "}
-                      <Tooltip content="Outstanding Balance" color={"success"}>
-                        <ListItem>
-                          <IconComponent
-                            width="25px"
-                            height="25px"
-                            icon="PaymentSvg"
-                            fill={colors.nafethBlue}
-                          />
-                          <span>0.00</span>
-                        </ListItem>
-                      </Tooltip>
-                    </List>
-                    <ButtonWrapper className="customer">
-                      {addable && (
-                        <Button
-                          className="add"
-                          variant="outlined"
-                          onClick={onCustomerSelected}
-                          endIcon={
-                            <AddIcon
-                              width="15px"
-                              height="15px"
-                              fill={colors.nafethBlue}
-                            />
-                          }
-                        >
-                          Add
-                        </Button>
-                      )}
-                      {editable && (
-                        <Button
-                          className="edit"
-                          variant="outlined"
-                          endIcon={
-                            <EditSvg
-                              width="15px"
-                              height="15px"
-                              fill={colors.nafethBlue}
-                            />
-                          }
-                          onClick={() => handleEdit(1)}
-                        >
-                          Edit
-                        </Button>
-                      )}
-                      {deleteable && (
-                        <Button
-                          className="delete"
-                          variant="outlined"
-                          endIcon={
-                            <DeleteSvg
-                              width="15px"
-                              height="15px"
-                              fill={colors.red}
-                            />
-                          }
-                        >
-                          delete
-                        </Button>
-                      )}
-                      {details && (
-                        <Button
-                          onClick={() =>
-                            toggleDrawer(
-                              locale === "en" ? "right" : "left",
-                              true
-                            )
-                          }
-                          className="details"
-                          variant="outlined"
-                          endIcon={
-                            <ArrowCircleSvg
-                              width="15px"
-                              height="15px"
-                              fill={colors.nafethBlue}
-                            />
-                          }
-                        >
-                          Details
-                        </Button>
-                      )}
-                    </ButtonWrapper>
-                  </CustomerCardWrapper>
-                </Grow>
-              );
-            })}
+                        }
+                      >
+                        Details
+                      </Button>
+                    )}
+                  </ButtonWrapper>
+                </CustomerCardWrapper>
+              </Grow>
+            );
+          })}
           {state.right && (
             <DrawerComponent
               state={state}
@@ -283,7 +303,7 @@ const CustomersList = ({
               width={"800px"}
             >
               <div>
-                <DetailsTitle color={colors.green as string}>
+                <DetailsTitle color={colors.nafethBlue as string}>
                   {"Customer Details"}
                 </DetailsTitle>
 
@@ -294,67 +314,88 @@ const CustomersList = ({
                   <DetailList className="customer-info">
                     <DetailListItem>
                       <Strongtext>{"IDType"}</Strongtext>
-                      <Spantext>{"Resident"}</Spantext>
+                      <Spantext>
+                        {customerDetail?.idType[`name_${locale}`]}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"Version No."}</Strongtext>
-                      <Spantext>{"2"}</Spantext>
+                      <Spantext>{customerDetail?.version}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"License Expiry Date"}</Strongtext>
-                      <Spantext>{"22/06/1446"}</Spantext>
+                      <Strongtext>{"License Expiry Date Hijri"}</Strongtext>
+                      <Spantext>{customerDetail?.licExpiryDate_hijri}</Spantext>
+                    </DetailListItem>
+                    <DetailListItem>
+                      <Strongtext>{"License Expiry Date gregorian"}</Strongtext>
+                      <Spantext>
+                        {customerDetail?.licenseExpDate_gregorian}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"City of residence"}</Strongtext>
-                      <Spantext>{"Riyadh"}</Spantext>
+                      <Spantext>
+                        {customerDetail?.residentCity[`name_${locale}`]}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"E-mail"}</Strongtext>
-                      <Spantext>{"abc@gmail.com"}</Spantext>
+                      <Spantext>{customerDetail?.email}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"Home Phone"}</Strongtext>
-                      <Spantext>{"966581958585"}</Spantext>
+                      <Spantext>{customerDetail?.homePhone}</Spantext>
                     </DetailListItem>
-                    <DetailListItem className="address">
-                      <Strongtext>{"Permanent Address"}</Strongtext>
-                      <Spantext>
-                        {
-                          "14420, Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh"
-                        }
-                      </Spantext>
+                    <DetailListItem>
+                      <Strongtext>{"Home Phone"}</Strongtext>
+                      <Spantext>{customerDetail?.homePhone}</Spantext>
                     </DetailListItem>
+
                     <DetailListItem>
                       <Strongtext>{"Prohibition Notes"}</Strongtext>
                       <Spantext>{prohibitedValue}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"	Place of issue"}</Strongtext>
-                      <Spantext>{"Riyadh"}</Spantext>
+                      <Strongtext>{"Place of issue"}</Strongtext>
+                      <Spantext>
+                        {customerDetail?.idIssueCountry[`name_${locale}`]}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"	License Number"}</Strongtext>
-                      <Spantext>{"123654789"}</Spantext>
-                    </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext>{"	Nationality"}</Strongtext>
-                      <Spantext>{"Pakistan"}</Spantext>
+                      <Strongtext>{"Nationality"}</Strongtext>
+                      <Spantext>
+                        {customerDetail?.nationality[`name_${locale}`]}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"Employer"}</Strongtext>
-                      <Spantext>{"zadip"}</Spantext>
+                      <Spantext>{customerDetail?.employerName}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"IDType"}</Strongtext>
-                      <Spantext>{"Resident"}</Spantext>
+                      <Strongtext>{"dob hijri"}</Strongtext>
+                      <Spantext>{customerDetail?.dob_hijri}</Spantext>
+                    </DetailListItem>
+                    <DetailListItem>
+                      <Strongtext>{"dob gregorian"}</Strongtext>
+                      <Spantext>{customerDetail?.dob_gregorian}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"Price List"}</Strongtext>
-                      <Spantext>{"Testing"}</Spantext>
+                      <Spantext>
+                        {customerDetail?.pricelist[`name_${locale}`]}
+                      </Spantext>
                     </DetailListItem>
                     <DetailListItem>
                       <Strongtext>{"Business Phone"}</Strongtext>
-                      <Spantext>{"9661252525"}</Spantext>
+                      <Spantext>{customerDetail?.workPhone}</Spantext>
+                    </DetailListItem>
+                    <DetailListItem className="address">
+                      <Strongtext>{"Permanent Address"}</Strongtext>
+                      <Spantext>
+                        {customerDetail?.cA_PostalCode},
+                        {customerDetail?.cA_StreetName},
+                        {customerDetail?.cA_District},{customerDetail?.cA_City}
+                      </Spantext>
                     </DetailListItem>
                   </DetailList>
                 </DetailWrapper>

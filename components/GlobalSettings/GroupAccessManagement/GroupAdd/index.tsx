@@ -64,18 +64,6 @@ export default function GroupAddForm({ title, data }: IProps) {
         ...formData,
         menu: [...formData.menu, checkboxdata],
       });
-      // const uniqObjs: any = [];
-      // const dupeObjs: any = [];
-      // formData.menu.forEach((obj) =>
-      //   [uniqObjs, dupeObjs][
-      //     +(
-      //       formData.menu.map((obj) => obj.id).filter((id) => id === obj.id)
-      //         .length > 1
-      //     )
-      //   ].push(obj)
-      // );
-      // console.log("uniqObjs:", uniqObjs);
-      // console.log("dupeObjs:", dupeObjs);
     },
     [formData]
   );

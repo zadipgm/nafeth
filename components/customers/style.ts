@@ -37,7 +37,7 @@ export const CustomerCardWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   padding: 20px;
-  width: 24%;
+  width: 100%;
 `;
 export const FullNameWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray2};
@@ -77,7 +77,10 @@ export const ListItem = styled.li`
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
-    width: 140px;
+    width: 200px;
+        background-color: #d7d6d645;
+        padding: 4px;
+        border-radius: 8px;
 `;
 export const IDValidateWrapper = styled.div`
 display: flex;

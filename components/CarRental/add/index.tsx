@@ -77,7 +77,7 @@ const AddCar = ({
       (res: any) => {
         if (res.status == 200) {
           Swal.fire("Thank you!", "car has been Created!.", "success");
-          router.push("/cars");
+          // router.push("/cars");
         } else {
           console.log(res);
           Swal.fire({

@@ -8,12 +8,10 @@ import {
   ToolTipWrapper,
 } from "./style";
 import { Tooltip } from "@nextui-org/react";
-
 import { EyeSvg } from "@/public/icons/eyeSvg";
 import DublicateSvg from "@/public/icons/DublicateSvg";
 import { useRouter } from "next/router";
 import { Fab, IconButton, Pagination } from "@mui/material";
-
 import AddIcon from "@mui/icons-material/Add";
 import InputComponent from "../InputField";
 import { isTheme } from "@/_helpers/getTheme";
@@ -31,17 +29,12 @@ import {
   Spantext,
   Strongtext,
 } from "@/components/CarRental/style";
-import CarRentSvg from "@/public/icons/cars";
-import CarManageSvg from "@/public/icons/carManageSvg";
-import CarMileageSvg from "@/public/icons/carMileageSvg";
-import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
-import CarPlateSvg from "@/public/icons/carPlateSvg";
-import EconomicSvg from "@/public/icons/Economic";
-import CarPetrolSvg from "@/public/icons/carPetrolSvg";
-import CarExtraKmLimitSvg from "@/public/icons/carExtraKmLimitSvg";
 import { useTheme } from "styled-components";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import FilterTabs from "../filterTabs";
+import axios from "axios";
+import { Delete } from "@/api/delete";
+import Swal from "sweetalert2";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   tableData: any;
@@ -55,6 +48,7 @@ interface IProps {
   isEditAble?: boolean;
   showAddButton?: boolean;
   addButtonText?: string;
+  isViewAble?: boolean;
 }
 const TableComponent = ({
   tableData,
@@ -68,6 +62,7 @@ const TableComponent = ({
   isEditAble,
   showAddButton,
   addButtonText,
+  isViewAble = true,
 }: IProps) => {
   const { locale } = useTheme();
   const [page, setPage] = React.useState(1);
@@ -77,7 +72,6 @@ const TableComponent = ({
     bottom: false,
     right: false,
   });
-  console.log(tableData);
   const PER_PAGE = 10;
   const dataLength = tableData?.length;
   const count = Math.ceil(dataLength / PER_PAGE);
@@ -86,29 +80,7 @@ const TableComponent = ({
   const [drawerData, setDrawerData] = React.useState<any>();
   const router = useRouter();
   const [label, setLabel] = React.useState("Payables");
-  const [Payables, setPayables] = React.useState(true);
-  const [Receivables, setReceivables] = React.useState(false);
-  const [Invoice, setInvoice] = React.useState(false);
 
-  const handleClick = (value: string) => {
-    console.log(value);
-    setLabel(value);
-    if (value === "Payables") {
-      setPayables(true);
-      setInvoice(false);
-      setReceivables(false);
-    }
-    if (value === "Receivables") {
-      setPayables(false);
-      setInvoice(false);
-      setReceivables(true);
-    }
-    if (value === "Tax Invoice") {
-      setPayables(false);
-      setInvoice(true);
-      setReceivables(false);
-    }
-  };
   const renderTableHeader = React.useCallback(() => {
     if (tableData?.length > 0) {
       return headerValue.map((key: string, index: any) => {
@@ -125,14 +97,12 @@ const TableComponent = ({
     let userName = getName() as string;
     let userPassWord = getPassword() as string;
     let company = getCompany() as string;
-
     let duplicateUrl = `/settings/groups/${item.groupId}/duplicate`;
     let url = "/settings/groups";
     await fetchData(userName, userPassWord, duplicateUrl, company);
     const res = await fetchData(userName, userPassWord, url, company);
     setSearch(res.result);
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = e.target.value;
     let keys = headerValue.map((key: any, index) => key);
@@ -147,16 +117,34 @@ const TableComponent = ({
       });
     setSearch(filteredData);
   };
-
   const hanldeEdit = (id: any) => {
     router.push({
       pathname: `/${linkPageUrl}/edit/${id}`,
     });
   };
-
+  const hanldeDelete = (id: any) => {
+    let userName = getName() as string;
+    let userPassWord = getPassword() as string;
+    let company = getCompany() as string;
+    let url = `cars/Accessories/${id}`;
+    Delete(userName, userPassWord, url, company).then((res: any) => {
+      if (res.status == 200) {
+        console.log(res, "reeeee");
+        Swal.fire("Thank you!", "Accessory  has been Deleted!.", "success");
+      } else {
+        console.log(res);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      }
+    });
+    let list = search?.filter((item: any) => item.id != id);
+    setSearch(list);
+  };
   const handleChangePagination = (event: any, value: number) => {
     setPage(value);
-    console.log("here");
     _DATA.jump(value);
     setSearch(_DATA.currentData());
   };
@@ -164,16 +152,9 @@ const TableComponent = ({
     setDrawerData(item);
     setState({ ...state, [anchor]: open });
   };
-  const filters = ["Payables", "Receivables", "Tax Invoice"];
   return (
     <CommonContainer istheme={isTheme()}>
       <InputWrapper istheme={isTheme()}>
-        <FilterTabs
-          title={filters}
-          handleClick={handleClick}
-          label={label}
-          classname={"car-tabs"}
-        />
         {showAddButton && (
           <Fab
             aria-label={"add"}
@@ -194,7 +175,7 @@ const TableComponent = ({
           placeholder="Search "
           label="Search "
           onChange={(e) => handleChange(e)}
-          classname="search-input-payment"
+          classname="search-input-table"
         />
       </InputWrapper>
       <Table color={page_color as string}>
@@ -209,21 +190,23 @@ const TableComponent = ({
                   })}
                   <TData>
                     <ToolTipWrapper>
-                      <Tooltip
-                        content="Details"
-                        color="invert"
-                        onClick={() =>
-                          toggleDrawer(
-                            locale === "en" ? "right" : "left",
-                            true,
-                            item
-                          )
-                        }
-                      >
-                        <IconButton>
-                          <EyeSvg size={20} fill={page_color} />
-                        </IconButton>
-                      </Tooltip>
+                      {isViewAble && (
+                        <Tooltip
+                          content="Details"
+                          color="invert"
+                          onClick={() =>
+                            toggleDrawer(
+                              locale === "en" ? "right" : "left",
+                              true,
+                              item
+                            )
+                          }
+                        >
+                          <IconButton>
+                            <EyeSvg size={20} fill={page_color} />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       {isDuplicate && (
                         <Tooltip
                           content="Duplicate"
@@ -253,7 +236,11 @@ const TableComponent = ({
                         </Tooltip>
                       )}
                       {isDeleteAble && (
-                        <Tooltip content="Delete" color="error">
+                        <Tooltip
+                          content="Delete"
+                          color="error"
+                          onClick={() => hanldeDelete(item.id)}
+                        >
                           <IconButton>
                             <DeleteSvg size={20} fill="#FF0080" />
                           </IconButton>
@@ -282,10 +269,6 @@ const TableComponent = ({
               {drawerData && (
                 <DetailList>
                   {Object.keys(search[0]).map((key: string, i) => {
-                    console.log(
-                      "here is key: " + JSON.stringify(drawerData).split("{")
-                    );
-
                     return key === "city" ||
                       key === "country" ||
                       key === "region" ||

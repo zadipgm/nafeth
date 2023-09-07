@@ -27,7 +27,6 @@ interface IProps {
   result: IGlobalSettings;
 }
 const CompnaySettings = ({ result }: IProps) => {
-  console.log("here is result", result);
   const { isDark }: any = useTheme();
   return (
     <CityProvider>
