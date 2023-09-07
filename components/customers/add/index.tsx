@@ -12,36 +12,116 @@ import {
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import InputComponent from "@/reuseableComponents/InputField";
-import {
-  IDType,
-  IdentityCategory,
-  category,
-  cities,
-  countries,
-  hours,
-} from "@/global/fakeData";
+import { bodyObjecCustomer } from "@/global/fakeData";
 import VerifySvg from "@/public/icons/verifySvg";
 import { useRouter } from "next/router";
-const AddCustomer = () => {
-  const { colors } = useTheme();
+import { ICategory, IPriceList, IidType } from "@/models/customers";
+import { ICitiesModel } from "@/models/city";
+import { ICountriesModel } from "@/models/country";
+import SwitchesComponent from "@/reuseableComponents/toggleButton";
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import { createPost } from "@/api/postApis/createBranch";
+import Swal from "sweetalert2";
+import { fetchData } from "@/api/fetchapis/fetchData";
+interface IProps {
+  category: ICategory;
+  IdType: IidType;
+  cities: ICitiesModel;
+  countries: ICountriesModel;
+  pricelist: IPriceList;
+}
+const AddCustomer = ({
+  category,
+  IdType,
+  cities,
+  countries,
+  pricelist,
+}: IProps) => {
+  const { colors, locale } = useTheme();
+  let obj = bodyObjecCustomer;
+  const [data, setData] = React.useState(obj);
   const router = useRouter();
-  const [IDTypes, setIDTypes] = React.useState(0);
-  const [categoryID, setCategoryID] = React.useState(0);
-  const hanldeIDType = (type: string) => {
-    console.log(type);
-    if (type === "Citizen ID" || type === "Resident ID") {
-      setIDTypes(0);
+  const [IDTypes, setIDTypes] = React.useState(1);
+  const [checkID, setCheckID] = React.useState(false);
+  const [categoryID, setCategoryID] = React.useState(1);
+  const max_number = router.query.max_number;
+
+  const hanldeIDType = (type: number) => {
+    setIDTypes(type);
+  };
+  const hanldeCategoryID = (id: any) => {
+    setCategoryID(id);
+  };
+  const handleChangeStatus = (e: { target: { name: any; checked: any } }) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.checked === true ? "Y" : "N",
+    });
+  };
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
+    let url = "customers/Customers";
+    if (checkID) {
+      await createPost(
+        userName,
+        userPassword,
+        url,
+        company,
+        data.idNumber
+      ).then((res: any) => {
+        if (res.status == 200) {
+          Swal.fire("Thank you!", "Customer has been Created!.", "success");
+          router.push("/customers");
+        } else {
+          console.log(res);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      });
     } else {
-      setIDTypes(1);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please Validate the ID Number First!",
+      });
     }
   };
-  const hanldeCategoryID = (cID: string) => {
-    console.log(cID);
-    if (cID === "individual") {
-      setCategoryID(0);
-    } else {
-      setCategoryID(1);
-    }
+  const handleValidate = async () => {
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
+    let url = `/customers/Customers/ValidateID/${data.idNumber}`;
+
+    await fetchData(userName, userPassword, url, company).then((res: any) => {
+      if (res.message == "success") {
+        setCheckID(true);
+        Swal.fire({
+          icon: "success",
+          title: "Thank you!",
+          text: `${res.result}`,
+        });
+        console.log("res", res);
+      } else {
+        setCheckID(false);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${res.result}`,
+        });
+      }
+    });
   };
   return (
     <Container>
@@ -58,7 +138,7 @@ const AddCustomer = () => {
           }}
           noValidate={false}
           autoComplete="off"
-          // onSubmit={(e) => handleSubmit(e)}
+          onSubmit={(e) => handleSubmit(e)}
         >
           {/*------------------------- individual & resident form -----------------*/}
 
@@ -68,7 +148,7 @@ const AddCustomer = () => {
                 label="Customer Code"
                 placeholder="100000017"
                 type="text"
-                value={"100000017"}
+                value={max_number as string}
                 name={"name_en"}
                 disabled={true}
                 required={true}
@@ -76,118 +156,56 @@ const AddCustomer = () => {
               <TextField
                 select
                 label="Category"
-                name="Category"
-                // onChange={handleChange}
-                // value={data.cityId}
+                name="category"
+                onChange={handleChange}
+                defaultValue={""}
                 required
               >
-                {category.map((option) => (
+                {category.result.map((option) => (
                   <MenuItem
-                    key={option.value}
-                    value={option.value}
-                    onClick={() => hanldeCategoryID(option.value)}
+                    key={option.id}
+                    value={option.id}
+                    onClick={() => hanldeCategoryID(option.id)}
                   >
-                    {option.label}
+                    {option[`name_${locale}`]}
                   </MenuItem>
                 ))}
               </TextField>
             </FormBox>
           </FormBoxWrapper>
-          {categoryID === 0 ? (
+          {categoryID === 1 ? (
             <>
               <FormBoxWrapper>
                 <FormBox color={isTheme().color}>
                   <TextField
                     select
                     label="IDType"
-                    name="Category"
-                    // onChange={handleChange}
-                    // value={data.cityId}
+                    name="idType"
+                    onChange={handleChange}
+                    defaultValue={""}
                     required
                   >
-                    {IDType.map((option) => (
+                    {IdType.result.map((option) => (
                       <MenuItem
-                        key={option.value}
-                        value={option.value}
-                        onClick={() => hanldeIDType(option.value)}
+                        key={option.id}
+                        value={option.id}
+                        onClick={() => hanldeIDType(option.id)}
                       >
-                        {option.label}
+                        {option[`name_${locale}`]}
                       </MenuItem>
                     ))}
                   </TextField>
-                  <InputComponent
-                    label="ID Expiry Date"
-                    placeholder="HijriDate 20/04/1445"
-                    type="text"
-                    name={"IDExpiryDate"}
-                    required={true}
-                  />
-                  <InputComponent
-                    label="Expiry of the license (Hijri)"
-                    placeholder="HijriDate 20/04/1445"
-                    type="text"
-                    name={"Expiry of the license "}
-                    required={true}
-                  />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
-                    label="name"
-                    placeholder="zeshan"
-                    type="text"
-                    name={"name"}
-                    required={true}
-                  />
-
-                  <InputComponent
-                    label="License Number"
-                    placeholder="2529283364"
-                    type="text"
-                    name={"License Number"}
-                    required={true}
-                  />
-                  {IDTypes === 0 ? (
-                    <TextField
-                      select
-                      label="Place of  issue"
-                      name="Place of  issue"
-                      // onChange={handleChange}
-                      // value={data.cityId}
-                      required
-                    >
-                      {cities.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  ) : (
-                    <TextField
-                      select
-                      label="Country of Issue"
-                      name="Country of Issue"
-                      // onChange={handleChange}
-                      // value={data.cityId}
-                      required
-                    >
-                      {countries.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  )}
-                </FormBox>
-                <FormBox color={isTheme().color}>
                   <IDValidateWrapper>
                     <InputComponent
                       label="ID"
                       placeholder="2529283364"
                       type="text"
-                      name={"ID"}
+                      onChange={handleChange}
+                      name={"idNumber"}
                       required={true}
                     />
                     <Button
+                      onClick={handleValidate}
                       variant={"contained"}
                       endIcon={
                         <VerifySvg
@@ -200,119 +218,253 @@ const AddCustomer = () => {
                     >
                       Validate
                     </Button>
-                    {IDTypes === 0 && (
+                    {IDTypes === 1 || IDTypes === 2 ? (
                       <InputComponent
                         label="ID Version"
                         placeholder="2"
                         type="text"
-                        name={"IDversion"}
+                        onChange={handleChange}
+                        value={data.version}
+                        name={"version"}
                         required={true}
                       />
+                    ) : (
+                      ""
                     )}
                   </IDValidateWrapper>
                   <InputComponent
-                    label="Expiry of the license (Geo)"
+                    label="ID Expiry Date GEO"
                     placeholder=""
                     type="date"
-                    name={"License Number"}
+                    onChange={handleChange}
+                    name={"idExpiryDate_gregorian"}
                     required={true}
                   />
-                  <TextField
-                    select
-                    label="Price List"
-                    name="Place of  issue"
-                    // onChange={handleChange}
-                    // value={data.cityId}
-                    required
-                  >
-                    {cities.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                </FormBox>
+                <FormBox color={isTheme().color}>
+                  <InputComponent
+                    label="Full Name En"
+                    placeholder="zeshan"
+                    type="text"
+                    onChange={handleChange}
+                    value={data.fullname_en}
+                    name={"fullname_en"}
+                    required={true}
+                  />
+                  {IDTypes === 1 || IDTypes === 2 ? (
+                    <TextField
+                      select
+                      label="Issue City"
+                      name="idissuecity"
+                      onChange={handleChange}
+                      defaultValue={""}
+                      required
+                    >
+                      {cities.result.map((option) => (
+                        <MenuItem
+                          key={option.id}
+                          value={option.id}
+                          onClick={() => hanldeIDType(option.id)}
+                        >
+                          {option[`name_${locale}`]}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  ) : (
+                    <TextField
+                      select
+                      label="Issue Country"
+                      name="idIssueCountry"
+                      onChange={handleChange}
+                      defaultValue={""}
+                      required
+                    >
+                      {countries.result.map((option) => (
+                        <MenuItem
+                          key={option.id}
+                          value={option.id}
+                          onClick={() => hanldeIDType(option.id)}
+                        >
+                          {option[`name_${locale}`]}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                  <InputComponent
+                    label="License Number"
+                    placeholder="2529283364"
+                    type="text"
+                    onChange={handleChange}
+                    value={data.licenseNo}
+                    name={"licenseNo"}
+                    required={true}
+                  />
+                </FormBox>
+                <FormBox color={isTheme().color}>
+                  <InputComponent
+                    label="Full Name AR"
+                    placeholder="zeshan"
+                    type="text"
+                    onChange={handleChange}
+                    value={data.fullname_ar}
+                    name={"fullname_ar"}
+                    required={true}
+                  />
+                  <InputComponent
+                    label="ID Expiry Date Hijri"
+                    placeholder="HijriDate 20/04/1445"
+                    type="text"
+                    value={data.idExpiryDate_hijri}
+                    onChange={handleChange}
+                    name={"idExpiryDate_hijri"}
+                    required={true}
+                  />
+                  <InputComponent
+                    label="Expiry of the license (Hijri)"
+                    placeholder="HijriDate 20/04/1445"
+                    type="text"
+                    onChange={handleChange}
+                    value={data.licExpiryDate_hijri}
+                    name={"licExpiryDate_hijri"}
+                    required={true}
+                  />
                 </FormBox>
               </FormBoxWrapper>
               <FormBoxWrapper>
                 <FormBox color={isTheme().color}>
                   <InputComponent
-                    label="phone"
-                    placeholder="966581955852"
-                    type="text"
-                    name={"phone"}
+                    label="Expiry of the license (Geo)"
+                    placeholder=""
+                    type="date"
+                    onChange={handleChange}
+                    name={"licenseExpDate_gregorian"}
                     required={true}
                   />
 
-                  <TextField
-                    select
-                    label="City of Residence"
-                    name="Place of  issue"
-                    // onChange={handleChange}
-                    // value={data.cityId}
-                    required
-                  >
-                    {cities.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                  <InputComponent
+                    label="Mobile Number"
+                    placeholder="966581955852"
+                    type="text"
+                    value={data.mobileNo}
+                    onChange={handleChange}
+                    name={"mobileNo"}
+                    required={true}
+                  />
                 </FormBox>
                 <FormBox color={isTheme().color}>
                   <InputComponent
                     label="Employer"
                     placeholder="zadip"
                     type="text"
-                    name={"Employer"}
+                    value={data.employerName}
+                    onChange={handleChange}
+                    name={"employerName"}
                     required={true}
                   />
 
-                  <InputComponent
-                    label="City"
-                    placeholder="riyadh"
-                    type="text"
-                    name={"City"}
-                    required={true}
-                  />
+                  <TextField
+                    select
+                    label="City of Residence"
+                    name="residentCity"
+                    onChange={handleChange}
+                    defaultValue={""}
+                    required
+                  >
+                    {cities.result.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option[`name_${locale}`]}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </FormBox>
                 <FormBox color={isTheme().color}>
+                  <TextField
+                    select
+                    label="Price List"
+                    name="pricelist"
+                    onChange={handleChange}
+                    defaultValue={""}
+                    required
+                  >
+                    {pricelist.result.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option[`name_${locale}`]}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                   <InputComponent
-                    label="Business Phone"
+                    label="Work Phone"
                     placeholder="966581955852"
                     type="text"
-                    name={"bphone"}
-                    required={true}
-                  />
-
-                  <InputComponent
-                    label="Email"
-                    placeholder="zeshan@gmail.com"
-                    type="email"
-                    name={"email"}
+                    value={data.workPhone}
+                    onChange={handleChange}
+                    name={"workPhone"}
                     required={true}
                   />
                 </FormBox>
               </FormBoxWrapper>
               <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="Nationality">
+                <FormBox color={isTheme().color} className="nationality">
+                  <InputComponent
+                    label="Email"
+                    placeholder="zeshan@gmail.com"
+                    type="email"
+                    onChange={handleChange}
+                    value={data.email}
+                    name={"email"}
+                    classname="customer-email"
+                    required={true}
+                  />
                   <TextField
                     select
                     label="Nationality"
-                    name="Place of  issue"
+                    name="nationality"
+                    onChange={handleChange}
+                    defaultValue={""}
                     required
+                    className="customer-nationality"
                   >
-                    {countries.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
+                    {countries.result.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option[`name_${locale}`]}
                       </MenuItem>
                     ))}
                   </TextField>
                 </FormBox>
               </FormBoxWrapper>
+              <FormBoxWrapper>
+                <FormBox color={isTheme().color} className="nationality">
+                  <InputComponent
+                    label="Date of Birth Hijri"
+                    placeholder="20/04/1445"
+                    type="text"
+                    onChange={handleChange}
+                    name={"dob_hijri"}
+                    classname="nationality"
+                    required={true}
+                  />
+                  <InputComponent
+                    label="Date of Birth gregorian"
+                    placeholder="zeshan@gmail.com"
+                    type="date"
+                    onChange={handleChange}
+                    name={"dob_gregorian"}
+                    required={true}
+                    classname="nationality"
+                  />
+                  <SwitchesComponent
+                    title="Active/Inactive"
+                    info={""}
+                    onchange={(e) => handleChangeStatus(e)}
+                    name={"active"}
+                    classname={"customer-switch"}
+                    value={data.active}
+                  />
+                </FormBox>
+              </FormBoxWrapper>
             </>
           ) : (
             // ----------------------------company form start from here---------------------------------------
-
             <>
               <FormBoxWrapper>
                 <FormBox color={isTheme().color}>
@@ -373,10 +525,10 @@ const AddCustomer = () => {
                     // value={data.cityId}
                     required
                   >
-                    {cities.map((option) => (
+                    {cities.result.map((option) => (
                       <MenuItem
-                        key={option.value}
-                        value={option.value}
+                        key={option.id}
+                        value={option.id}
                         defaultValue={""}
                       >
                         {option.label}
@@ -424,14 +576,16 @@ const AddCustomer = () => {
                 label="Building Number"
                 placeholder="1234"
                 type="text"
-                name={"Building Number"}
+                onChange={handleChange}
+                name={"cA_buildingNo"}
                 required={true}
               />
               <InputComponent
                 label="City"
                 placeholder="Riyadh"
                 type="text"
-                name={"city"}
+                onChange={handleChange}
+                name={"cA_City"}
                 required={true}
               />
             </FormBox>
@@ -440,14 +594,16 @@ const AddCustomer = () => {
                 label="Street Name"
                 placeholder="king fahad"
                 type="text"
-                name={"Street Name"}
+                onChange={handleChange}
+                name={"cA_StreetName"}
                 required={true}
               />{" "}
               <InputComponent
                 label="Country"
                 placeholder="saudi arabia"
                 type="text"
-                name={"Country"}
+                onChange={handleChange}
+                name={"cA_Country"}
                 required={true}
               />
             </FormBox>
@@ -456,7 +612,8 @@ const AddCustomer = () => {
                 label="District"
                 placeholder="al malaz"
                 type="text"
-                name={"District"}
+                onChange={handleChange}
+                name={"cA_District"}
                 required={true}
               />
               <ZipCode className="zip-code">
@@ -464,7 +621,8 @@ const AddCustomer = () => {
                   label="Zip-code1"
                   placeholder="12664"
                   type="text"
-                  name={"zipcode"}
+                  onChange={handleChange}
+                  name={"cA_PostalCode"}
                   required={true}
                   classname="zip-code"
                 />{" "}
@@ -472,7 +630,8 @@ const AddCustomer = () => {
                   label="Zip-code2"
                   placeholder="12664"
                   type="text"
-                  name={"zipcode"}
+                  onChange={handleChange}
+                  name={"cA_AdditionalPostalCode"}
                   required={true}
                   classname="zip-code"
                 />
@@ -486,7 +645,8 @@ const AddCustomer = () => {
                 placeholder=""
                 type="text"
                 multiline={true}
-                name={"Additional"}
+                onChange={handleChange}
+                name={"comments"}
                 required={true}
                 rows={2}
               />

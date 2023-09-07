@@ -22,12 +22,12 @@ import CarPlate from "../CarPlate";
 import CarRentSvg from "@/public/icons/cars";
 import CarPetrolSvg from "@/public/icons/carPetrolSvg";
 import NumberOfRentedSvg from "@/public/icons/numberOfRentedSvg";
-import CarMileageSvg from "@/public/icons/carMileageSvg";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
+import CarMileageSvg from "@/public/icons/carMileageSvg";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: ICarModel;

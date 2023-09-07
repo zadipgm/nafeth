@@ -32,7 +32,6 @@ export default function ModalComponent({
   size,
   classname,
 }: IProps) {
-  console.log("ModalComponent", open);
   return (
     <Wrapper>
       <Dialog
@@ -40,6 +39,7 @@ export default function ModalComponent({
         open={open}
         maxWidth={size as Breakpoint}
         fullWidth
+        keepMounted
         TransitionComponent={Transition}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"

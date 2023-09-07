@@ -34,7 +34,6 @@ interface IEdit {
   group: ILookupGroup;
 }
 const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
-  console.log("here is edit", result[0]);
   let obj = {
     id: result[0].id,
     username: result[0].username,
@@ -79,7 +78,6 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(data, confirm_password);
     let body = {};
     if (data.password === confirm_password) {
       let userName = getName() as string;
@@ -89,7 +87,6 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
 
       await Update(userName, userPassword, url, company, data).then(
         (res: any) => {
-          console.log("resssss", res);
           if (res.data.message === "Success") {
             Swal.fire("Thank you!", "User has been updated!.", "success");
             router.push("/Users");

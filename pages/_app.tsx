@@ -106,7 +106,6 @@ MyApp.getInitialProps = async ({ router, ctx }: AppContext) => {
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
     )
   );
-  console.log(isMobile, "Mobile");
   return { translations, locale, isMobile };
 };
 export default MyApp;

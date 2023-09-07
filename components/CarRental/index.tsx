@@ -22,7 +22,6 @@ import {
   header_card,
   header_card_dashboard,
 } from "@/global/fakeData";
-import CarMileageSvg from "@/public/icons/carMileageSvg";
 import { Tooltip } from "@nextui-org/react";
 import { Button, Fab, Grow } from "@mui/material";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
@@ -40,9 +39,10 @@ import CarListView from "./ListView";
 import CarGridView from "./gridView";
 import GridView from "@/public/icons/gridView";
 import ListView from "@/public/icons/tableView";
+import CarMileageSvg from "@/public/icons/carMileageSvg";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
-  cars: ICarModel;
+  cars: any;
   page?: string;
   title: string;
 }
@@ -68,7 +68,6 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
     console.log("toggleDrawer", car);
     setCarDetails(car);
     setState({ ...state, [anchor]: open });
-    console.log(state);
   };
   const handleEdit = (id: number) => {
     router.push({
@@ -90,13 +89,7 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
     <>
       <Container>
         {page === "dashboard" ? (
-          <HeaderCard
-            title={"Welcome Mhammad Zeshan"}
-            card={header_card_dashboard}
-            chart_data={Car_chart_data}
-            chartTitle="Base Branch"
-            page="dashboard"
-          />
+          ""
         ) : (
           <HeaderCard
             title={"Car Management"}
@@ -175,6 +168,14 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
               show={show}
               handleEdit={handleEdit}
               toggleDrawer={toggleDrawer}
+              keys={[
+                "mileage",
+                "dailyRent",
+                "weeklyRent",
+                "monthlyRent",
+                "timesRented",
+                "active",
+              ]}
             />
           )}
           {grid && (

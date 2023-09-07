@@ -5,8 +5,9 @@ import { NextPageWithLayout } from "@/pages/_app";
 import { GetServerSideProps } from "next";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import CustomersList from "@/components/customers";
+import { ICustomers } from "@/models/customers";
 
-const Page: NextPageWithLayout = () => {
+const Page: NextPageWithLayout = (props) => {
   return (
     <CustomersList
       addable={false}
@@ -15,6 +16,7 @@ const Page: NextPageWithLayout = () => {
       details={true}
       page_color={"#1281C4"}
       title={"Customers List"}
+      customers={props as ICustomers}
     />
   );
 };
@@ -23,19 +25,18 @@ Page.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Page;
-// export const getServerSideProps: GetServerSideProps<{
-//   result: IUser[];
-// }> = async (ctx) => {
-//   let userName = ctx.req.cookies.userName;
-//   let userPassword = ctx.req.cookies.userPassword;
-//   let company = ctx.req.cookies.company;
-//   const res = await fetchData(
-//     userName as string,
-//     userPassword as string,
-//     "/settings/Users",
-//     company as string
-//   );
-//   const result = await res;
-
-//   return { props: result };
-// };
+export const getServerSideProps: GetServerSideProps<{
+  result: ICustomers[];
+}> = async (ctx) => {
+  let userName = ctx.req.cookies.userName;
+  let userPassword = ctx.req.cookies.userPassword;
+  let company = ctx.req.cookies.company;
+  const res = await fetchData(
+    userName as string,
+    userPassword as string,
+    "/customers/Customers",
+    company as string
+  );
+  const result = await res;
+  return { props: result };
+};

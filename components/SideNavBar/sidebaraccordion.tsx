@@ -20,12 +20,14 @@ import IconComponent from "@/reuseableComponents/IconComponent";
 import { useTheme } from "styled-components";
 import { userImenuContext } from "@/context";
 import CustomCheckbox from "@/reuseableComponents/customCheckbox";
+import { useRouter } from "next/router";
 interface IProps {
   sideBarMenuData?: any;
   active_link?: boolean;
   access_group_class?: string;
   showcheckboxes?: boolean;
   onchange?: (e: any) => void;
+  handleClose?: () => void | undefined;
 }
 const SideBarAccordions = ({
   sideBarMenuData,
@@ -33,9 +35,11 @@ const SideBarAccordions = ({
   access_group_class,
   showcheckboxes = false,
   onchange,
+  handleClose,
 }: IProps) => {
-  const { colors, isLTR }: any = useTheme();
+  const { colors, isLTR, isMobile } = useTheme();
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const router = useRouter();
   const [classname, setClassName] = React.useState("");
   const [toggle, settoggle] = React.useState(false);
   const handleChange =
@@ -43,8 +47,13 @@ const SideBarAccordions = ({
       setExpanded(isExpanded ? panel : false);
     };
   const handleClassess = (val: string) => {
-    console.log("handleClassess", val);
     setClassName(val);
+  };
+  const handleClickLink = (link: string) => {
+    router.push(link);
+    if (isMobile) {
+      handleClose();
+    }
   };
   return (
     <AccordionContainer>
@@ -143,6 +152,7 @@ const SideBarAccordions = ({
                             >
                               <Link
                                 href={active_link === false ? "#" : `/${p.url}`}
+                                onClick={() => handleClickLink(p.url)}
                               >
                                 {isLTR ? p.name_en : p.name_ar}
                               </Link>

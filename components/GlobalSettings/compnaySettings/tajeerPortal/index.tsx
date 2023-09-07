@@ -35,7 +35,6 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
       ...tajeer_portalValues,
       [e.target.name]: e.target.value,
     });
-    console.log("onChange", tajeer_portalValues);
   };
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -54,7 +53,6 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.message);
         if (res.status === 200) {
           Swal.fire(
             "Thank you!",

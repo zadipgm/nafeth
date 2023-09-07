@@ -29,7 +29,6 @@ const MobileHeader = () => {
     }
   }, [locale]);
   const handleOpen = () => {
-    console.log("open", open);
     setOpen(true);
   };
   const handleClose = () => {
@@ -63,7 +62,10 @@ const MobileHeader = () => {
             />
             <Link href="/">{"Dashboard"}</Link>
           </SideIconWrapper>
-          <SideBarAccordions sideBarMenuData={menu.result} />
+          <SideBarAccordions
+            sideBarMenuData={menu.result}
+            handleClose={handleClose}
+          />
           {/* <ProfileComponent /> */}
         </>
       </ModalComponent>

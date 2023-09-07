@@ -50,7 +50,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
       ...customValues,
       [e.target.name]: e.target.value,
     });
-    console.log("onChange", customValues);
   };
   const handleFreeHour = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -87,7 +86,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
       terms_en: customValues.terms_en,
       terms_ar: customValues.terms_ar,
     };
-    console.log(body);
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
@@ -95,7 +93,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.message);
         if (res.status === 200) {
           Swal.fire(
             "Thank you!",

@@ -90,7 +90,6 @@ const AddCar = ({
     active: cars.result[0].active,
   };
   const [data, setData] = React.useState(object);
-  console.log("here is dataaaa", data.buyingDate);
   const [modelID, setModelID] = React.useState<ILookUp>();
   const { colors } = useTheme();
   const router = useRouter();
@@ -101,6 +100,7 @@ const AddCar = ({
     });
   };
   const handleChange = (e: { target: { name: any; value: any } }) => {
+    console.log(e.target.name, e.target.value);
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -124,12 +124,11 @@ const AddCar = ({
     let company = getCompany() as string;
     let url = `cars/Cars/${data.id}`;
 
-    console.log("here is body", data);
     await Update(userName, userPassword, url, company, data).then(
       (res: any) => {
         if (res.status == 200) {
           Swal.fire("Thank you!", "car has been Updated!.", "success");
-          router.push("/cars");
+          // router.push("/cars");
         } else {
           console.log(res);
           Swal.fire({
@@ -141,7 +140,7 @@ const AddCar = ({
       }
     );
   };
-
+  console.log("here is buyingDate", data.buyingDate);
   const years = Array.from(
     { length: 50 },
     (_, index) => new Date().getFullYear() - index

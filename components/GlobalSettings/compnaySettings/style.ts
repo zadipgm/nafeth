@@ -91,6 +91,9 @@ cursor: no-drop;
    width: 100%;
     flex-direction: row;
   }
+  &.price-list{
+    width: 50%;
+  }
   &.car-contract-details{
     flex-direction: row;
     width: 100%;
@@ -109,8 +112,12 @@ cursor: no-drop;
     flex-direction: row;
     width: 100%;
   }
-  &.Nationality{
+  &.nationality{
     width: 100%;
+    flex-direction: row;
+    .customer-nationality{
+width: 50%;
+    }
   }
  &.employee-compnay{
   width: 50%;
@@ -245,6 +252,9 @@ export const FormBoxWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  &.price-list{
+    align-items: baseline;
+  }
   gap: 20px;
   padding: 15px;
   &.tabs {
@@ -264,6 +274,9 @@ export const GroupButtons = styled.div`
   padding: 12px;
   & .MuiButtonBase-root {
     width: 170px;
+    &.pricelist-save-button{
+      background-color: ${({ theme }) => theme.colors.nafethBlue};
+    }
     &.global-settings-save-button {
       background-color: ${({ theme }) => theme.colors.nafethBlue};
     }

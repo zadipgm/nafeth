@@ -27,7 +27,6 @@ const EditCustomer = ({ handleClose, isEditHeader = true }: IProps) => {
   const [IDTypes, setIDTypes] = React.useState(0);
   const [categoryID, setCategoryID] = React.useState(0);
   const hanldeIDType = (type: string) => {
-    console.log(type);
     if (type === "Citizen ID" || type === "Resident ID") {
       setIDTypes(0);
     } else {
@@ -35,7 +34,6 @@ const EditCustomer = ({ handleClose, isEditHeader = true }: IProps) => {
     }
   };
   const hanldeCategoryID = (cID: string) => {
-    console.log(cID);
     if (cID === "individual") {
       setCategoryID(0);
     } else {

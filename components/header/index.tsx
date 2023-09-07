@@ -9,7 +9,6 @@ interface IProps {
 }
 const Header = ({ themeToggler, theme }: IProps) => {
   const { isMobile } = useTheme();
-  console.log("themeToggler", isMobile);
   return (
     <HeadersContainer>
       <div className="mobile">

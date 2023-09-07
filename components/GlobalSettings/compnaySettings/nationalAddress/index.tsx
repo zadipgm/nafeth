@@ -38,7 +38,6 @@ const NationalAddress = ({ national_address }: ISettings) => {
       ...national_addressValues,
       [e.target.name]: e.target.value,
     });
-    console.log("onChange", national_addressValues);
   };
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -60,7 +59,6 @@ const NationalAddress = ({ national_address }: ISettings) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.message);
         if (res.status === 200) {
           Swal.fire(
             "Thank you!",

@@ -31,7 +31,6 @@ interface IProps {
   group: ILookupGroup;
 }
 const AddUser = ({ manager, group, baseBranch }: IProps) => {
-  console.log("manager", manager, "group", group, "baseBranch", baseBranch);
   let obj = {
     username: "",
     password: "",
@@ -73,7 +72,6 @@ const AddUser = ({ manager, group, baseBranch }: IProps) => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(data, confirm_password);
     if (data.password === confirm_password) {
       let userName = getName() as string;
       let userPassword = getPassword() as string;
