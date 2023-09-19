@@ -71,25 +71,21 @@ const AddCustomer = ({
     let company = getCompany() as string;
     let url = "customers/Customers";
     if (checkID) {
-      await createPost(
-        userName,
-        userPassword,
-        url,
-        company,
-        data.idNumber
-      ).then((res: any) => {
-        if (res.status == 200) {
-          Swal.fire("Thank you!", "Customer has been Created!.", "success");
-          router.push("/customers");
-        } else {
-          console.log(res);
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-          });
+      await createPost(userName, userPassword, url, company, data).then(
+        (res: any) => {
+          if (res.status == 200) {
+            Swal.fire("Thank you!", "Customer has been Created!.", "success");
+            router.push("/customers");
+          } else {
+            console.log(res);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
         }
-      });
+      );
     } else {
       Swal.fire({
         icon: "error",

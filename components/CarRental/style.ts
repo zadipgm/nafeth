@@ -1,21 +1,48 @@
+import { colors } from "@mui/material";
 import { styled, css } from "styled-components";
 export const Container = styled.div`
+
 `;
+export const SlectedAccessoriesContainer = styled.div`
+display: flex;
+justify-content: flex-start;
+align-items: center;
+flex-wrap: wrap;
+margin: 30px;
+gap: 20px;
+`
+export const SlectedAccessories = styled.div`
+
+
+width: 20%;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 30px;
+  padding: 8px;
+  border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+`
+export const Accessory = styled.div`
+display: flex;
+justify-content: space-between;
+text-transform: capitalize;
+`
 export const AccessoriesContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   padding: 10px;
+ 
+  width: 31.5%;
+  gap: 6px;
+  align-items: center;
   margin: 10px;
-  width: 32%;
-  gap: 12px;
   display: flex;
   cursor: pointer;
 `;
 export const AccessoriesWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
 `;
 export const RentContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -68,6 +95,14 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
+  .active_promotions{
+    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    cursor: pointer;
+  }
+  .promotions{
+   border: 2px solid transparent;
+    cursor: pointer;
+  }
    @media (max-width: 600px) {
     width: 100%;
     display: block;
@@ -86,6 +121,7 @@ export const Car = styled.div<{ bcolor?: string; color?: string }>`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all.5s;
   position: relative;
+ 
   &:hover {
     transition: all.5s;
     transform: scale(1.02);
@@ -120,6 +156,22 @@ export const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  &.accessory{
+    justify-content: center;
+  }
+  &.promotions{
+    justify-content: flex-end;
+@media (max-width: 600px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  @media (min-width: 600px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  }
+   
   &.car-management{
 width: 25%;
 @media (max-width: 600px) {
@@ -135,6 +187,22 @@ width: 25%;
     padding: 15px 0px 0px 0px;
     svg {
       margin: 0px 10px;
+    }
+    .add{
+      width: 50%;
+    font-size: 10px !important;
+    &:hover {
+      color: #fff;
+      border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      & .MuiButton-endIcon {
+        svg {
+          path {
+            stroke: #fff;
+          }
+        }
+      }
+    }
     }
   }
   & .retrun {
@@ -413,36 +481,9 @@ export const DetailsTitle = styled.h3<{ color: string }>`
   padding: 12px;
   color: #fff;
 `;
-export const ViewsWrapper = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-gap: 10px;
-`
-export const GridViewWrapper = styled.div`
-border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
-border-radius: 8px;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 8px;
-&.active{
-  border-color: #17C964
-}
-`
-export const ListViewWrapper = styled.div`
-border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
-border-radius: 8px;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 6px;
-&.active{
-  border-color: #17C964
-}
-`
+
+
+
 export const DetailWrapper = styled.div<{ color: string; bcolor: string }>`
   background-color: ${({ bcolor }) => bcolor};
   color: ${({ color }) => color};
@@ -501,14 +542,23 @@ export const CarPlateInArabicWrapper = styled.div`
 `;
 export const RentWrapper = styled.div`
   display: flex;
+  @media (max-width: 600px) {
+    display: block;
+    &.car-card {
+    height: unset !important;
+  }
+  }
   margin: 30px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 70px;
   &.car-card {
     height: 400px;
   }
-  &.customer-card {
+  &.Customer-card {
     height: 300px;
+  }
+  &.driver-card {
+    height: 200px;
   }
 `;
 export const RentList = styled.ul`
@@ -518,7 +568,7 @@ export const RentList = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 80%;
+  width: 70%;
   flex-wrap: wrap;
   border-top-left-radius: 70px;
   border-bottom-left-radius: 70px;
@@ -571,6 +621,9 @@ export const RentList = styled.ul`
       }
     }
   }
+   @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 export const RentListItem = styled.li`
   display: flex;
@@ -578,15 +631,20 @@ export const RentListItem = styled.li`
   justify-content: flex-start;
   align-items: center;
   width: 16%;
+margin: 2px;
   &.other-details {
     width: 30%;
   }
   &.other-detail {
     width: 30%;
   }
+  @media (max-width: 600px) {
+    width: 48%;
+    justify-content: center;
+  }
 `;
 export const CarOtherDetails = styled.div`
-  width: 20%;
+  width: 30%;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -605,6 +663,9 @@ export const CarOtherDetails = styled.div`
     align-items: center;
     width: 300px;
     margin: 0 auto;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;
 export const OtherDetailsTitleWrapper = styled.div`
@@ -636,22 +697,27 @@ export const BackICon = styled.div`
   }
 `;
 export const CarDetailsTitle = styled.span`
-  color: ${({ theme }) => theme.colors.gray2};
+  color: ${({ theme }) => theme.colors.black1};
   &.other-detail {
-    color: ${({ theme }) => theme.colors.gray1};
+    color: ${({ theme }) => theme.colors.black1};
   }
   &.other-details {
-    color: ${({ theme }) => theme.colors.gray1};
+    color: ${({ theme }) => theme.colors.black1};
   }
 `;
-export const CarDetailsSubTitle = styled.span`
+export const CarDetailsSubTitle = styled.span<{ color?: string }>`
   font-size: 18px;
   &.other-detail {
     font-size: 14px;
     font-weight: 700;
   }
   &.other-details {
-    color: blue;
+    border:3px solid ${({ color }) => color};
+    width: 100px;
+    text-align: center;
+    border-radius: 8px;
+    color: ${({ color }) => color};
+    background-color: ${({ theme }) => theme.colors.nafethBlue};
   }
 `;
 export const OtherDetailsList = styled.ul`
@@ -711,6 +777,14 @@ export const GlobalListViewWrapper = styled.div`
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  &.active_promotions{
+    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    cursor: pointer;
+  }
+  &.promotions{
+   border: 2px solid transparent;
+    cursor: pointer;
+  }
 `
 export const ModelListViewWrapper = styled.div`
   width: 32%;
@@ -737,7 +811,7 @@ export const ModelListViewWrapper = styled.div`
     width: 100%;
   }
    @media (min-width: 1024px) {
-    width: 45%;
+    width: 20%;
   }
    @media (min-width: 1440px) {
     width: 20%;
@@ -752,7 +826,7 @@ width: 10%;
     width: 100%;
   }
 &.car-page{
-  width: 48%;
+  width: 30%;
   @media (max-width: 600px) {
     width: 66%;
   }
@@ -768,7 +842,7 @@ export const ReuseAbleList = styled.ul`
     margin: 0;
     padding: 0;
     list-style-type: none;
-    width: 32%;
+  
     @media (max-width: 600px) {
     width: 100%;
   }
@@ -776,10 +850,6 @@ export const ReuseAbleList = styled.ul`
     width: 100%;
   }
    @media (min-width: 1024px) {
-    width: 50%;
-    margin-top: 31px;
-  }
-   @media (min-width: 1440px) {
     width: 40%;
     margin-top: 31px;
   }
@@ -799,14 +869,10 @@ export const ReuseAbleListItem = styled.li<{ color?: string }>`
     width: 100%;
   }
   @media (min-width: 600px) {
-    width: 100%;
+    width: 26%;
   }
-   @media (min-width: 1024px) {
-    width: 30%;
-  }
-   @media (min-width: 1440px) {
-    width: 23%;
-  }
+   
+  
     background-color: #d7d6d645;
     padding: 3px 3px 0px 3px;
     margin: 3px;
@@ -839,11 +905,9 @@ display: flex;
     width: 100%;
   }
    @media (min-width: 1024px) {
-    width: 100%;
-  }
-   @media (min-width: 1440px) {
-    width: 35%;
+     width: 35%;
     align-items:flex-end;
     justify-content: flex-end;
   }
+   
 `

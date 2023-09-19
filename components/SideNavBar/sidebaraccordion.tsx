@@ -52,7 +52,7 @@ const SideBarAccordions = ({
   const handleClickLink = (link: string) => {
     router.push(link);
     if (isMobile) {
-      handleClose();
+      handleClose?.();
     }
   };
   return (
@@ -152,7 +152,7 @@ const SideBarAccordions = ({
                             >
                               <Link
                                 href={active_link === false ? "#" : `/${p.url}`}
-                                onClick={() => handleClickLink(p.url)}
+                                onClick={() => handleClickLink(`/${p.url}`)}
                               >
                                 {isLTR ? p.name_en : p.name_ar}
                               </Link>

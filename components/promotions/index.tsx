@@ -1,41 +1,38 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
-import { IAccessory } from "@/models/IAccessory";
 import { IPriceList } from "@/models/customers";
-import { ILoyality } from "@/models/loyality";
 import { IPrices } from "@/models/pricelist";
+import { IPromotions } from "@/models/promotions";
 import DataTable from "@/reuseableComponents/DataTable";
+import { DataTableContainer } from "@/reuseableComponents/DataTable/style";
 import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
-import { Container } from "../style";
 interface IProps {
-  list: IAccessory;
+  list: IPromotions;
 }
-const CarAccessoryList = ({ list }: IProps) => {
-  console.log(list, "list");
+const PromotionsList = ({ list }: IProps) => {
   console.log(list);
   const { colors } = useTheme();
-
   return (
-    <Container>
+    <DataTableContainer>
       <Title color={colors.nafethBlue}>
-        <h2>Car Accessories List</h2>
+        <h2>Promotion List</h2>
       </Title>
       <DataTable
         data={list.result}
         showFilter={true}
-        isDeleteAble={true}
+        isDeleteAble={false}
         isEditAble={true}
-        isViewAble={false}
+        isViewAble={true}
         isDuplicate={false}
-        linkPageUrl={"caraccessories"}
+        linkPageUrl={"promotions"}
         page_color={colors.nafethBlue}
-        sideBarTitle="Car Accessories Details"
+        sideBarTitle="Promotions Details"
         size="400px"
         showAddButton={true}
-        addButtonText="Add New   List"
+        addButtonText="Add New List"
       />
-    </Container>
+    </DataTableContainer>
   );
 };
-export default CarAccessoryList;
+export default PromotionsList;

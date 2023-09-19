@@ -284,6 +284,14 @@ export const GroupButtons = styled.div`
       background-color: ${({ theme }) => theme.colors.green};
       width: 25%;
     }
+    &.rent-car-Add-contract{
+      background-color: ${({ theme }) => theme.colors.green};
+      width: 25%;
+      svg{
+        transform: rotate(90deg);
+        margin: 0px 10px;
+      }
+    }
     &.contract-on-nafeth-button{
       background-color: ${({ theme }) => theme.colors.green};
       width: 25%;
@@ -299,6 +307,9 @@ export const GroupButtons = styled.div`
     &.add-accessories-button{
        background-color: ${({ theme }) => theme.colors.purple};
        width: 20%;
+    }
+    &.rent-car-Adddriver-button{
+      background-color: ${({ theme }) => theme.colors.purple};
     }
     &.custom-price-button{
        background-color: ${({ theme }) => theme.colors.red};

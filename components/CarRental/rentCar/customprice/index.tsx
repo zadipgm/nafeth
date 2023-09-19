@@ -10,10 +10,37 @@ import CloseSvg from "@/public/icons/closeSvg";
 import InputComponent from "@/reuseableComponents/InputField";
 import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
 import { Button } from "@mui/material";
+import { ICarModel } from "@/models/carmodel";
 interface IProps {
   handleClose: () => void;
+  car: ICarModel;
+  getCustomPrice: (price: any) => void;
 }
-const CustomPrice = ({ handleClose }: IProps) => {
+const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
+  const obj = {
+    mileage: car.result[0].mileage,
+    dailyRent: car.result[0].dailyRent,
+    weeklyRent: car.result[0].weeklyRent,
+    monthlyRent: car.result[0].monthlyRent,
+    minDailyRent: car.result[0].minDailyRent,
+    perExtraKM: car.result[0].perExtraKM,
+    dailyKMlimit: car.result[0].dailyKMlimit,
+    graceHours: car.result[0].graceHours,
+    graceCharge: car.result[0].graceCharge,
+    fullFuelCost: car.result[0].fullFuelCost,
+  };
+  const [data, setData] = React.useState(obj);
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSave = () => {
+    let newobjec = data;
+    getCustomPrice(newobjec);
+    handleClose();
+  };
   return (
     <>
       <ModalHeader>
@@ -28,7 +55,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Daily Rent"
-            defaultValue={"100"}
+            defaultValue={data.dailyRent}
+            name="dailyRent"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -36,7 +65,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Weekly Rent"
-            defaultValue={"80.00"}
+            defaultValue={data.weeklyRent}
+            name="weeklyRent"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -44,7 +75,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Monthly Rent"
-            defaultValue={"70.00"}
+            defaultValue={data.monthlyRent}
+            name="monthlyRent"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -52,7 +85,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="min Rate"
-            defaultValue={"80.00"}
+            defaultValue={data.minDailyRent}
+            name="minDailyRent"
+            onChange={handleChange}
             disabled={true}
             required
           />
@@ -61,7 +96,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Full Tank Price"
-            defaultValue={"0"}
+            defaultValue={data.fullFuelCost}
+            name="fullFuelCost"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -71,7 +108,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Extra Hour"
-            defaultValue={"3.00"}
+            defaultValue={data.graceHours}
+            name="graceHours"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -79,15 +118,19 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Extra per Hour"
-            defaultValue={"23.00"}
+            defaultValue={data.graceCharge}
+            name="graceCharge"
+            onChange={handleChange}
             required
           />
         </RentListItem>
         <RentListItem>
           <InputComponent
             type="text"
-            label="Per KM Parice"
-            defaultValue={"0.25"}
+            label="Per KM price"
+            defaultValue={data.perExtraKM}
+            name="perExtraKM"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -95,7 +138,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="Daily KM Limit"
-            defaultValue={"200"}
+            defaultValue={data.dailyKMlimit}
+            name="dailyKMlimit"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -103,7 +148,9 @@ const CustomPrice = ({ handleClose }: IProps) => {
           <InputComponent
             type="text"
             label="KM out"
-            defaultValue={"1"}
+            defaultValue={data.mileage}
+            name="mileage"
+            onChange={handleChange}
             required
           />
         </RentListItem>
@@ -112,7 +159,7 @@ const CustomPrice = ({ handleClose }: IProps) => {
         <Button
           variant="contained"
           color="success"
-          onClick={() => handleClose()}
+          onClick={() => handleSave()}
         >
           Save
         </Button>

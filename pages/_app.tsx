@@ -63,12 +63,42 @@ const MyApp = ({
         router.events.off("routeChangeComplete", handleComplete);
         router.events.off("routeChangeError", handleComplete);
       };
-      router.push({ pathname: router.asPath });
     } else {
       router.push({ pathname: "/login" });
+      setLoading(false);
     }
   }, [isLogin, router]);
 
+  let t: any;
+  const checkIdleness = () => {
+    window.onload = timerReset;
+    window.onmousemove = timerReset;
+    window.onmousedown = timerReset; // catches touchscreen presses as well
+    window.ontouchstart = timerReset; // catches touchscreen swipes as well
+    window.onclick = timerReset; // catches touchpad clicks as well
+    window.onkeydown = timerReset;
+    window.addEventListener("scroll", timerReset, true); // improved; see comments
+
+    function writeYourFunction() {
+      // function for too long inactivity
+      alert("Your session has been expired. Please login again!");
+      setLoading(false);
+      Cookies.remove("isLogin");
+      Cookies.remove("company");
+      Cookies.remove("userPassword");
+      Cookies.remove("userName");
+      window.localStorage.clear();
+      router.push("/login");
+    }
+
+    function timerReset() {
+      clearTimeout(t);
+      t = setTimeout(writeYourFunction, 1200000); // time is in milliseconds
+    }
+  };
+  React.useEffect(() => {
+    checkIdleness();
+  }, []);
   return getLayout(
     <>
       <Head>

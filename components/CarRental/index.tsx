@@ -8,22 +8,14 @@ import {
   DetailListItem,
   Spantext,
   Strongtext,
-  ViewsWrapper,
-  GridViewWrapper,
-  ListViewWrapper,
 } from "./style";
 import { useRouter } from "next/router";
 import AddIcon from "@mui/icons-material/Add";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import HeaderCard from "@/reuseableComponents/HeaderCards";
-import {
-  Car_chart_data,
-  header_card,
-  header_card_dashboard,
-} from "@/global/fakeData";
-import { Tooltip } from "@nextui-org/react";
-import { Button, Fab, Grow } from "@mui/material";
+import { Car_chart_data, header_card } from "@/global/fakeData";
+import { Button, Fab } from "@mui/material";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import InputComponent from "@/reuseableComponents/InputField";
 import DrawerComponent from "@/reuseableComponents/Drawer";
@@ -32,36 +24,54 @@ import CarPlateSvg from "@/public/icons/carPlateSvg";
 import CarManageSvg from "@/public/icons/carManageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
 import CarRentSvg from "@/public/icons/cars";
-import { ICarModel } from "@/models/carmodel";
 import EconomicSvg from "@/public/icons/Economic";
 import { SearchBarWrapper, SearchTabsWrapper } from "../contracts/style";
 import CarListView from "./ListView";
 import CarGridView from "./gridView";
-import GridView from "@/public/icons/gridView";
-import ListView from "@/public/icons/tableView";
 import CarMileageSvg from "@/public/icons/carMileageSvg";
+import ViewButton from "@/reuseableComponents/viewsButton";
+import SearchComponent from "@/reuseableComponents/SearchComponent";
+import {
+  PaginationOuterDiv,
+  PaginationWrapper,
+} from "@/reuseableComponents/DataTable/style";
+import Pagination from "@/reuseableComponents/Pagnation";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
   page?: string;
   title: string;
+  showAddButton?: boolean;
+  hanldeSelected?: (param: any) => void;
+  selectedCarID?: any;
 }
-const CarRent = ({ cars, page, title }: ICarProps) => {
+const CarRent = ({
+  cars,
+  page,
+  hanldeSelected,
+  showAddButton,
+  selectedCarID,
+}: ICarProps) => {
   const router = useRouter();
-  const { colors, locale, isMobile } = useTheme();
-  const [label, setLabel] = React.useState("sedan");
+  const { colors, isMobile } = useTheme();
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
-  const [all, setSedan] = React.useState(true);
-  const [company, setPickup] = React.useState(false);
-  const [individual, setSuv] = React.useState(false);
-  const [economic, setEconomic] = React.useState(false);
   const [carDetails, setCarDetails] = React.useState<any>();
-  const [show, setShow] = React.useState(8);
+
+  const [searchvalue, setSearchvalue] = React.useState(cars.result);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [recordsPerPage, setRecordPerPage] = React.useState(10);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = cars.result?.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+  const nPages = Math.ceil(cars.result?.length / recordsPerPage);
   const [list, setList] = React.useState(true);
   const [grid, setGrid] = React.useState(false);
   const toggleDrawer = (anchor: Anchor, open: boolean, car?: any) => {
@@ -88,7 +98,9 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
   return (
     <>
       <Container>
-        {page === "dashboard" ? (
+        {page === "dashboard" ||
+        page === "promotions" ||
+        page === "promotions_active" ? (
           ""
         ) : (
           <HeaderCard
@@ -108,37 +120,13 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
             bcolor={isTheme()?.bcolor}
             color={isTheme()?.inputColor}
           >
-            <ViewsWrapper>
-              <Tooltip content={"Grid View"} color={"success"}>
-                <GridViewWrapper
-                  onClick={() => handleView("grid")}
-                  className={grid ? "active" : ""}
-                >
-                  <GridView
-                    width="35px"
-                    height="35px"
-                    fill={colors.nafethBlue}
-                  />
-                </GridViewWrapper>
-              </Tooltip>
-              <Tooltip content={"List View"} color={"success"}>
-                <ListViewWrapper
-                  onClick={() => handleView("list")}
-                  className={list ? "active" : ""}
-                >
-                  <ListView
-                    width="40px"
-                    height="40px"
-                    fill={colors.nafethBlue}
-                  />
-                </ListViewWrapper>
-              </Tooltip>
-            </ViewsWrapper>
-            <SearchBarWrapper
-              bcolor={isTheme()?.bcolor}
-              color={isTheme()?.inputColor}
-              className={page}
-            >
+            <ViewButton handleView={handleView} list={list} grid={grid} />
+            <SearchComponent
+              data={cars.result}
+              currentRecords={currentRecords}
+              setSearchvalue={setSearchvalue}
+            />
+            {showAddButton && (
               <Fab
                 aria-label={"add"}
                 style={{
@@ -153,21 +141,16 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
                 Add Car
                 <AddIcon />
               </Fab>
-              <InputComponent
-                type="search"
-                placeholder="Search car by plate number or car model"
-                label="Search Cars by plate number or car model"
-                classname="search-input-car"
-              />
-            </SearchBarWrapper>
+            )}
           </SearchTabsWrapper>
           {list && (
             <CarListView
-              cars={cars}
+              cars={searchvalue}
               page={page}
-              show={show}
               handleEdit={handleEdit}
               toggleDrawer={toggleDrawer}
+              hanldeSelected={hanldeSelected}
+              selectedCarID={selectedCarID}
               keys={[
                 "mileage",
                 "dailyRent",
@@ -180,11 +163,12 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
           )}
           {grid && (
             <CarGridView
-              cars={cars}
+              cars={searchvalue}
               page={page}
-              show={show}
               handleEdit={handleEdit}
               toggleDrawer={toggleDrawer}
+              hanldeSelected={hanldeSelected}
+              selectedCarID={selectedCarID}
             />
           )}
           <DrawerComponent
@@ -252,23 +236,18 @@ const CarRent = ({ cars, page, title }: ICarProps) => {
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {show === cars.result.length ? (
+          {cars.result.length > 0 ? (
             ""
           ) : (
-            <Button
-              variant={"contained"}
-              onClick={() => setShow(show + 4)}
-              className="load-more"
-              endIcon={
-                <ArrowCircleSvg
-                  width="15px"
-                  height="15px"
-                  fill={colors.white}
+            <PaginationWrapper>
+              <PaginationOuterDiv>
+                <Pagination
+                  nPages={nPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                 />
-              }
-            >
-              View more
-            </Button>
+              </PaginationOuterDiv>
+            </PaginationWrapper>
           )}
         </CardListWrapper>
       </Container>

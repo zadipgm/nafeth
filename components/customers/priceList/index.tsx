@@ -1,9 +1,11 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import { IPriceList } from "@/models/customers";
 import { IPrices } from "@/models/pricelist";
+import DataTable from "@/reuseableComponents/DataTable";
 import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
+import { LoyaltyContainer } from "../style";
 interface IProps {
   list: IPrices;
 }
@@ -11,13 +13,12 @@ const PriceListComponent = ({ list }: IProps) => {
   console.log(list);
   const { colors } = useTheme();
   return (
-    <>
+    <LoyaltyContainer>
       <Title color={colors.nafethBlue}>
         <h2>Price Lists</h2>
       </Title>
-      <TableComponent
-        tableData={list.result}
-        headerValue={[`priceList_en`, "priceList_ar", "discount", "active"]}
+      <DataTable
+        data={list.result}
         isDeleteAble={false}
         isEditAble={true}
         isViewAble={false}
@@ -28,8 +29,9 @@ const PriceListComponent = ({ list }: IProps) => {
         size="400px"
         showAddButton={true}
         addButtonText="Add New List"
+        showFilter={true}
       />
-    </>
+    </LoyaltyContainer>
   );
 };
 export default PriceListComponent;

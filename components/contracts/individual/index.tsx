@@ -39,11 +39,8 @@ import {
   DetailListItem,
   DetailWrapper,
   DetailsTitle,
-  GridViewWrapper,
-  ListViewWrapper,
   Spantext,
   Strongtext,
-  ViewsWrapper,
 } from "@/components/CarRental/style";
 import { useRouter } from "next/router";
 import ReturnSvg from "@/public/icons/returnSvg";
@@ -60,6 +57,11 @@ import DisputeSvg from "@/public/icons/DisputeSvg";
 import ContractListView from "../contractListView";
 import GridView from "@/public/icons/gridView";
 import ListView from "@/public/icons/tableView";
+import {
+  GridViewWrapper,
+  ListViewWrapper,
+  ViewsWrapper,
+} from "@/reuseableComponents/viewsButton/style";
 type Anchor = "top" | "left" | "bottom" | "right";
 const ContractPage = () => {
   const [state, setState] = React.useState({
