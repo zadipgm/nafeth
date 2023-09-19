@@ -27,7 +27,7 @@ const MobileHeader = () => {
     } else {
       router.push(`${router.asPath}`, `${router.asPath}`, { locale: "ar" });
     }
-  }, [locale]);
+  }, [locale, router]);
   const handleOpen = () => {
     setOpen(true);
   };

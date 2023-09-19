@@ -22,177 +22,43 @@ import { useRouter } from "next/router";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
+import List from "./list";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
   page?: string;
-  show: number;
   toggleDrawer: (param1: Anchor, param2: boolean, param3: any) => void;
   handleEdit: (param: any) => void;
   keys: string[];
+  hanldeSelected?: ((param: any) => void | undefined) | undefined;
+  selectedCarID?: any;
 }
 const CarListView = ({
   cars,
   page,
   toggleDrawer,
   handleEdit,
-  show,
   keys,
+  hanldeSelected,
+  selectedCarID,
 }: ICarProps) => {
-  const { locale, colors } = useTheme();
-  const router = useRouter();
+  console.log("CarListView", cars);
   return (
     <ListViewContainer>
-      {cars.result.slice(0, show).map((car: any, i: any) => {
+      {cars.map((car: any, i: any) => {
         return (
-          <Grow
-            in={true}
-            style={{ transformOrigin: "0 0 0" }}
-            {...(true ? { timeout: 2000 } : {})}
+          <List
             key={i}
-          >
-            <div>
-              <GlobalListViewWrapper>
-                <ModelListViewWrapper>
-                  <span className="make-model">
-                    {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
-                    {car.year}
-                  </span>
-                  <CarPlateWrapper>
-                    <CarPlate car={car} />
-                  </CarPlateWrapper>
-                </ModelListViewWrapper>
-                <ReuseAbleList>
-                  <ReuseAbleListItem>
-                    <Tooltip content={"car fuel"} color={"success"}>
-                      <div>
-                        <CarPetrolSvg
-                          width={"25px"}
-                          height="25px"
-                          fill={colors.nafethBlue}
-                        />
-                      </div>
-                      {car.fuelType[`name_${locale}`]}
-                    </Tooltip>
-                  </ReuseAbleListItem>
-                  <ReuseAbleListItem>
-                    <Tooltip content={"car color"} color={"invert"}>
-                      <CarColor color={car.color[`name_${locale}`]}></CarColor>
-                      {car.color[`name_${locale}`]}
-                    </Tooltip>
-                  </ReuseAbleListItem>
-                  {keys.map((key: string) => {
-                    return (
-                      <ReuseAbleListItem>
-                        <Tooltip content={key} color={"success"}>
-                          <div>
-                            <IconComponent
-                              width={"25px"}
-                              height="25px"
-                              fill={colors.nafethBlue}
-                              icon={
-                                (key === "mileage" && "carMileageSvg") ||
-                                (key === "dailyRent" && "cars") ||
-                                (key === "weeklyRent" && "carRentedSvg") ||
-                                (key === "monthlyRent" && "carTotalSvg") ||
-                                (key === "timesRented" &&
-                                  "numberOfRentedSvg") ||
-                                (key === "active" && "active")
-                              }
-                            />
-                          </div>
-                          {cars.result[i][key] === "Y"
-                            ? "Active"
-                            : cars.result[i][key] === "N"
-                            ? "In-Active"
-                            : cars.result[i][key]}
-                        </Tooltip>
-                      </ReuseAbleListItem>
-                    );
-                  })}
-                </ReuseAbleList>
-                <CarTypeSvgWrapper>
-                  <IconComponent
-                    width="100px"
-                    height="100px"
-                    fill={car.color.name_en}
-                    stroke={colors.gray1}
-                    icon={car.carType.name_en.trim()}
-                  />
-
-                  <ButtonWrapper className={page}>
-                    {page === "dashboard" && (
-                      <Button
-                        variant="outlined"
-                        className="rent"
-                        onClick={() => router.push("/cars/rent")}
-                        endIcon={
-                          <CarRentSvg
-                            width="18px"
-                            height="18px"
-                            fill={colors.purple}
-                          />
-                        }
-                      >
-                        Rent
-                      </Button>
-                    )}
-                    {page === "car-management" && (
-                      <Button
-                        variant="outlined"
-                        className="edit"
-                        onClick={() => handleEdit(car.id)}
-                        endIcon={
-                          <EditSvg
-                            width="15px"
-                            height="15px"
-                            fill={colors.nafethBlue}
-                          />
-                        }
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    {page === "car-management" && (
-                      <Button
-                        variant="outlined"
-                        className="delete"
-                        endIcon={
-                          <DeleteSvg
-                            width="18px"
-                            height="18px"
-                            fill={colors.purple}
-                          />
-                        }
-                      >
-                        Delete
-                      </Button>
-                    )}
-                    <Button
-                      onClick={() =>
-                        toggleDrawer(
-                          locale === "en" ? "right" : "left",
-                          true,
-                          car
-                        )
-                      }
-                      className="details"
-                      variant="outlined"
-                      endIcon={
-                        <ArrowCircleSvg
-                          width="15px"
-                          height="15px"
-                          fill={colors.nafethBlue}
-                        />
-                      }
-                    >
-                      Details
-                    </Button>
-                  </ButtonWrapper>
-                </CarTypeSvgWrapper>
-              </GlobalListViewWrapper>
-            </div>
-          </Grow>
+            car={car}
+            cars={cars}
+            page={page}
+            keys={keys}
+            hanldeSelected={hanldeSelected}
+            handleEdit={handleEdit}
+            toggleDrawer={toggleDrawer}
+            i={i}
+            selectedCarID={selectedCarID?.includes(`${car.id}`)}
+          />
         );
       })}
     </ListViewContainer>

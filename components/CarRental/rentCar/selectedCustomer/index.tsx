@@ -18,84 +18,143 @@ import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
 import CardUserSvg from "@/public/icons/carduserSvg";
-
-const SelectedCustomer = () => {
-  const { colors } = useTheme();
+import { ICustomers, customer } from "@/models/customers";
+interface IProps {
+  customer: customer;
+  type: string;
+}
+const SelectedCustomer = ({ customer, type }: IProps) => {
+  const { colors, isLTR, locale } = useTheme();
   const router = useRouter();
 
   return (
-    <RentWrapper className="customer-card">
+    <RentWrapper className={`${type}-card`}>
       <RentList>
         <RentListItem>
-          <CarDetailsTitle>Customer ID</CarDetailsTitle>
-          <CarDetailsSubTitle>10000016</CarDetailsSubTitle>
+          <CarDetailsTitle>{type} ID</CarDetailsTitle>
+          <CarDetailsSubTitle>{customer.id}</CarDetailsSubTitle>
         </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>License Number</CarDetailsTitle>
-          <CarDetailsSubTitle>25487977887</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>License Expiry</CarDetailsTitle>
-          <CarDetailsSubTitle>22/06/1446</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>Nationality</CarDetailsTitle>
-          <CarDetailsSubTitle>Kuwait</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>Mobile Number</CarDetailsTitle>
-          <CarDetailsSubTitle>+966581955852</CarDetailsSubTitle>
-        </RentListItem>
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>License Number</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.licenseNo}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>License Expiry</CarDetailsTitle>
+            <CarDetailsSubTitle>
+              {isLTR
+                ? customer.licenseExpDate_gregorian
+                : customer.licExpiryDate_hijri}
+            </CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>Nationality</CarDetailsTitle>
+            <CarDetailsSubTitle>
+              {customer.nationality[`name_${locale}`]}
+            </CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>Mobile Number</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.mobileNo}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
         <RentListItem>
           <CarDetailsTitle>Date of Birth</CarDetailsTitle>
-          <CarDetailsSubTitle>04/05/1994</CarDetailsSubTitle>
+          <CarDetailsSubTitle>
+            {isLTR ? customer.dob_gregorian : customer.dob_hijri}
+          </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
           <CarDetailsTitle>ID Type</CarDetailsTitle>
-          <CarDetailsSubTitle>Resident</CarDetailsSubTitle>
+          <CarDetailsSubTitle>
+            {customer.idType[`name_${locale}`]}
+          </CarDetailsSubTitle>
         </RentListItem>
 
-        <RentListItem>
-          <CarDetailsTitle>Price List</CarDetailsTitle>
-          <CarDetailsSubTitle>Testing</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>ID Expiry</CarDetailsTitle>
-          <CarDetailsSubTitle>02/04/1445</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>Employer</CarDetailsTitle>
-          <CarDetailsSubTitle>Zadip</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>ID Version No</CarDetailsTitle>
-          <CarDetailsSubTitle>2</CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>Place of issue</CarDetailsTitle>
-          <CarDetailsSubTitle>Dammam</CarDetailsSubTitle>
-        </RentListItem>
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>Price List</CarDetailsTitle>
+            <CarDetailsSubTitle>
+              {customer.pricelist[`name_${locale}`]}
+            </CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>ID Expiry</CarDetailsTitle>
+            <CarDetailsSubTitle>
+              {isLTR
+                ? customer.idExpiryDate_gregorian
+                : customer.idExpiryDate_hijri}
+            </CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>Employer</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.employerName}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Driver" && (
+          <RentListItem>
+            <CarDetailsTitle>{type} National ID</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Driver" && (
+          <RentListItem>
+            <CarDetailsTitle>City</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>ID Version No</CarDetailsTitle>
+            <CarDetailsSubTitle>{customer.version}</CarDetailsSubTitle>
+          </RentListItem>
+        )}
+        {type === "Customer" && (
+          <RentListItem>
+            <CarDetailsTitle>Place of issue</CarDetailsTitle>
+            <CarDetailsSubTitle>
+              {customer.idissuecity[`name_${locale}`]}
+            </CarDetailsSubTitle>
+          </RentListItem>
+        )}
       </RentList>
       <CarOtherDetails>
         <OtherDetailsTitleWrapper>
           <div className="title">
-            <h2>Muhammad zeshan</h2>
-            <Address>Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh</Address>
+            <h2>{customer[`fullname_${locale}`]}</h2>
+            <Address>
+              {customer.cA_StreetName},{customer.cA_District},
+              {customer.cA_PostalCode} {customer.cA_City} {customer.cA_Country}
+            </Address>
           </div>
         </OtherDetailsTitleWrapper>
-        <CardUserSvg width="300px" height="300px" fill={colors.nafethBlue} />
-        <OtherDetailsList>
-          <RentListItem className="other-details">
-            <CarDetailsTitle className="other-details">City</CarDetailsTitle>
-            <CarDetailsSubTitle>Riyadh</CarDetailsSubTitle>
-          </RentListItem>
-          <RentListItem className="other-details">
-            <CarDetailsTitle className="other-details">
-              National ID
-            </CarDetailsTitle>
-            <CarDetailsSubTitle>2529283364</CarDetailsSubTitle>
-          </RentListItem>
-        </OtherDetailsList>
+        {type === "Customer" && (
+          <CardUserSvg width="300px" height="300px" fill={colors.nafethBlue} />
+        )}
+        {type === "Customer" && (
+          <OtherDetailsList>
+            <RentListItem className="other-details">
+              <CarDetailsTitle className="other-details">City</CarDetailsTitle>
+              <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
+            </RentListItem>
+            <RentListItem className="other-details">
+              <CarDetailsTitle className="other-details">
+                National ID
+              </CarDetailsTitle>
+              <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
+            </RentListItem>
+          </OtherDetailsList>
+        )}
       </CarOtherDetails>
     </RentWrapper>
   );

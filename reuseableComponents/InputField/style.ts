@@ -1,6 +1,18 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
+.data-search{
+width: 100%;
+}
+&.date-time{
+    .MuiFormControl-root{
+        .MuiInputBase-root{
+            .MuiInputBase-root >input{
+                -webkit-text-fill-color: transparent !important;
+            }
+        }
+    }
+}
 &.customer-email{
     width: 50%;
 }

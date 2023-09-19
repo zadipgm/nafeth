@@ -57,7 +57,7 @@ const AddCar = ({
     plateTypeID: cars.result[0].plateType.id,
     chasisNo: cars.result[0].chasisNo,
     sequenceNo: cars.result[0].sequenceNo,
-    buyingDate: formattedDate(cars.result[0].buyingDate),
+    buyingDate: cars.result[0].buyingDate,
     colorID: cars.result[0].color.id,
     carTypeID: cars.result[0].carType.id,
     transmissionID: cars.result[0].transmission.id,
@@ -77,7 +77,7 @@ const AddCar = ({
     insuranceTypeID: cars.result[0].insuranceType.id,
     policyNo: cars.result[0].policyNo,
     insurancePenality: cars.result[0].insurancePenality,
-    insuranceExpDate: formattedDate(cars.result[0].insuranceExpDate),
+    insuranceExpDate: cars.result[0].insuranceExpDate,
     registrationExpHijiri: cars.result[0].registrationExpHijiri,
     inspectionExpHijiri: cars.result[0].inspectionExpHijiri,
     branchID: cars.result[0].branch.id,
@@ -128,7 +128,7 @@ const AddCar = ({
       (res: any) => {
         if (res.status == 200) {
           Swal.fire("Thank you!", "car has been Updated!.", "success");
-          // router.push("/cars");
+          router.push("/cars");
         } else {
           console.log(res);
           Swal.fire({
@@ -140,7 +140,6 @@ const AddCar = ({
       }
     );
   };
-  console.log("here is buyingDate", data.buyingDate);
   const years = Array.from(
     { length: 50 },
     (_, index) => new Date().getFullYear() - index

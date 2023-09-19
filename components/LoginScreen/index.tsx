@@ -60,13 +60,11 @@ const LoginScreen = () => {
         if (res.message === "Success") {
           localStorage.setItem("menu", JSON.stringify(res));
           setIsComplete(true);
-          setTimeout(() => {
-            Swal.fire("", "You are logged in successfully!", "success");
-          }, 1000);
+          Swal.fire("", "You are logged in successfully!", "success");
           Cookies.set("isLogin", "true");
           setTimeout(() => {
             router.push("/dashboard");
-          }, 2000);
+          }, 1000);
         }
       })
       .catch((error) => {

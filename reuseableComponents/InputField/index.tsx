@@ -17,6 +17,8 @@ interface IProps {
   required?: boolean;
   error?: boolean;
   defaultValue?: string | number;
+  id?: string;
+  variant?: string;
 }
 const InputComponent = ({
   label,
@@ -34,14 +36,16 @@ const InputComponent = ({
   required,
   error = false,
   defaultValue,
+  id,
+  variant = "outlined",
 }: IProps) => {
   return (
     <Container className={classname}>
       <TextField
         className={classname}
-        id="outlined-basic"
+        id={id}
         label={label}
-        variant="outlined"
+        variant={variant}
         placeholder={placeholder}
         value={value}
         disabled={disabled}

@@ -47,8 +47,10 @@ interface IProps {
   details: boolean;
   page_color: string;
   title: string;
-  onCustomerSelected?: () => void;
+  onCustomerSelected?: (param: any) => void;
   customers: ICustomers;
+  isAddbutton?: boolean;
+  listtype?: string;
 }
 const CustomersList = ({
   addable,
@@ -58,6 +60,8 @@ const CustomersList = ({
   page_color,
   title,
   customers,
+  isAddbutton,
+  listtype,
   onCustomerSelected,
 }: IProps) => {
   console.log("customers", customers);
@@ -76,7 +80,6 @@ const CustomersList = ({
     right: false,
   });
   const toggleDrawer = (anchor: Anchor, open: boolean, item?: any) => {
-    console.log("here is toggleDrawer", anchor, open);
     setOpen(true);
     setState({ ...state, [anchor]: open });
     setCustomerDetail(item);
@@ -92,6 +95,7 @@ const CustomersList = ({
   const handleEdit = (id: number) => {
     router.push({
       pathname: `/customers/edit/${id}`,
+      query: { page: router.asPath },
     });
   };
 
@@ -112,28 +116,30 @@ const CustomersList = ({
       </Title>
       <Wrapper>
         <InputWrapper istheme={isTheme()} className="customer-page">
-          <Fab
-            aria-label={"add"}
-            style={{
-              margin: "12px 0px",
-              backgroundColor: `${page_color}`,
-              color: "white",
-              width: "12%",
-              borderRadius: "8px",
-            }}
-            onClick={() =>
-              router.push({
-                pathname: `/customers/add` as string,
-                query: { max_number: max_number },
-              })
-            }
-          >
-            Add Customer <AddIcon />
-          </Fab>
+          {isAddbutton && (
+            <Fab
+              aria-label={"add"}
+              style={{
+                margin: "12px 0px",
+                backgroundColor: `${page_color}`,
+                color: "white",
+                width: "12%",
+                borderRadius: "8px",
+              }}
+              onClick={() =>
+                router.push({
+                  pathname: `/customers/add` as string,
+                  query: { max_number: max_number },
+                })
+              }
+            >
+              Add Customer <AddIcon />
+            </Fab>
+          )}
           <InputComponent
             type="search"
             placeholder="muhammad..."
-            label="Search Customer"
+            label="Search"
             // onChange={(e) => handleChange(e)}
             classname="search-input"
           />
@@ -221,11 +227,11 @@ const CustomersList = ({
                     </Tooltip>
                   </List>
                   <ButtonWrapper className="customer">
-                    {addable && (
+                    {addable && listtype === "Customer" ? (
                       <Button
                         className="add"
                         variant="outlined"
-                        onClick={onCustomerSelected}
+                        onClick={() => onCustomerSelected?.(item)}
                         endIcon={
                           <AddIcon
                             width="15px"
@@ -235,6 +241,21 @@ const CustomersList = ({
                         }
                       >
                         Add
+                      </Button>
+                    ) : (
+                      <Button
+                        className="add"
+                        variant="outlined"
+                        onClick={() => onCustomerSelected?.(item)}
+                        endIcon={
+                          <AddIcon
+                            width="15px"
+                            height="15px"
+                            fill={colors.nafethBlue}
+                          />
+                        }
+                      >
+                        Add Driver
                       </Button>
                     )}
                     {editable && (
