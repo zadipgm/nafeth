@@ -3,6 +3,12 @@ import { styled, css } from "styled-components";
 export const Container = styled.div`
 
 `;
+export const AddAccessoriesContainer = styled.div`
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+  margin:30px;
+  padding-bottom: 10px;
+`
 export const SlectedAccessoriesContainer = styled.div`
 display: flex;
 justify-content: flex-start;
@@ -36,6 +42,11 @@ export const AccessoriesContainer = styled.div`
   margin: 10px;
   display: flex;
   cursor: pointer;
+  & .MuiFormGroup-root{
+    label{
+      margin-right: 10px;
+    }
+  }
 `;
 export const AccessoriesWrapper = styled.div`
   display: flex;
@@ -61,10 +72,11 @@ export const ModalHeader = styled.div`
 export const CardListWrapper = styled.div<{ bcolor: string; color: string }>`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 8px;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
+  padding-bottom: 4px;
   &.car-management {
     margin: 20px 0px;
   }
@@ -91,10 +103,11 @@ export const CarRentPageTitle = styled.h2`
 `;
 export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start !important;
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
+  padding:0px 10px;
   .active_promotions{
     border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
     cursor: pointer;
@@ -112,7 +125,13 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
     display: flex;
   }
 `;
-export const Car = styled.div<{ bcolor?: string; color?: string }>`
+export const ContractGrid = styled.div`
+display: flex;
+justify-content: flex-start;
+align-items: center;
+flex-wrap: wrap;
+`
+export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 24%;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
@@ -157,6 +176,9 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
+  &.contract-grid{
+    display: block;
+  }
   &.accessory{
     justify-content: center;
   }
@@ -205,14 +227,63 @@ width: 25%;
     }
     }
   }
-  & .retrun {
+  & .print {
     width: 50%;
     font-size: 10px !important;
+    border: 1px solid ${({ theme }) => theme.colors.cyan};
+    color:${({ theme }) => theme.colors.cyan};
     &:hover {
       color: #fff;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      border: 1px solid ${({ theme }) => theme.colors.cyan};
+      background-color: ${({ theme }) => theme.colors.cyan};
       & .MuiButton-endIcon {
         svg {
+          path {
+            fill: #fff;
+            stroke: #fff;
+          }
+        }
+      }
+    }
+  }
+  & .retrun {
+    &.grid{
+      margin: 4px;
+      width: 46%;
+    }
+    width: 50%;
+    font-size: 10px !important;
+    border: 1px solid ${({ theme }) => theme.colors.darkYellow};
+    color:${({ theme }) => theme.colors.darkYellow};
+    &:hover {
+      color: #fff;
+      border: 1px solid ${({ theme }) => theme.colors.darkYellow};
+      background-color: ${({ theme }) => theme.colors.darkYellow};
+      & .MuiButton-endIcon {
+        svg {
+          path {
+            stroke: #fff;
+          }
+        }
+      }
+    }
+  }
+  & .extention{ 
+    &.grid{
+      margin: 4px;
+      width: 46%;
+    }
+    width: 50%;
+    border: 1px solid ${({ theme }) => theme.colors.purple};
+    font-size: 10px !important;
+    color:  ${({ theme }) => theme.colors.purple};
+    &:hover {
+      color: #fff;
+      border: 1px solid ${({ theme }) => theme.colors.purple};
+      background-color: ${({ theme }) => theme.colors.purple};
+      & .MuiButton-endIcon {
+        svg {
+          fill: #fff;
           path {
             stroke: #fff;
           }
@@ -229,6 +300,11 @@ width: 25%;
     }
   }
   & .details {
+
+    &.grid{
+      margin: 4px;
+      width: 46%;
+    }
     width: 50%;
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.green};
@@ -312,6 +388,11 @@ width: 25%;
     }
   }
   & .dispute {
+
+    &.grid{
+      margin: 4px;
+      width: 46%;
+    }
     width: 50%;
     font-size: 10px !important;
     color: red;
@@ -330,11 +411,14 @@ width: 25%;
     }
   }
 `;
-export const CarMakeModelWrapper = styled.div`
+export const CardMakeModelWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  .customer_full_name{
+ color: ${({ theme }) => theme.colors.nafethBlue}; 
+  }
 `;
 export const Strong = styled.strong<{ color: string }>`
   font-size: 16px;
@@ -345,9 +429,13 @@ export const Span = styled.span<{ color: string }>`
   font-size: 14px;
   color: ${({ color }) => color};
 `;
-export const CarMakeModel = styled.div<{ color: string }>`
+export const CardMakeModel = styled.div<{ color: string }>`
   font-size: 22px;
-  color: ${({ theme }) => theme.colors.nafethBlue};
+  &.contract{
+    color: ${({ color }) => color};
+
+  }
+  color: ${({ theme }) => theme.colors.nafethBlue}; 
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -357,14 +445,14 @@ export const CarMakeModel = styled.div<{ color: string }>`
     font-weight: 700;
   }
 `;
-export const CarColor = styled.div<{ color: string }>`
+export const CardColor = styled.div<{ color: string }>`
   width: 20px;
   height: 20px;
   border-radius: 100%;
   border: 1px solid black;
   background-color: ${({ color }) => color};
 `;
-export const CarTypeIconWrapper = styled.div`
+export const CardTypeIconWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -405,14 +493,14 @@ export const ALsaudia = styled.div<{ color: string }>`
     font-size: 14px !important;
   }
 `;
-export const CarSpecsWrapper = styled.div`
+export const CardSpecsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   gap: 6px;
 `;
-export const CarTransmitionWrapper = styled.div`
+export const CardTransmitionWrapper = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -762,7 +850,7 @@ export const IDIcon = styled.div`
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
 export const ListViewContainer = styled.div`
-
+padding:0px 20px;
   
  `
 
@@ -817,7 +905,7 @@ export const ModelListViewWrapper = styled.div`
     width: 20%;
   }
   `
-export const CarPlateWrapper = styled.div`
+export const CardPlateWrapper = styled.div`
 width: 10%;
 @media (max-width: 600px) {
     width: 100%;

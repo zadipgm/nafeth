@@ -19,6 +19,7 @@ interface IProps {
   defaultValue?: string | number;
   id?: string;
   variant?: string;
+  mindate?: string;
 }
 const InputComponent = ({
   label,
@@ -30,6 +31,7 @@ const InputComponent = ({
   classname,
   multiline,
   rows,
+  mindate,
   name = "text",
   onChange,
   onBlur,
@@ -59,7 +61,7 @@ const InputComponent = ({
         InputProps={{
           inputProps: {
             max: 1,
-            min: 1,
+            min: mindate,
           },
         }}
         required={required}

@@ -1,4 +1,4 @@
-export const HandleDescending = (key, setSearchvalue, data) => {
+export const HandleDescending = (key: any, setSearchvalue: any, data: any) => {
     if (key === "id") {
         const numDescending = [...data].sort((a, b) => b.id - a.id);
 
@@ -9,7 +9,7 @@ export const HandleDescending = (key, setSearchvalue, data) => {
     }
 };
 
-export const HandleAscending = (key, setSearchvalue, data) => {
+export const HandleAscending = (key: any, setSearchvalue: any, data: any) => {
     if (key === "id") {
         const numAscending = [...data].sort((a, b) => a.id - b.id);
         setSearchvalue(numAscending);
@@ -23,15 +23,17 @@ export const RequestSearch = (
     searchedVal: string,
     filterKey: string,
     currentRecords: any[],
-    setSearchvalue
+    setSearchvalue: (arg0: any) => void
 ) => {
-    const filteredRows = currentRecords.filter((row) =>
-        row[filterKey]
-            .toString()
-            .toLowerCase()
-            .includes(searchedVal.toString().toLowerCase())
-    );
+    const filteredRows = currentRecords.filter(row => {
+        if (row[filterKey].name_en) {
+            return row[filterKey].name_en.toString().toLowerCase().includes(searchedVal.toString().toLowerCase())
+        } else {
+            return row[filterKey].toString().toLowerCase().includes(searchedVal.toString().toLowerCase())
+        }
 
+    })
+    console.log("filteredRows", filteredRows)
     if (searchedVal.length < 1) {
         setSearchvalue(currentRecords);
     } else {

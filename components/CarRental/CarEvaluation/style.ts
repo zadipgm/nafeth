@@ -22,7 +22,7 @@ export const EvaluationSubmit = styled.input`
  width: 100%;
 }
   padding: 11px;
-  margin: 7px 0px;
+  margin: 37px 0px;
   border-radius: 5px;
   outline: none;
   border: none;

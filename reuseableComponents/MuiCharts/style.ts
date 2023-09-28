@@ -12,7 +12,7 @@ export const Container = styled.div<{ bcolor?: string; color?: string }>`
 }
  @media(min-width:1024px){
   flex-direction: column;
-  width: 50%;
+  width: 23%;
 }
 `
 export const Chart = styled.div<{ bcolor?: string; color?: string }>`

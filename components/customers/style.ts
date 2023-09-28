@@ -80,8 +80,9 @@ export const ListItem = styled.li`
      display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
-    width: 200px;
+        gap: 3px;
+    width: 192px;
+
         background-color: #d7d6d645;
         padding: 4px;
         border-radius: 8px;

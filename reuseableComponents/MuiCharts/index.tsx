@@ -40,7 +40,7 @@ const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
           onClick={() => console.log("here is")}
         />
       </Chart>
-      <MuiLineChart />
+      {/* <MuiLineChart /> */}
     </Container>
   );
 };

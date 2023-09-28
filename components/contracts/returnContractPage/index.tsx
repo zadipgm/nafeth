@@ -19,12 +19,55 @@ import {
   RentListItem,
 } from "@/components/CarRental/style";
 import { useRouter } from "next/router";
+import moment from "moment";
 import Swal from "sweetalert2";
 import CashSvg from "@/public/icons/payments";
-const ReturnContract = () => {
-  const { colors } = useTheme();
+import { IContracts } from "@/models/individualContracts";
+import { ICarModel } from "@/models/carmodel";
+import { ICustomers, IPriceList } from "@/models/customers";
+import {
+  filterAccessory,
+  filterBranch,
+  filterCar,
+  filterCustomer,
+  filterPriceList,
+} from "@/_helpers/filters";
+import { IBranchModel } from "@/models/branch";
+import { IAccessory } from "@/models/IAccessory";
+import DatePicker from "@/reuseableComponents/DatePicker";
+import DatePickerComponent from "@/reuseableComponents/DatePicker";
+import { NumOfDays } from "@/_helpers/getDays";
+import { formattedDate } from "@/_helpers/monthdayYearFormat";
+import { Update } from "@/api/putApis/update";
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
+interface IProps {
+  contract: IContracts;
+  cars: ICarModel;
+  customers: ICustomers;
+  pricelist: IPriceList;
+  branch: IBranchModel;
+  accessories: IAccessory;
+}
+const ReturnContract = ({
+  contract,
+  cars,
+  customers,
+  pricelist,
+  branch,
+  accessories,
+}: IProps) => {
+  const returnobj = {
+    retunDate: formattedDate(new Date()),
+    kmIn: "",
+    evaluation: "",
+    status: "",
+    comments: "",
+    discount: "",
+  };
+  const { colors, locale, isLTR } = useTheme();
   const router = useRouter();
   const [kmOut, setKmOut] = React.useState("");
+  const [data, setData] = React.useState(returnobj);
   const [isbank, setIsbank] = React.useState(false);
   const onBankChange = (type: string) => {
     if (type === "Bank Transfer" || type === "Sadad") {
@@ -33,16 +76,147 @@ const ReturnContract = () => {
       setIsbank(false);
     }
   };
-
-  const handleSubmit = () => {
-    Swal.fire("Thank you!", "Contract has been Close!.", "success");
-    setTimeout(() => {
-      router.push("/individualcontracts");
-    }, 800);
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
   };
-  const hanldeChange = (e: { target: { value: any } }) => {
-    let value = e.target.value;
-    setKmOut(value);
+
+  const PriceName = filterPriceList(
+    pricelist,
+    contract.result[0].pricelistID
+  )[0][`name_${locale}`];
+
+  const branchName = filterBranch(branch, contract.result[0].issueBranchID)[0][
+    `name_${locale}`
+  ];
+  const customerName = filterCustomer(
+    customers,
+    contract.result[0].customerID
+  )[0][`fullname_${locale}`];
+
+  const carMakeMOdel = `${
+    isLTR
+      ? filterCar(cars, contract.result[0].carID)[0].make.name_en
+      : filterCar(cars, contract.result[0].carID)[0].make.name_ar
+  }/${
+    isLTR
+      ? filterCar(cars, contract.result[0].carID)[0].model.name_en
+      : filterCar(cars, contract.result[0].carID)[0].model.name_ar
+  }`;
+
+  //time diffrence
+  let checkInTime = moment(
+    new Date().getHours() + ":" + new Date().getMinutes(),
+    "H:mm"
+  );
+  let checkoutTime = moment(contract.result[0].timeOut, "H:mm");
+
+  let ExtraTime = moment(checkInTime).diff(moment(checkoutTime), "h");
+  // get number of days from date start and end date
+  let days = NumOfDays(contract.result[0].issueDate, data.retunDate);
+  //price*dailyrent
+  let dailyPrice = contract.result[0].dailyPrice * days;
+  //extra hours price
+  let extraHourPrice = contract.result[0].graceHoursPrice * ExtraTime;
+  //extra kmLimit
+  const extraKmLimit =
+    contract.result[0].kmLimit * contract.result[0].actualTotalDays;
+  //extra km
+  const extraKm = Number(data.kmIn) - contract.result[0].kmOut;
+  extraKm - extraKmLimit;
+  const extraKmPrice = extraKm * contract.result[0].extraKmPrice;
+
+  //totalPrice
+  const total =
+    Number(dailyPrice) +
+    Number(extraHourPrice) +
+    Number(extraKmPrice > extraKmLimit ? extraKmPrice : 0);
+  //AccessoryPrice
+  const accessoryPrice = filterAccessory(
+    accessories,
+    contract.result[0].accessoriesID
+  );
+  const totalRent = Number(total) + Number(accessoryPrice);
+
+  // gross total
+  let otherAmount = 0;
+  let discountAmount = 0;
+  let paid = 0;
+  const grossTotal = totalRent + otherAmount - Number(data.discount) - paid;
+
+  // vat
+  let vatAmount = 15 / 100;
+  const vat = vatAmount * grossTotal;
+
+  //Net Total
+  const netTotal = grossTotal + vat;
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    let body = {
+      contractNo: contract.result[0].contractNo,
+      status: data.status,
+      freehours: contract.result[0].graceHours,
+      returnDate: data.retunDate,
+      daysRented: days,
+      daysCost: dailyPrice,
+      timeIn: new Date().getHours() + ":" + new Date().getMinutes(),
+      extraTime: Math.sign(ExtraTime) === -1 ? "00:00" : `${ExtraTime}:00`,
+      timeCost: extraHourPrice,
+      kmIn: Number(data.kmIn),
+      extraKM: extraKm,
+      kmCost: extraKmPrice,
+      accessoriesCost: Number(accessoryPrice.toString()),
+      pricelistLoyalityDiscount: 0,
+      promotionDiscount: 0,
+      totalRentCost: totalRent,
+      otherCost: 0,
+      discount: 0,
+      grossTotal: grossTotal,
+      vatPercent: 15,
+      vatAmount: vat,
+      refunded: 0,
+      paid: contract.result[0].advanceAmount,
+      netTotal: netTotal,
+      returnComments: data.comments,
+      returnBranchID: contract.result[0].issueBranchID,
+      returnBy: 0,
+    };
+
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
+    let url = `contracts/Individual/${contract.result[0].contractNo}/return`;
+    if (Number(data.kmIn) > contract.result[0].kmOut) {
+      await Update(userName, userPassword, url, company, body).then(
+        (res: any) => {
+          if (res.status == 200) {
+            Swal.fire(
+              "Thank you!",
+              "Contract date has been closed!.",
+              "success"
+            );
+            router.push("/individualcontracts");
+          } else {
+            console.log(res);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
+        }
+      );
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please add km In more than km out!",
+      });
+    }
   };
   return (
     <ReturnContainer>
@@ -64,81 +238,78 @@ const ReturnContract = () => {
             <FormBox color={isTheme().color}>
               <InputComponent
                 label="Contract Number"
-                placeholder="100000017"
                 type="text"
-                value={"10064"}
-                name={"name_en"}
+                value={contract.result[0].contractNo}
+                variant={"filled"}
                 disabled={true}
-                required={true}
               />
 
               <InputComponent
                 label="Price List"
-                placeholder="100000017"
                 type="text"
-                value={"Testing"}
-                name={"name_en"}
+                value={PriceName}
+                variant={"filled"}
                 disabled={true}
-                required={true}
               />
 
               <InputComponent
                 label="Issue Branch"
-                placeholder="100000017"
                 type="text"
-                value={"Head Branch"}
-                name={"name_en"}
+                value={branchName}
+                variant={"filled"}
                 disabled={true}
-                required={true}
               />
             </FormBox>
             <FormBox color={isTheme().color}>
               <InputComponent
                 label="Customer Name"
-                placeholder="100000017"
                 type="text"
-                value={"Muhammad zeshan"}
-                name={"name_en"}
+                value={customerName}
+                variant="filled"
                 disabled={true}
-                required={true}
               />{" "}
               <InputComponent
                 label="Make/ Model"
-                placeholder="100000017"
                 type="text"
-                value={"Saic Motor/MG5"}
-                name={"name_en"}
+                value={carMakeMOdel}
+                variant="filled"
                 disabled={true}
-                required={true}
               />
               <InputComponent
-                label="KM Out"
+                label="KM In"
                 placeholder="100000017"
                 type="text"
-                // onChange={(e) => hanldeChange(e)}
-                onBlur={(e) => hanldeChange(e)}
-                name={"name_en"}
+                onBlur={handleChange}
+                name={"kmIn"}
                 required={true}
               />
             </FormBox>
             <FormBox color={isTheme().color}>
               <InputComponent
-                label="KM In"
-                placeholder="100000017"
+                label="KM Out"
                 type="text"
-                value={"1"}
-                name={"name_en"}
+                value={contract.result[0].kmOut}
+                variant="filled"
                 disabled={true}
-                required={true}
               />
-
+              {/* <DatePickerComponent onChange={handleChange} /> */}
               <InputComponent
                 label="Return Date"
                 type="date"
-                name={"name_en"}
+                variant="filled"
+                onChange={handleChange}
+                defaultValue={data.retunDate}
+                name={"retunDate"}
                 required={true}
+                mindate={contract.result[0].issueDate}
               />
-              <TextField select label="Evaluation" name="Category" required>
+              <TextField
+                select
+                label="Evaluation"
+                name="evaluation"
+                required
+                onChange={handleChange}
+              >
                 {evalueation.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -149,7 +320,13 @@ const ReturnContract = () => {
           </FormBoxWrapper>
           <FormBoxWrapper>
             <FormBox color={isTheme().color} className="return-contract">
-              <TextField select label="Status" name="Category" required>
+              <TextField
+                select
+                label="Status"
+                name="status"
+                required
+                onChange={handleChange}
+              >
                 {status.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -165,31 +342,43 @@ const ReturnContract = () => {
             <RentList className="rental-details">
               <RentListItem>
                 <CarDetailsTitle>Daily Rent</CarDetailsTitle>
-                <CarDetailsSubTitle>120.00</CarDetailsSubTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].dailyPrice}
+                </CarDetailsSubTitle>
               </RentListItem>
               <RentListItem>
-                <CarDetailsTitle>Daily limit of km</CarDetailsTitle>
-                <CarDetailsSubTitle>200.00</CarDetailsSubTitle>
+                <CarDetailsTitle>Daily Km limit</CarDetailsTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].kmLimit}
+                </CarDetailsSubTitle>
               </RentListItem>
               <RentListItem>
                 <CarDetailsTitle>Free Hours </CarDetailsTitle>
-                <CarDetailsSubTitle>01.00</CarDetailsSubTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].graceHours}
+                </CarDetailsSubTitle>
               </RentListItem>
               <RentListItem>
                 <CarDetailsTitle>Extra hours</CarDetailsTitle>
-                <CarDetailsSubTitle>03.00</CarDetailsSubTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].graceHours}
+                </CarDetailsSubTitle>
               </RentListItem>
               <RentListItem>
-                <CarDetailsTitle>Extra hourly rate</CarDetailsTitle>
-                <CarDetailsSubTitle>50.00</CarDetailsSubTitle>
+                <CarDetailsTitle>Extra hourly price</CarDetailsTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].graceHoursPrice}
+                </CarDetailsSubTitle>
               </RentListItem>
               <RentListItem>
                 <CarDetailsTitle> Extra KM Price</CarDetailsTitle>
-                <CarDetailsSubTitle>05.00</CarDetailsSubTitle>
+                <CarDetailsSubTitle>
+                  {contract.result[0].extraKmPrice}
+                </CarDetailsSubTitle>
               </RentListItem>
             </RentList>
           </ReturnContainer>
-          {kmOut.length > 0 && (
+          {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
               <Title color={colors.nafethBlue}>
                 <h2>Rent Account</h2>
@@ -197,177 +386,78 @@ const ReturnContract = () => {
               <AccountTable>
                 <tr>
                   <td>Return Date</td>
-                  <td>2023-07-23</td>
+                  <td>{data.retunDate}</td>
                   <td>Issue Date</td>
-                  <td>2023-07-23</td>
+                  <td>{contract.result[0].issueDate}</td>
                   <td>Number of days</td>
-                  <td>466</td>
+                  <td>{days}</td>
                   <td>Price</td>
-                  <td>3666</td>
+                  <td>{dailyPrice}</td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr>
                   <td>Check-in time</td>
-                  <td>17:07</td>
+                  <td>
+                    {new Date().getHours() + ":" + new Date().getMinutes()}
+                  </td>
                   <td>Checkout time</td>
-                  <td>11:18</td>
+                  <td>{contract.result[0].timeOut}</td>
                   <td>Extra time</td>
-                  <td>N/A</td>
+                  <td> {Math.sign(ExtraTime) === -1 ? 0 : ExtraTime}</td>
                   <td>Price</td>
-                  <td>100.00</td>
+                  <td>
+                    {Math.sign(extraHourPrice) === -1 ? 0 : extraHourPrice}
+                  </td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr>
-                  <td>KM In</td>
-                  <td> 2100</td>
                   <td>KM Out</td>
-                  <td> 2200</td>
+                  <td>{contract.result[0].kmOut}</td>
+                  <td>KM In</td>
+                  <td>{data.kmIn}</td>
                   <td>Extra KM</td>
-                  <td>N/A</td>
+                  <td>{extraKm}</td>
                   <td>Price</td>
-                  <td>0.00</td>
+                  <td>{extraKmPrice > extraKmLimit ? extraKmPrice : 0}</td>
                 </tr>
                 <tr></tr>
               </AccountTable>
               <AccountTable>
                 <tr className="last-table">
                   <td>Total</td>
-                  <td>3300.00</td>
+                  <td>{total}</td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr className="last-table">
                   <td>Loyality/Pricelist</td>
-                  <td>330.00</td>
+                  <td className="red">00.00</td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr className="last-table">
                   <td>Discount</td>
-                  <td>00.00</td>
+                  <td className="red">00.00</td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr className="last-table">
                   <td>Accessories</td>
-                  <td>00.00</td>
+                  <td>{accessoryPrice}</td>
                 </tr>
               </AccountTable>
               <AccountTable>
                 <tr className="last-table">
                   <td>Total Rent</td>
-                  <td>2970.00</td>
+                  <td>{totalRent}</td>
                 </tr>
               </AccountTable>
             </ReturnContainer>
           )}
-          {kmOut.length > 0 && (
-            <ReturnContainer>
-              <Title color={colors.nafethBlue}>
-                <h2>Payment History</h2>
-              </Title>
-              <>
-                <>
-                  <Unpaid>UnPaid</Unpaid>
-                  <RentList className="payment-detail">
-                    {[1, 2].map((i) => {
-                      return (
-                        <>
-                          <RentListItem>
-                            <CashSvg
-                              width="30px"
-                              height="30px"
-                              fill={colors.red}
-                            />
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>#</CarDetailsTitle>
-                            <CarDetailsSubTitle>{i}</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle> Receipt Type</CarDetailsTitle>
-                            <CarDetailsSubTitle>
-                              {" "}
-                              Receivables
-                            </CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Activity</CarDetailsTitle>
-                            <CarDetailsSubTitle>Penality</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Date </CarDetailsTitle>
-                            <CarDetailsSubTitle>28/08/2023</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Comments</CarDetailsTitle>
-                            <CarDetailsSubTitle>test</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Amount</CarDetailsTitle>
-                            <CarDetailsSubTitle>50.00</CarDetailsSubTitle>
-                          </RentListItem>
-                        </>
-                      );
-                    })}
-                  </RentList>
-                </>
-                <div>
-                  <Paid>Paid</Paid>
-                  <RentList className="payment-details">
-                    {[1, 2, 3].map((i) => {
-                      return (
-                        <>
-                          <RentListItem>
-                            <CashSvg
-                              width="30px"
-                              height="30px"
-                              fill={colors.green}
-                            />
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>#</CarDetailsTitle>
-                            <CarDetailsSubTitle>{i}</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle> Payment Date</CarDetailsTitle>
-                            <CarDetailsSubTitle> 28/08/2023</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Activity</CarDetailsTitle>
-                            <CarDetailsSubTitle>Violation</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Receipt No </CarDetailsTitle>
-                            <CarDetailsSubTitle>AR10167</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Payment Type</CarDetailsTitle>
-                            <CarDetailsSubTitle>1</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Branch</CarDetailsTitle>
-                            <CarDetailsSubTitle>Head</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Username</CarDetailsTitle>
-                            <CarDetailsSubTitle>admin</CarDetailsSubTitle>
-                          </RentListItem>
-                          <RentListItem>
-                            <CarDetailsTitle>Amount</CarDetailsTitle>
-                            <CarDetailsSubTitle>50.00</CarDetailsSubTitle>
-                          </RentListItem>
-                        </>
-                      );
-                    })}
-                  </RentList>
-                </div>
-              </>
-            </ReturnContainer>
-          )}
-          {kmOut.length > 0 && (
+
+          {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
               <Title color={colors.nafethBlue}>
                 <h2>Summary</h2>
@@ -376,12 +466,10 @@ const ReturnContract = () => {
                 <FormBox color={isTheme().color}>
                   <InputComponent
                     label="Total Rent"
-                    placeholder="100000017"
                     type="text"
-                    value={"2900"}
-                    name={"name_en"}
+                    value={totalRent}
+                    variant="filled"
                     disabled={true}
-                    required={true}
                   />
 
                   <InputComponent
@@ -389,6 +477,7 @@ const ReturnContract = () => {
                     placeholder="100000017"
                     type="text"
                     value={"0.00"}
+                    variant="filled"
                     name={"name_en"}
                     disabled={true}
                     required={true}
@@ -397,7 +486,8 @@ const ReturnContract = () => {
                   <InputComponent
                     label="Net Total"
                     type="text"
-                    value={"3401.00"}
+                    variant="filled"
+                    value={netTotal}
                     disabled={true}
                     name={"name_en"}
                     required={true}
@@ -408,7 +498,8 @@ const ReturnContract = () => {
                     label="Gross Total"
                     placeholder="100000017"
                     type="text"
-                    value={"2700"}
+                    variant="filled"
+                    value={grossTotal}
                     name={"name_en"}
                     disabled={true}
                     required={true}
@@ -417,8 +508,9 @@ const ReturnContract = () => {
                     label="VAT"
                     placeholder="100000017"
                     type="text"
-                    value={"443.41"}
+                    value={vat}
                     name={"name_en"}
+                    variant="filled"
                     disabled={true}
                     required={true}
                   />
@@ -426,6 +518,7 @@ const ReturnContract = () => {
                     label="Refunded"
                     placeholder="100000017"
                     type="text"
+                    variant="filled"
                     value={"0.00"}
                     name={"name_en"}
                     disabled={true}
@@ -437,12 +530,20 @@ const ReturnContract = () => {
                     label="Paid"
                     placeholder="100000017"
                     type="text"
+                    variant="filled"
                     value={"0.00"}
                     name={"name_en"}
                     disabled={true}
                     required={true}
                   />
-
+                  <InputComponent
+                    label="Discount"
+                    placeholder="10"
+                    onChange={handleChange}
+                    type="text"
+                    name={"discount"}
+                    required={true}
+                  />
                   <TextField
                     select
                     label="PaymentType"
@@ -459,11 +560,15 @@ const ReturnContract = () => {
                       </MenuItem>
                     ))}
                   </TextField>
+                </FormBox>
+              </FormBoxWrapper>
+              <FormBoxWrapper>
+                <FormBox color={isTheme().color} className="comments">
                   <InputComponent
                     label="Comments"
                     placeholder=""
                     type="text"
-                    name={"days"}
+                    name={"comments"}
                     required={true}
                     multiline={true}
                     rows={1}
@@ -480,12 +585,7 @@ const ReturnContract = () => {
                       name={"name_en"}
                       required={true}
                     />
-                    <TextField
-                      select
-                      label="PaymentType"
-                      name="Category"
-                      required
-                    >
+                    <TextField select label="Bank" name="Category" required>
                       {bank.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
@@ -495,6 +595,7 @@ const ReturnContract = () => {
                     <InputComponent
                       label="Transaction Date"
                       type="date"
+                      variant="filled"
                       name={"name_en"}
                       required={true}
                     />
@@ -509,7 +610,7 @@ const ReturnContract = () => {
               color="success"
               className="add-customer-save-button"
               type="submit"
-              onClick={() => handleSubmit()}
+              onClick={(e) => handleSubmit(e)}
             >
               PayNow
             </Button>

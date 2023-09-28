@@ -1,37 +1,32 @@
 import type { ReactElement } from "react";
+
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import ContractPage from "@/components/contracts/individual";
 import { GetServerSideProps } from "next";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { IContracts } from "@/models/individualContracts";
 import { ICarModel } from "@/models/carmodel";
 import { ICustomers, IPriceList } from "@/models/customers";
-import { IAccessory } from "@/models/IAccessory";
+import { IAccessory, IAccessoryResult } from "@/models/IAccessory";
 import { IBranchModel } from "@/models/branch";
+import DisputedContracts from "@/components/contracts/disputeContracts";
+
 const Page: NextPageWithLayout = (props: any) => {
   return (
-    <ContractPage
+    <DisputedContracts
       contracts={props.contracts}
       cars={props.cars}
       customers={props.customers}
       priceList={props.priceList}
       accessories={props.accessories}
       branches={props.branches}
-      page={"individual"}
-      title={"Available Contracts"}
-      isDisputeable={true}
-      isEditable={false}
-      isExtendable={true}
-      isReturnable={true}
-      isViewable={true}
-      isPrintAble={false}
     />
   );
 };
 Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
 export default Page;
 export const getServerSideProps: GetServerSideProps<{
   contracts: IContracts;

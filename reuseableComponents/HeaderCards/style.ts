@@ -30,8 +30,7 @@ export const Wrapper = styled.div<{ bcolor?: string; color?: string }>`
 }
 @media (min-width: 600px) {
  width: 100%;
- height: auto;
- margin: 20px 0px;
+ height: 300px;
 }
 `;
 export const HeaderCardsSection = styled.div`
@@ -50,6 +49,9 @@ export const CardContainer = styled.div`
 }
 @media (min-width: 600px) {
  width: 100%;
+ &.dashboard{
+  width: 50%;
+ }
 }
   &.car-management{
     width: 100%;
@@ -117,6 +119,9 @@ export const Card = styled.div<{ cardcolor?: string; icolor?: string }>`
 } 
  @media (min-width: 600px) {
  width: 100%;
+ &.dashboard{
+  width:47%
+ }
 }
   &.car-management{
     width: 18%;
@@ -129,11 +134,11 @@ export const Card = styled.div<{ cardcolor?: string; icolor?: string }>`
  margin:15px 0px
 }
 @media (min-width: 768px) {
- width: 30%;
+ width: 18%;
  margin:0;
 }
 @media (min-width: 1440px) {
- width:31%;
+ width:18%;
  justify-content:space-between
 }
   }

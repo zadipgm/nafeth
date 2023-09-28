@@ -9,7 +9,7 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import CustomersList from "@/components/customers";
@@ -18,14 +18,12 @@ import SelectedCustomer from "./selectedCustomer";
 import CashSvg from "@/public/icons/payments";
 import { isTheme } from "@/_helpers/getTheme";
 import InputComponent from "@/reuseableComponents/InputField";
-import { contractType, modde, payment, returnBranch } from "@/global/fakeData";
 import CheckSvg from "@/public/icons/checkSvg";
 import Swal from "sweetalert2";
 import CardUserSvg from "@/public/icons/carduserSvg";
 import ModalComponent from "@/reuseableComponents/modal";
 import CustomPrice from "./customprice";
 import AddAccessories from "./addAccessories";
-import EditCustomer from "@/components/customers/edit";
 import {
   ICategory,
   ICustomers,
@@ -41,6 +39,7 @@ import { ICountriesModel } from "@/models/country";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { createPost } from "@/api/postApis/createBranch";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import { NumOfDays } from "@/_helpers/getDays";
 interface IProps {
   customers: ICustomers;
   car: ICarModel;
@@ -51,16 +50,7 @@ interface IProps {
   countries: ICountriesModel;
   pricelist: IPriceList;
 }
-const RentCar = ({
-  customers,
-  car,
-  car_accessories,
-  category,
-  countries,
-  cities,
-  IdType,
-  pricelist,
-}: IProps) => {
+const RentCar = ({ customers, car, car_accessories }: IProps) => {
   const { colors } = useTheme();
   const router = useRouter();
   let obj = {
@@ -79,7 +69,7 @@ const RentCar = ({
     kmLimit: 0,
     extraKmPrice: 0,
     advanceAmount: 0,
-    actualReturnDate: new Date(),
+    actualReturnDate: formattedDate(new Date()),
     actualTotalDays: 1,
     issueComments: "",
     issueBranchID: 0,
@@ -100,17 +90,7 @@ const RentCar = ({
   const [customer, setCustomer] = React.useState<customer>();
   const [driver, setDriver] = React.useState<customer>();
   const [data, setData] = React.useState(obj);
-  const defaultStartDate = data.issueDate;
-  let returnDate = new Date(data.actualReturnDate);
 
-  // To calculate the time difference of two dates
-  let Difference_In_Time =
-    returnDate.getTime() - new Date(defaultStartDate).getTime();
-
-  // To calculate the no. of days between two dates
-  let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-  console.log("here is customer selected", Difference_In_Days);
   const onCustomerSelected = (customerobj: any) => {
     setCustomer(customerobj);
     setIsCustomerSelected(false);
@@ -186,7 +166,7 @@ const RentCar = ({
           : customPrice?.perExtraKM,
       advanceAmount: data.advanceAmount,
       actualReturnDate: data.actualReturnDate,
-      actualTotalDays: Difference_In_Days,
+      actualTotalDays: NumOfDays(data.issueDate, data.actualReturnDate),
       issueComments: data.issueComments,
       issueBranchID: 1,
       issueBy: "admin",
@@ -222,7 +202,7 @@ const RentCar = ({
       customPrice?.dailyRent === undefined
         ? car.result[0].dailyRent
         : customPrice?.dailyRent
-    ) * Number(Difference_In_Days);
+    ) * Number(NumOfDays(data.issueDate, data.actualReturnDate));
   //filter selected accessories
   let filteredAccessory = car_accessories.result.filter((item) =>
     caraccessories.includes(`${item.id}`)
@@ -420,7 +400,7 @@ const RentCar = ({
                     label="From Date"
                     placeholder=""
                     type="date"
-                    defaultValue={defaultStartDate}
+                    defaultValue={data.issueDate}
                     onChange={handleChange}
                     name={"issueDate"}
                     variant="filled"
@@ -442,7 +422,15 @@ const RentCar = ({
                     placeholder=""
                     type="text"
                     onChange={handleChange}
-                    value={Math.trunc(Difference_In_Days)}
+                    value={
+                      Math.trunc(
+                        NumOfDays(data.issueDate, data.actualReturnDate)
+                      ) === 0
+                        ? 1
+                        : Math.trunc(
+                            NumOfDays(data.issueDate, data.actualReturnDate)
+                          )
+                    }
                     name={"actualTotalDays"}
                     required={true}
                     classname="car-contract-details"

@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import { useTheme } from "styled-components";
 import {
   ButtonWrapper,
-  Car,
-  CarColor,
-  CarMakeModel,
-  CarMakeModelWrapper,
-  CarPlateWrapper,
-  CarSpecsWrapper,
-  CarTransmitionWrapper,
-  CarTypeIconWrapper,
+  CardWrapper,
+  CardColor,
+  CardMakeModel,
+  CardMakeModelWrapper,
+  CardPlateWrapper,
+  CardSpecsWrapper,
+  CardTransmitionWrapper,
+  CardTypeIconWrapper,
   Span,
   Strong,
 } from "../style";
@@ -66,25 +66,29 @@ const Grid = ({
       onClick={() => handleCLick(car)}
       className={activeID ? `active_${page}` : page}
     >
-      <Car bcolor={isTheme().cardcolor} color={isTheme().color} key={car.id}>
-        <CarMakeModelWrapper>
+      <CardWrapper
+        bcolor={isTheme().cardcolor}
+        color={isTheme().color}
+        key={car.id}
+      >
+        <CardMakeModelWrapper>
           <Tooltip content={"car make/model"} color={"success"}>
-            <CarMakeModel color={isTheme().color}>
+            <CardMakeModel color={isTheme().color}>
               <div>
                 {car.make.name_en} {car.model.name_en}/
                 <span className="year">{car.year}</span>
               </div>
-            </CarMakeModel>
+            </CardMakeModel>
           </Tooltip>
           <Tooltip content="Car Color" color={"warning"}>
-            <CarColor color={car.color.name_en}></CarColor>
+            <CardColor color={car.color.name_en}></CardColor>
           </Tooltip>
-        </CarMakeModelWrapper>
+        </CardMakeModelWrapper>
         <Tooltip content="Daily Rent" color={"error"}>
           <Strong color={isTheme().color}>{car.dailyRent}</Strong>
           <Span color={isTheme().color}>/day</Span>
         </Tooltip>
-        <CarTypeIconWrapper>
+        <CardTypeIconWrapper>
           <Tooltip content={car.carType.name_en} color={"success"}>
             <IconComponent
               width="100px"
@@ -94,24 +98,24 @@ const Grid = ({
               icon={car.carType.name_en.trim()}
             />
           </Tooltip>
-          <CarPlateWrapper className="car-page">
+          <CardPlateWrapper className="car-page">
             <CarPlate car={car} />
-          </CarPlateWrapper>
-        </CarTypeIconWrapper>
-        <CarSpecsWrapper>
-          <CarTransmitionWrapper>
+          </CardPlateWrapper>
+        </CardTypeIconWrapper>
+        <CardSpecsWrapper>
+          <CardTransmitionWrapper>
             <Tooltip content="Weekly Rent" color={"warning"}>
               <CarRentSvg width="25px" height="25px" fill={isTheme().color} />
               <p>{car.weeklyRent}</p>
             </Tooltip>
-          </CarTransmitionWrapper>
-          <CarTransmitionWrapper>
+          </CardTransmitionWrapper>
+          <CardTransmitionWrapper>
             <Tooltip content="Fuel Type" color={"success"}>
               <CarPetrolSvg width="25px" height="25px" fill={isTheme().color} />
               <p>{car.fuelType.name_en}</p>
             </Tooltip>
-          </CarTransmitionWrapper>{" "}
-          <CarTransmitionWrapper>
+          </CardTransmitionWrapper>{" "}
+          <CardTransmitionWrapper>
             <Tooltip content="Time Rented" color={"primary"}>
               <NumberOfRentedSvg
                 width="25px"
@@ -120,8 +124,8 @@ const Grid = ({
               />
               <p>{car.timesRented}</p>
             </Tooltip>
-          </CarTransmitionWrapper>{" "}
-          <CarTransmitionWrapper>
+          </CardTransmitionWrapper>{" "}
+          <CardTransmitionWrapper>
             <Tooltip content="Mileage" color={"secondary"}>
               <CarMileageSvg
                 width="25px"
@@ -130,14 +134,14 @@ const Grid = ({
               />
               <p>{car.mileage}</p>
             </Tooltip>
-          </CarTransmitionWrapper>
-        </CarSpecsWrapper>
+          </CardTransmitionWrapper>
+        </CardSpecsWrapper>
         <ButtonWrapper>
           {page === "dashboard" && (
             <Button
               variant="outlined"
               className="rent"
-              onClick={() => router.push("/cars/rent")}
+              onClick={() => router.push(`/cars/rent/${car.id}`)}
               endIcon={
                 <CarRentSvg width="18px" height="18px" fill={colors.purple} />
               }
@@ -163,7 +167,7 @@ const Grid = ({
               className="delete"
               onClick={() => router.push("/cars/rent")}
               endIcon={
-                <DeleteSvg width="18px" height="18px" fill={colors.purple} />
+                <DeleteSvg width="18px" height="18px" fill={colors.red} />
               }
             >
               Delete
@@ -186,7 +190,7 @@ const Grid = ({
             Details
           </Button>
         </ButtonWrapper>
-      </Car>
+      </CardWrapper>
     </Grow>
   );
 };

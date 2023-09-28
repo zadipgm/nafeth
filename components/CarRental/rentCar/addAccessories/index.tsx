@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import {
   AccessoriesContainer,
   AccessoriesWrapper,
+  AddAccessoriesContainer,
   ButtonWrapper,
 } from "../../style";
 import { Button } from "@mui/material";
@@ -38,7 +39,7 @@ const AddAccessories = ({
     setAccessories(false);
   };
   return (
-    <>
+    <AddAccessoriesContainer>
       <Title color={colors.nafethBlue}>
         <h2>Add Accessories</h2>
       </Title>
@@ -75,7 +76,7 @@ const AddAccessories = ({
           save Accessories
         </Button>
       </ButtonWrapper>
-    </>
+    </AddAccessoriesContainer>
   );
 };
 export default AddAccessories;

@@ -6,7 +6,14 @@ import { fetchData } from "@/api/fetchapis/fetchData";
 import { GetServerSideProps } from "next";
 import { ICarModel } from "@/models/carmodel";
 const Page: NextPageWithLayout = (result: any) => {
-  return <CarRent cars={result} title="Car Management" page="car-management" />;
+  return (
+    <CarRent
+      cars={result}
+      title="Car Management"
+      page="car-management"
+      showAddButton={true}
+    />
+  );
 };
 Page.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
