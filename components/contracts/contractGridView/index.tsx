@@ -1,16 +1,18 @@
 import * as React from "react";
-import { ListViewContainer } from "@/components/CarRental/style";
-import List from "./list";
+import { isTheme } from "@/_helpers/getTheme";
+import { CarWrapper } from "@/components/CarRental/style";
+import Grid from "./grid";
+import { Contract } from "@/models/individualContracts";
 import { ICustomers } from "@/models/customers";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
+  cars: any;
+  page: string;
   contracts: any;
-  cars?: any;
+  show: number;
   customers: ICustomers;
   toggleDrawer: (param1: Anchor, param2: boolean, param3: any) => void;
   handleEdit: (param: any) => void;
-  show: number;
-  page: string;
   isViewable: boolean;
   isEditable: boolean;
   isExtendable: boolean;
@@ -18,31 +20,32 @@ interface ICarProps {
   isReturnable: boolean;
   isPrintAble: boolean;
 }
-const ContractListView = ({
-  contracts,
+const ContractGridView = ({
   cars,
-  show,
-  customers,
   page,
+  show,
+  toggleDrawer,
+  handleEdit,
+  contracts,
+  customers,
   isViewable,
   isEditable,
   isDisputeable,
   isExtendable,
   isReturnable,
   isPrintAble,
-  toggleDrawer,
 }: ICarProps) => {
   return (
-    <ListViewContainer>
-      {contracts.slice(0, show)?.map((contract: any, i: any) => {
+    <CarWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+      {contracts.slice(0, show).map((contract: any, i: number) => {
         return (
-          <List
+          <Grid
             key={i}
             contract={contract}
             cars={cars}
             page={page}
-            customers={customers}
-            toggleDrawer={toggleDrawer}
+            handleEdit={handleEdit}
+            customers={customers} // toggleDrawer={toggleDrawer}
             isViewable={isViewable}
             isEditable={isEditable}
             isExtendable={isExtendable}
@@ -52,7 +55,7 @@ const ContractListView = ({
           />
         );
       })}
-    </ListViewContainer>
+    </CarWrapper>
   );
 };
-export default ContractListView;
+export default ContractGridView;

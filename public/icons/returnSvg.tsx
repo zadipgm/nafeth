@@ -2,7 +2,8 @@ const ReturnSvg = ({
   width = "24",
   height = "24",
   className = "inline vMiddle",
-  fill = "#0d4a76",
+  fill = "",
+  stroke = "",
 }) => {
   return (
     <svg
@@ -12,6 +13,7 @@ const ReturnSvg = ({
       viewBox="0 0 48 48"
       xmlns="http://www.w3.org/2000/svg"
       fill={"none"}
+      stroke={stroke}
     >
       <path
         d="M12.9998 8L6 14L12.9998 21"

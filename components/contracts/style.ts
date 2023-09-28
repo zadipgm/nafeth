@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 export const Container = styled.div`
   margin: 20px 0px;
+  
   .load-more {
     width: 200px;
-    margin: 0 auto;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -23,6 +23,9 @@ export const AccountTable = styled.table`
     border: 1px solid #ddd;
     width: 10%;
     padding: 0px 6px;
+    &.red{
+color: red;
+    }
   }
   tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -58,6 +61,7 @@ export const ContractsTitle = styled.h2`
 `;
 export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 100%;
+  padding-bottom: 3px;
   border-radius: 8px;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
@@ -79,6 +83,11 @@ export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
     }
   }
 `;
+export const CarPlateExtention = styled.div`
+width: 20%;
+margin: 12px auto;
+display: flex;
+`
 export const SearchTabsWrapper = styled.div<{
   bcolor?: string;
   color?: string;
@@ -87,6 +96,7 @@ export const SearchTabsWrapper = styled.div<{
   justify-content: flex-start;
   align-items: center;
   margin: 10px 0px;
+  padding: 0px 20px ;
   gap: 20px;
   @media (max-width: 600px) {
     width: 100%;

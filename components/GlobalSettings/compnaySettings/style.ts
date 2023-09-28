@@ -91,6 +91,9 @@ cursor: no-drop;
    width: 100%;
     flex-direction: row;
   }
+  &.comments{
+    width: 100%;
+  }
   &.price-list{
     width: 50%;
   }

@@ -23,10 +23,11 @@ interface IAnchor {
 }
 interface IProps {
   state: IAnchor;
-  toggleDrawer: (param1: Anchor, param2: boolean) => void;
+  toggleDrawer: (param1: Anchor, param2: boolean, item: any) => void;
   children: React.ReactElement;
   width?: string;
   open?: boolean;
+  item?: any;
 }
 const DrawerComponent = ({
   state,
@@ -34,13 +35,13 @@ const DrawerComponent = ({
   children,
   width,
   open = true,
+  item,
 }: IProps) => {
   const { colors } = useTheme();
   const list = (anchor: Anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : width }}
-      role="presentation"
-      onClick={() => toggleDrawer(anchor, open)}
+      onClick={() => toggleDrawer(anchor, open, item)}
     >
       {children}
     </Box>
@@ -53,7 +54,7 @@ const DrawerComponent = ({
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={() => toggleDrawer(anchor, false)}
+            onClose={() => toggleDrawer(anchor, false, item)}
           >
             {list(anchor)}
           </Drawer>

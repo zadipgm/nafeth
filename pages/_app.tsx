@@ -53,11 +53,9 @@ const MyApp = ({
       const handleComplete = () => {
         setLoading(false);
       };
-
       router.events.on("routeChangeStart", handleStart);
       router.events.on("routeChangeComplete", handleComplete);
       router.events.on("routeChangeError", handleComplete);
-
       return () => {
         router.events.off("routeChangeStart", handleStart);
         router.events.off("routeChangeComplete", handleComplete);
@@ -78,7 +76,6 @@ const MyApp = ({
     window.onclick = timerReset; // catches touchpad clicks as well
     window.onkeydown = timerReset;
     window.addEventListener("scroll", timerReset, true); // improved; see comments
-
     function writeYourFunction() {
       // function for too long inactivity
       alert("Your session has been expired. Please login again!");
@@ -90,7 +87,6 @@ const MyApp = ({
       window.localStorage.clear();
       router.push("/login");
     }
-
     function timerReset() {
       clearTimeout(t);
       t = setTimeout(writeYourFunction, 1200000); // time is in milliseconds

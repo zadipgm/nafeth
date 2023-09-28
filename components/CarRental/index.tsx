@@ -14,10 +14,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import HeaderCard from "@/reuseableComponents/HeaderCards";
-import { Car_chart_data, header_card } from "@/global/fakeData";
+import {
+  Car_chart_data,
+  header_card,
+  header_card_dashboard,
+} from "@/global/fakeData";
 import { Button, Fab } from "@mui/material";
-import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-import InputComponent from "@/reuseableComponents/InputField";
 import DrawerComponent from "@/reuseableComponents/Drawer";
 import CarPetrolSvg from "@/public/icons/carPetrolSvg";
 import CarPlateSvg from "@/public/icons/carPlateSvg";
@@ -25,17 +27,16 @@ import CarManageSvg from "@/public/icons/carManageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
 import CarRentSvg from "@/public/icons/cars";
 import EconomicSvg from "@/public/icons/Economic";
-import { SearchBarWrapper, SearchTabsWrapper } from "../contracts/style";
+import { SearchTabsWrapper } from "../contracts/style";
 import CarListView from "./ListView";
 import CarGridView from "./gridView";
 import CarMileageSvg from "@/public/icons/carMileageSvg";
 import ViewButton from "@/reuseableComponents/viewsButton";
 import SearchComponent from "@/reuseableComponents/SearchComponent";
-import {
-  PaginationOuterDiv,
-  PaginationWrapper,
-} from "@/reuseableComponents/DataTable/style";
-import Pagination from "@/reuseableComponents/Pagnation";
+import MainSectionCard from "@/reuseableComponents/HeaderCards/mainSectionCard";
+import { GlobalUserContext } from "@/context";
+import { Title } from "../GlobalSettings/BranchManagement/style";
+import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
@@ -53,7 +54,10 @@ const CarRent = ({
   selectedCarID,
 }: ICarProps) => {
   const router = useRouter();
+  const { userName, userPassword, company } =
+    React.useContext(GlobalUserContext);
   const { colors, isMobile } = useTheme();
+  const [show, setShow] = React.useState(4);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -61,19 +65,10 @@ const CarRent = ({
     right: false,
   });
   const [carDetails, setCarDetails] = React.useState<any>();
-
   const [searchvalue, setSearchvalue] = React.useState(cars.result);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [recordsPerPage, setRecordPerPage] = React.useState(10);
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = cars.result?.slice(
-    indexOfFirstRecord,
-    indexOfLastRecord
-  );
-  const nPages = Math.ceil(cars.result?.length / recordsPerPage);
   const [list, setList] = React.useState(true);
   const [grid, setGrid] = React.useState(false);
+
   const toggleDrawer = (anchor: Anchor, open: boolean, car?: any) => {
     console.log("toggleDrawer", car);
     setCarDetails(car);
@@ -111,21 +106,25 @@ const CarRent = ({
             page="car-management"
           />
         )}
+        {page === "dashboard" ? (
+          <MainSectionCard page={"dashboard"} card={header_card_dashboard} />
+        ) : (
+          ""
+        )}
+
         <CardListWrapper
           bcolor={isTheme().bcolor}
           color={isTheme().color}
           className="car-management"
         >
+          <Title color={colors.nafethBlue}>
+            <h2>Available Cars</h2>
+          </Title>
           <SearchTabsWrapper
             bcolor={isTheme()?.bcolor}
             color={isTheme()?.inputColor}
           >
             <ViewButton handleView={handleView} list={list} grid={grid} />
-            <SearchComponent
-              data={cars.result}
-              currentRecords={currentRecords}
-              setSearchvalue={setSearchvalue}
-            />
             {showAddButton && (
               <Fab
                 aria-label={"add"}
@@ -142,29 +141,28 @@ const CarRent = ({
                 <AddIcon />
               </Fab>
             )}
+            <SearchComponent
+              data={cars.result}
+              currentRecords={cars.result}
+              setSearchvalue={setSearchvalue}
+            />
           </SearchTabsWrapper>
           {list && (
             <CarListView
               cars={searchvalue}
               page={page}
+              show={show}
               handleEdit={handleEdit}
               toggleDrawer={toggleDrawer}
               hanldeSelected={hanldeSelected}
               selectedCarID={selectedCarID}
-              keys={[
-                "mileage",
-                "dailyRent",
-                "weeklyRent",
-                "monthlyRent",
-                "timesRented",
-                "active",
-              ]}
             />
           )}
           {grid && (
             <CarGridView
               cars={searchvalue}
               page={page}
+              show={show}
               handleEdit={handleEdit}
               toggleDrawer={toggleDrawer}
               hanldeSelected={hanldeSelected}
@@ -174,7 +172,7 @@ const CarRent = ({
           <DrawerComponent
             state={state}
             toggleDrawer={toggleDrawer}
-            width="400px"
+            width="600px"
           >
             <div>
               <DetailsTitle color={colors.nafethBlue}>Car Details</DetailsTitle>
@@ -228,7 +226,7 @@ const CarRent = ({
                   <Button
                     variant="contained"
                     className="rent-button"
-                    onClick={() => router.push("/cars/rent/")}
+                    onClick={() => router.push(`/cars/rent/${carDetails?.id}`)}
                   >
                     Rent
                   </Button>
@@ -236,18 +234,23 @@ const CarRent = ({
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {cars.result.length > 0 ? (
+          {show === cars.length ? (
             ""
           ) : (
-            <PaginationWrapper>
-              <PaginationOuterDiv>
-                <Pagination
-                  nPages={nPages}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
+            <Button
+              variant={"contained"}
+              onClick={() => setShow(show + 4)}
+              className="load-more"
+              endIcon={
+                <ArrowCircleSvg
+                  width="15px"
+                  height="15px"
+                  fill={colors.white}
                 />
-              </PaginationOuterDiv>
-            </PaginationWrapper>
+              }
+            >
+              View more
+            </Button>
           )}
         </CardListWrapper>
       </Container>

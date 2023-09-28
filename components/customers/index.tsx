@@ -129,7 +129,7 @@ const CustomersList = ({
               onClick={() =>
                 router.push({
                   pathname: `/customers/add` as string,
-                  query: { max_number: max_number },
+                  query: { max_number: max_number, page: router.asPath },
                 })
               }
             >

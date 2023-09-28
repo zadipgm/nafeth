@@ -25,7 +25,8 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
     return header?.map((key, index) => {
       return (
         <MenuItem key={index} value={key}>
-          {key}
+          {key.charAt(0).toUpperCase() +
+            key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
         </MenuItem>
       );
     });

@@ -75,7 +75,14 @@ const AddCustomer = ({
         (res: any) => {
           if (res.status == 200) {
             Swal.fire("Thank you!", "Customer has been Created!.", "success");
-            router.push("/customers");
+            if (
+              router.query.page === "rentcar_page" ||
+              router.query.page?.includes("/cars")
+            ) {
+              router.back();
+            } else {
+              router.push("/customers");
+            }
           } else {
             console.log(res);
             Swal.fire({

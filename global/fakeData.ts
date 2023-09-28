@@ -1125,11 +1125,11 @@ export const status = [
     { label: "Accident", value: "Accident" },
 ];
 export const evalueation = [
-    { label: "*****", value: "*****" },
-    { label: "****", value: "****" },
-    { label: "***", value: "***" },
-    { label: "**", value: "**" },
-    { label: "*", value: "*" },
+    { label: "★★★★★", value: 5 },
+    { label: "★★★★", value: 4 },
+    { label: "★★★", value: 3 },
+    { label: "★★", value: 2 },
+    { label: "★", value: 1 },
 ];
 export const bank = [
     { label: "Al Rajhi", value: "Al Rajhi" },
