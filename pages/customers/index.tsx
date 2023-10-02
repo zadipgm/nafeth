@@ -10,13 +10,14 @@ import { ICustomers } from "@/models/customers";
 const Page: NextPageWithLayout = (props) => {
   return (
     <CustomersList
-      addable={false}
       editable={true}
+      isAddbutton={true}
       deleteable={true}
       details={true}
       page_color={"#1281C4"}
       title={"Customers List"}
       customers={props as ICustomers}
+      listtype=""
     />
   );
 };

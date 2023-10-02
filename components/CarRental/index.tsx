@@ -118,7 +118,11 @@ const CarRent = ({
           className="car-management"
         >
           <Title color={colors.nafethBlue}>
-            <h2>Available Cars</h2>
+            {page === "dashboard" ? (
+              <h2>Available Cars</h2>
+            ) : (
+              <h2>Cars List</h2>
+            )}
           </Title>
           <SearchTabsWrapper
             bcolor={isTheme()?.bcolor}
@@ -234,9 +238,7 @@ const CarRent = ({
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {show === cars.length ? (
-            ""
-          ) : (
+          {cars.result.length > 4 && (
             <Button
               variant={"contained"}
               onClick={() => setShow(show + 4)}

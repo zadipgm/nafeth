@@ -82,6 +82,7 @@ export const CardListWrapper = styled.div<{ bcolor: string; color: string }>`
   }
   .load-more {
     width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 0 auto;
     text-align: center;
     display: flex;
@@ -155,19 +156,17 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   }
    @media (min-width: 768px) {
     width: 80%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
   }
   @media (min-width:1024px) {
     width: 48%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
   }
     @media (min-width:1440px) {
     width: 32%;
-    margin: 0 auto;
   }
    @media (min-width:1640px) {
     width: 23%;
-    margin: 0 auto;
   }
 `;
 export const ButtonWrapper = styled.div`
@@ -603,7 +602,7 @@ export const DetailList = styled.ul`
   }
 `;
 export const DetailListItem = styled.li`
-  width: 100%;
+  width: 50%;
   display: flex;
   padding: 15px;
   justify-content: space-between;
@@ -850,7 +849,7 @@ export const IDIcon = styled.div`
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
 export const ListViewContainer = styled.div`
-padding:0px 20px;
+padding:0px 15px;
   
  `
 
@@ -976,6 +975,22 @@ gap: 8px;
     }
     }
   /* } */
+`
+export const CarStatus = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`
+export const Status = styled.div<{ color: string }>`
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+background-color: ${({ color }) => color};
+color: white;
+    width: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
 `
 export const CarTypeSvgWrapper = styled.div`
 >span{

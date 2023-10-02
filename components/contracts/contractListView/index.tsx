@@ -17,6 +17,7 @@ interface ICarProps {
   isDisputeable: boolean;
   isReturnable: boolean;
   isPrintAble: boolean;
+  editLink: string;
 }
 const ContractListView = ({
   contracts,
@@ -30,6 +31,7 @@ const ContractListView = ({
   isExtendable,
   isReturnable,
   isPrintAble,
+  editLink,
   toggleDrawer,
 }: ICarProps) => {
   return (
@@ -49,6 +51,7 @@ const ContractListView = ({
             isDisputeable={isDisputeable}
             isReturnable={isReturnable}
             isPrintAble={isPrintAble}
+            editLink={editLink}
           />
         );
       })}

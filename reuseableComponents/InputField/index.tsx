@@ -1,5 +1,5 @@
 import * as React from "react";
-import TextField from "@mui/material/TextField";
+import TextField, { TextFieldVariants } from "@mui/material/TextField";
 import { Container } from "./style";
 interface IProps {
   label?: string;
@@ -18,7 +18,7 @@ interface IProps {
   error?: boolean;
   defaultValue?: string | number;
   id?: string;
-  variant?: string;
+  variant?: TextFieldVariants;
   mindate?: string;
 }
 const InputComponent = ({

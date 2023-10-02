@@ -25,6 +25,5 @@ export const getServerSideProps: GetServerSideProps<{
     company as string
   );
   const result = await res;
-
   return { props: result };
 };

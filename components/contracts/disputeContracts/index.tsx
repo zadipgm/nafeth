@@ -5,6 +5,7 @@ import { ICarModel } from "@/models/carmodel";
 import { ICustomers, IPriceList } from "@/models/customers";
 import { IAccessory } from "@/models/IAccessory";
 import { IBranchModel } from "@/models/branch";
+import { DisputedContainer } from "../style";
 interface IProps {
   contracts: IContracts;
   cars: ICarModel;
@@ -21,8 +22,9 @@ const DisputedContracts = ({
   accessories,
   branches,
 }: IProps) => {
+  console.log("here is obh", contracts);
   return (
-    <div>
+    <DisputedContainer>
       <ContractPage
         contracts={contracts}
         cars={cars}
@@ -33,13 +35,14 @@ const DisputedContracts = ({
         page={"disputed"}
         title="Disputed Contract"
         isViewable={true}
+        editLink={"disputecontracts"}
         isEditable={true}
         isExtendable={false}
         isDisputeable={false}
         isReturnable={true}
-        isPrintAble={false}
+        isPrintAble={true}
       />
-    </div>
+    </DisputedContainer>
   );
 };
 export default DisputedContracts;

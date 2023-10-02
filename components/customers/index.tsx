@@ -39,9 +39,9 @@ import { Tooltip } from "@nextui-org/react";
 import CloseSvg from "@/public/icons/closeSvg";
 import { GroupButtons } from "../GlobalSettings/compnaySettings/style";
 import { ICustomers, customer } from "@/models/customers";
+import SearchComponent from "@/reuseableComponents/SearchComponent";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
-  addable: boolean;
   editable: boolean;
   deleteable: boolean;
   details: boolean;
@@ -53,7 +53,6 @@ interface IProps {
   listtype?: string;
 }
 const CustomersList = ({
-  addable,
   editable,
   deleteable,
   details,
@@ -73,6 +72,7 @@ const CustomersList = ({
   const { locale, colors } = useTheme();
   const router = useRouter();
   const [prohibitedValue, setprohibitedValue] = React.useState("");
+  const [searchvalue, setSearchvalue] = React.useState(customers.result);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -136,17 +136,15 @@ const CustomersList = ({
               Add Customer <AddIcon />
             </Fab>
           )}
-          <InputComponent
-            type="search"
-            placeholder="muhammad..."
-            label="Search"
-            // onChange={(e) => handleChange(e)}
-            classname="search-input"
+          <SearchComponent
+            data={customers.result}
+            currentRecords={customers.result}
+            setSearchvalue={setSearchvalue}
           />
         </InputWrapper>
 
         <CustomerCardContainer>
-          {customers?.result?.slice(0, show).map((item, index) => {
+          {searchvalue?.slice(0, show).map((item, index) => {
             return (
               <Grow
                 in={true}
@@ -227,7 +225,7 @@ const CustomersList = ({
                     </Tooltip>
                   </List>
                   <ButtonWrapper className="customer">
-                    {addable && listtype === "Customer" ? (
+                    {listtype === "customer" && (
                       <Button
                         className="add"
                         variant="outlined"
@@ -242,7 +240,8 @@ const CustomersList = ({
                       >
                         Add
                       </Button>
-                    ) : (
+                    )}
+                    {listtype === "driver" && (
                       <Button
                         className="add"
                         variant="outlined"
@@ -258,6 +257,7 @@ const CustomersList = ({
                         Add Driver
                       </Button>
                     )}
+
                     {editable && (
                       <Button
                         className="edit"

@@ -1,9 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import { PaginationList, PaginationListItem } from "./styles";
-
-const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
-  const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
+interface IProps {
+  nPages: number;
+  currentPage: number;
+  setCurrentPage: (param: any) => void;
+}
+const Pagination = ({ nPages, currentPage, setCurrentPage }: IProps) => {
+  const pageNumbers = [...(Array(nPages + 1).keys() as any)].slice(1);
 
   const nextPage = () => {
     if (currentPage !== nPages) setCurrentPage(currentPage + 1);

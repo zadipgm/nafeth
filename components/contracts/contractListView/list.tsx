@@ -22,7 +22,7 @@ import PrintSvg from "@/public/icons/printSvg";
 import ReturnSvg from "@/public/icons/returnSvg";
 import IconComponent from "@/reuseableComponents/IconComponent";
 import { Button, Grow } from "@mui/material";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip, red } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
@@ -39,6 +39,7 @@ interface IProps {
   isDisputeable: boolean;
   isReturnable: boolean;
   isPrintAble: boolean;
+  editLink: string;
 }
 const List = ({
   toggleDrawer,
@@ -52,6 +53,7 @@ const List = ({
   isExtendable,
   isReturnable,
   isPrintAble,
+  editLink,
 }: IProps) => {
   const router = useRouter();
   const { locale, colors } = useTheme();
@@ -86,33 +88,56 @@ const List = ({
             </ModelListViewWrapper>
             <ReuseAbleList>
               <ReuseAbleListItem>
-                <Tooltip content={"Daily Rent"} color={"success"}>
+                <Tooltip
+                  content={
+                    page === "disputed" ? "Oil Change Cost" : "Daily Rent"
+                  }
+                  color={"success"}
+                >
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
                       fill={colors.nafethBlue}
-                      icon={"cars"}
+                      icon={page === "disputed" ? "carWorkshopSvg" : "cars"}
                     />
                   </div>
-                  {contract.dailyPrice}
+                  {page === "disputed"
+                    ? contract.oilChangeCost
+                    : contract.dailyPrice}
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
-                <Tooltip content={"Weekly Price"} color={"success"}>
+                <Tooltip
+                  content={
+                    page === "disputed" ? "Spare parts cost" : "Weekly Price"
+                  }
+                  color={"success"}
+                >
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
                       fill={colors.nafethBlue}
-                      icon={"carRentedSvg"}
+                      icon={
+                        page === "disputed" ? "availableCars" : "carRentedSvg"
+                      }
                     />
                   </div>
-                  {contract.weeklyPrice}
+                  {page === "disputed"
+                    ? contract.sparePartsCost
+                    : contract.weeklyPrice}
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
-                <Tooltip content={"Monthly Price"} color={"success"}>
+                <Tooltip
+                  content={
+                    page === "disputed"
+                      ? "Disputed Billing Status"
+                      : "Monthly Price"
+                  }
+                  color={"success"}
+                >
                   <div>
                     <IconComponent
                       width={"25px"}
@@ -121,7 +146,19 @@ const List = ({
                       icon={"carTotalSvg"}
                     />
                   </div>
-                  {contract.monthlyPrice}
+                  <span
+                    style={{
+                      color:
+                        contract.disputedBillingStatus === "freeze"
+                          ? "red"
+                          : "green",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {page === "disputed"
+                      ? contract.disputedBillingStatus
+                      : contract.monthlyPrice}
+                  </span>
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
@@ -142,20 +179,30 @@ const List = ({
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
-                <Tooltip content={"Advance Amount"} color={"success"}>
+                <Tooltip
+                  content={
+                    page === "disputed" ? "Damage Cost" : "Advance Amount"
+                  }
+                  color={"success"}
+                >
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
                       fill={colors.nafethBlue}
-                      icon={"payments"}
+                      icon={page === "disputed" ? "carAccidentSvg" : "payments"}
                     />
                   </div>
-                  {contract.advanceAmount}
+                  {page === "disputed"
+                    ? contract.damageCost
+                    : contract.advanceAmount}
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
-                <Tooltip content={"km out"} color={"success"}>
+                <Tooltip
+                  content={page === "disputed" ? "Km In" : "km out"}
+                  color={"success"}
+                >
                   <div>
                     <IconComponent
                       width={"25px"}
@@ -164,7 +211,7 @@ const List = ({
                       icon={"carStolenSvg"}
                     />
                   </div>
-                  {contract.kmOut}
+                  {page === "disputed" ? contract.disputedKMIn : contract.kmOut}
                 </Tooltip>
               </ReuseAbleListItem>
               <ReuseAbleListItem>
@@ -203,7 +250,9 @@ const List = ({
                       icon={"returnDateSvg"}
                     />
                   </div>
-                  {contract.actualReturnDate}
+                  {page === "disputed"
+                    ? contract.disputedSubmitedDatetime
+                    : contract.actualReturnDate}
                 </Tooltip>
               </ReuseAbleListItem>
             </ReuseAbleList>
@@ -227,6 +276,9 @@ const List = ({
                   <Button
                     variant={"outlined"}
                     className="dispute"
+                    onClick={() =>
+                      router.push(`/disputecontracts/${contract.contractNo}`)
+                    }
                     endIcon={
                       <DisputeSvg
                         width="15px"
@@ -262,6 +314,9 @@ const List = ({
                   <Button
                     variant={"outlined"}
                     className="edit"
+                    onClick={() =>
+                      router.push(`/${editLink}/${contract.contractNo}`)
+                    }
                     endIcon={
                       <EditSvg
                         width="15px"
