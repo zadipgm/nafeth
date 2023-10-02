@@ -534,7 +534,7 @@ const AddCustomer = ({
                         value={option.id}
                         defaultValue={""}
                       >
-                        {option.label}
+                        {option.name_en}
                       </MenuItem>
                     ))}
                   </TextField>

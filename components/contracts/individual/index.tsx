@@ -78,6 +78,7 @@ interface IProps {
   isDisputeable: boolean;
   isReturnable: boolean;
   isPrintAble: boolean;
+  editLink: string;
 }
 type Anchor = "top" | "left" | "bottom" | "right";
 const ContractPage = ({
@@ -95,6 +96,7 @@ const ContractPage = ({
   isExtendable,
   isReturnable,
   isPrintAble,
+  editLink,
 }: IProps) => {
   const [state, setState] = React.useState({
     top: false,
@@ -127,7 +129,15 @@ const ContractPage = ({
     <>
       <Container>
         <ListWrapper bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
-          <Title color={colors.nafethBlue}>
+          <Title
+            color={
+              page === "return"
+                ? colors.darkYellow
+                : page === "individual"
+                ? colors.nafethBlue
+                : colors.red
+            }
+          >
             <h2>{title}</h2>
           </Title>
           <ContractsTitle></ContractsTitle>
@@ -158,6 +168,7 @@ const ContractPage = ({
               isDisputeable={isDisputeable}
               isReturnable={isReturnable}
               isPrintAble={isPrintAble}
+              editLink={editLink}
             />
           )}
           {grid && (
@@ -181,7 +192,7 @@ const ContractPage = ({
             <DrawerComponent
               state={state}
               toggleDrawer={toggleDrawer}
-              width="400px"
+              width={page == "return" ? "800px" : "400px"}
               item={details}
             >
               <div>
@@ -193,28 +204,48 @@ const ContractPage = ({
                   bcolor={isTheme().bcolor}
                 >
                   <DetailList>
-                    <DetailListItem>
-                      <Strongtext>Customer ID</Strongtext>
-                      <Spantext>{details?.customerID}</Spantext>
-                    </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext>Checkout time</Strongtext>
-                      <Spantext>{details?.timeOut}</Spantext>
-                    </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext>Issue Branch</Strongtext>
-                      <Spantext>
-                        {
-                          filterBranch(branches, details?.issueBranchID)[0][
-                            `name_${locale}`
-                          ]
-                        }
-                      </Spantext>
-                    </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext>Daily rent</Strongtext>
-                      <Spantext>{details?.dailyPrice}</Spantext>
-                    </DetailListItem>
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext>Customer ID</Strongtext>
+                        <Spantext>{details?.customerID}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext>Checkout time</Strongtext>
+                        <Spantext>{details?.timeOut}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext>Issue Branch</Strongtext>
+                        <Spantext>
+                          {
+                            filterBranch(branches, details?.issueBranchID)[0][
+                              `name_${locale}`
+                            ]
+                          }
+                        </Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Return Branch</Strongtext>
+                        <Spantext>
+                          {
+                            filterBranch(branches, details?.issueBranchID)[0][
+                              `name_${locale}`
+                            ]
+                          }
+                        </Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext>Daily rent</Strongtext>
+                        <Spantext>{details?.dailyPrice}</Spantext>
+                      </DetailListItem>
+                    )}
                     <DetailListItem>
                       <Strongtext>Advance Amount</Strongtext>
                       <Spantext>{details?.advanceAmount}</Spantext>
@@ -223,10 +254,90 @@ const ContractPage = ({
                       <Strongtext>Actual Days</Strongtext>
                       <Spantext>{details?.actualTotalDays}</Spantext>
                     </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext> KM Out</Strongtext>
-                      <Spantext>{details?.kmOut}</Spantext>
-                    </DetailListItem>
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext> KM Out</Strongtext>
+                        <Spantext>{details?.kmOut}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext> KM In</Strongtext>
+                        <Spantext>{details?.kMIn}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext> Extra KM</Strongtext>
+                        <Spantext>{details?.extraKM}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext> kM Cost</Strongtext>
+                        <Spantext>{details?.kMCost}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Promotion Discount</Strongtext>
+                        <Spantext>{details?.promotionDiscount}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Total Rent Cost</Strongtext>
+                        <Spantext>{details?.totalRentCost}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Other Cost</Strongtext>
+                        <Spantext>{details?.otherCost}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Discount</Strongtext>
+                        <Spantext>{details?.discount}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Gross Total</Strongtext>
+                        <Spantext>{details?.grossTotal}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>VAT Percent</Strongtext>
+                        <Spantext>{details?.vATPercent}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>VAT Amount </Strongtext>
+                        <Spantext>{details?.vATAmount}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Refunded </Strongtext>
+                        <Spantext>{details?.refunded}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext> Paid </Strongtext>
+                        <Spantext>{details?.paid}</Spantext>
+                      </DetailListItem>
+                    )}
+                    {page === "return" && (
+                      <DetailListItem>
+                        <Strongtext>Net Total </Strongtext>
+                        <Spantext>{details?.netTotal}</Spantext>
+                      </DetailListItem>
+                    )}
                     <DetailListItem>
                       <Strongtext>Nationality</Strongtext>
                       <Spantext>
@@ -236,16 +347,18 @@ const ContractPage = ({
                         }
                       </Spantext>
                     </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext> Car Type</Strongtext>
-                      <Spantext>
-                        {
-                          filterCar(cars, details?.carID)[0].carType[
-                            `name_${locale}`
-                          ]
-                        }
-                      </Spantext>
-                    </DetailListItem>
+                    {page === "individual" && (
+                      <DetailListItem>
+                        <Strongtext> Car Type</Strongtext>
+                        <Spantext>
+                          {
+                            filterCar(cars, details?.carID)[0].carType[
+                              `name_${locale}`
+                            ]
+                          }
+                        </Spantext>
+                      </DetailListItem>
+                    )}
                     <DetailListItem>
                       <Strongtext> Rental Cost</Strongtext>
                       <Spantext>
@@ -265,9 +378,7 @@ const ContractPage = ({
               </div>
             </DrawerComponent>
           )}
-          {show === Contracts.length ? (
-            ""
-          ) : (
+          {contracts.result.length > 4 && (
             <Button
               variant={"contained"}
               onClick={() => setShow(show + 4)}

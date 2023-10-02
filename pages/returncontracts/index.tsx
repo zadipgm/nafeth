@@ -21,6 +21,7 @@ const Page: NextPageWithLayout = (props: any) => {
       priceList={props.priceList}
       accessories={props.accessories}
       branches={props.branches}
+      title={"Closed Contracts"}
     />
   );
 };
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/contracts/Individual",
+    "/contracts/Individual/closed",
     company as string
   );
   const carRes = await fetchData(

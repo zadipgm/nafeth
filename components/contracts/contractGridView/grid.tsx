@@ -189,6 +189,9 @@ const Grid = ({
             <Button
               variant={"outlined"}
               className="dispute grid"
+              onClick={() =>
+                router.push(`/disputecontracts/${contract.contractNo}`)
+              }
               endIcon={
                 <DisputeSvg width="15px" height="15px" fill={colors.red} />
               }

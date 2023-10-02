@@ -7,19 +7,21 @@ import { fetchData } from "@/api/fetchapis/fetchData";
 import { IContracts } from "@/models/individualContracts";
 import { ICarModel } from "@/models/carmodel";
 import { ICustomers, IPriceList } from "@/models/customers";
-import { IAccessory, IAccessoryResult } from "@/models/IAccessory";
+import { IAccessory } from "@/models/IAccessory";
 import { IBranchModel } from "@/models/branch";
-import DisputedContracts from "@/components/contracts/disputeContracts";
+import EditDisputeContracts from "@/components/contracts/disputeContracts/edit";
+import { IUser } from "@/models/userModel";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
-    <DisputedContracts
+    <EditDisputeContracts
       contracts={props.contracts}
       cars={props.cars}
       customers={props.customers}
       priceList={props.priceList}
       accessories={props.accessories}
       branches={props.branches}
+      users={props.users}
     />
   );
 };
@@ -35,6 +37,7 @@ export const getServerSideProps: GetServerSideProps<{
   priceList: IPriceList;
   accessories: IAccessory;
   branches: IBranchModel;
+  users: IUser;
 }> = async (ctx) => {
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
@@ -42,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/contracts/Individual/disputed",
+    `/contracts/Individual/${ctx.query.id}`,
     company as string
   );
   const carRes = await fetchData(
@@ -75,6 +78,12 @@ export const getServerSideProps: GetServerSideProps<{
     "/lookup/Branches",
     company as string
   );
+  const users = await fetchData(
+    userName as string,
+    userPassword as string,
+    `/settings/Users`,
+    company as string
+  );
   const data = await res;
   return {
     props: {
@@ -84,6 +93,7 @@ export const getServerSideProps: GetServerSideProps<{
       priceList: Pricelist,
       accessories: accessories,
       branches: branch,
+      users: users,
     },
   };
 };

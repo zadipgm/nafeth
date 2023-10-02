@@ -4,11 +4,13 @@ import {
   ButtonWrapper,
   CardColor,
   CardPlateWrapper,
+  CarStatus,
   CarTypeSvgWrapper,
   GlobalListViewWrapper,
   ModelListViewWrapper,
   ReuseAbleList,
   ReuseAbleListItem,
+  Status,
 } from "../style";
 import CarPlate from "../CarPlate";
 import { Tooltip } from "@nextui-org/react";
@@ -171,14 +173,32 @@ const List = ({
             </ReuseAbleListItem>
           </ReuseAbleList>
           <CarTypeSvgWrapper>
-            <IconComponent
-              width="100px"
-              height="100px"
-              fill={car.color.name_en}
-              stroke={colors.gray1}
-              icon={car.carType.name_en.trim()}
-            />
-
+            <CarStatus>
+              {page === "car-management" ? (
+                <Status
+                  color={
+                    car.status === "Return"
+                      ? colors.darkYellow
+                      : car.status === "AVAILABLE"
+                      ? colors.green
+                      : car.status === "disputed"
+                      ? colors.red
+                      : colors.nafethBlue
+                  }
+                >
+                  {car.status}
+                </Status>
+              ) : (
+                <div></div>
+              )}
+              <IconComponent
+                width="100px"
+                height="100px"
+                fill={car.color.name_en}
+                stroke={colors.gray1}
+                icon={car.carType.name_en.trim()}
+              />
+            </CarStatus>
             <ButtonWrapper className={page}>
               {page === "dashboard" && (
                 <Button

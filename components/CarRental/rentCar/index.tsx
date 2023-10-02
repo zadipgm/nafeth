@@ -279,11 +279,10 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       </ModalComponent>
       {isCustomerSelected && (
         <CustomersList
-          addable={true}
           editable={true}
           deleteable={false}
           details={false}
-          listtype={"Customer"}
+          listtype={"customer"}
           page_color={colors.nafethBlue}
           title={"Select a Customer"}
           onCustomerSelected={onCustomerSelected}
@@ -345,12 +344,11 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       )}
       {isDriverSelected && (
         <CustomersList
-          addable={true}
           editable={true}
           deleteable={false}
           details={false}
           page_color={colors.purple}
-          listtype={"Driver"}
+          listtype={"driver"}
           title={"Select a Driver"}
           onCustomerSelected={onDriverSelected}
           customers={customers}

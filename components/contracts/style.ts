@@ -59,6 +59,24 @@ export const ContractsTitle = styled.h2`
   margin: 0px;
   font-size: 20px;
 `;
+export const EditDisputeContainer = styled.div`
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+`
+export const CarDetailsHeading = styled.div<{ color: string }>`
+background-color: ${({ color }) => color};
+display: flex;
+justify-content: center;
+align-items: center;
+width: 200px;
+margin: 0 auto;
+border-radius: 8px;
+color: white;
+`
+export const DisputedContainer = styled.div`
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+`
 export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 100%;
   padding-bottom: 3px;

@@ -1027,6 +1027,11 @@ export const payment = [
     { label: "Cheque", value: "Cheque" },
     { label: "Bank Transfer", value: "Bank Transfer" },
 ];
+export const paymentStatus = [
+    { label: "Continuous", value: "continuous" },
+    { label: "Freeze", value: "freeze" },
+
+];
 export const PaymentTable = [
     {
         receipt_no: "AR10167",

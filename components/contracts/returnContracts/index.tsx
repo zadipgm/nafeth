@@ -12,6 +12,7 @@ interface IProps {
   priceList: IPriceList;
   accessories: IAccessory;
   branches: IBranchModel;
+  title: string;
 }
 const ReturnContracts = ({
   contracts,
@@ -20,6 +21,7 @@ const ReturnContracts = ({
   priceList,
   accessories,
   branches,
+  title,
 }: IProps) => {
   return (
     <div>
@@ -31,7 +33,8 @@ const ReturnContracts = ({
         accessories={accessories}
         branches={branches}
         page={"return"}
-        title="Return Contract"
+        title={title}
+        editLink={"returncontracts"}
         isViewable={true}
         isEditable={false}
         isExtendable={false}

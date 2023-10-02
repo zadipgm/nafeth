@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { css } from "styled-components";
 export const DataTableContainer = styled.div`
-padding: 15px;
+
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
 `
 
 export const DataViewWrapper = styled.div`
@@ -60,7 +62,7 @@ export const Table = styled.table`
   }
 `;
 export const TableData = styled.td`
-  padding: 5px;
+      padding: 5px 16px;
   border-bottom: 1px solid #dddddd;
   text-align: left;
   &.table-header {
@@ -97,6 +99,7 @@ export const PaginationWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
+  padding: 0px 16px;
 `;
 export const PaginationOuterDiv = styled.div`
   width: 25%;
@@ -115,7 +118,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  padding-bottom:16px;
+  padding:16px;
 `;
 
 export const Label = styled.label``;

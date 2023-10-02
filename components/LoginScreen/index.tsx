@@ -62,9 +62,7 @@ const LoginScreen = () => {
           setIsComplete(true);
           Swal.fire("", "You are logged in successfully!", "success");
           Cookies.set("isLogin", "true");
-          setTimeout(() => {
-            router.push("/dashboard");
-          }, 1000);
+          router.push("/dashboard");
         }
       })
       .catch((error) => {

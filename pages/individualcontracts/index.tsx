@@ -19,13 +19,14 @@ const Page: NextPageWithLayout = (props: any) => {
       accessories={props.accessories}
       branches={props.branches}
       page={"individual"}
-      title={"Available Contracts"}
+      title={"Open Contracts"}
       isDisputeable={true}
       isEditable={false}
       isExtendable={true}
       isReturnable={true}
       isViewable={true}
       isPrintAble={false}
+      editLink="individualcontracts"
     />
   );
 };
@@ -47,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/contracts/Individual",
+    "/contracts/Individual/open",
     company as string
   );
   const carRes = await fetchData(

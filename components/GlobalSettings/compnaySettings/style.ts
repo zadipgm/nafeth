@@ -280,6 +280,12 @@ export const GroupButtons = styled.div`
     &.pricelist-save-button{
       background-color: ${({ theme }) => theme.colors.nafethBlue};
     }
+    &.dispute-button{
+      background-color: ${({ theme }) => theme.colors.red};
+    }
+    &.dispute-cancel{
+      background-color: ${({ theme }) => theme.colors.gray1};
+    }
     &.global-settings-save-button {
       background-color: ${({ theme }) => theme.colors.nafethBlue};
     }

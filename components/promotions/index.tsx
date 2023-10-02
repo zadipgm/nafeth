@@ -15,6 +15,7 @@ const PromotionsList = ({ list }: IProps) => {
   const { colors } = useTheme();
   return (
     <DataTableContainer>
+      <div></div>
       <Title color={colors.nafethBlue}>
         <h2>Promotion List</h2>
       </Title>
