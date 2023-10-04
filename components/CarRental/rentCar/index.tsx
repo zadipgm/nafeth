@@ -1,7 +1,7 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import * as React from "react";
 import { useTheme } from "styled-components";
-import { RentContainer } from "../style";
+import { RentContainer, RentSelectedCarContainer } from "../style";
 import AddIcon from "@mui/icons-material/Add";
 import {
   FormBox,
@@ -219,13 +219,23 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
   //Remaining cost
   let remianingCost = totalCost - data.advanceAmount;
 
+  console.log("data.issueDate", data.issueDate);
   return (
-    <RentContainer>
-      <Title color={colors.nafethBlue}>
-        <h2>Rent A Car</h2>
-      </Title>
-      <SelectedCar car={car} customPrice={customPrice as Icustomprice} />
+    <>
+      <RentContainer>
+        <Title
+          color={car.result[0].color.name_en}
+          textColor={
+            car.result[0].color.name_en.toLocaleLowerCase() === "white"
+              ? "black"
+              : "#fff"
+          }
+        >
+          <h2>Selected Car</h2>
+        </Title>
 
+        <SelectedCar car={car} customPrice={customPrice as Icustomprice} />
+      </RentContainer>
       {accessories && (
         <AddAccessories
           setAccessories={setAccessories}
@@ -235,7 +245,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
         />
       )}
 
-      <GroupButtons>
+      <GroupButtons className="rent-car-group-button">
         <Button
           variant="contained"
           color="success"
@@ -291,11 +301,16 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
         />
       )}
       {isCustomerAdded && (
-        <SelectedCustomer customer={customer as customer} type={"Customer"} />
+        <RentContainer>
+          <Title color={colors.nafethBlue}>
+            <h2>Selected Customer</h2>
+          </Title>
+          <SelectedCustomer customer={customer as customer} type={"Customer"} />
+        </RentContainer>
       )}
 
       {isCustomerAdded && (
-        <GroupButtons>
+        <GroupButtons className="rent-car-group-button">
           <Button
             variant="contained"
             color="success"
@@ -356,7 +371,12 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
         />
       )}
       {isDriverAdded && (
-        <SelectedCustomer customer={driver as customer} type={"Driver"} />
+        <RentContainer>
+          <Title color={colors.purple}>
+            <h2>Selected Driver</h2>
+          </Title>
+          <SelectedCustomer customer={driver as customer} type={"Driver"} />
+        </RentContainer>
       )}
       {isDriverAdded && (
         <GroupButtons>
@@ -375,91 +395,94 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       )}
       {ShowContractDetials && (
         <>
-          <Title color={colors.nafethBlue}>
-            <h3>Contract Details</h3>
-          </Title>
-          <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-            <Box
-              component="form"
-              sx={{
-                width: "100%",
-                maxWidth: "100%",
-                padding: "15px",
-              }}
-              noValidate={false}
-              autoComplete="off"
-            >
-              <FormBoxWrapper>
-                <FormBox
-                  color={isTheme().color}
-                  className="car-contract-details"
-                >
-                  <InputComponent
-                    label="From Date"
-                    placeholder=""
-                    type="date"
-                    defaultValue={data.issueDate}
-                    onChange={handleChange}
-                    name={"issueDate"}
-                    variant="filled"
-                    required={true}
-                    classname="car-contract-details"
-                  />
-                  <InputComponent
-                    label="To Date"
-                    placeholder=""
-                    type="date"
-                    variant="filled"
-                    onChange={handleChange}
-                    name={"actualReturnDate"}
-                    required={true}
-                    classname="car-contract-details"
-                  />
-                  <InputComponent
-                    label="Days"
-                    placeholder=""
-                    type="text"
-                    onChange={handleChange}
-                    value={
-                      Math.trunc(
-                        NumOfDays(data.issueDate, data.actualReturnDate)
-                      ) === 0
-                        ? 1
-                        : Math.trunc(
-                            NumOfDays(data.issueDate, data.actualReturnDate)
-                          )
-                    }
-                    name={"actualTotalDays"}
-                    required={true}
-                    classname="car-contract-details"
-                  />
-                </FormBox>
-              </FormBoxWrapper>
+          <RentContainer>
+            <Title color={colors.green}>
+              <h2>Contract Detail</h2>
+            </Title>
 
-              <FormBoxWrapper>
-                <FormBox
-                  color={isTheme().color}
-                  className="car-contract-comment"
-                >
-                  <InputComponent
-                    label="Comments"
-                    placeholder=""
-                    type="text"
-                    onChange={handleChange}
-                    name={"issueComments"}
-                    required={true}
-                    multiline={true}
-                    rows={3}
-                  />
-                </FormBox>
-              </FormBoxWrapper>
-            </Box>
-          </FormWrapper>
+            <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+              <Box
+                component="form"
+                sx={{
+                  width: "100%",
+                  maxWidth: "100%",
+                  padding: "15px",
+                }}
+                noValidate={false}
+                autoComplete="off"
+              >
+                <FormBoxWrapper>
+                  <FormBox
+                    color={isTheme().color}
+                    className="car-contract-details"
+                  >
+                    <InputComponent
+                      label="From Date"
+                      placeholder=""
+                      type="date"
+                      defaultValue={data.issueDate}
+                      onChange={handleChange}
+                      name={"issueDate"}
+                      variant="filled"
+                      required={true}
+                      classname="car-contract-details"
+                    />
+                    <InputComponent
+                      label="To Date"
+                      placeholder=""
+                      type="date"
+                      variant="filled"
+                      onChange={handleChange}
+                      name={"actualReturnDate"}
+                      required={true}
+                      classname="car-contract-details"
+                    />
+                    <InputComponent
+                      label="Days"
+                      placeholder=""
+                      type="text"
+                      onChange={handleChange}
+                      value={
+                        Math.trunc(
+                          NumOfDays(data.issueDate, data.actualReturnDate)
+                        ) === 0
+                          ? 1
+                          : Math.trunc(
+                              NumOfDays(data.issueDate, data.actualReturnDate)
+                            )
+                      }
+                      name={"actualTotalDays"}
+                      required={true}
+                      classname="car-contract-details"
+                    />
+                  </FormBox>
+                </FormBoxWrapper>
+
+                <FormBoxWrapper>
+                  <FormBox
+                    color={isTheme().color}
+                    className="car-contract-comment"
+                  >
+                    <InputComponent
+                      label="Comments"
+                      placeholder=""
+                      type="text"
+                      onChange={handleChange}
+                      name={"issueComments"}
+                      required={true}
+                      multiline={true}
+                      rows={3}
+                    />
+                  </FormBox>
+                </FormBoxWrapper>
+              </Box>
+            </FormWrapper>
+          </RentContainer>
           <GroupButtons>
             <Button
               variant="contained"
               color="success"
-              className="rent-car-save-button"
+              className="create-contract-button"
               onClick={() => setShowPricing(true)}
               endIcon={
                 <ArrowCircleSvg
@@ -476,121 +499,91 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       )}
       {showPricing && (
         <>
-          <Title color={colors.nafethBlue}>
-            <h3>Pricing</h3>
-          </Title>
-          <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-            <Box
-              component="form"
-              sx={{
-                width: "100%",
-                maxWidth: "100%",
-                padding: "15px",
-              }}
-              noValidate={false}
-              autoComplete="off"
-            >
-              <FormBoxWrapper>
-                <FormBox
-                  color={isTheme().color}
-                  className="car-contract-details"
-                >
-                  <InputComponent
-                    label="Total Rented Cost"
-                    placeholder=""
-                    type="text"
-                    value={totalRentedCost}
-                    required={true}
-                    disabled={true}
-                    variant="filled"
-                    classname="car-contract-details"
-                  />
-                  <InputComponent
-                    label="Total Accessories Cost"
-                    placeholder=""
-                    type="text"
-                    disabled={true}
-                    value={totalAccesoriesCost}
-                    variant="filled"
-                    name={"date"}
-                    required={true}
-                    classname="car-contract-details"
-                  />
-                  <InputComponent
-                    label="Total Cost"
-                    placeholder=""
-                    type="text"
-                    value={totalCost}
-                    name={"days"}
-                    variant="filled"
-                    disabled={true}
-                    required={true}
-                    classname="car-contract-details"
-                  />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox
-                  color={isTheme().color}
-                  className="car-contract-details"
-                >
-                  <InputComponent
-                    label="Advance Amount"
-                    placeholder=""
-                    type="text"
-                    name={"advanceAmount"}
-                    onChange={handleChange}
-                    required={true}
-                    classname="car-contract-cost"
-                  />
-                  <InputComponent
-                    label="Remaining Cost"
-                    placeholder=""
-                    type="text"
-                    disabled={true}
-                    id="outlined-disabled"
-                    value={remianingCost}
-                    variant="filled"
-                    name={"days"}
-                    required={true}
-                    classname="car-contract-cost"
-                  />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox
-                  color={isTheme().color}
-                  className="car-contract-dropdown"
-                >
-                  {/* <TextField
-                    select
-                    label="Contract Mode"
-                    name="Category"
-                    required
-                    className="car-contract-dropdown"
+          <RentContainer>
+            <Title color={colors.nafethBlue}>
+              <h3>Pricing</h3>
+            </Title>
+            <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+              <Box
+                component="form"
+                sx={{
+                  width: "100%",
+                  maxWidth: "100%",
+                  padding: "15px",
+                }}
+                noValidate={false}
+                autoComplete="off"
+              >
+                <FormBoxWrapper>
+                  <FormBox
+                    color={isTheme().color}
+                    className="car-contract-details"
                   >
-                    {modde.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField> */}
-                  {/* <TextField
-                    select
-                    label="Payment Type"
-                    required
-                    className="car-contract-dropdown"
+                    <InputComponent
+                      label="Total Rented Cost"
+                      placeholder=""
+                      type="text"
+                      value={totalRentedCost}
+                      required={true}
+                      disabled={true}
+                      variant="filled"
+                      classname="car-contract-details"
+                    />
+                    <InputComponent
+                      label="Total Accessories Cost"
+                      placeholder=""
+                      type="text"
+                      disabled={true}
+                      value={totalAccesoriesCost}
+                      variant="filled"
+                      name={"date"}
+                      required={true}
+                      classname="car-contract-details"
+                    />
+                    <InputComponent
+                      label="Total Cost"
+                      placeholder=""
+                      type="text"
+                      value={totalCost}
+                      name={"days"}
+                      variant="filled"
+                      disabled={true}
+                      required={true}
+                      classname="car-contract-details"
+                    />
+                  </FormBox>
+                </FormBoxWrapper>
+                <FormBoxWrapper>
+                  <FormBox
+                    color={isTheme().color}
+                    className="car-contract-details"
                   >
-                    {payment.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField> */}
-                </FormBox>
-              </FormBoxWrapper>
-            </Box>
-          </FormWrapper>
+                    <InputComponent
+                      label="Advance Amount"
+                      placeholder=""
+                      type="text"
+                      name={"advanceAmount"}
+                      onChange={handleChange}
+                      required={true}
+                      classname="car-contract-cost"
+                    />
+                    <InputComponent
+                      label="Remaining Cost"
+                      placeholder=""
+                      type="text"
+                      disabled={true}
+                      id="outlined-disabled"
+                      value={remianingCost}
+                      variant="filled"
+                      name={"days"}
+                      required={true}
+                      classname="car-contract-cost"
+                    />
+                  </FormBox>
+                </FormBoxWrapper>
+              </Box>
+            </FormWrapper>
+          </RentContainer>
           <GroupButtons>
             <Button
               variant="contained"
@@ -605,7 +598,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           </GroupButtons>
         </>
       )}
-    </RentContainer>
+    </>
   );
 };
 export default RentCar;

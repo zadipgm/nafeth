@@ -189,7 +189,7 @@ const ReturnContract = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `contracts/Individual/open/${contract.result[0].contractNo}/return`;
+    let url = `contracts/Individual/${contract.result[0].contractNo}/return`;
     if (Number(data.kmIn) > contract.result[0].kmOut) {
       await Update(userName, userPassword, url, company, body).then(
         (res: any) => {

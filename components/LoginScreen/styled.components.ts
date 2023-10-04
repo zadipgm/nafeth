@@ -27,6 +27,14 @@ export const ContentWrapper = styled.div`
   left: 10%;
   right: 10%;
   border-radius: 20px;
+     @media (max-width: 600px) {
+    width: 80%;
+    flex-direction: column;
+    top: 8%;
+  }
+  @media (min-width: 600px) {
+    width: 50%;
+  }
   &.create-account {
     width: 70%;
   }
@@ -34,6 +42,14 @@ export const ContentWrapper = styled.div`
 export const LogoWrapper = styled.div`
   width: 50%;
   padding: 15px;
+  @media (max-width: 600px) {
+    width: 100%;
+    flex-direction: column;
+    top: 18%;
+  }
+  @media (min-width: 600px) {
+    width: 50%;
+  }
   &.create-account {
     width: 30%;
   }
@@ -44,7 +60,14 @@ export const Logo = styled.img`
 
 export const Form = styled.form`
   width: 50%;
-  width: 50%;
+  @media (max-width: 600px) {
+    width: 100%;
+    flex-direction: column;
+    top: 18%;
+  }
+  @media (min-width: 600px) {
+    width: 50%;
+  }
   > a {
     text-decoration: none;
     color: #fff;

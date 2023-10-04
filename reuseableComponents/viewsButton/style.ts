@@ -5,6 +5,8 @@ display: flex;
 justify-content: flex-start;
 align-items: center;
 gap: 10px;
+flex-grow: 1;
+flex-basis: 30px;
 `
 export const GridViewWrapper = styled.div`
 border: 2px solid ${({ theme }) => theme.colors.nafethBlue};

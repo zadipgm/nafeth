@@ -89,6 +89,7 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
             name="minDailyRent"
             onChange={handleChange}
             disabled={true}
+            variant="filled"
             required
           />
         </RentListItem>

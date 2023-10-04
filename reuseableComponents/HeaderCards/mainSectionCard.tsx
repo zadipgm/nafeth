@@ -43,6 +43,7 @@ const MainSectionCard = ({ card, page }: IProps) => {
                   in={true}
                   style={{ transformOrigin: "0 0 0" }}
                   {...(true ? { timeout: 2000 } : {})}
+                  className={page}
                 >
                   <Card
                     cardcolor={isTheme()?.cardcolor}

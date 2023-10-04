@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/settings/Global",
+    "/settings/Globals",
     company as string
   );
   const result = await res;

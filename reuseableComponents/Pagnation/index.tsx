@@ -19,7 +19,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }: IProps) => {
     <PaginationList>
       <PaginationListItem>
         <Link onClick={prevPage} href="#">
-          Previous
+          {"<<"}
         </Link>
       </PaginationListItem>
       {pageNumbers.map((pgNumber) => (
@@ -33,7 +33,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }: IProps) => {
       ))}
       <PaginationListItem>
         <Link onClick={nextPage} href="#">
-          Next
+          {">>"}
         </Link>
       </PaginationListItem>
     </PaginationList>

@@ -5,6 +5,8 @@ export const EvaluationContainer = styled.div`
     @media (max-width: 600px) {
  width: 100%;
 }
+    flex-grow: 1;
+    flex-basis: 400px;
 `;
 export const EvaluationWrapper = styled.div`
   display: flex;

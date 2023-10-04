@@ -11,6 +11,7 @@ import { LoginProvider } from "@/context";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import LoadingScreen from "./loading";
+import { DataProvider } from "@/context/cityContext";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -71,11 +72,11 @@ const MyApp = ({
   const checkIdleness = () => {
     window.onload = timerReset;
     window.onmousemove = timerReset;
-    window.onmousedown = timerReset; // catches touchscreen presses as well
-    window.ontouchstart = timerReset; // catches touchscreen swipes as well
-    window.onclick = timerReset; // catches touchpad clicks as well
+    window.onmousedown = timerReset;
+    window.ontouchstart = timerReset;
+    window.onclick = timerReset;
     window.onkeydown = timerReset;
-    window.addEventListener("scroll", timerReset, true); // improved; see comments
+    window.addEventListener("scroll", timerReset, true);
     function writeYourFunction() {
       // function for too long inactivity
       alert("Your session has been expired. Please login again!");
@@ -89,7 +90,7 @@ const MyApp = ({
     }
     function timerReset() {
       clearTimeout(t);
-      t = setTimeout(writeYourFunction, 1200000); // time is in milliseconds
+      t = setTimeout(writeYourFunction, 1200000);
     }
   };
   React.useEffect(() => {

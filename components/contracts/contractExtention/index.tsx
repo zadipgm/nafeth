@@ -35,7 +35,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
   let obj = {
     contractNo: contract.result[0].contractNo,
     oldReturnDate: contract.result[0].actualReturnDate,
-    returnDate: "",
+    returnDate: formattedDate(new Date()),
     comments: "",
     branchId: filterBranch(branches, contract.result[0].issueBranchID)[0].id,
   };
@@ -52,7 +52,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `contracts/Individual/open/${contract.result[0].contractNo}/extend`;
+    let url = `contracts/Individual/${contract.result[0].contractNo}/extend`;
     console.log(data, "here");
     await Update(userName, userPassword, url, company, data).then(
       (res: any) => {
@@ -164,6 +164,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
                 label="New Return Date"
                 type="date"
                 name="returnDate"
+                defaultValue={data.returnDate}
                 variant="filled"
                 onChange={handleChange}
                 required={true}

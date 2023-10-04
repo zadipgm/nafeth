@@ -154,6 +154,7 @@ const AddCustomer = ({
                 value={max_number as string}
                 name={"name_en"}
                 disabled={true}
+                variant="filled"
                 required={true}
               />
               <TextField

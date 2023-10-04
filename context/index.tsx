@@ -36,25 +36,7 @@ export const GlobalUserContext = createContext<userContext>({
   company: "",
   menu: {
     message: "",
-    result: [
-      {
-        name_en: "",
-        name_ar: "",
-        icon: "",
-        menu: [
-          {
-            id: 0,
-            name_en: "",
-            name_ar: "",
-            get: 1,
-            put: 1,
-            post: 1,
-            del: 1,
-            url: "",
-          },
-        ],
-      },
-    ],
+    result: [],
   },
 });
 

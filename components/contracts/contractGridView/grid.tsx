@@ -73,6 +73,7 @@ const Grid = ({
       in={true}
       style={{ transformOrigin: "0 0 0" }}
       {...(true ? { timeout: 2000 } : {})}
+      className="contract-grid"
     >
       <CardWrapper
         bcolor={isTheme().cardcolor}
@@ -243,7 +244,7 @@ const Grid = ({
             <Button
               variant={"outlined"}
               className="retrun grid"
-              onClick={() => router.push("/return")}
+              onClick={() => router.push(`/return/${contract.contractNo}`)}
               endIcon={
                 <ReturnSvg
                   width="15px"

@@ -22,7 +22,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "CommonElements/Headings/H6Element.jsx"
+    "CommonElements/Headings/H6Element.jsx",
+    "pages/_error.tsx",
+    "pages/404.tsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MenuItem, TextField } from "@mui/material";
-import { Container, Filter, SearchWrapper } from "./style";
+import { Filter, SearchWrapper } from "./style";
 import InputComponent from "../InputField";
 import { RequestSearch } from "@/hooks/useSorting";
 interface IProps {
@@ -32,7 +32,7 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
     });
   };
   return (
-    <Container>
+    <>
       <Filter>
         <TextField
           select
@@ -62,7 +62,7 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
           }
         />
       </SearchWrapper>
-    </Container>
+    </>
   );
 };
 export default SearchComponent;

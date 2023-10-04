@@ -39,8 +39,8 @@ export const CustomerCardContainer = styled.div`
 `;
 export const CustomerCardWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 22px;
+  padding: 15px;
   width: 100%;
 `;
 export const FullNameWrapper = styled.div`
@@ -75,13 +75,16 @@ export const List = styled.ul`
     justify-content: space-between;
     border-bottom: none;
   }
+  & .customer-chip{
+flex-grow: 1;
+flex-basis: 200px;
+  }
 `;
 export const ListItem = styled.li`
      display: flex;
     justify-content: flex-start;
     align-items: center;
         gap: 3px;
-    width: 192px;
 
         background-color: #d7d6d645;
         padding: 4px;

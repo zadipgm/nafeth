@@ -42,10 +42,14 @@ export const DataView = styled.div`
     }
   }
 `;
+export const TableWrapper = styled.div`
+overflow-x: auto;
+padding: 20px;
+`
 export const Table = styled.table`
   display: table;
   border-collapse: collapse;
- 
+  
   width: 100%;
   animation: fadeIn 1.5s;
   > h3 {
@@ -62,6 +66,9 @@ export const Table = styled.table`
   }
 `;
 export const TableData = styled.td`
+white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
       padding: 5px 16px;
   border-bottom: 1px solid #dddddd;
   text-align: left;
@@ -113,13 +120,7 @@ export const TableDataWrapper = styled.div`
 export const Data = styled.div``;
 
 
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding:16px;
-`;
+
 
 export const Label = styled.label``;
 export const Input = styled.input`

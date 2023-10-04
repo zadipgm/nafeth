@@ -1,49 +1,46 @@
 import { colors } from "@mui/material";
 import { styled, css } from "styled-components";
-export const Container = styled.div`
-
-`;
+export const Container = styled.div``;
 export const AddAccessoriesContainer = styled.div`
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-  margin:30px;
+  margin: 30px 0px;
   padding-bottom: 10px;
-`
+`;
 export const SlectedAccessoriesContainer = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-flex-wrap: wrap;
-margin: 30px;
-gap: 20px;
-`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 30px;
+  gap: 20px;
+`;
 export const SlectedAccessories = styled.div`
-
-
-width: 20%;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 20%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 30px;
   padding: 8px;
   border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
-`
+`;
 export const Accessory = styled.div`
-display: flex;
-justify-content: space-between;
-text-transform: capitalize;
-`
+  display: flex;
+  justify-content: space-between;
+  text-transform: capitalize;
+`;
 export const AccessoriesContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   padding: 10px;
- 
-  width: 31.5%;
+
+  flex-grow: 1;
+  flex-basis: 200px;
   gap: 6px;
   align-items: center;
   margin: 10px;
   display: flex;
   cursor: pointer;
-  & .MuiFormGroup-root{
-    label{
+  & .MuiFormGroup-root {
+    label {
       margin-right: 10px;
     }
   }
@@ -59,6 +56,9 @@ export const RentContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   padding-bottom: 10px;
+`;
+export const RentSelectedCarContainer = styled.div`
+  margin: 30px;
 `;
 export const ModalHeader = styled.div`
   display: flex;
@@ -108,32 +108,33 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding:0px 10px;
-  .active_promotions{
+  padding: 0px 10px;
+  .active_promotions {
     border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
     cursor: pointer;
   }
-  .promotions{
-   border: 2px solid transparent;
+  .individual{
+     flex-grow: 1;
+    flex-basis: 400px;
+  }
+  .car-management {
+    flex-grow: 1;
+    flex-basis: 375px;
+  }
+  .promotions {
+    border: 2px solid transparent;
     cursor: pointer;
-  }
-   @media (max-width: 600px) {
-    width: 100%;
-    display: block;
-  }
-  @media (min-width: 600px) {
-    width: 100%;
-    display: flex;
   }
 `;
 export const ContractGrid = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-flex-wrap: wrap;
-`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+`;
 export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 24%;
+  flex-grow: 1;
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
   padding: 15px;
@@ -141,7 +142,7 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all.5s;
   position: relative;
- 
+
   &:hover {
     transition: all.5s;
     transform: scale(1.02);
@@ -154,18 +155,18 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
     width: 100%;
     margin: 15px 0px;
   }
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     width: 80%;
     /* margin: 0 auto; */
   }
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     width: 48%;
     /* margin: 0 auto; */
   }
-    @media (min-width:1440px) {
+  @media (min-width: 1440px) {
     width: 32%;
   }
-   @media (min-width:1640px) {
+  @media (min-width: 1640px) {
     width: 23%;
   }
 `;
@@ -175,62 +176,57 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
-  &.contract-grid{
-    display: block;
-  }
-  &.accessory{
+  flex-wrap: wrap;
+
+  &.accessory {
     justify-content: center;
   }
-  &.promotions{
+  &.promotions {
     justify-content: flex-end;
-@media (max-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
+    @media (max-width: 600px) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 600px) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
-  @media (min-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
+
+  &.car-management {
   }
-  }
-   
-  &.car-management{
-width: 25%;
-@media (max-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  @media (min-width: 600px) {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  }
+
   &.customer {
+    flex-grow: 1;
+    flex-basis: 100px;
     padding: 15px 0px 0px 0px;
     svg {
       margin: 0px 10px;
     }
-    .add{
-      width: 50%;
-    font-size: 10px !important;
-    &:hover {
-      color: #fff;
-      border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
-      & .MuiButton-endIcon {
-        svg {
-          path {
-            stroke: #fff;
+    .add {
+      flex-grow: 1;
+      flex-basis: 100px;
+      font-size: 10px !important;
+      &:hover {
+        color: #fff;
+        border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
+        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        & .MuiButton-endIcon {
+          svg {
+            path {
+              stroke: #fff;
+            }
           }
         }
       }
     }
-    }
   }
   & .print {
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 100px;
     font-size: 10px !important;
     border: 1px solid ${({ theme }) => theme.colors.cyan};
-    color:${({ theme }) => theme.colors.cyan};
+    color: ${({ theme }) => theme.colors.cyan};
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.cyan};
@@ -246,14 +242,11 @@ width: 25%;
     }
   }
   & .retrun {
-    &.grid{
-      margin: 4px;
-      width: 46%;
-    }
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 100px;
     font-size: 10px !important;
     border: 1px solid ${({ theme }) => theme.colors.darkYellow};
-    color:${({ theme }) => theme.colors.darkYellow};
+    color: ${({ theme }) => theme.colors.darkYellow};
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.darkYellow};
@@ -267,15 +260,12 @@ width: 25%;
       }
     }
   }
-  & .extention{ 
-    &.grid{
-      margin: 4px;
-      width: 46%;
-    }
-    width: 50%;
+  & .extention {
+    flex-grow: 1;
+    flex-basis: 100px;
     border: 1px solid ${({ theme }) => theme.colors.purple};
     font-size: 10px !important;
-    color:  ${({ theme }) => theme.colors.purple};
+    color: ${({ theme }) => theme.colors.purple};
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.purple};
@@ -299,12 +289,9 @@ width: 25%;
     }
   }
   & .details {
+    flex-grow: 1;
+    flex-basis: 100px;
 
-    &.grid{
-      margin: 4px;
-      width: 46%;
-    }
-    width: 50%;
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.green};
     border: 1px solid ${({ theme }) => theme.colors.green};
@@ -334,7 +321,9 @@ width: 25%;
     }
   }
   & .edit {
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 100px;
+
     font-size: 10px !important;
     &:hover {
       color: #fff;
@@ -350,7 +339,8 @@ width: 25%;
     }
   }
   & .rent {
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 100px;
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.purple};
     border: 1px solid ${({ theme }) => theme.colors.purple};
@@ -368,11 +358,11 @@ width: 25%;
     }
   }
   & .delete {
-    width: 50%;
+    flex-grow: 1;
+    flex-basis: 100px;
     font-size: 10px !important;
     color: red;
     border: 1px solid red;
-
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.red};
@@ -387,12 +377,9 @@ width: 25%;
     }
   }
   & .dispute {
+    flex-grow: 1;
+    flex-basis: 100px;
 
-    &.grid{
-      margin: 4px;
-      width: 46%;
-    }
-    width: 50%;
     font-size: 10px !important;
     color: red;
     border: 1px solid red;
@@ -415,8 +402,8 @@ export const CardMakeModelWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  .customer_full_name{
- color: ${({ theme }) => theme.colors.nafethBlue}; 
+  .customer_full_name {
+    color: ${({ theme }) => theme.colors.nafethBlue};
   }
 `;
 export const Strong = styled.strong<{ color: string }>`
@@ -430,17 +417,16 @@ export const Span = styled.span<{ color: string }>`
 `;
 export const CardMakeModel = styled.div<{ color: string }>`
   font-size: 22px;
-  &.contract{
+  &.contract {
     color: ${({ color }) => color};
-
   }
-  color: ${({ theme }) => theme.colors.nafethBlue}; 
+  color: ${({ theme }) => theme.colors.nafethBlue};
   font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  & .year{
+  & .year {
     font-weight: 700;
   }
 `;
@@ -456,6 +442,7 @@ export const CardTypeIconWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 10px 0px;
+  gap: 12px;
 `;
 export const NumberPlateContainer = styled.div`
   display: flex;
@@ -500,15 +487,15 @@ export const CardSpecsWrapper = styled.div`
   gap: 6px;
 `;
 export const CardTransmitionWrapper = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-.nextui-tooltip-button{
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  .nextui-tooltip-button {
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
+  }
 `;
 export const Table = styled.table<{ color: string }>`
   direction: ltr;
@@ -516,8 +503,7 @@ export const Table = styled.table<{ color: string }>`
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-spacing: 0;
-  width:100%;
-  
+  width: 100%;
 `;
 
 export const TD = styled.td<{ color?: string }>`
@@ -537,7 +523,7 @@ export const TD = styled.td<{ color?: string }>`
     > div {
       line-height: 0px;
       font-weight: 600;
-      
+
       font-size: 10px;
     }
   }
@@ -568,8 +554,6 @@ export const DetailsTitle = styled.h3<{ color: string }>`
   padding: 12px;
   color: #fff;
 `;
-
-
 
 export const DetailWrapper = styled.div<{ color: string; bcolor: string }>`
   background-color: ${({ bcolor }) => bcolor};
@@ -632,15 +616,15 @@ export const RentWrapper = styled.div`
   @media (max-width: 600px) {
     display: block;
     &.car-card {
-    height: unset !important;
-  }
+      height: unset !important;
+    }
   }
   margin: 30px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 70px;
-  &.car-card {
+  /* &.car-card {
     height: 400px;
-  }
+  } */
   &.Customer-card {
     height: 300px;
   }
@@ -708,17 +692,19 @@ export const RentList = styled.ul`
       }
     }
   }
-   @media (max-width: 600px) {
+  @media (max-width: 600px) {
     width: 100%;
   }
 `;
 export const RentListItem = styled.li`
   display: flex;
+  flex-grow: 1;
+  flex-basis: 200px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 16%;
-margin: 2px;
+
+  margin: 2px;
   &.other-details {
     width: 30%;
   }
@@ -799,7 +785,7 @@ export const CarDetailsSubTitle = styled.span<{ color?: string }>`
     font-weight: 700;
   }
   &.other-details {
-    border:3px solid ${({ color }) => color};
+    border: 3px solid ${({ color }) => color};
     width: 100px;
     text-align: center;
     border-radius: 8px;
@@ -845,172 +831,121 @@ export const IDIcon = styled.div`
   border: 1px solid black;
 `;
 
-
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
 export const ListViewContainer = styled.div`
-padding:0px 15px;
-  
- `
-
+  padding: 0px 15px;
+`;
 
 export const GlobalListViewWrapper = styled.div`
- margin: 12px 0px;
-  padding: 0px 15px 10px 15px;
- border-radius: 8px;
+  margin: 20px 0px;
+  padding: 15px;
+  border-radius: 22px;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  &.active_promotions{
+  &.active_promotions {
     border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
     cursor: pointer;
   }
-  &.promotions{
-   border: 2px solid transparent;
+  &.promotions {
+    border: 2px solid transparent;
     cursor: pointer;
   }
-`
+`;
 export const ModelListViewWrapper = styled.div`
-  width: 32%;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 80px;
   font-size: 18px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  .contract{
+  .contract {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 6px;
+    margin: 6px 0px;
   }
-  .make-model{
-    font-size: 22px;
+  .color {
+    color: ${({ theme }) => theme.colors.darkBlue};
+  }
+  .make-model {
+    font-size: 17px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue}
-
+    color: ${({ theme }) => theme.colors.nafethBlue};
+    line-height: 21px;
   }
- @media (max-width: 600px) {
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    width: 100%;
-  }
-   @media (min-width: 1024px) {
-    width: 20%;
-  }
-   @media (min-width: 1440px) {
-    width: 20%;
-  }
-  `
+`;
 export const CardPlateWrapper = styled.div`
-width: 10%;
-@media (max-width: 600px) {
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    width: 100%;
-  }
-&.car-page{
-  width: 30%;
-  @media (max-width: 600px) {
-    width: 66%;
-  }
-  @media (min-width: 600px) {
-    width: 80%;
-  }
-   @media (min-width: 768px) {
-    width: 50%;
-  }
-}
-`
+  width: 100%;
+`;
 export const ReuseAbleList = styled.ul`
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  
-    @media (max-width: 600px) {
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    width: 100%;
-  }
-   @media (min-width: 1024px) {
-    width: 40%;
-    margin-top: 31px;
-  }
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap:wrap ;
-`
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  flex-grow: 1;
+  flex-basis: 400px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+`;
 export const ReuseAbleListItem = styled.li<{ color?: string }>`
-/* .nextui-tooltip-button{ */
-    display: flex;
-    justify-content: flex-start;
-    color: ${({ color }) => color};
-   gap: 8px;
-    width: 215px;
-    @media (max-width: 600px) {
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    width: 26%;
-  }
-   
-  
-    background-color: #d7d6d645;
-    padding: 3px 3px 0px 3px;
-    margin: 3px;
-    border-radius: 8px;
-    align-items: center;
-   
-    .nextui-tooltip-button{
-gap: 8px;
->div{
+  display: flex;
+  justify-content: flex-start;
+  color: ${({ color }) => color};
+  gap: 8px;
+  flex-grow: 1;
+  flex-basis: 150px;
+  background-color: #d7d6d645;
+  padding: 3px 3px 0px 3px;
+  margin: 3px;
+  border-radius: 8px;
+  align-items: center;
+  .nextui-tooltip-button {
+    gap: 8px;
+    > div {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    }
-  /* } */
-`
+  }
+`;
 export const CarStatus = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 export const Status = styled.div<{ color: string }>`
- box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-background-color: ${({ color }) => color};
-color: white;
-    width: 100px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    border-radius: 8px;
-`
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ color }) => color};
+  color: white;
+  width: 100px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+`;
 export const CarTypeSvgWrapper = styled.div`
->span{
-     font-size: 22px;
+  flex-grow: 1;
+  flex-basis: 200px;
+  .color {
+    color: ${({ theme }) => theme.colors.darkBlue};
+  }
+  .make-model {
+    font-size: 17px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue}
-}
-width: 32%;
-display: flex;
-    flex-direction: column;
-@media (max-width: 600px) {
-    width: 100%;
+    color: ${({ theme }) => theme.colors.nafethBlue};
+    line-height: 21px;
   }
-  @media (min-width: 600px) {
-    width: 100%;
-  }
-   @media (min-width: 1024px) {
-     width: 35%;
-    align-items:flex-end;
-    justify-content: flex-end;
-  }
-   
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+    align-items: end;
+`;

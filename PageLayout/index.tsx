@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import { useDarkMode } from "@/hooks/useDarkLightMood";
 import { LoginProvider } from "@/context";
 import Header from "@/components/header";
+import { DataProvider } from "@/context/cityContext";
 interface IProps {
   children: ReactElement;
 }
@@ -27,17 +28,19 @@ const Layout: React.FC<IProps> = ({ children }) => {
     <>
       <ThemeProvider theme={themeMode}>
         <LoginProvider>
-          <Header
-            themeToggler={themeToggler as () => void}
-            theme={theme as string}
-          />
-          <LayoutContainer>
-            <SideNavBar />
-            <Wrapper>
-              <Children>{children}</Children>
-              <Footer />
-            </Wrapper>
-          </LayoutContainer>
+          <DataProvider>
+            <Header
+              themeToggler={themeToggler as () => void}
+              theme={theme as string}
+            />
+            <LayoutContainer>
+              <SideNavBar />
+              <Wrapper>
+                <Children>{children}</Children>
+                <Footer />
+              </Wrapper>
+            </LayoutContainer>
+          </DataProvider>
         </LoginProvider>
       </ThemeProvider>
     </>

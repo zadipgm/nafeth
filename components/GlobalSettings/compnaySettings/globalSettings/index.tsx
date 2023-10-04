@@ -20,7 +20,6 @@ import { TextField } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import { IcompanyGlobal } from "@/models/globalsettings";
-import { CitiesContext } from "@/context/cityContext";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
@@ -29,7 +28,6 @@ interface ISettings {
 }
 const GlobalSettings = ({ global_settinigs }: ISettings) => {
   const { isLTR }: any = useTheme();
-  const { result } = React.useContext(CitiesContext);
   const [globalValues, setGlobalValues] = React.useState(global_settinigs);
   const onChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -102,6 +100,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   defaultValue={globalValues.registrationDate}
                   name="registrationDate"
                   disabled={true}
+                  variant="filled"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputComponent
@@ -127,6 +126,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   defaultValue={globalValues.expiryDate}
                   name="expiryDate"
                   disabled={true}
+                  variant="filled"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputComponent
@@ -150,6 +150,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   label="Company Domain Alias"
                   value={"BETA"}
                   disabled={true}
+                  variant="filled"
                   defaultValue={globalValues.companyAlias}
                   name="companyAlias"
                   onChange={(e) => onChangeHandler(e)}
@@ -185,7 +186,8 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
               <FormBox className="global-settings1" color={isTheme().color}>
                 <InputComponent
                   label="SMS Balance"
-                  disabled
+                  disabled={true}
+                  variant="filled"
                   defaultValue={globalValues.sms}
                   name="sms"
                   onChange={(e) => onChangeHandler(e)}
@@ -198,9 +200,10 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
                 >
-                  {result?.map((option) => (
-                    <MenuItem key={option?.id} value={option?.id}>
-                      {isLTR ? option?.name_en : option?.name_ar}
+                  {cities?.map((option) => (
+                    <MenuItem key={option?.value} value={option?.value}>
+                      {/* {isLTR ? option?.name_en : option?.name_ar} */}
+                      {option.label}
                     </MenuItem>
                   ))}
                 </TextField>
