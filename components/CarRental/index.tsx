@@ -37,6 +37,7 @@ import MainSectionCard from "@/reuseableComponents/HeaderCards/mainSectionCard";
 import { GlobalUserContext } from "@/context";
 import { Title } from "../GlobalSettings/BranchManagement/style";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
+import { useData } from "@/context/cityContext";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
@@ -54,6 +55,8 @@ const CarRent = ({
   selectedCarID,
 }: ICarProps) => {
   const router = useRouter();
+  const data = useData();
+  console.log("here is context api", data);
   const { userName, userPassword, company } =
     React.useContext(GlobalUserContext);
   const { colors, isMobile } = useTheme();
@@ -139,6 +142,7 @@ const CarRent = ({
                   width: `${isMobile ? "100%" : "17%"}`,
                   borderRadius: "8px",
                 }}
+                className="add_button_filter"
                 onClick={() => router.push(`/cars/add` as string)}
               >
                 Add Car

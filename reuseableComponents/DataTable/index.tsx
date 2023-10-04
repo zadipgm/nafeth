@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Wrapper,
   Table,
   TableData,
   Row,
@@ -12,25 +11,19 @@ import {
   CardListItems,
   CardListItemsWrapper,
   Button,
-  DataViewWrapper,
   TableDataWrapper,
   ToolTipWrapper,
   DataTableContainer,
+  TableWrapper,
 } from "./style";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
-import { Fab, IconButton, MenuItem, TextField } from "@mui/material";
+import { Fab, IconButton } from "@mui/material";
 import { filterByLocale } from "@/hooks/filterByLocale";
-import {
-  HandleAscending,
-  HandleDescending,
-  RequestSearch,
-} from "@/hooks/useSorting";
+import { HandleAscending, HandleDescending } from "@/hooks/useSorting";
 import SortUp from "@/public/icons/sortUp";
 import SortDown from "@/public/icons/sortDown";
-import ListView from "@/public/icons/tableView";
-import GridView from "@/public/icons/gridView";
 import { EditSvg } from "@/public/icons/editSvg";
 import { DeleteSvg } from "@/public/icons/deleteSvg";
 import CardUserSvg from "@/public/icons/carduserSvg";
@@ -55,8 +48,8 @@ import {
 } from "@/components/CarRental/style";
 import { isTheme } from "@/_helpers/getTheme";
 import ViewButton from "../viewsButton";
-import InputComponent from "../InputField";
 import SearchComponent from "../SearchComponent";
+import { SearchTabsWrapper } from "@/components/contracts/style";
 
 interface IProps {
   data?: any;
@@ -93,7 +86,6 @@ const DataTable = ({
   const { colors, locale } = useTheme();
   const router = useRouter();
   const [searchvalue, setSearchvalue] = React.useState(data);
-  const [filterKey, setFilterKey] = React.useState("id");
   const [active, setActive] = React.useState(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [recordsPerPage, setRecordPerPage] = React.useState(10);
@@ -115,10 +107,6 @@ const DataTable = ({
     setSearchvalue(value);
   }, [indexOfLastRecord, indexOfFirstRecord]);
 
-  const handlerChangeRows = (e: any) => {
-    let value = e.target.value;
-    setRecordPerPage(value);
-  };
   const toggleDrawer = (anchor: Anchor, open: boolean, item?: any) => {
     setDrawerData(item);
     setState({ ...state, [anchor]: open });
@@ -223,18 +211,21 @@ const DataTable = ({
   return (
     <DataTableContainer>
       {showFilter && (
-        <Wrapper>
-          <DataViewWrapper>
-            <ViewButton handleView={handleView} list={list} grid={grid} />
-          </DataViewWrapper>
+        <SearchTabsWrapper
+          bcolor={isTheme()?.bcolor}
+          color={isTheme()?.inputColor}
+        >
+          <ViewButton handleView={handleView} list={list} grid={grid} />
+
           {showAddButton && (
             <Fab
               aria-label={"add"}
               style={{
                 backgroundColor: `${page_color}`,
                 color: "white",
-                width: "15%",
                 borderRadius: "8px",
+                flexGrow: "1",
+                flexBasis: "100px",
               }}
               onClick={() => router.push(`/${linkPageUrl}/add` as string)}
             >
@@ -247,110 +238,116 @@ const DataTable = ({
             setSearchvalue={setSearchvalue}
             currentRecords={currentRecords}
           />
-        </Wrapper>
+        </SearchTabsWrapper>
       )}
       {list && (
-        <Table>
-          <Row>{renderTableHeader()}</Row>
-          {searchvalue &&
-            searchvalue
-              ?.slice(0, recordsPerPage as number)
-              ?.map((item: any, index: any) => {
-                let keys = Object?.keys(item)?.filter((id) => id !== "id");
-                return (
-                  <>
-                    <Row key={item.nationalID}>
-                      {filterByLocale(locale, keys).map((key: any, i: any) => {
-                        return <TableData key={i}>{`${item[key]}`}</TableData>;
-                      })}
-                      <TableData>
-                        <ToolTipWrapper>
-                          {isViewAble && (
-                            <Tooltip
-                              content="Details"
-                              color="invert"
-                              onClick={() =>
-                                toggleDrawer(
-                                  locale === "en" ? "right" : "left",
-                                  true,
-                                  item
-                                )
-                              }
-                            >
-                              <IconButton>
-                                <EyeSvg size={20} fill={page_color} />
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                          {isDuplicate && (
-                            <Tooltip
-                              content="Duplicate"
-                              color="secondary"
-                              onClick={() => handleDuplicates(item)}
-                            >
-                              <IconButton>
-                                <DublicateSvg
-                                  width={"25px"}
-                                  height="25px"
-                                  fill={page_color}
-                                />
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                          {isEditAble && (
-                            <Tooltip
-                              content="Edit"
-                              color="primary"
-                              onClick={() =>
-                                hanldeEdit(item.id ? item.id : item.groupId)
-                              }
-                            >
-                              <IconButton>
-                                <EditSvg size={20} fill={"#0072F5"} />
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                          {isDeleteAble && (
-                            <Tooltip
-                              content="Delete"
-                              color="error"
-                              onClick={() => hanldeDelete(item.id)}
-                            >
-                              <IconButton>
-                                <DeleteSvg size={20} fill="#FF0080" />
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                        </ToolTipWrapper>
-                      </TableData>
-                    </Row>
-                    <Row className={active === item.id ? "show" : "hide"}>
-                      <br></br>
-                      {nestedTable &&
-                        data[0]?.procedures !== null &&
-                        data[0]?.procedures.length > 1 && (
-                          <Row> {renderTableNestedHeader()}</Row>
+        <TableWrapper>
+          <Table>
+            <Row>{renderTableHeader()}</Row>
+            {searchvalue &&
+              searchvalue
+                ?.slice(0, recordsPerPage as number)
+                ?.map((item: any, index: any) => {
+                  let keys = Object?.keys(item)?.filter((id) => id !== "id");
+                  return (
+                    <>
+                      <Row key={item.nationalID}>
+                        {filterByLocale(locale, keys).map(
+                          (key: any, i: any) => {
+                            return (
+                              <TableData key={i}>{`${item[key]}`}</TableData>
+                            );
+                          }
                         )}
-                      {item.procedures &&
-                        item.procedures.map((detail: any) => {
-                          return (
-                            <Row key={item.id} className="details-row">
-                              {Object.keys(detail).map((detail_key, i) => {
-                                return (
-                                  <TableData key={i}>
-                                    {detail[detail_key]}
-                                  </TableData>
-                                );
-                              })}
-                            </Row>
-                          );
-                        })}
-                      <br></br>
-                    </Row>
-                  </>
-                );
-              })}
-        </Table>
+                        <TableData>
+                          <ToolTipWrapper>
+                            {isViewAble && (
+                              <Tooltip
+                                content="Details"
+                                color="invert"
+                                onClick={() =>
+                                  toggleDrawer(
+                                    locale === "en" ? "right" : "left",
+                                    true,
+                                    item
+                                  )
+                                }
+                              >
+                                <IconButton>
+                                  <EyeSvg size={20} fill={page_color} />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {isDuplicate && (
+                              <Tooltip
+                                content="Duplicate"
+                                color="secondary"
+                                onClick={() => handleDuplicates(item)}
+                              >
+                                <IconButton>
+                                  <DublicateSvg
+                                    width={"25px"}
+                                    height="25px"
+                                    fill={page_color}
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {isEditAble && (
+                              <Tooltip
+                                content="Edit"
+                                color="primary"
+                                onClick={() =>
+                                  hanldeEdit(item.id ? item.id : item.groupId)
+                                }
+                              >
+                                <IconButton>
+                                  <EditSvg size={20} fill={"#0072F5"} />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {isDeleteAble && (
+                              <Tooltip
+                                content="Delete"
+                                color="error"
+                                onClick={() => hanldeDelete(item.id)}
+                              >
+                                <IconButton>
+                                  <DeleteSvg size={20} fill="#FF0080" />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                          </ToolTipWrapper>
+                        </TableData>
+                      </Row>
+                      <Row className={active === item.id ? "show" : "hide"}>
+                        <br></br>
+                        {nestedTable &&
+                          data[0]?.procedures !== null &&
+                          data[0]?.procedures.length > 1 && (
+                            <Row> {renderTableNestedHeader()}</Row>
+                          )}
+                        {item.procedures &&
+                          item.procedures.map((detail: any) => {
+                            return (
+                              <Row key={item.id} className="details-row">
+                                {Object.keys(detail).map((detail_key, i) => {
+                                  return (
+                                    <TableData key={i}>
+                                      {detail[detail_key]}
+                                    </TableData>
+                                  );
+                                })}
+                              </Row>
+                            );
+                          })}
+                        <br></br>
+                      </Row>
+                    </>
+                  );
+                })}
+          </Table>
+        </TableWrapper>
       )}
       {state.right && (
         <DrawerComponent state={state} toggleDrawer={toggleDrawer} width={size}>

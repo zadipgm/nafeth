@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 export const Container = styled.div`
   margin: 20px 0px;
-  
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   .load-more {
     width: 200px;
     text-align: center;
@@ -116,15 +117,16 @@ export const SearchTabsWrapper = styled.div<{
   margin: 10px 0px;
   padding: 0px 20px ;
   gap: 20px;
-  @media (max-width: 600px) {
-    width: 100%;
-    display: block;
-  }
+ flex-wrap: wrap;
   .search-input-dashboard {
     width: 99%;
     margin: 0;
     color: ${({ color }) => color};
     background-color: ${({ bcolor }) => bcolor};
+  }
+  .add_button_filter{
+    flex-grow: 1;
+    flex-basis: 200px;
   }
 `;
 export const SearchBarWrapper = styled.div<{ bcolor?: string; color?: string }>`
@@ -138,18 +140,10 @@ export const SearchBarWrapper = styled.div<{ bcolor?: string; color?: string }>`
     display: block;
   }
   &.car-management {
-    width: 91%;
-    @media (max-width: 600px) {
-      width: 100%;
-      display: block;
-    }
+   
   }
   &.dashboard {
-    width: 74%;
-    @media (max-width: 600px) {
-      width: 100%;
-      display: block;
-    }
+   
   }
   & .search-input-car {
     width: 100%;

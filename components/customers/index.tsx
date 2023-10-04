@@ -64,7 +64,7 @@ const CustomersList = ({
   onCustomerSelected,
 }: IProps) => {
   console.log("customers", customers);
-  const [show, setShow] = React.useState(8);
+  const [show, setShow] = React.useState(3);
   const [open, setOpen] = React.useState(false);
   const [isBlock, setisBlock] = React.useState(false);
   const [buttonValue, setButtonValue] = React.useState("Block");
@@ -157,7 +157,11 @@ const CustomersList = ({
                     <span>{item[`fullname_${locale}`]}</span>
                   </FullNameWrapper>
                   <List>
-                    <Tooltip content="Customer Type" color={"warning"}>
+                    <Tooltip
+                      content="Customer Type"
+                      color={"warning"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"
@@ -168,7 +172,11 @@ const CustomersList = ({
                         <span>{item.category[`name_${locale}`]}</span>
                       </ListItem>
                     </Tooltip>
-                    <Tooltip content="Customer ID" color={"error"}>
+                    <Tooltip
+                      content="Customer ID"
+                      color={"error"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"
@@ -179,7 +187,11 @@ const CustomersList = ({
                         <span>{item.idNumber}</span>
                       </ListItem>
                     </Tooltip>
-                    <Tooltip content="ID Expiry" color={"secondary"}>
+                    <Tooltip
+                      content="ID Expiry"
+                      color={"secondary"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"
@@ -190,7 +202,11 @@ const CustomersList = ({
                         <span>{item.idExpiryDate_hijri}</span>
                       </ListItem>
                     </Tooltip>
-                    <Tooltip content="Phone" color={"primary"}>
+                    <Tooltip
+                      content="Phone"
+                      color={"primary"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"
@@ -201,7 +217,11 @@ const CustomersList = ({
                         <span>{item.mobileNo}</span>
                       </ListItem>
                     </Tooltip>{" "}
-                    <Tooltip content="City" color={"invert"}>
+                    <Tooltip
+                      content="City"
+                      color={"invert"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"
@@ -212,7 +232,11 @@ const CustomersList = ({
                         <span>{item.residentCity[`name_${locale}`]}</span>
                       </ListItem>
                     </Tooltip>{" "}
-                    <Tooltip content="License Number" color={"success"}>
+                    <Tooltip
+                      content="License Number"
+                      color={"success"}
+                      className="customer-chip"
+                    >
                       <ListItem>
                         <IconComponent
                           width="25px"

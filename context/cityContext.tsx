@@ -1,51 +1,35 @@
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { fetchData } from "@/api/fetchapis/fetchData";
-import { ICitiesModel, ICity } from "@/models/city";
 import Cookies from "js-cookie";
-import React from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-export const CitiesContext = React.createContext(
-  {
-    message: "",
-    result: [
-      {
-        id: 17,
-        name_en: "",
-        name_ar: "",
-      },
-    ],
-  } // Initial value
-);
+// Create a context
+const DataContext = createContext({});
 
-export const CityProvider = (props: any) => {
-  const [cities, setCities] = React.useState<ICitiesModel>();
-  let userName = Cookies.get("userName") as string;
-  let userPassword = Cookies.get("userPassword") as string;
-  let company = Cookies.get("company") as string;
-  const fetchMyData = async () => {
-    const res = await fetchData(
-      userName,
-      userPassword,
-      "/lookup/cities",
-      company
-    );
+// Create a provider component
+export function DataProvider({ children }: any) {
+  const [data, setData] = useState({});
 
-    if (res) {
-      setCities(res);
-    } else {
-      console.log("No data");
-    }
-  };
-  React.useEffect(() => {
-    fetchMyData();
+  // Simulate fetching data once when the component mounts
+  useEffect(() => {
+    // Replace this with your actual data fetching logic
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
+    let url = "/cars/Cars";
+    const fetchCarData = async () => {
+      const response = await fetchData(userName, userPassword, url, company);
+      const result = await response;
+      setData(result);
+    };
+
+    fetchCarData();
   }, []);
-  return (
-    <CitiesContext.Provider
-      value={{
-        message: cities?.message as string,
-        result: cities?.result as ICity[],
-      }}
-    >
-      {props.children}
-    </CitiesContext.Provider>
-  );
-};
+
+  return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
+}
+
+// Create a custom hook to access the context
+export function useData() {
+  return useContext(DataContext);
+}

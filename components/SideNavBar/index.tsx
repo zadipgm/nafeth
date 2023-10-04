@@ -22,7 +22,7 @@ const SideNavBar = () => {
               width="23px"
               height="23px"
             />
-            <Link href="/">{"Dashboard"}</Link>
+            <Link href="/dashboard">{"Dashboard"}</Link>
           </SideIconWrapper>
           <SideBarAccordions sideBarMenuData={menu.result} />
         </SideBar>

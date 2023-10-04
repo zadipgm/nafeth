@@ -29,7 +29,7 @@ const PromotionsList = ({ list }: IProps) => {
         linkPageUrl={"promotions"}
         page_color={colors.nafethBlue}
         sideBarTitle="Promotions Details"
-        size="400px"
+        size="800px"
         showAddButton={true}
         addButtonText="Add New List"
       />

@@ -5,21 +5,12 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-@media (max-width: 600px) {
- display:block ;
-}
-@media (min-width: 600px) {
- display:block ;
-}
-@media (min-width: 1440px) {
- display:flex ;
-}
+flex-wrap: wrap;
 
 `;
 export const Wrapper = styled.div<{ bcolor?: string; color?: string }>`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 0px 20px;
- height: 300px;
   width: 80%;
   border-radius: 8px;
   color: ${({ color }) => color};
@@ -30,11 +21,13 @@ export const Wrapper = styled.div<{ bcolor?: string; color?: string }>`
 }
 @media (min-width: 600px) {
  width: 100%;
- height: 300px;
 }
 `;
 export const HeaderCardsSection = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 22px;
 `;
 
 export const DashboardTitle = styled.h1`
@@ -43,44 +36,26 @@ export const DashboardTitle = styled.h1`
   color: ${({ theme }) => theme.colors.nafethBlue};
 `;
 export const CardContainer = styled.div`
-  width: 50%;
-  @media (max-width: 600px) {
- width: 100%;
-}
-@media (min-width: 600px) {
- width: 100%;
- &.dashboard{
-  width: 50%;
- }
-}
-  &.car-management{
-    width: 100%;
-  }
-  &.contracts{
-    width: 100%;
-  }
+ flex-grow: 1;
+ flex-basis: 540px;
+
+
 `;
 export const CardInnerWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 12px;
   transition: 0.5s;
   align-items: center;
-  
   transition: transform 0.5s;
+  padding-bottom: 20px;
+ 
   &.car-management{
+    flex-grow: 1;
+    flex-basis: 200px;
     justify-content: space-between;
-    @media (max-width: 600px) {
- display:block ;
-}
-@media (min-width: 1024px) {
- margin: 12px;
-
-}
   }
-  &.contracts{
-   justify-content: space-between;
-  }
+  
 `;
 export const ContractsTitle = styled.h2`
   margin: 0px;
@@ -124,6 +99,8 @@ export const Card = styled.div<{ cardcolor?: string; icolor?: string }>`
  }
 }
   &.car-management{
+    flex-grow:1;
+    flex-basis:211px;
     width: 18%;
     @media (max-width: 600px) {
  width: 100%;

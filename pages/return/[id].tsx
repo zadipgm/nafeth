@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<{
   const contract = await fetchData(
     userName as string,
     userPassword as string,
-    `/contracts/Individual/open/${ctx.query.id}`,
+    `/contracts/Individual/${ctx.query.id}`,
     company as string
   );
   const carRes = await fetchData(

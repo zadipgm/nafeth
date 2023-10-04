@@ -1,18 +1,12 @@
 import styled from "styled-components";
-export const Container = styled.div`
-    display: flex;
-    width: 100%;
-    gap: 13px;
-    align-items: center;
 
-`
 export const Filter = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 23%;
+flex-grow: 1;
+flex-basis: 400px;
   .MuiFormControl-root{
-
     width: 100%;
   }
   color: #5a5c69;
@@ -22,5 +16,6 @@ export const Filter = styled.div`
   }
 `;
 export const SearchWrapper = styled.div`
-  width: 100%;
+ flex-grow: 1;
+flex-basis: 400px;
 `;

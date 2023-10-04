@@ -66,8 +66,8 @@ const List = ({
         >
           <ModelListViewWrapper>
             <span className="make-model">
-              {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
-              {car.year}
+              {car.make[`name_${locale}`]} {car.model[`name_${locale}`]}{" "}
+              <span>/</span> <span className="color">{car.year}</span>
             </span>
             <CardPlateWrapper>
               <CarPlate car={car} />
@@ -92,7 +92,6 @@ const List = ({
                 {car.color[`name_${locale}`]}
               </Tooltip>
             </ReuseAbleListItem>
-
             <ReuseAbleListItem key={i}>
               <Tooltip content={car.mileage} color={"success"}>
                 <div>

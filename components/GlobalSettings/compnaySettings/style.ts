@@ -270,6 +270,10 @@ export const FormBoxWrapper = styled.div`
   }
 `;
 export const GroupButtons = styled.div`
+&.rent-car-group-button{
+  padding: 20px 0px;
+  margin: 20px 0px;
+}
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,19 +319,26 @@ export const GroupButtons = styled.div`
     }
     &.add-accessories-button{
        background-color: ${({ theme }) => theme.colors.purple};
-       width: 20%;
+       flex-grow: 1;
+      flex-basis: 100px;
     }
     &.rent-car-Adddriver-button{
+      flex-grow: 1;
+      flex-basis: 100px;
       background-color: ${({ theme }) => theme.colors.purple};
     }
     &.custom-price-button{
+      flex-grow: 1;
+      flex-basis: 100px;
        background-color: ${({ theme }) => theme.colors.red};
-       width: 20%;
+      
     }
     &.tajeer-portal-details-save-button {
       background-color: #8e3a47;
     }
     &.rent-car-save-button{
+      flex-grow: 1;
+      flex-basis: 100px;
       background-color: ${({ theme }) => theme.colors.nafethBlue};
       svg{
         transform: rotate(90deg);

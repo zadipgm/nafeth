@@ -186,6 +186,7 @@ const EditCustomer = ({
                 defaultValue={data.id}
                 name={"name_en"}
                 disabled={true}
+                variant="filled"
                 required={true}
               />
               <TextField
@@ -238,6 +239,7 @@ const EditCustomer = ({
                       defaultValue={data.idNumber}
                       onChange={handleChange}
                       disabled={true}
+                      variant="filled"
                       name={"idNumber"}
                       required={true}
                     />

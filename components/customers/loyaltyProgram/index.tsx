@@ -34,27 +34,6 @@ const LoyaltyList = ({ list }: IProps) => {
         addButtonText="Add New List"
         classname={"certificate"}
       />
-      {/* <TableComponent
-        tableData={list.result}
-        headerValue={[
-          `packageName`,
-          "rentalIncome",
-          "extraKM",
-          "extraHours",
-          "discount",
-          "active",
-        ]}
-        isDeleteAble={true}
-        isEditAble={true}
-        isViewAble={false}
-        isDuplicate={false}
-        linkPageUrl={"loyalty"}
-        page_color={colors.nafethBlue}
-        sideBarTitle="loyalty Details"
-        size="400px"
-        showAddButton={true}
-        addButtonText="Add New List"
-      /> */}
     </LoyaltyContainer>
   );
 };

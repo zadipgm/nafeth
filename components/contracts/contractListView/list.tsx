@@ -260,7 +260,9 @@ const List = ({
               <span className="make-model">
                 {filterCar(cars, contract.carID)[0].make[`name_${locale}`]}{" "}
                 {filterCar(cars, contract.carID)[0].model[`name_${locale}`]} /{" "}
-                {filterCar(cars, contract.carID)[0].year}
+                <span className="color">
+                  {filterCar(cars, contract.carID)[0].year}
+                </span>
               </span>
 
               <IconComponent

@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "nafeth",
+      "script": "node_modules/next/dist/bin/next",
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "args": "start --port 3033",
+      "cwd": "./"
+    }
+  ]
+}

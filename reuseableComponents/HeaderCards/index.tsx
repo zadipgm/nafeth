@@ -48,11 +48,11 @@ const HeaderCard = ({ card, title, chart_data, page, chartTitle }: IProps) => {
     <>
       <DashboardTitle>{title}</DashboardTitle>
       <HeaderContainer>
-        <MUIPaiChart
+        {/* <MUIPaiChart
           chart_data={chart_data}
           title={chartTitle}
           classname={page}
-        />
+        /> */}
         <MainSectionCard card={card} page={page} />
       </HeaderContainer>
     </>

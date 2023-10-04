@@ -36,7 +36,11 @@ const ContractGridView = ({
   isPrintAble,
 }: ICarProps) => {
   return (
-    <CarWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+    <CarWrapper
+      bcolor={isTheme().bcolor}
+      color={isTheme().color}
+      className={page}
+    >
       {contracts.slice(0, show).map((contract: any, i: number) => {
         return (
           <Grid
