@@ -10,7 +10,6 @@ import {
   CardList,
   CardListItems,
   CardListItemsWrapper,
-  Button,
   TableDataWrapper,
   ToolTipWrapper,
   DataTableContainer,
@@ -19,7 +18,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
-import { Fab, IconButton } from "@mui/material";
+import { Button, Fab, IconButton } from "@mui/material";
 import { filterByLocale } from "@/hooks/filterByLocale";
 import { HandleAscending, HandleDescending } from "@/hooks/useSorting";
 import SortUp from "@/public/icons/sortUp";
@@ -39,6 +38,7 @@ import { Delete } from "@/api/delete";
 import Swal from "sweetalert2";
 import DrawerComponent from "../Drawer";
 import {
+  ButtonWrapper,
   DetailList,
   DetailListItem,
   DetailWrapper,
@@ -50,6 +50,7 @@ import { isTheme } from "@/_helpers/getTheme";
 import ViewButton from "../viewsButton";
 import SearchComponent from "../SearchComponent";
 import { SearchTabsWrapper } from "@/components/contracts/style";
+import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
 
 interface IProps {
   data?: any;
@@ -66,6 +67,7 @@ interface IProps {
   size?: string;
   showAddButton?: boolean;
   addButtonText?: string;
+  paymentButton?: boolean;
 }
 type Anchor = "top" | "left" | "bottom" | "right";
 const DataTable = ({
@@ -82,6 +84,7 @@ const DataTable = ({
   sideBarTitle,
   addButtonText,
   showAddButton,
+  paymentButton,
 }: IProps) => {
   const { colors, locale } = useTheme();
   const router = useRouter();
@@ -225,7 +228,7 @@ const DataTable = ({
                 color: "white",
                 borderRadius: "8px",
                 flexGrow: "1",
-                flexBasis: "100px",
+                flexBasis: "250px",
               }}
               onClick={() => router.push(`/${linkPageUrl}/add` as string)}
             >
@@ -277,6 +280,11 @@ const DataTable = ({
                                   <EyeSvg size={20} fill={page_color} />
                                 </IconButton>
                               </Tooltip>
+                            )}
+                            {paymentButton && (
+                              <GroupButtons className="paynow">
+                                <Button>Pay Now</Button>
+                              </GroupButtons>
                             )}
                             {isDuplicate && (
                               <Tooltip

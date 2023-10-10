@@ -1,16 +1,19 @@
 import styled, { css } from "styled-components";
 export const Container = styled.div`
   display: flex;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+      border-bottom: 1px solid #DDDDDD;
   justify-content: space-between;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 0px 12px;
   width: 100%;
   gap: 35px;
   height: 71.5px;
-  background-color: ${({ theme }) => theme.colors.headerbgcolor};
- 
+  background-color: ${({ theme }) => theme.colors.pagebgcolor};
+ .link{
+  font-size: 20px;
+  font-weight: 600;
+  color: #777777;
+ }
 `;
 export const HeadersContainer = styled.div`
 .mobile{
@@ -81,13 +84,23 @@ export const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   transition: 0.5s;
-  padding: 9px 0px 0px 0px;
+  padding: 8px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
   &.mobile{
     justify-content: space-between;
     padding:6px;
     @media(max-width:600px){
   display:flex ;
 }
+  }
+  a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width:100px;
+      height: 55px;
+    }
   }
 `;
 export const LightMood = styled.div<{ color?: string }>`

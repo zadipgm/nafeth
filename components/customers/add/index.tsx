@@ -8,7 +8,6 @@ import {
   FormBoxWrapper,
   FormWrapper,
   GroupButtons,
-  ZipCode,
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import InputComponent from "@/reuseableComponents/InputField";
@@ -175,12 +174,9 @@ const AddCustomer = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          {categoryID === 1 ? (
-            <>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
+
+              {categoryID === 1 ? (
+                <>
                   <TextField
                     select
                     label="IDType"
@@ -240,12 +236,12 @@ const AddCustomer = ({
                     label="ID Expiry Date GEO"
                     placeholder=""
                     type="date"
+                    variant="filled"
                     onChange={handleChange}
                     name={"idExpiryDate_gregorian"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <InputComponent
                     label="Full Name En"
                     placeholder="zeshan"
@@ -303,8 +299,7 @@ const AddCustomer = ({
                     name={"licenseNo"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <InputComponent
                     label="Full Name AR"
                     placeholder="zeshan"
@@ -318,6 +313,7 @@ const AddCustomer = ({
                     label="ID Expiry Date Hijri"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
+                    variant="filled"
                     value={data.idExpiryDate_hijri}
                     onChange={handleChange}
                     name={"idExpiryDate_hijri"}
@@ -327,19 +323,18 @@ const AddCustomer = ({
                     label="Expiry of the license (Hijri)"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
+                    variant="filled"
                     onChange={handleChange}
                     value={data.licExpiryDate_hijri}
                     name={"licExpiryDate_hijri"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
+
                   <InputComponent
                     label="Expiry of the license (Geo)"
                     placeholder=""
                     type="date"
+                    variant="filled"
                     onChange={handleChange}
                     name={"licenseExpDate_gregorian"}
                     required={true}
@@ -354,8 +349,7 @@ const AddCustomer = ({
                     name={"mobileNo"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <InputComponent
                     label="Employer"
                     placeholder="zadip"
@@ -380,8 +374,7 @@ const AddCustomer = ({
                       </MenuItem>
                     ))}
                   </TextField>
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <TextField
                     select
                     label="Price List"
@@ -405,10 +398,7 @@ const AddCustomer = ({
                     name={"workPhone"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="nationality">
+
                   <InputComponent
                     label="Email"
                     placeholder="zeshan@gmail.com"
@@ -434,14 +424,12 @@ const AddCustomer = ({
                       </MenuItem>
                     ))}
                   </TextField>
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="nationality">
+
                   <InputComponent
                     label="Date of Birth Hijri"
                     placeholder="20/04/1445"
                     type="text"
+                    variant="filled"
                     onChange={handleChange}
                     name={"dob_hijri"}
                     classname="nationality"
@@ -451,6 +439,7 @@ const AddCustomer = ({
                     label="Date of Birth gregorian"
                     placeholder="zeshan@gmail.com"
                     type="date"
+                    variant="filled"
                     onChange={handleChange}
                     name={"dob_gregorian"}
                     required={true}
@@ -464,14 +453,10 @@ const AddCustomer = ({
                     classname={"customer-switch"}
                     value={data.active}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-            </>
-          ) : (
-            // ----------------------------company form start from here---------------------------------------
-            <>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
+                </>
+              ) : (
+                // ----------------------------company form start from here---------------------------------------
+                <>
                   <IDValidateWrapper>
                     <InputComponent
                       label="CR Number"
@@ -502,12 +487,12 @@ const AddCustomer = ({
                     name={"Compnay name"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <InputComponent
                     label="Expiry Date"
                     placeholder="dd/mm/yyyy"
                     type="text"
+                    variant="filled"
                     name={"Expiry Date"}
                     required={true}
                   />
@@ -519,8 +504,7 @@ const AddCustomer = ({
                     name={"phone"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
+
                   <TextField
                     select
                     label="Price List"
@@ -547,10 +531,7 @@ const AddCustomer = ({
                     name={"VAT"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="employee-compnay">
+
                   <InputComponent
                     label="Employee Name"
                     placeholder="zeshan"
@@ -558,8 +539,7 @@ const AddCustomer = ({
                     name={"emp name"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color} className="employee-compnay">
+
                   <InputComponent
                     label="Mobile Number"
                     placeholder="966581955852"
@@ -567,10 +547,10 @@ const AddCustomer = ({
                     name={"phone"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-            </>
-          )}
+                </>
+              )}
+            </FormBox>
+          </FormBoxWrapper>
           <Title color={colors.green}>
             <h3>Address</h3>
           </Title>
@@ -592,8 +572,6 @@ const AddCustomer = ({
                 name={"cA_City"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
               <InputComponent
                 label="Street Name"
                 placeholder="king fahad"
@@ -610,8 +588,6 @@ const AddCustomer = ({
                 name={"cA_Country"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
               <InputComponent
                 label="District"
                 placeholder="al malaz"
@@ -620,30 +596,24 @@ const AddCustomer = ({
                 name={"cA_District"}
                 required={true}
               />
-              <ZipCode className="zip-code">
-                <InputComponent
-                  label="Zip-code1"
-                  placeholder="12664"
-                  type="text"
-                  onChange={handleChange}
-                  name={"cA_PostalCode"}
-                  required={true}
-                  classname="zip-code"
-                />{" "}
-                <InputComponent
-                  label="Zip-code2"
-                  placeholder="12664"
-                  type="text"
-                  onChange={handleChange}
-                  name={"cA_AdditionalPostalCode"}
-                  required={true}
-                  classname="zip-code"
-                />
-              </ZipCode>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="Additional">
+              <InputComponent
+                label="Zip-code1"
+                placeholder="12664"
+                type="text"
+                onChange={handleChange}
+                name={"cA_PostalCode"}
+                required={true}
+                classname="zip-code"
+              />{" "}
+              <InputComponent
+                label="Zip-code2"
+                placeholder="12664"
+                type="text"
+                onChange={handleChange}
+                name={"cA_AdditionalPostalCode"}
+                required={true}
+                classname="zip-code"
+              />
               <InputComponent
                 label="Additional Information"
                 placeholder=""

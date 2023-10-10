@@ -16,7 +16,7 @@ const LoyaltyList = ({ list }: IProps) => {
   const { colors } = useTheme();
   return (
     <LoyaltyContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>List of Memberships</h2>
       </Title>
       <DataTable
@@ -26,7 +26,7 @@ const LoyaltyList = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"loyalty"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="loyalty Details"
         size="400px"
         showFilter={true}

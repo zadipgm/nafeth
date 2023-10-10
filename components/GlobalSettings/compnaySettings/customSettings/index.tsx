@@ -6,7 +6,6 @@ import {
   FormWrapper,
   GroupButtons,
   GsettingsTitle,
-  ZipCode,
 } from "../style";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
@@ -129,35 +128,34 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="custom-settings" color={isTheme().color}>
-                <ZipCode>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Hours"
-                    defaultValue={freeHour}
-                    name="hours"
-                    onChange={(e) => handleFreeHour(e)}
-                  >
-                    {hours.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    select
-                    label="Minutes"
-                    defaultValue={freeMinut}
-                    name="minuts"
-                    onChange={(e) => handleFreeMinut(e)}
-                  >
-                    {minutes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </ZipCode>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Hours"
+                  defaultValue={freeHour}
+                  name="hours"
+                  onChange={(e) => handleFreeHour(e)}
+                >
+                  {hours.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  select
+                  label="Minutes"
+                  defaultValue={freeMinut}
+                  name="minuts"
+                  onChange={(e) => handleFreeMinut(e)}
+                >
+                  {minutes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
                 <InputComponent
                   label="Maximum km adjustment"
                   placeholder="10"
@@ -165,8 +163,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   name="maxKMAdjustment"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
+
                 <TextField
                   select
                   label="Grace Day"
@@ -187,39 +184,34 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   name="vat"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox
-                className="custom-settings-last-child"
-                color={isTheme().color}
-              >
-                <ZipCode>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Grace Day hours"
-                    defaultValue={graceStartHour}
-                    onChange={(e) => handleGraceHour(e)}
-                  >
-                    {hours.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Grace Day minutes"
-                    defaultValue={graceStarMinut}
-                    onChange={(e) => handleGraceMinut(e)}
-                  >
-                    {minutes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </ZipCode>
+
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Grace Day hours"
+                  defaultValue={graceStartHour}
+                  onChange={(e) => handleGraceHour(e)}
+                >
+                  {hours.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Grace Day minutes"
+                  defaultValue={graceStarMinut}
+                  onChange={(e) => handleGraceMinut(e)}
+                >
+                  {minutes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
                 <InputComponent
                   label="Tax Number"
                   placeholder="1233212"
@@ -227,21 +219,14 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   name="taxNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-            </FormBoxWrapper>
 
-            <FormBoxWrapper className="tabs">
-              <FormBox
-                className="group-edit-form-description"
-                color={isTheme().color}
-              >
                 <InputComponent
                   label="English Description"
                   placeholder="Please enter here...."
                   name="terms_en"
                   multiline
                   defaultValue={customValues.terms_en}
-                  rows={3}
+                  rows={1}
                   onChange={(e) => onChangeHandler(e)}
                   classname="group-edit-form-description"
                 />
@@ -251,7 +236,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   name="terms_ar"
                   multiline
                   defaultValue={customValues.terms_ar}
-                  rows={3}
+                  rows={1}
                   type="textarea"
                   classname="group-edit-form-description"
                   onChange={(e) => onChangeHandler(e)}

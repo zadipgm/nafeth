@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<{
   const car = await fetchData(
     userName as string,
     userPassword as string,
-    `/cars/Cars/${ctx.query.id}`,
+    `/cars/${ctx.query.id}`,
     company as string
   );
   const CarTransmission = await fetchData(

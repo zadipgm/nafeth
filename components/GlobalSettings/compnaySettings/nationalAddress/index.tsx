@@ -1,16 +1,12 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
   FormWrapper,
   GroupButtons,
-  GsettingsTitle,
-  ImageWrapper,
   Logo,
   Text,
-  ZipCode,
 } from "../style";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -79,23 +75,16 @@ const NationalAddress = ({ national_address }: ISettings) => {
   return (
     <>
       <FormContainer>
-        <CardContainer>
-          <Logo bgcolor="#1c8da4">
-            <Image
-              src="/images/spl.svg"
-              alt="nodhom"
-              width={270}
-              height={100}
-            />
-            <Text>
-              {translations?.spl}
-              <br />
-              <Link href={"https://splonline.com.sa/"}>
-                https://splonline.com.sa/.
-              </Link>
-            </Text>
-          </Logo>
-        </CardContainer>
+        <Logo bgcolor="#1c8da4">
+          <Image src="/images/spl.svg" alt="nodhom" width={270} height={100} />
+          <Text>
+            {translations?.spl}
+            <br />
+            <Link href={"https://splonline.com.sa/"}>
+              https://splonline.com.sa/.
+            </Link>
+          </Text>
+        </Logo>
         <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"
@@ -130,8 +119,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   name="district"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox className="national-address" color={isTheme().color}>
+
                 <InputComponent
                   label="City"
                   placeholder="Riyadh"
@@ -146,24 +134,23 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   name="country"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <ZipCode>
-                  <InputComponent
-                    label="ZIP Code"
-                    placeholder="12665"
-                    defaultValue={national_addressValues.zipCode1}
-                    name="zipCode1"
-                    classname="zip-code"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                  <InputComponent
-                    label="ZIP Code"
-                    placeholder="12665"
-                    defaultValue={national_addressValues.zipCode2}
-                    name="zipCode2"
-                    classname="zip-code"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                </ZipCode>
+
+                <InputComponent
+                  label="ZIP Code"
+                  placeholder="12665"
+                  defaultValue={national_addressValues.zipCode1}
+                  name="zipCode1"
+                  classname="zip-code"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+                <InputComponent
+                  label="ZIP Code"
+                  placeholder="12665"
+                  defaultValue={national_addressValues.zipCode2}
+                  name="zipCode2"
+                  classname="zip-code"
+                  onChange={(e) => onChangeHandler(e)}
+                />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>

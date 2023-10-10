@@ -40,6 +40,7 @@ import CloseSvg from "@/public/icons/closeSvg";
 import { GroupButtons } from "../GlobalSettings/compnaySettings/style";
 import { ICustomers, customer } from "@/models/customers";
 import SearchComponent from "@/reuseableComponents/SearchComponent";
+import { SearchBarWrapper } from "../contracts/style";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   editable: boolean;
@@ -115,7 +116,7 @@ const CustomersList = ({
         <h2>{title}</h2>
       </Title>
       <Wrapper>
-        <InputWrapper istheme={isTheme()} className="customer-page">
+        <SearchBarWrapper className="customer-page">
           {isAddbutton && (
             <Fab
               aria-label={"add"}
@@ -125,6 +126,8 @@ const CustomersList = ({
                 color: "white",
                 width: "12%",
                 borderRadius: "8px",
+                flexGrow: "1",
+                flexBasis: "250px",
               }}
               onClick={() =>
                 router.push({
@@ -141,7 +144,7 @@ const CustomersList = ({
             currentRecords={customers.result}
             setSearchvalue={setSearchvalue}
           />
-        </InputWrapper>
+        </SearchBarWrapper>
 
         <CustomerCardContainer>
           {searchvalue?.slice(0, show).map((item, index) => {
@@ -153,9 +156,6 @@ const CustomersList = ({
                 key={index}
               >
                 <CustomerCardWrapper>
-                  <FullNameWrapper>
-                    <span>{item[`fullname_${locale}`]}</span>
-                  </FullNameWrapper>
                   <List>
                     <Tooltip
                       content="Customer Type"
@@ -167,9 +167,11 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="carduserSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
-                        <span>{item.category[`name_${locale}`]}</span>
+                        <span className="customer-name">
+                          {item[`fullname_${locale}`]}
+                        </span>
                       </ListItem>
                     </Tooltip>
                     <Tooltip
@@ -182,7 +184,7 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="idSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
                         <span>{item.idNumber}</span>
                       </ListItem>
@@ -197,7 +199,7 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="issueDateSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
                         <span>{item.idExpiryDate_hijri}</span>
                       </ListItem>
@@ -212,7 +214,7 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="phoneSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
                         <span>{item.mobileNo}</span>
                       </ListItem>
@@ -227,7 +229,7 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="homeSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
                         <span>{item.residentCity[`name_${locale}`]}</span>
                       </ListItem>
@@ -242,7 +244,7 @@ const CustomersList = ({
                           width="25px"
                           height="25px"
                           icon="reportSvg"
-                          fill={colors.nafethBlue}
+                          fill={colors.sideBarBgColor}
                         />
                         <span>{item.licenseNo}</span>
                       </ListItem>
@@ -258,7 +260,7 @@ const CustomersList = ({
                           <AddIcon
                             width="15px"
                             height="15px"
-                            fill={colors.nafethBlue}
+                            fill={colors.sideBarBgColor}
                           />
                         }
                       >
@@ -274,7 +276,7 @@ const CustomersList = ({
                           <AddIcon
                             width="15px"
                             height="15px"
-                            fill={colors.nafethBlue}
+                            fill={colors.sideBarBgColor}
                           />
                         }
                       >
@@ -290,7 +292,7 @@ const CustomersList = ({
                           <EditSvg
                             width="15px"
                             height="15px"
-                            fill={colors.nafethBlue}
+                            fill={colors.sideBarBgColor}
                           />
                         }
                         onClick={() => handleEdit(item.id)}
@@ -328,7 +330,7 @@ const CustomersList = ({
                           <ArrowCircleSvg
                             width="15px"
                             height="15px"
-                            fill={colors.nafethBlue}
+                            fill={colors.sideBarBgColor}
                           />
                         }
                       >
@@ -348,7 +350,7 @@ const CustomersList = ({
               width={"800px"}
             >
               <div>
-                <DetailsTitle color={colors.nafethBlue as string}>
+                <DetailsTitle color={colors.sideBarBgColor as string}>
                   {"Customer Details"}
                 </DetailsTitle>
 

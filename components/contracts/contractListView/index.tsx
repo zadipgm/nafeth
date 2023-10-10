@@ -35,7 +35,7 @@ const ContractListView = ({
   toggleDrawer,
 }: ICarProps) => {
   return (
-    <ListViewContainer>
+    <>
       {contracts.slice(0, show)?.map((contract: any, i: any) => {
         return (
           <List
@@ -55,7 +55,7 @@ const ContractListView = ({
           />
         );
       })}
-    </ListViewContainer>
+    </>
   );
 };
 export default ContractListView;

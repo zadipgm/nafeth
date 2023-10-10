@@ -134,7 +134,7 @@ const ContractPage = ({
               page === "return"
                 ? colors.darkYellow
                 : page === "individual"
-                ? colors.nafethBlue
+                ? colors.sideBarBgColor
                 : colors.red
             }
           >
@@ -196,7 +196,7 @@ const ContractPage = ({
               item={details}
             >
               <div>
-                <DetailsTitle color={colors.nafethBlue}>
+                <DetailsTitle color={colors.sideBarBgColor}>
                   Contract Details
                 </DetailsTitle>
                 <DetailWrapper

@@ -14,7 +14,7 @@ const PriceListComponent = ({ list }: IProps) => {
   const { colors } = useTheme();
   return (
     <LoyaltyContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Price Lists</h2>
       </Title>
       <DataTable
@@ -24,7 +24,7 @@ const PriceListComponent = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"pricelist"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="Pricelist Details"
         size="400px"
         showAddButton={true}

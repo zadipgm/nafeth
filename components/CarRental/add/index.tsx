@@ -72,7 +72,7 @@ const AddCar = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = "cars/Cars";
+    let url = "cars/";
     await createPost(userName, userPassword, url, company, data).then(
       (res: any) => {
         if (res.status == 200) {
@@ -113,7 +113,7 @@ const AddCar = ({
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color} className="Car-plate">
-              <div>
+              <div className="car-plate-number">
                 <label htmlFor="carPalte arabic">Car Plate in Arabic</label>
                 <CarPlateInArabicWrapper>
                   <InputComponent
@@ -148,19 +148,8 @@ const AddCar = ({
                   />
                 </CarPlateInArabicWrapper>
               </div>
-              <div>
-                <label htmlFor="carPalte arabic">Plate Number</label>
-                <InputComponent
-                  label="Pate number"
-                  placeholder="1234"
-                  type="text"
-                  name={"plateNo"}
-                  value={data.plateNo}
-                  onChange={handleChange}
-                  required={true}
-                />
-              </div>
-              <div>
+
+              <div className="car-plate-number">
                 <label htmlFor="carPalte arabic">Car Plate in English</label>
                 <CarPlateInArabicWrapper>
                   <InputComponent
@@ -195,19 +184,33 @@ const AddCar = ({
                   />
                 </CarPlateInArabicWrapper>
               </div>
+              <div className="car-plate-number">
+                <label htmlFor="carPalte arabic">Plate Number</label>
+                <CarPlateInArabicWrapper>
+                  <InputComponent
+                    label="Pate number"
+                    placeholder="1234"
+                    type="text"
+                    name={"plateNo"}
+                    value={data.plateNo}
+                    onChange={handleChange}
+                    required={true}
+                  />
+                  <InputComponent
+                    label="Chassis Number"
+                    placeholder="WFER23453453"
+                    type="text"
+                    name={"chasisNo"}
+                    value={data.chasisNo}
+                    onChange={handleChange}
+                    required={true}
+                  />
+                </CarPlateInArabicWrapper>
+              </div>
             </FormBox>
           </FormBoxWrapper>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
-                label="Chassis Number"
-                placeholder="WFER23453453"
-                type="text"
-                name={"chasisNo"}
-                value={data.chasisNo}
-                onChange={handleChange}
-                required={true}
-              />
               <InputComponent
                 label="Purchase Amount"
                 placeholder=""
@@ -218,7 +221,7 @@ const AddCar = ({
                 required={true}
               />
               <InputComponent
-                label=""
+                label="Buying Date"
                 placeholder=""
                 type="date"
                 name={"buyingDate"}
@@ -226,8 +229,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Serial number"
                 placeholder="3453453"
@@ -254,31 +256,6 @@ const AddCar = ({
                   </MenuItem>
                 ))}
               </TextField>
-
-              <TextField
-                select
-                label="Transmission"
-                name="transmissionID"
-                onChange={handleChange}
-                defaultValue={""}
-              >
-                {carTransmission.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
-                label="mileage"
-                placeholder="mileage"
-                type="text"
-                name={"mileage"}
-                value={data.mileage}
-                onChange={handleChange}
-                required={true}
-              />
               <TextField
                 select
                 label="model"
@@ -294,6 +271,30 @@ const AddCar = ({
               </TextField>
               <TextField
                 select
+                label="Transmission"
+                name="transmissionID"
+                onChange={handleChange}
+                defaultValue={""}
+              >
+                {carTransmission.result.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name_en}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <InputComponent
+                label="mileage"
+                placeholder="mileage"
+                type="text"
+                name={"mileage"}
+                value={data.mileage}
+                onChange={handleChange}
+                required={true}
+              />
+
+              <TextField
+                select
                 label="color"
                 name="colorID"
                 onChange={handleChange}
@@ -305,10 +306,6 @@ const AddCar = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="car-fuel-types-section">
               <TextField
                 select
                 label="Fuel Type"
@@ -348,10 +345,7 @@ const AddCar = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="car-typeID">
+
               <TextField
                 select
                 label="Branch"
@@ -412,8 +406,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Min Daily Rent"
                 placeholder="3453453"
@@ -441,8 +434,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Grace Hours"
                 placeholder="3"
@@ -512,12 +504,12 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Insurance Expiry"
                 placeholder=""
                 type="date"
+                variant="filled"
                 name={"insuranceExpDate"}
                 value={data.insuranceExpDate}
                 onChange={handleChange}
@@ -527,6 +519,7 @@ const AddCar = ({
                 label="Registration Expiry "
                 placeholder="dd/mm/yyyy"
                 type="text"
+                variant="filled"
                 name={"registrationExpHijiri"}
                 value={data.registrationExpHijiri}
                 onChange={handleChange}
@@ -536,13 +529,13 @@ const AddCar = ({
                 label="Inspection Expiry"
                 placeholder="dd/mm/yyyy"
                 type="text"
+                variant="filled"
                 name={"inspectionExpHijiri"}
                 value={data.inspectionExpHijiri}
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Insurance Penality"
                 placeholder="100"
@@ -556,6 +549,7 @@ const AddCar = ({
                 label="Operating Card No"
                 placeholder="100"
                 type="text"
+                variant="filled"
                 name={"operatingCardNo"}
                 value={data.operatingCardNo}
                 onChange={handleChange}
@@ -565,26 +559,24 @@ const AddCar = ({
                 label="Operating Card IssueDate"
                 placeholder="dd/mm/yyyy"
                 type="text"
+                variant="filled"
                 name={"operatingCardIssueDate"}
                 value={data.operatingCardIssueDate}
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Operating Card Expiry Date"
                 placeholder="dd/mm/yyyy"
                 type="text"
+                variant="filled"
                 name={"operatingCardExpDate"}
                 value={data.operatingCardExpDate}
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <TextField
                 select
                 label="Insurance Type"
@@ -598,14 +590,12 @@ const AddCar = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <SwitchesComponent
                 title="Active/Inactive"
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
-                classname={"car-switch"}
                 value={data.active}
               />
             </FormBox>

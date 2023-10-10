@@ -112,7 +112,7 @@ const EditDisputeContracts = ({
   };
   return (
     <EditDisputeContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>{"Disputed Pending Contracts"}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -221,7 +221,7 @@ const EditDisputeContracts = ({
               />
             </FormBox>
           </FormBoxWrapper>
-          <Title color={colors.nafethBlue}>
+          <Title color={colors.sideBarBgColor}>
             <h2>{"Car Details"}</h2>
           </Title>
           <FormBoxWrapper>
@@ -319,7 +319,7 @@ const EditDisputeContracts = ({
               />
             </FormBox>
           </FormBoxWrapper>
-          <Title color={colors.nafethBlue}>
+          <Title color={colors.sideBarBgColor}>
             <h2>{"Contract Procedures"}</h2>
           </Title>
           <FormBoxWrapper>

@@ -29,13 +29,14 @@ const Layout: React.FC<IProps> = ({ children }) => {
       <ThemeProvider theme={themeMode}>
         <LoginProvider>
           <DataProvider>
-            <Header
-              themeToggler={themeToggler as () => void}
-              theme={theme as string}
-            />
             <LayoutContainer>
               <SideNavBar />
+
               <Wrapper>
+                <Header
+                  themeToggler={themeToggler as () => void}
+                  theme={theme as string}
+                />
                 <Children>{children}</Children>
                 <Footer />
               </Wrapper>

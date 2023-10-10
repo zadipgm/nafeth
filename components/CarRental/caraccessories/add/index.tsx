@@ -67,7 +67,7 @@ const AddAccessoryList = () => {
   };
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add New Aar Accessories List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>

@@ -16,7 +16,7 @@ width: 100%;
     cursor:pointer;
     &.active{
         transition:.5s ;
-        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
     >a{
         text-decoration: none;

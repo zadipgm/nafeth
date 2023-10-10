@@ -1,12 +1,10 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
   FormWrapper,
   GroupButtons,
-  GsettingsTitle,
   Logo,
   Text,
 } from "../style";
@@ -74,23 +72,22 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
   return (
     <>
       <FormContainer>
-        <CardContainer>
-          <Logo bgcolor={"#8E3A47"}>
-            <Image
-              src="/images/tajeer.png"
-              alt="tajeer"
-              width={270}
-              height={100}
-            />
-            <Text>
-              {translations?.tajeer}
-              <br />
-              <Link href={"https://services.taajeer.com/"}>
-                https://services.taajeer.com/.
-              </Link>
-            </Text>
-          </Logo>
-        </CardContainer>
+        <Logo bgcolor={"#8E3A47"}>
+          <Image
+            src="/images/tajeer.png"
+            alt="tajeer"
+            width={270}
+            height={100}
+          />
+          <Text>
+            {translations?.tajeer}
+            <br />
+            <Link href={"https://services.taajeer.com/"}>
+              https://services.taajeer.com/.
+            </Link>
+          </Text>
+        </Logo>
+
         <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"

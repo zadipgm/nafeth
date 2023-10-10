@@ -18,7 +18,7 @@ const CarAccessoryList = ({ list }: IProps) => {
 
   return (
     <Container>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Car Accessories List</h2>
       </Title>
       <DataTable
@@ -29,7 +29,7 @@ const CarAccessoryList = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"caraccessories"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="Car Accessories Details"
         size="400px"
         showAddButton={true}

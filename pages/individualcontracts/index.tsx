@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<{
   const carRes = await fetchData(
     userName as string,
     userPassword as string,
-    "/cars/Cars",
+    "/cars/",
     company as string
   );
   const customerRes = await fetchData(

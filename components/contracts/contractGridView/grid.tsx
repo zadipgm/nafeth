@@ -147,7 +147,7 @@ const Grid = ({
               <IssueDateSvg
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
               <p>{contract.issueDate}</p>
             </Tooltip>
@@ -157,7 +157,7 @@ const Grid = ({
               <ReturnDateSvg
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
               <p>{contract.actualReturnDate}</p>
             </Tooltip>
@@ -167,7 +167,7 @@ const Grid = ({
               <IconComponent
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
                 icon={"carRentedSvg"}
               />
               <p>{contract.weeklyPrice}</p>
@@ -178,7 +178,7 @@ const Grid = ({
               <IconComponent
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
                 icon={"carTotalSvg"}
               />
               <p>{contract.monthlyPrice}</p>
@@ -217,7 +217,11 @@ const Grid = ({
               variant={"outlined"}
               className="edit"
               endIcon={
-                <EditSvg width="15px" height="15px" fill={colors.nafethBlue} />
+                <EditSvg
+                  width="15px"
+                  height="15px"
+                  fill={colors.sideBarBgColor}
+                />
               }
             >
               Edit
@@ -232,7 +236,7 @@ const Grid = ({
                 <ArrowCircleSvg
                   width="15px"
                   height="15px"
-                  fill={colors.nafethBlue}
+                  fill={colors.sideBarBgColor}
                 />
               }
             >

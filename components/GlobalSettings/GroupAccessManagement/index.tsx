@@ -5,6 +5,7 @@ import { useTheme } from "styled-components";
 import TableComponent from "@/reuseableComponents/TableComponent";
 import { IGroups } from "@/models/groups";
 import { Title } from "../BranchManagement/style";
+import DataTable from "@/reuseableComponents/DataTable";
 interface IProps {
   data: IGroups;
 }
@@ -13,19 +14,24 @@ const GroupAccessManagement = ({ data }: IProps) => {
 
   return (
     <>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Group Access Management</h2>
       </Title>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
         <DataTableWrapper>
-          <TableComponent
-            tableData={data.result}
-            headerValue={["name_en", "description_en", "active"]}
+          <DataTable
             isDeleteAble={false}
             linkPageUrl={"groups"}
-            page_color={colors.nafethBlue}
+            page_color={colors.sideBarBgColor}
             isDuplicate={true}
             sideBarTitle="Group Details"
+            data={data.result}
+            isEditAble={false}
+            isViewAble={true}
+            size="600px"
+            showAddButton={true}
+            addButtonText="Add Group"
+            showFilter={true}
           />
         </DataTableWrapper>
       </Container>

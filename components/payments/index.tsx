@@ -9,7 +9,7 @@ const Payments = () => {
   const { locale, colors }: any = useTheme();
   return (
     <PaymentContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Payments</h2>
       </Title>
       <Container>
@@ -19,13 +19,14 @@ const Payments = () => {
           isEditAble={false}
           isDuplicate={false}
           isViewAble={true}
-          linkPageUrl={"payment"}
-          page_color={colors.nafethBlue}
+          linkPageUrl={"payments"}
+          page_color={colors.sideBarBgColor}
           sideBarTitle="Payment Details"
-          size="400px"
+          size="600px"
           showAddButton={true}
           addButtonText="Add Receipt"
           showFilter={true}
+          paymentButton={true}
         />
       </Container>
     </PaymentContainer>

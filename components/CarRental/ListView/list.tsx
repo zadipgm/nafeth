@@ -43,7 +43,7 @@ const List = ({
   i,
   selectedCarID,
 }: IProps) => {
-  const { locale, colors } = useTheme();
+  const { locale, colors, translations } = useTheme();
   const [activeID, setActiveID] = React.useState(selectedCarID);
   const router = useRouter();
   const handleCurrying = (car: any) => {
@@ -74,102 +74,140 @@ const List = ({
             </CardPlateWrapper>
           </ModelListViewWrapper>
           <ReuseAbleList>
-            <ReuseAbleListItem>
-              <Tooltip content={"car fuel"} color={"success"}>
-                <div>
-                  <CarPetrolSvg
-                    width={"25px"}
-                    height="25px"
-                    fill={colors.nafethBlue}
-                  />
-                </div>
+            <Tooltip
+              content={"Fuel Type"}
+              color={"primary"}
+              className={page}
+              placement={"top"}
+            >
+              <ReuseAbleListItem>
+                <CarPetrolSvg
+                  width={"25px"}
+                  height="25px"
+                  fill={colors.sideBarBgColor}
+                />
                 {car.fuelType[`name_${locale}`]}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem>
-              <Tooltip content={"car color"} color={"invert"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"color"}
+              color={"primary"}
+              className={page}
+              placement={"top"}
+            >
+              <ReuseAbleListItem>
                 <CardColor color={car.color[`name_${locale}`]}></CardColor>
                 {car.color[`name_${locale}`]}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={car.mileage} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"Mileage"}
+              color={"primary"}
+              className={page}
+              placement={"top"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                     icon={"carMileageSvg"}
                   />
                 </div>
                 {car.mileage}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={"dailyRent"} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"Daily Rent"}
+              color={"primary"}
+              className={page}
+              placement={"top"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                     icon={"cars"}
                   />
                 </div>
                 {car.dailyRent}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={"weeklyRent"} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"Weekly Rent"}
+              color={"primary"}
+              className={page}
+              placement={"bottom"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                     icon={"carRentedSvg"}
                   />
                 </div>
                 {car.weeklyRent}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={"monthlyRent"} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"Monthly Rent"}
+              color={"primary"}
+              className={page}
+              placement={"bottom"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                     icon={"carTotalSvg"}
                   />
                 </div>
                 {car.monthlyRent}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={"timesRented"} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"Times Rented"}
+              color={"primary"}
+              className={page}
+              placement={"bottom"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                     icon={"numberOfRentedSvg"}
                   />
                 </div>
                 {car.timesRented}
-              </Tooltip>
-            </ReuseAbleListItem>
-            <ReuseAbleListItem key={i}>
-              <Tooltip content={"active"} color={"success"}>
+              </ReuseAbleListItem>
+            </Tooltip>
+            <Tooltip
+              content={"transmission"}
+              color={"primary"}
+              className={page}
+              placement={"bottom"}
+            >
+              <ReuseAbleListItem key={i}>
                 <div>
                   <IconComponent
                     width={"25px"}
                     height="25px"
-                    fill={colors.nafethBlue}
-                    icon={"active"}
+                    fill={colors.sideBarBgColor}
+                    icon={"carSteeringSvg"}
                   />
                 </div>
-                {car.active}
-              </Tooltip>
-            </ReuseAbleListItem>
+                {car.transmission[`name_${locale}`]}
+              </ReuseAbleListItem>
+            </Tooltip>
           </ReuseAbleList>
           <CarTypeSvgWrapper>
             <CarStatus>
@@ -182,10 +220,12 @@ const List = ({
                       ? colors.green
                       : car.status === "disputed"
                       ? colors.red
-                      : colors.nafethBlue
+                      : colors.sideBarBgColor
                   }
                 >
-                  {car.status}
+                  {car.status === "Return"
+                    ? translations?.return
+                    : translations?.available}
                 </Status>
               ) : (
                 <div></div>
@@ -212,7 +252,7 @@ const List = ({
                     />
                   }
                 >
-                  Rent
+                  {translations?.rent}
                 </Button>
               )}
               {page === "car-management" && (
@@ -224,11 +264,11 @@ const List = ({
                     <EditSvg
                       width="15px"
                       height="15px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                     />
                   }
                 >
-                  Edit
+                  {translations?.edit}
                 </Button>
               )}
               {page === "car-management" && (
@@ -243,7 +283,7 @@ const List = ({
                     />
                   }
                 >
-                  Delete
+                  {translations?.delete}
                 </Button>
               )}
               <Button
@@ -256,11 +296,11 @@ const List = ({
                   <ArrowCircleSvg
                     width="15px"
                     height="15px"
-                    fill={colors.nafethBlue}
+                    fill={colors.sideBarBgColor}
                   />
                 }
               >
-                Details
+                {translations?.details}
               </Button>
             </ButtonWrapper>
           </CarTypeSvgWrapper>

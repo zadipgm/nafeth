@@ -8,39 +8,21 @@ export const HeaderContainer = styled.div`
 flex-wrap: wrap;
 
 `;
-export const Wrapper = styled.div<{ bcolor?: string; color?: string }>`
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 0px 20px;
-  width: 80%;
-  border-radius: 8px;
-  color: ${({ color }) => color};
-  background-color: ${({ bcolor }) => bcolor};
-   @media (max-width: 600px) {
- width: 100%;
- height: auto;
-}
-@media (min-width: 600px) {
- width: 100%;
-}
-`;
+
 export const HeaderCardsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 22px;
+  gap: 12px;
+  width: 100%;
 `;
 
 export const DashboardTitle = styled.h1`
   font-size: 24px;
   margin: 0px;
-  color: ${({ theme }) => theme.colors.nafethBlue};
+  color: ${({ theme }) => theme.colors.sideBarBgColor};
 `;
-export const CardContainer = styled.div`
- flex-grow: 1;
- flex-basis: 540px;
 
-
-`;
 export const CardInnerWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -49,10 +31,15 @@ export const CardInnerWrapper = styled.div`
   align-items: center;
   transition: transform 0.5s;
   padding-bottom: 20px;
- 
+ width: 100%;
   &.car-management{
     flex-grow: 1;
-    flex-basis: 200px;
+    flex-basis: 250px;
+    justify-content: space-between;
+  }
+  .dashboard{
+    flex-grow: 1;
+    flex-basis: 250px;
     justify-content: space-between;
   }
   
@@ -61,75 +48,51 @@ export const ContractsTitle = styled.h2`
   margin: 0px;
   font-size: 20px;
 `;
-export const CardTitle = styled.p<{ color?: string }>`
-  color: ${({ color }) => color};
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: capitalize;
-  transition: 0.3s;
-`;
-export const Card = styled.div<{ cardcolor?: string; icolor?: string }>`
-  width: 45%;
-  background-color: ${({ cardcolor }) => cardcolor};
+
+export const HeaderCardWrapper = styled.div`
   transition: 0.5s;
   align-items: center;
   text-align: center;
   padding: 15px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #FFFFFF;
+    color: #252422;
   border-radius: 8px;
-  ${({ theme, icolor }) =>
-    theme.isLTR
-      ? css`
-          border-left: 8px solid ${icolor};
-        `
-      : css`
-          border-right: 8px solid ${icolor};
-        `}
+      flex-grow: 1;
+    flex-basis: 250px;
+`
+export const Card = styled.div<{ cardcolor?: string; icolor?: string }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   transition: 0.5s;
-    @media (max-width: 600px) {
- width: 100%;
-} 
- @media (min-width: 600px) {
- width: 100%;
- &.dashboard{
-  width:47%
- }
-}
+     margin-bottom: 12px;
   &.car-management{
     flex-grow:1;
-    flex-basis:211px;
-    width: 18%;
-    @media (max-width: 600px) {
- width: 100%;
- margin:15px 0px
-}
-@media (min-width: 600px) {
- width: 100%;
- margin:15px 0px
-}
-@media (min-width: 768px) {
- width: 18%;
- margin:0;
-}
-@media (min-width: 1440px) {
- width:18%;
- justify-content:space-between
-}
+    flex-basis:250px;
+  
   }
-   &.contracts{
-    width: 23%;
-  }
+  
 `;
-export const ContentWrapper = styled.div``;
-export const Number = styled.h5<{ color?: string }>`
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0;
-  color: ${({ color }) => color};
+export const ContentWrapper = styled.div`
+    font-size: 2em;
+    line-height: 1.4em;
+
 `;
+export const Viewmore = styled.div`
+cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid ${({ theme }) => theme.colors.borderBottomColor};
+padding-top: 8px;
+svg{
+  margin-top: 5px;
+}
+
+    `
+
 export const IconWrapper = styled.div<{ bcolor?: string }>`
   width: 70px;
   height: 70px;

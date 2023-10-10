@@ -95,7 +95,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
   console.log(contract.result[0].actualReturnDate);
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Contract Extention</h2>
       </Title>
 
@@ -134,8 +134,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
                 disabled={true}
                 variant="filled"
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Contract Number"
                 type="text"
@@ -150,8 +149,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
                 disabled={true}
                 variant="filled"
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
+
               <InputComponent
                 label="Current Return Date"
                 type="date"
@@ -169,10 +167,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="comments">
+
               <InputComponent
                 label="Comments"
                 type="text"

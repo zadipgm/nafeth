@@ -44,25 +44,21 @@ const DesktopHeader = ({ themeToggler, theme }: IProps) => {
   };
   return (
     <Container>
-      <LogoContainer>
-        <a href={"/dashboard"}>
-          <Image src="/images/pro2.webp" alt="logo" width={140} height={66} />
-        </a>
-      </LogoContainer>
+      <div className="link">Dashboard</div>
       <Wrappper>
-        {theme === "light" ? (
+        {/* {theme === "light" ? (
           <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
-            <Tooltip content="Dark mood" color="invert" placement="leftStart">
+            <Tooltip content="Dark mode" color="invert" placement="leftStart">
               <NightlightRoundOutlinedIcon />
             </Tooltip>
           </LightMood>
         ) : (
           <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
-            <Tooltip content="Light mood" placement="leftStart">
+            <Tooltip content="Light mode" placement="leftStart">
               <LightModeIcon className="dark" />
             </Tooltip>
           </LightMood>
-        )}
+        )} */}
         <NotificationIcon>
           <Badge color="secondary" badgeContent={2} showZero>
             <BellIcon width="30px" height="30px" fill={colors.pageTextColor} />

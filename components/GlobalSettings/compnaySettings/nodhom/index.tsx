@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
@@ -79,23 +78,16 @@ const Nodhom = ({ nozhum }: ISettings) => {
   };
   return (
     <FormContainer>
-      <CardContainer>
-        <Logo bgcolor="#44A0E1">
-          <Image
-            src="/images/nodhom.svg"
-            alt="nodhom"
-            width={270}
-            height={100}
-          />
-          <Text>
-            {translations?.nodhom}
-            <br />
-            <Link href={"https://nodhom.com/financial"}>
-              https://nodhom.com/financial.
-            </Link>
-          </Text>
-        </Logo>
-      </CardContainer>
+      <Logo bgcolor="#44A0E1">
+        <Image src="/images/nodhom.svg" alt="nodhom" width={270} height={100} />
+        <Text>
+          {translations?.nodhom}
+          <br />
+          <Link href={"https://nodhom.com/financial"}>
+            https://nodhom.com/financial.
+          </Link>
+        </Text>
+      </Logo>
 
       <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
         <Box
@@ -122,8 +114,7 @@ const Nodhom = ({ nozhum }: ISettings) => {
                 name="clientSecret"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-            <FormBox className="nodhom" color={isTheme().color}>
+
               <InputComponent
                 label="Nozm - Client ID"
                 defaultValue={nozhumValues.clientId}
@@ -137,21 +128,14 @@ const Nodhom = ({ nozhum }: ISettings) => {
                 name="username"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox
-              className="nodhom-second-last-child"
-              color={isTheme().color}
-            >
+
               <InputComponent
                 label="Nozm - Password"
                 defaultValue={nozhumValues.password}
                 name="password"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-            <FormBox className="nodhom-last-child" color={isTheme().color}>
+
               <SwitchesComponent
                 title="Enable Nodhom System"
                 titlewidth="67%"

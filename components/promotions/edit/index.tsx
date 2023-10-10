@@ -100,7 +100,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
   console.log("here is array", array);
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Edit List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>

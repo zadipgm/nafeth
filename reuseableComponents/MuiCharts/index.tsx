@@ -16,14 +16,18 @@ interface IProps {
 }
 const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
   const { isLTR } = useTheme();
+  const customize = {
+    height: 350,
+    legend: { hidden: false },
+    margin: { top: 5 },
+    stackingOrder: "descending",
+  };
   return (
     <Container bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
       <Chart>
+        <h4>Cars Status</h4>
         <PieChart
           className="pie-chart"
-          width={isLTR ? 311 : 322}
-          height={300}
-          legend={{ hidden: true }}
           series={[
             {
               data: chart_data,
@@ -33,14 +37,16 @@ const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
               cornerRadius: 10,
               startAngle: -190,
               endAngle: 180,
-              cx: 150,
-              cy: 150,
+              cx: 350,
+              cy: 190,
             },
           ]}
           onClick={() => console.log("here is")}
+          {...customize}
         />
+        <p className="bottom">Total cars</p>
       </Chart>
-      {/* <MuiLineChart /> */}
+      <MuiLineChart />
     </Container>
   );
 };

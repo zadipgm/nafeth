@@ -14,6 +14,7 @@ import {
   AccordionContainer,
   PageLinkWrapper,
   PageWrapper,
+  TypoWrapper,
 } from "./styled.components";
 import Link from "next/link";
 import IconComponent from "@/reuseableComponents/IconComponent";
@@ -98,29 +99,28 @@ const SideBarAccordions = ({
               onChange={handleChange(`${index}`)}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
+              // expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
               >
-                <IconComponent
-                  icon={item.icon}
-                  width="25px"
-                  height="25px"
-                  fill={colors.pageTextColor}
-                />
-                <div>
+                <TypoWrapper>
+                  <IconComponent
+                    icon={item.icon}
+                    width="25px"
+                    height="25px"
+                    fill={colors.gray2}
+                  />
+
                   <Typography
                     sx={{
                       width: "100%",
                       flexShrink: 0,
                       margin: "0px 10px",
-                      color: `${colors.pageTextColor}`,
+                      color: `${colors.gray2}`,
                     }}
-                    component={"span"}
+                    component={"div"}
                   >
                     {isLTR ? item.name_en : item.name_ar}
                   </Typography>
-                </div>
+                </TypoWrapper>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>

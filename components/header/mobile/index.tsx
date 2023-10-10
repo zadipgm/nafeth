@@ -38,7 +38,7 @@ const MobileHeader = () => {
     <>
       <BurgerMenu onClick={handleOpen}>
         <LogoContainer className="mobile">
-          <BurgerSvg fill={colors.nafethBlue} width="30px" height="30px" />
+          <BurgerSvg fill={colors.sideBarBgColor} width="30px" height="30px" />
           <a href={"/dashboard"}>
             <Image src="/images/pro2.webp" alt="logo" width={140} height={50} />
           </a>

@@ -139,7 +139,11 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
           </div>
         </OtherDetailsTitleWrapper>
         {type === "Customer" && (
-          <CardUserSvg width="300px" height="300px" fill={colors.nafethBlue} />
+          <CardUserSvg
+            width="200px"
+            height="200px"
+            fill={colors.sideBarBgColor}
+          />
         )}
         {type === "Customer" && (
           <OtherDetailsList>

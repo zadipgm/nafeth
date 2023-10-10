@@ -40,7 +40,7 @@ const AddAccessories = ({
   };
   return (
     <AddAccessoriesContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add Accessories</h2>
       </Title>
       <AccessoriesWrapper>

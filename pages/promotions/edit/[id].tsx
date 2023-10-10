@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<{
   const resCar = await fetchData(
     userName as string,
     userPassword as string,
-    "/cars/Cars",
+    "/cars/",
     company as string
   );
   const result = await resCar;

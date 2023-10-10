@@ -293,7 +293,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           deleteable={false}
           details={false}
           listtype={"customer"}
-          page_color={colors.nafethBlue}
+          page_color={colors.sideBarBgColor}
           title={"Select a Customer"}
           onCustomerSelected={onCustomerSelected}
           customers={customers}
@@ -302,7 +302,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       )}
       {isCustomerAdded && (
         <RentContainer>
-          <Title color={colors.nafethBlue}>
+          <Title color={colors.sideBarBgColor}>
             <h2>Selected Customer</h2>
           </Title>
           <SelectedCustomer customer={customer as customer} type={"Customer"} />
@@ -329,7 +329,11 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               className="rent-car-Adddriver-button"
               onClick={hanlelOpenDriver}
               endIcon={
-                <AddIcon width="15px" height="15px" fill={colors.nafethBlue} />
+                <AddIcon
+                  width="15px"
+                  height="15px"
+                  fill={colors.sideBarBgColor}
+                />
               }
             >
               Add Driver
@@ -349,7 +353,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               <CardUserSvg
                 width="20px"
                 height="20px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
             }
           >
@@ -500,7 +504,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       {showPricing && (
         <>
           <RentContainer>
-            <Title color={colors.nafethBlue}>
+            <Title color={colors.sideBarBgColor}>
               <h3>Pricing</h3>
             </Title>
             <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>

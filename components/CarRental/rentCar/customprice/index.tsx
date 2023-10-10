@@ -51,110 +51,97 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
       </ModalHeader>
 
       <RentList className="custom-price">
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Daily Rent"
-            defaultValue={data.dailyRent}
-            name="dailyRent"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Weekly Rent"
-            defaultValue={data.weeklyRent}
-            name="weeklyRent"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Monthly Rent"
-            defaultValue={data.monthlyRent}
-            name="monthlyRent"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="min Rate"
-            defaultValue={data.minDailyRent}
-            name="minDailyRent"
-            onChange={handleChange}
-            disabled={true}
-            variant="filled"
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Full Tank Price"
-            defaultValue={data.fullFuelCost}
-            name="fullFuelCost"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-      </RentList>
-      <RentList className="custom-price">
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Extra Hour"
-            defaultValue={data.graceHours}
-            name="graceHours"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Extra per Hour"
-            defaultValue={data.graceCharge}
-            name="graceCharge"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Per KM price"
-            defaultValue={data.perExtraKM}
-            name="perExtraKM"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="Daily KM Limit"
-            defaultValue={data.dailyKMlimit}
-            name="dailyKMlimit"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
-        <RentListItem>
-          <InputComponent
-            type="text"
-            label="KM out"
-            defaultValue={data.mileage}
-            name="mileage"
-            onChange={handleChange}
-            required
-          />
-        </RentListItem>
+        <InputComponent
+          type="text"
+          label="Daily Rent"
+          defaultValue={data.dailyRent}
+          name="dailyRent"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Weekly Rent"
+          defaultValue={data.weeklyRent}
+          name="weeklyRent"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Monthly Rent"
+          defaultValue={data.monthlyRent}
+          name="monthlyRent"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="min Rate"
+          defaultValue={data.minDailyRent}
+          name="minDailyRent"
+          onChange={handleChange}
+          disabled={true}
+          variant="filled"
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Full Tank Price"
+          defaultValue={data.fullFuelCost}
+          name="fullFuelCost"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Extra Hour"
+          defaultValue={data.graceHours}
+          name="graceHours"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Extra per Hour"
+          defaultValue={data.graceCharge}
+          name="graceCharge"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Per KM price"
+          defaultValue={data.perExtraKM}
+          name="perExtraKM"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="Daily KM Limit"
+          defaultValue={data.dailyKMlimit}
+          name="dailyKMlimit"
+          onChange={handleChange}
+          required
+        />
+
+        <InputComponent
+          type="text"
+          label="KM out"
+          defaultValue={data.mileage}
+          name="mileage"
+          onChange={handleChange}
+          required
+        />
       </RentList>
       <GroupButtons>
         <Button

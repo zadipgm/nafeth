@@ -20,7 +20,7 @@ export const SlectedAccessories = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 30px;
   padding: 8px;
-  border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+  border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
 `;
 export const Accessory = styled.div`
   display: flex;
@@ -38,6 +38,7 @@ export const AccessoriesContainer = styled.div`
   align-items: center;
   margin: 10px;
   display: flex;
+  flex-wrap: wrap;
   cursor: pointer;
   & .MuiFormGroup-root {
     label {
@@ -108,13 +109,13 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 0px 10px;
+  padding: 0px 20px;
   .active_promotions {
-    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
     cursor: pointer;
   }
-  .individual{
-     flex-grow: 1;
+  .individual {
+    flex-grow: 1;
     flex-basis: 400px;
   }
   .car-management {
@@ -136,10 +137,11 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 24%;
   flex-grow: 1;
   color: ${({ color }) => color};
-  background-color: ${({ bcolor }) => bcolor};
+ box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+  background-color: ${({ theme }) => theme.colors.pagebgcolor};
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 22px;
+ 
   transition: all.5s;
   position: relative;
 
@@ -172,16 +174,18 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
+  font-family: inherit;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   width: 100%;
   flex-wrap: wrap;
-
   &.accessory {
+    font-family: inherit;
     justify-content: center;
   }
   &.promotions {
+    font-family: inherit;
     justify-content: flex-end;
     @media (max-width: 600px) {
       width: 100%;
@@ -192,11 +196,11 @@ export const ButtonWrapper = styled.div`
       margin-bottom: 10px;
     }
   }
-
   &.car-management {
   }
-
+ 
   &.customer {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
     padding: 15px 0px 0px 0px;
@@ -207,10 +211,13 @@ export const ButtonWrapper = styled.div`
       flex-grow: 1;
       flex-basis: 100px;
       font-size: 10px !important;
+      svg {
+          margin: 0px 7px;
+        }
       &:hover {
         color: #fff;
-        border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
-        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor};
+        background-color: ${({ theme }) => theme.colors.sideBarBgColor};
         & .MuiButton-endIcon {
           svg {
             path {
@@ -222,11 +229,15 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .print {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
     border: 1px solid ${({ theme }) => theme.colors.cyan};
     color: ${({ theme }) => theme.colors.cyan};
+    svg {
+          margin: 0px 7px;
+        }
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.cyan};
@@ -242,6 +253,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .retrun {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
@@ -261,6 +276,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .extention {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     border: 1px solid ${({ theme }) => theme.colors.purple};
@@ -272,6 +291,7 @@ export const ButtonWrapper = styled.div`
       background-color: ${({ theme }) => theme.colors.purple};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           fill: #fff;
           path {
             stroke: #fff;
@@ -281,21 +301,29 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .nozhum {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     width: 100%;
     font-size: 10px !important;
     &:hover {
       color: #fff;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
   }
   & .details {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.green};
     border: 1px solid ${({ theme }) => theme.colors.green};
     svg {
+     
       path {
         fill: ${({ theme }) => theme.colors.green};
       }
@@ -321,16 +349,20 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .edit {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     &:hover {
       color: #fff;
-      border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           path {
             stroke: #fff;
           }
@@ -339,17 +371,23 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .rent {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.purple};
     border: 1px solid ${({ theme }) => theme.colors.purple};
+    
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.purple};
       background-color: ${({ theme }) => theme.colors.purple};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           path {
             stroke: #fff;
           }
@@ -358,6 +396,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .delete {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
@@ -377,9 +419,12 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .dispute {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     color: red;
     border: 1px solid red;
@@ -403,7 +448,7 @@ export const CardMakeModelWrapper = styled.div`
   align-items: center;
   width: 100%;
   .customer_full_name {
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
   }
 `;
 export const Strong = styled.strong<{ color: string }>`
@@ -420,7 +465,7 @@ export const CardMakeModel = styled.div<{ color: string }>`
   &.contract {
     color: ${({ color }) => color};
   }
-  color: ${({ theme }) => theme.colors.nafethBlue};
+  color: ${({ theme }) => theme.colors.sideBarBgColor};
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -606,6 +651,7 @@ export const CarPlateInArabicWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   .car-plate-arabic {
     width: 100%;
@@ -613,24 +659,11 @@ export const CarPlateInArabicWrapper = styled.div`
 `;
 export const RentWrapper = styled.div`
   display: flex;
-  @media (max-width: 600px) {
-    display: block;
-    &.car-card {
-      height: unset !important;
-    }
-  }
+  flex-wrap: wrap;
   margin: 30px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 70px;
-  /* &.car-card {
-    height: 400px;
-  } */
-  &.Customer-card {
-    height: 300px;
-  }
-  &.driver-card {
-    height: 200px;
-  }
+  
 `;
 export const RentList = styled.ul`
   margin: 0;
@@ -644,8 +677,10 @@ export const RentList = styled.ul`
   border-top-left-radius: 70px;
   border-bottom-left-radius: 70px;
   border-bottom-right-radius: 70px;
-  background-color: ${({ theme }) => theme.colors.nafethBlue};
+  background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   color: white;
+  flex-grow: 1;
+    flex-basis: 300px;
   &.rental-details {
     margin: 20px;
     border-radius: 100px;
@@ -681,16 +716,11 @@ export const RentList = styled.ul`
   &.custom-price {
     background-color: transparent;
     color: black;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
-    margin: 0;
-    > li {
-      width: 20%;
-      margin: 0px 4px;
-      span {
-        color: ${({ theme }) => theme.colors.gray1};
-      }
-    }
+    gap: 15px;
+   
+    
   }
   @media (max-width: 600px) {
     width: 100%;
@@ -699,6 +729,7 @@ export const RentList = styled.ul`
 export const RentListItem = styled.li`
   display: flex;
   flex-grow: 1;
+  flex-wrap: wrap;
   flex-basis: 200px;
   flex-direction: column;
   justify-content: flex-start;
@@ -719,6 +750,8 @@ export const RentListItem = styled.li`
 export const CarOtherDetails = styled.div`
   width: 30%;
   padding: 15px;
+  flex-grow: 1;
+    flex-basis: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -790,7 +823,7 @@ export const CarDetailsSubTitle = styled.span<{ color?: string }>`
     text-align: center;
     border-radius: 8px;
     color: ${({ color }) => color};
-    background-color: ${({ theme }) => theme.colors.nafethBlue};
+    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   }
 `;
 export const OtherDetailsList = styled.ul`
@@ -809,6 +842,7 @@ export const CarplateSvgWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  flex-wrap: wrap;
 `;
 export const OtherDetailsListItem = styled.li`
   display: flex;
@@ -834,7 +868,7 @@ export const IDIcon = styled.div`
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
 export const ListViewContainer = styled.div`
-  padding: 0px 15px;
+  padding: 0px 20px;
 `;
 
 export const GlobalListViewWrapper = styled.div`
@@ -842,13 +876,14 @@ export const GlobalListViewWrapper = styled.div`
   padding: 15px;
   border-radius: 22px;
   display: flex;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+  background-color: ${({ theme }) => theme.colors.pagebgcolor};
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
   &.active_promotions {
-    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
     cursor: pointer;
   }
   &.promotions {
@@ -877,7 +912,7 @@ export const ModelListViewWrapper = styled.div`
   .make-model {
     font-size: 17px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
     line-height: 21px;
   }
 `;
@@ -894,14 +929,29 @@ export const ReuseAbleList = styled.ul`
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  .car-management{
+flex-grow: 1;
+flex-basis: 150px;
+}
+.dashboard{
+flex-grow: 1;
+flex-basis: 150px;
+}
+.individual{
+  flex-grow: 1;
+flex-basis: 150px;
+}
+.disputed{
+  flex-grow: 1;
+flex-basis: 150px;
+}
 `;
 export const ReuseAbleListItem = styled.li<{ color?: string }>`
   display: flex;
   justify-content: flex-start;
   color: ${({ color }) => color};
   gap: 8px;
-  flex-grow: 1;
-  flex-basis: 150px;
+  width: 100%;
   background-color: #d7d6d645;
   padding: 3px 3px 0px 3px;
   margin: 3px;
@@ -941,11 +991,11 @@ export const CarTypeSvgWrapper = styled.div`
   .make-model {
     font-size: 17px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
     line-height: 21px;
   }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-    align-items: end;
+  align-items: end;
 `;

@@ -11,12 +11,12 @@ import Image from "next/image";
 import { useTheme } from "styled-components";
 import SettingsSvg from "@/public/icons/settings";
 const ProfileComponent = () => {
-  const { colors } = useTheme();
+  const { colors, isLTR } = useTheme();
   return (
     <ProfileContainer>
       <SettingIconWrapper>
         <SettingIcon>
-          <SettingsSvg fill={colors.nafethBlue} />
+          <SettingsSvg fill={colors.sideBarBgColor} />
         </SettingIcon>
       </SettingIconWrapper>
       <ProfileImage>
@@ -27,8 +27,10 @@ const ProfileComponent = () => {
           height={100}
         />
       </ProfileImage>
-      <Name>Muhammad</Name>
-      <Company>Kaleen Car Rental Ltd</Company>
+      <Name>{isLTR ? "Muhammad" : "محمد"}</Name>
+      <Company>
+        {isLTR ? "Kaleen Car Rental Ltd" : "كالين تأجير السيارات المحدودة"}
+      </Company>
     </ProfileContainer>
   );
 };

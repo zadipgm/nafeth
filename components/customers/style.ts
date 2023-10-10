@@ -2,15 +2,14 @@ import { styled } from "styled-components";
 export const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
- 
 `;
 export const LoyaltyContainer = styled.div`
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
 `;
 export const Wrapper = styled.div`
   padding: 15px;
-  .load-more{
+  .load-more {
     width: 200px;
     margin: 0 auto;
     text-align: center;
@@ -18,19 +17,19 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin: 20px auto;
-    & .MuiButton-endIcon{
-        svg{
-            transform: rotate(90deg);
-        }
+    & .MuiButton-endIcon {
+      svg {
+        transform: rotate(90deg);
+      }
     }
   }
 `;
 export const BlcokCustomerTitle = styled.div`
-text-align: center;
-color: ${({ theme }) => theme.colors.gray2};
-`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.gray2};
+`;
 export const CustomerCardContainer = styled.div`
-  padding: 20px;
+  padding: 20px 0px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -58,52 +57,53 @@ export const NameSvgwrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
+  border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor};
 `;
 export const List = styled.ul`
   margin: 0;
   padding: 10px 0px;
   list-style-type: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray2};
   display: flex;
-  justify-content:flex-start;
-  align-items:center;
+  justify-content: flex-start;
+  align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  &.contract-list{
+  &.contract-list {
     gap: 7px;
     justify-content: space-between;
     border-bottom: none;
   }
-  & .customer-chip{
-flex-grow: 1;
-flex-basis: 200px;
+  & .customer-chip {
+    flex-grow: 1;
+    flex-basis: 200px;
   }
 `;
 export const ListItem = styled.li`
-     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-        gap: 3px;
-
-        background-color: #d7d6d645;
-        padding: 4px;
-        border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3px;
+  background-color: #d7d6d645;
+  padding: 4px;
+  border-radius: 8px;
+  width: 100%;
+  .customer-name{
+    font-weight: bold;
+  }
 `;
 export const IDValidateWrapper = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-gap: 6px;
-.validateButton{
-  padding: 16px;
-}
-.validateButton-company{
-width: 30%;
-padding: 16px;
-}
-.validateinput-company{
-  width: 70%;
-}
-
-`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  .validateButton {
+    padding: 16px;
+  }
+  .validateButton-company {
+    width: 30%;
+    padding: 16px;
+  }
+  .validateinput-company {
+    width: 70%;
+  }
+`;

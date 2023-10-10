@@ -220,7 +220,7 @@ const ReturnContract = ({
   };
   return (
     <ReturnContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Contract Details</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -336,7 +336,7 @@ const ReturnContract = ({
             </FormBox>
           </FormBoxWrapper>
           <ReturnContainer>
-            <Title color={colors.nafethBlue}>
+            <Title color={colors.sideBarBgColor}>
               <h2>Rental Details</h2>
             </Title>
             <RentList className="rental-details">
@@ -380,7 +380,7 @@ const ReturnContract = ({
           </ReturnContainer>
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
-              <Title color={colors.nafethBlue}>
+              <Title color={colors.sideBarBgColor}>
                 <h2>Rent Account</h2>
               </Title>
               <AccountTable>
@@ -459,7 +459,7 @@ const ReturnContract = ({
 
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
-              <Title color={colors.nafethBlue}>
+              <Title color={colors.sideBarBgColor}>
                 <h2>Summary</h2>
               </Title>
               <FormBoxWrapper>

@@ -96,7 +96,7 @@ export default function GroupAddForm({ title, data }: IProps) {
   return (
     <>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
-        <Title color={colors.nafethBlue}>
+        <Title color={colors.sideBarBgColor}>
           <h2>{title}</h2>
         </Title>
         <FormWrapper

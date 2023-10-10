@@ -23,7 +23,7 @@ export const GsettingsTitle = styled.div<{ color?: string }>`
   align-items: center;
   text-align: center;
   color: #fff;
-  background-color: ${({ theme }) => theme.colors.nafethBlue};
+  background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   font-size: 16px;
@@ -51,15 +51,23 @@ export const ImageWrapper = styled.div`
 `;
 export const FormBox = styled.div<{ color: string }>`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
-  width: 32%;
-  flex-direction: column;
+  flex-grow: 1;
+    flex-basis: 400px;
   gap: 24px;
+  .car-plate-number{
+    flex-grow: 1;
+    flex-basis: 500px;
+ 
+  }
   & .MuiFormControl-root {
     .Mui-disabled{
 cursor: no-drop;
     }
     width: 100%;
+        flex-basis: 400px;
+    flex-grow: 1;
     &.car-contract-dropdown{
       width: 50%;
     }
@@ -74,7 +82,7 @@ cursor: no-drop;
       color: ${({ color }) => color};
     }
     & .MuiFormLabel-root {
-      color: ${({ theme }) => theme.colors.nafethBlue};
+      color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
   }
   & .MuiInputBase-root {
@@ -83,11 +91,11 @@ cursor: no-drop;
     }
     color: ${({ color }) => color};
     & .MuiOutlinedInput-notchedOutline {
-      border-color: ${({ theme }) => theme.colors.nafethBlue} !important;
+      border-color: ${({ theme }) => theme.colors.sideBarBgColor} !important;
       color: ${({ color }) => color};
     }
   }
-  &.customer-code{
+  /* &.customer-code{
    width: 100%;
     flex-direction: row;
   }
@@ -218,30 +226,10 @@ width: 50%;
     > div {
       width: 20%;
     }
-  }
+  } */
 `;
 
-export const ZipCode = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
 
-
-  & .MuiFormControl-root.MuiTextField-root {
-    width: 50%;
-    &.zip-code{
-width:100%
-    }
-    &.owner-id {
-      width: 70%;
-    }
-    &.version-number {
-      width: 30%;
-    }
-    
-  }
-`;
 export const CompnayLogo = styled.div`
   display: flex;
   justify-content: space-around;
@@ -255,6 +243,7 @@ export const FormBoxWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   &.price-list{
     align-items: baseline;
   }
@@ -273,6 +262,7 @@ export const GroupButtons = styled.div`
 &.rent-car-group-button{
   padding: 20px 0px;
   margin: 20px 0px;
+  flex-wrap: wrap;
 }
   display: flex;
   justify-content: center;
@@ -282,7 +272,7 @@ export const GroupButtons = styled.div`
   & .MuiButtonBase-root {
     width: 170px;
     &.pricelist-save-button{
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
     &.dispute-button{
       background-color: ${({ theme }) => theme.colors.red};
@@ -290,8 +280,16 @@ export const GroupButtons = styled.div`
     &.dispute-cancel{
       background-color: ${({ theme }) => theme.colors.gray1};
     }
+    &.paynow{
+      
+ width: 40%;
+    padding: 10px 20px;
+  font-size: 14px;
+
+  }
+    }
     &.global-settings-save-button {
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
     &.contract-on-tajeer-button{
       background-color: ${({ theme }) => theme.colors.green};
@@ -299,7 +297,8 @@ export const GroupButtons = styled.div`
     }
     &.rent-car-Add-contract{
       background-color: ${({ theme }) => theme.colors.green};
-      width: 25%;
+      flex-grow: 1;
+      flex-basis: 200px;
       svg{
         transform: rotate(90deg);
         margin: 0px 10px;
@@ -313,23 +312,27 @@ export const GroupButtons = styled.div`
       background-color: ${({ theme }) => theme.colors.darkYellow};
     }
     &.create-contract-button{
-      width: 20%;
+      width: 40%;
+      @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
       margin-bottom: 20px;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
     &.add-accessories-button{
        background-color: ${({ theme }) => theme.colors.purple};
        flex-grow: 1;
-      flex-basis: 100px;
+      flex-basis: 200px;
     }
     &.rent-car-Adddriver-button{
       flex-grow: 1;
-      flex-basis: 100px;
+      flex-basis: 200px;
       background-color: ${({ theme }) => theme.colors.purple};
     }
     &.custom-price-button{
       flex-grow: 1;
-      flex-basis: 100px;
+      flex-basis: 200px;
        background-color: ${({ theme }) => theme.colors.red};
       
     }
@@ -338,8 +341,8 @@ export const GroupButtons = styled.div`
     }
     &.rent-car-save-button{
       flex-grow: 1;
-      flex-basis: 100px;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      flex-basis: 200px;
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
       svg{
         transform: rotate(90deg);
         margin: 0px 10px;
@@ -370,12 +373,7 @@ export const GroupButtons = styled.div`
 `;
 // Nodhom component Style
 
-export const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-`;
+
 export const Logo = styled.div<{ bgcolor?: string }>`
   display: flex;
   justify-content: center;
@@ -383,15 +381,20 @@ export const Logo = styled.div<{ bgcolor?: string }>`
   padding: 15px;
   width: 100%;
   gap: 15px;
+  flex-wrap: wrap;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   background-color: ${({ bgcolor }) => bgcolor};
   > img {
     border-radius: 8px;
+    flex-grow: 1;
+    flex-basis: 100px;
   }
 `;
 export const Text = styled.div`
   color: #fff;
+  flex-grow: 1;
+    flex-basis: 600px;
   > a {
     color: #fff;
     text-decoration: none;

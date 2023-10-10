@@ -89,7 +89,7 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
   return (
     <>
       <AddBranchContainer>
-        <Title color={colors.nafethBlue}>
+        <Title color={colors.sideBarBgColor}>
           <h2>Update branch information</h2>
         </Title>
         <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>

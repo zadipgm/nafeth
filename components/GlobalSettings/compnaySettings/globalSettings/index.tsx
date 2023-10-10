@@ -118,8 +118,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   type="number"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
+
                 <InputComponent
                   label="CR Expiry Date"
                   placeholder="2023-12-31"
@@ -144,8 +143,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   type="number"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
+
                 <InputComponent
                   label="Company Domain Alias"
                   value={"BETA"}
@@ -180,10 +178,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   name="email"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-            </FormBoxWrapper>
-            <FormBoxWrapper>
-              <FormBox className="global-settings1" color={isTheme().color}>
+
                 <InputComponent
                   label="SMS Balance"
                   disabled={true}
@@ -214,25 +209,22 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   name="phone"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox className="global-settings" color={isTheme().color}>
-                <CompnayLogo>
-                  <InputComponent
-                    label=""
-                    classname="company-logo"
-                    type="file"
-                    helperText="Maximum Size 1mb"
-                    defaultValue={globalValues.logo}
-                    name="logo"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                  <Image
-                    src="/images/car-logo.jpg"
-                    alt="compnay-logo"
-                    width={270}
-                    height={140}
-                  />
-                </CompnayLogo>
+
+                <InputComponent
+                  label=""
+                  classname="company-logo"
+                  type="file"
+                  helperText="Maximum Size 1mb"
+                  defaultValue={globalValues.logo}
+                  name="logo"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+                <Image
+                  src="/images/car-logo.jpg"
+                  alt="compnay-logo"
+                  width={270}
+                  height={140}
+                />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>

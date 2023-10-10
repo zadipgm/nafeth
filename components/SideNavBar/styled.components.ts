@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  background: ${({ theme }) => theme.colors.headerbgcolor};
+position: fixed;
+  background: ${({ theme }) => theme.colors.sideBarBgColor};
+  /* background-color: #212120; */
   display: flex;
-  border-right: 1px solid
-    ${({ theme }) => theme.colors.headerSiderBarBorderColor};
+  padding: 0px 15px;
+ z-index: 9999;
   flex-direction: column;
-  width: 290px;
+  width: 300px;
   min-height: 100vh;
   background-size: cover;
   transition: 0.5s;
@@ -25,34 +27,48 @@ export const Container = styled.div`
     width: 15%;
   }
 `;
-export const SideBar = styled.div`
-  /* padding: 10px; */
-`;
 
+export const MenuWrapper = styled.div`
+padding-top: 20px;
+`
 export const SideIconWrapper = styled.div`
   display: flex;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.colors.headerSiderBarBorderColor};
-  padding: 15px 21px;
-  gap: 10px;
+  padding: 12px 0px;
+  /* gap: 21px; */
+  width: 100%;
   justify-content: flex-start;
   align-items: center;
   > a {
+    color: ${({ theme }) => theme.colors.gray2};
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.pageTextColor};
+    line-height: 30px;
+    font-size: 12px;
     font-weight: 600;
-    font-family: "Cairo", sans-serif !important;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+   
+    text-transform:uppercase;
+    font-family: "Cairo", sans-serif !important;  
   }
-  :hover {
+  :hover{
     cursor: pointer;
-  }
+      color: ${({ theme }) => theme.colors.white};
+      svg{
+      fill:${({ theme }) => theme.colors.white};
+    path{
+      fill:${({ theme }) => theme.colors.white}; ;
+    }
+    }
+    }
 `;
 export const IconWrapper = styled.div`
   width: 50px;
   height: 50px;
   cursor: pointer;
   margin: 0 auto;
-  background-color: ${({ theme }) => theme.colors.lightGreen};
+  /* background-color: ${({ theme }) => theme.colors.lightGreen}; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,42 +99,75 @@ export const IconWrapper = styled.div`
 `;
 
 export const AccordionContainer = styled.div`
-  margin-bottom: 100px;
+  margin: 0px 4px 100px 7px;
   & .MuiPaper-root {
-    background-color: ${({ theme }) => theme.colors.headerbgcolor};
+    border-bottom: none;
+    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     box-shadow: none;
     margin: 0;
+    &:before{
+      background-color: unset;
+    }
     &.Mui-expanded {
       margin: 0;
     }
     & .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded {
       min-height: 48px;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
-      svg {
-        path {
-          fill: #fff;
-        }
-      }
-      & .MuiTypography-root {
-        font-weight: 600;
-        color: #fff;
-      }
+      
     }
     & .MuiAccordionSummary-content {
-      margin: 12px 0px;
-      & .MuiTypography-root {
-        font-weight: 600;
-        font-family: "Cairo", sans-serif !important;
-        padding: 0px;
+      margin: 14px 0px;
+      &.Mui-expanded {
+::before{
+          border-right: 17px solid #DDDDDD;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    /* right: 0; */
+    top: 8px;
+    right: -19px;
+     }
       }
+     
     }
-  }
+     
   & .MuiCollapse-root {
     & .MuiAccordionDetails-root {
       padding: 12px;
     }
   }
+}
 `;
+export const TypoWrapper = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+/* gap: 21px; */
+width: 100%;
+transition:.5s;
+.MuiTypography-root{
+    font-family: inherit;
+    line-height: 30px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+&:hover{
+  transition: .5s;
+  .MuiTypography-root{
+    font-family: inherit;
+    color: ${({ theme }) => theme.colors.white};
+  }
+  svg{
+fill: white;
+path{
+  fill: white;
+}
+  }
+}
+`
+
 export const PageWrapper = styled.div`
   border-radius: 6px;
   &.group_access {
@@ -139,12 +188,12 @@ export const PageWrapper = styled.div`
     .MuiTimelineDot-root {
       margin: 5px 0px;
       &.active {
-        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        background-color: ${({ theme }) => theme.colors.sideBarBgColor};
       }
     }
     .MuiTimelineConnector-root {
       &.active {
-        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        background-color: ${({ theme }) => theme.colors.sideBarBgColor};
       }
     }
   }
@@ -155,7 +204,7 @@ export const PageWrapper = styled.div`
     text-decoration: none;
     display: flex;
     :hover {
-      color: ${({ theme }) => theme.colors.nafethBlue} !important;
+      color: ${({ theme }) => theme.colors.sideBarBgColor} !important;
       transition: 0.5s;
     }
   }
@@ -163,15 +212,19 @@ export const PageWrapper = styled.div`
 export const PageLinkWrapper = styled.div`
   &.active {
     > a {
-      color: ${({ theme }) => theme.colors.nafethBlue};
+      color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
   }
   > a {
     font-size: 14px;
     padding: 2px 8px;
+    color: ${({ theme }) => theme.colors.gray2};
   }
   &:hover {
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    a{
+
+      color: ${({ theme }) => theme.colors.sideBarBgColor};
+    }
     border-radius: 6px;
   }
 `;
@@ -180,6 +233,7 @@ export const PageLinkWrapper = styled.div`
 
 export const ProfileContainer = styled.div`
   border-bottom: 1px solid
+
     ${({ theme }) => theme.colors.headerSiderBarBorderColor};
 
   padding: 10px;
