@@ -19,4 +19,9 @@ h4{
   padding-top: 10px;
   font-size: 15px;
 }
+div{
+  svg{
+    direction: ltr;
+  }
+}
 `

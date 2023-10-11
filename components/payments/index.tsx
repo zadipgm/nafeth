@@ -5,8 +5,11 @@ import { useTheme } from "styled-components";
 import { PaymentTable } from "@/global/fakeData";
 import DataTable from "@/reuseableComponents/DataTable";
 import { Container, PaymentContainer } from "./style";
+import { useAppData } from "@/context/appContext";
+import { AppContexts } from "@/models/appContext";
 const Payments = () => {
   const { locale, colors }: any = useTheme();
+
   return (
     <PaymentContainer>
       <Title color={colors.sideBarBgColor}>

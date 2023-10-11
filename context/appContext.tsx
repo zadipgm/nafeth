@@ -1,29 +1,20 @@
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { AppContexts } from "@/models/appContext";
-import { ICarModel } from "@/models/carmodel";
-import { ILookUp } from "@/models/lookup";
-import { IGroup } from "@/models/userModel";
-import Cookies from "js-cookie";
 import { createContext, useContext, useState, useEffect } from "react";
 
 // Create a context
-const DataContext = createContext({});
+const AppDataContext = createContext({});
 
 // Create a provider component
-export function DataProvider({ children }: any) {
+export function AppDataProvider({ children }: any) {
   const [appData, setAppData] = useState<AppContexts>();
 
-  // Simulate fetching data once when the component mounts
   useEffect(() => {
-    // Replace this with your actual data fetching logic
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = "/cars/";
     const fetchCarData = async () => {
-      const response = await fetchData(userName, userPassword, url, company);
-      const result = await response;
       const CarTransmission = await fetchData(
         userName as string,
         userPassword as string,
@@ -120,8 +111,19 @@ export function DataProvider({ children }: any) {
         "/lookup/Groups",
         company as string
       );
+      const PaymentType = await fetchData(
+        userName as string,
+        userPassword as string,
+        "/lookup/PaymentType",
+        company as string
+      );
+      const PaymentCategory = await fetchData(
+        userName as string,
+        userPassword as string,
+        "/lookup/PaymentCategory",
+        company as string
+      );
       setAppData({
-        cars: result,
         groups: groupResponse,
         manager: managerResponse,
         categories: categories,
@@ -138,6 +140,8 @@ export function DataProvider({ children }: any) {
         carColor: CarColor,
         carType: CarType,
         carMake: CarMake,
+        paymentType: PaymentType,
+        paymentCategory: PaymentCategory,
       });
     };
 
@@ -145,11 +149,13 @@ export function DataProvider({ children }: any) {
   }, []);
 
   return (
-    <DataContext.Provider value={appData!}>{children}</DataContext.Provider>
+    <AppDataContext.Provider value={appData!}>
+      {children}
+    </AppDataContext.Provider>
   );
 }
 
 // Create a custom hook to access the context
-export function useData() {
-  return useContext(DataContext);
+export function useAppData() {
+  return useContext(AppDataContext);
 }

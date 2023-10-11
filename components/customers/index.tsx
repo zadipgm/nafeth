@@ -158,7 +158,7 @@ const CustomersList = ({
                 <CustomerCardWrapper>
                   <List>
                     <Tooltip
-                      content="Customer Type"
+                      content="Customer Name"
                       color={"warning"}
                       className="customer-chip"
                     >

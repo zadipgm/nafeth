@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin: 20px auto;
+    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     & .MuiButton-endIcon {
       svg {
         transform: rotate(90deg);
@@ -89,6 +90,7 @@ export const ListItem = styled.li`
   width: 100%;
   .customer-name{
     font-weight: bold;
+    font-size: 1.3em;
   }
 `;
 export const IDValidateWrapper = styled.div`
@@ -96,8 +98,11 @@ export const IDValidateWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 6px;
+      flex-wrap: wrap;
+      width: 100%;
   .validateButton {
-    padding: 16px;
+     padding: 7px 18px;
+         margin-top: 18px;
   }
   .validateButton-company {
     width: 30%;

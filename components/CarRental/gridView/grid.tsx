@@ -75,7 +75,7 @@ const Grid = ({
           <Tooltip content={"car make/model"} color={"success"}>
             <CardMakeModel color={isTheme().color}>
               <div>
-                {car.make.name_en} {car.model.name_en}/
+                {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
                 <span className="year">{car.year}</span>
               </div>
             </CardMakeModel>

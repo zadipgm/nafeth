@@ -14,6 +14,7 @@ import {
   ToolTipWrapper,
   DataTableContainer,
   TableWrapper,
+  THeader,
 } from "./style";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "styled-components";
@@ -134,7 +135,7 @@ const DataTable = ({
     console.log(filterHeader);
     return filterByLocale(locale, filterHeader).map((key: any, index: any) => {
       return (
-        <TableData key={index} className="table-header">
+        <THeader key={index} className="table-header">
           <TableDataWrapper>
             <Data>{key.toUpperCase()}</Data>
             {key.toUpperCase() === "ACTIONS" ? (
@@ -154,7 +155,7 @@ const DataTable = ({
               </div>
             )}
           </TableDataWrapper>
-        </TableData>
+        </THeader>
       );
     });
   };
@@ -283,7 +284,7 @@ const DataTable = ({
                             )}
                             {paymentButton && (
                               <GroupButtons className="paynow">
-                                <Button>Pay Now</Button>
+                                <Button variant="contained">Pay Now</Button>
                               </GroupButtons>
                             )}
                             {isDuplicate && (
@@ -328,7 +329,7 @@ const DataTable = ({
                           </ToolTipWrapper>
                         </TableData>
                       </Row>
-                      <Row className={active === item.id ? "show" : "hide"}>
+                      {/* <Row className={active === item.id ? "show" : "hide"}>
                         <br></br>
                         {nestedTable &&
                           data[0]?.procedures !== null &&
@@ -350,7 +351,7 @@ const DataTable = ({
                             );
                           })}
                         <br></br>
-                      </Row>
+                      </Row> */}
                     </>
                   );
                 })}

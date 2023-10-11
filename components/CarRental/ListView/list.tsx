@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   ButtonWrapper,
   CardColor,
+  CardMakeModel,
   CardPlateWrapper,
   CarStatus,
   CarTypeSvgWrapper,
@@ -65,10 +66,12 @@ const List = ({
           onClick={() => handleCLick(car)}
         >
           <ModelListViewWrapper>
-            <span className="make-model">
-              {car.make[`name_${locale}`]} {car.model[`name_${locale}`]}{" "}
-              <span>/</span> <span className="color">{car.year}</span>
-            </span>
+            <CardMakeModel>
+              <div>
+                {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
+                <span className="year">{car.year}</span>
+              </div>
+            </CardMakeModel>
             <CardPlateWrapper>
               <CarPlate car={car} />
             </CardPlateWrapper>

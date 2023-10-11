@@ -33,11 +33,13 @@ const Layout: React.FC<IProps> = ({ children }) => {
               <SideNavBar />
 
               <Wrapper>
-                <Header
-                  themeToggler={themeToggler as () => void}
-                  theme={theme as string}
-                />
-                <Children>{children}</Children>
+                <div>
+                  <Header
+                    themeToggler={themeToggler as () => void}
+                    theme={theme as string}
+                  />
+                  <Children>{children}</Children>
+                </div>
                 <Footer />
               </Wrapper>
             </LayoutContainer>

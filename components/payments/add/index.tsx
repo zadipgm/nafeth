@@ -15,25 +15,44 @@ import {
   paymentCategory,
   user,
 } from "@/global/fakeData";
-import InputComponent from "@/reuseableComponents/InputField";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { AddPaymentContainer, CarPlateWrapper } from "../style";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
+
+import { useAppData } from "@/context/appContext";
+import { AppContexts } from "@/models/appContext";
+import { fetchData } from "@/api/fetchapis/fetchData";
+import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import { ILookUp } from "@/models/lookup";
 const AddPayment = () => {
-  const [category, setCategory] = React.useState("");
+  const { locale } = useTheme();
+  const AppDataContext: AppContexts = useAppData();
+  console.log("dataaaaa", AppDataContext);
+  const [category, setCategory] = React.useState(0);
   const [payments, setPayments] = React.useState("");
-  const handlefieldsChange = (val: string) => {
-    setCategory(val);
-    console.log(val);
-  };
-  const handlepaymentField = (val: string) => {
-    setPayments(val);
+  const [activity, setActivity] = React.useState<ILookUp>();
+
+  const handleCategoryField = async (e: any) => {
+    let id = e.target.value;
+    let username = getName() as string;
+    let password = getPassword() as string;
+    let company = getCompany() as string;
+    await fetchData(
+      username,
+      password,
+      `/lookup/PaymentActivity/${id}`,
+      company
+    ).then((data) => setActivity(data));
+    setCategory(id);
   };
   const { colors } = useTheme();
   const router = useRouter();
+  console.log("here is iddd", typeof category);
   return (
     <AddPaymentContainer>
       <Title color={colors.sideBarBgColor}>
@@ -53,103 +72,75 @@ const AddPayment = () => {
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Date"
                 type="date"
                 name={"date"}
                 defaultValue={formattedDate(new Date())}
-                variant="filled"
                 //   onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
-                label="Category"
-                name="category"
+              <SelectField
+                label="Type"
+                name="type"
                 // onChange={handleChange}
                 defaultValue={""}
                 required
               >
-                {paymentCategory.map((option) => (
-                  <MenuItem
-                    key={option.value}
-                    value={option.value}
-                    onClick={() => handlefieldsChange(option.value)}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-              {category === "PettyCash" && (
                 <>
-                  <TextField
-                    select
-                    label="Employee/User"
-                    name="user"
-                    // onChange={handleChange}
-                    defaultValue={""}
-                    required
-                  >
-                    {user.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <InputComponent
-                    label="Customer Name"
-                    type="text"
-                    name={"Customer Name"}
-                    //   onChange={handleChange}
-                    required={true}
-                  />
+                  <option value="" disabled>
+                    Select Type
+                  </option>
+                  {AppDataContext?.paymentType?.result.map((option) => (
+                    <option key={option.name_en} value={option.id}>
+                      {option[`name_${locale}`]}
+                    </option>
+                  ))}
                 </>
-              )}
-              {category === "Reservation" && (
+              </SelectField>
+              <SelectField
+                label="Category"
+                name="category"
+                onChange={handleCategoryField}
+                defaultValue={""}
+                required
+              >
                 <>
-                  <InputComponent
-                    label="Customer Name"
-                    type="text"
-                    name={"Customer Name"}
-                    //   onChange={handleChange}
-                    required={true}
-                  />
-                  <InputComponent
-                    label="Car Plate"
-                    type="text"
-                    name={"Car Plate"}
-                    //   onChange={handleChange}
-                    required={true}
-                  />
-                  <CarPlateWrapper>
-                    <CarPlate car={carplate} />
-                  </CarPlateWrapper>
+                  <option value="" disabled>
+                    Select Category
+                  </option>
+                  {AppDataContext?.paymentCategory?.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option[`name_${locale}`]}
+                    </option>
+                  ))}
                 </>
-              )}
-              {category === "companycontract" || category === "contract" ? (
+              </SelectField>
+              <SelectField
+                label="Activity"
+                name="Activity"
+                // onChange={handleChange}
+                defaultValue={""}
+                required
+              >
                 <>
-                  <TextField
-                    select
-                    label="Activity"
-                    name="activity"
-                    // onChange={handleChange}
-                    defaultValue={""}
-                    required
-                  >
-                    {paymentActivity.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <InputComponent
+                  {activity?.result?.map((option) => (
+                    <option key={option.name_en} value={option.id}>
+                      {option[`name_${locale}`]}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              {Number(category) === 1 && (
+                <>
+                  <InputField
                     label="Contract Number"
                     type="text"
                     name={"contract_number"}
                     //   onChange={handleChange}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Cutomer Name"
                     type="text"
                     name={"Cutomer Name"}
@@ -160,10 +151,50 @@ const AddPayment = () => {
                     <CarPlate car={carplate} />
                   </CarPlateWrapper>
                 </>
-              ) : (
-                ""
               )}
-              <InputComponent
+              {Number(category) === 3 && (
+                <>
+                  <SelectField
+                    label="Employee/User"
+                    name="user"
+                    // onChange={handleChange}
+                    defaultValue={""}
+                    required
+                  >
+                    <>
+                      {user.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+                </>
+              )}
+              {Number(category) === 4 && (
+                <>
+                  <InputField
+                    label="Customer Name"
+                    type="text"
+                    name={"Customer Name"}
+                    //   onChange={handleChange}
+                    required={true}
+                  />
+                </>
+              )}
+              {Number(category) === 5 && (
+                <>
+                  <InputField
+                    label="Car Plate Number"
+                    type="text"
+                    name={"Carplatenumber"}
+                    //   onChange={handleChange}
+                    required={true}
+                  />
+                </>
+              )}
+
+              <InputField
                 label="Amount"
                 type="text"
                 name={"Amount"}
@@ -171,48 +202,47 @@ const AddPayment = () => {
                 //   onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Payment Type"
                 name="PaymentType"
                 // onChange={handleChange}
                 defaultValue={""}
                 required
               >
-                {payment.map((option) => (
-                  <MenuItem
-                    key={option.value}
-                    value={option.value}
-                    onClick={() => handlepaymentField(option.value)}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <>
+                  {payment.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                      // onClick={() => handlepaymentField(option.value)}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
               {payments !== "Cheque" && (
-                <InputComponent
+                <InputField
                   label="Tranaction Date"
                   type="date"
                   name={"tranactionDate"}
                   defaultValue={formattedDate(new Date())}
-                  variant="filled"
                   //   onChange={handleChange}
                   required={true}
                 />
               )}
               {payments === "Cheque" && (
-                <InputComponent
+                <InputField
                   label="Check Date"
                   type="date"
                   name={"checkDate"}
                   defaultValue={formattedDate(new Date())}
-                  variant="filled"
                   //   onChange={handleChange}
                   required={true}
                 />
               )}
               {payments === "Sadad" || payments === "Bank Transfer" ? (
-                <InputComponent
+                <InputField
                   label="Tranaction Number"
                   type="text"
                   placeholder="123456"
@@ -224,7 +254,7 @@ const AddPayment = () => {
                 ""
               )}
               {payments === "Cheque" && (
-                <InputComponent
+                <InputField
                   label="Check Number"
                   type="text"
                   placeholder="123456"
@@ -236,28 +266,29 @@ const AddPayment = () => {
               {payments === "Sadad" ||
               payments === "Bank Transfer" ||
               payments === "Cheque" ? (
-                <TextField
-                  select
+                <SelectField
                   label="Bank Name"
                   name="Bank Name"
                   // onChange={handleChange}
                   defaultValue={""}
                   required
                 >
-                  {bank.map((option) => (
-                    <MenuItem
-                      key={option.value}
-                      value={option.value}
-                      // onClick={() => hanldeCategoryID(option.id)}
-                    >
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  <>
+                    {bank.map((option) => (
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        // onClick={() => hanldeCategoryID(option.id)}
+                      >
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
               ) : (
                 ""
               )}
-              <InputComponent
+              <InputField
                 label="Comments"
                 type="text"
                 name={"Comments"}

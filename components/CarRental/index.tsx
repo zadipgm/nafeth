@@ -56,8 +56,6 @@ const CarRent = ({
   selectedCarID,
 }: ICarProps) => {
   const router = useRouter();
-  const data = useData();
-  console.log("here is context api", data);
   const { userName, userPassword, company } =
     React.useContext(GlobalUserContext);
   const { colors, isMobile, isLTR, translations } = useTheme();
@@ -94,6 +92,7 @@ const CarRent = ({
       setList(true);
     }
   };
+  console.log(router.pathname.replaceAll("/", ""));
   return (
     <>
       <Container>
@@ -103,7 +102,7 @@ const CarRent = ({
           ""
         ) : (
           <HeaderCard
-            title={isLTR ? "Car Management" : "إدارة السيارات"}
+            title={""}
             card={header_card}
             chart_data={Car_chart_data}
             chartTitle="Car summary"

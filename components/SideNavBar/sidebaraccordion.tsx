@@ -29,12 +29,14 @@ interface IProps {
   showcheckboxes?: boolean;
   onchange?: (e: any) => void;
   handleClose?: () => void | undefined;
+  classnames?: string;
 }
 const SideBarAccordions = ({
   sideBarMenuData,
   active_link,
   access_group_class,
   showcheckboxes = false,
+  classnames,
   onchange,
   handleClose,
 }: IProps) => {
@@ -57,7 +59,7 @@ const SideBarAccordions = ({
     }
   };
   return (
-    <AccordionContainer>
+    <AccordionContainer className={classnames}>
       {sideBarMenuData?.map(
         (
           item: {

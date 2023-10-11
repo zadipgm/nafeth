@@ -3,6 +3,8 @@ import { MenuItem, TextField } from "@mui/material";
 import { Filter, SearchWrapper } from "./style";
 import InputComponent from "../InputField";
 import { RequestSearch } from "@/hooks/useSorting";
+import SelectField from "../customeSelectField/select";
+import InputField from "../customInputField/input";
 interface IProps {
   data: any;
   setSearchvalue: any;
@@ -24,26 +26,25 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
     let header = Object?.keys(data && data[0]);
     return header?.map((key, index) => {
       return (
-        <MenuItem key={index} value={key}>
+        <option key={index} value={key}>
           {key.charAt(0).toUpperCase() +
             key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
-        </MenuItem>
+        </option>
       );
     });
   };
   return (
     <>
       <Filter>
-        <TextField
-          select
+        <SelectField
           label="Filter By Column"
           onChange={(e) => handlerChange(e)}
         >
-          {data && renderColumnKeys()}
-        </TextField>
+          <>{data && renderColumnKeys()}</>
+        </SelectField>
       </Filter>
       <SearchWrapper>
-        <InputComponent
+        <InputField
           classname="data-search"
           type="search"
           label={`Search record by ${filterKey}`}

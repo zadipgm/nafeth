@@ -137,8 +137,8 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 24%;
   flex-grow: 1;
   color: ${({ color }) => color};
- box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
-  background-color: ${({ theme }) => theme.colors.pagebgcolor};
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ theme }) => theme.colors.white};
   padding: 15px;
   border-radius: 22px;
  
@@ -460,11 +460,8 @@ export const Span = styled.span<{ color: string }>`
   font-size: 14px;
   color: ${({ color }) => color};
 `;
-export const CardMakeModel = styled.div<{ color: string }>`
+export const CardMakeModel = styled.div`
   font-size: 22px;
-  &.contract {
-    color: ${({ color }) => color};
-  }
   color: ${({ theme }) => theme.colors.sideBarBgColor};
   font-weight: 700;
   display: flex;
@@ -803,7 +800,8 @@ export const BackICon = styled.div`
   }
 `;
 export const CarDetailsTitle = styled.span`
-  color: ${({ theme }) => theme.colors.black1};
+  color: ${({ theme }) => theme.colors.gray2};
+  font-weight: 600;
   &.other-detail {
     color: ${({ theme }) => theme.colors.black1};
   }
@@ -873,13 +871,13 @@ export const ListViewContainer = styled.div`
 
 export const GlobalListViewWrapper = styled.div`
   margin: 20px 0px;
-  padding: 15px;
-  border-radius: 22px;
+  padding: 0px 15px 15px 15px;
+  border-radius: 20px;
   display: flex;
-  box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
-  background-color: ${({ theme }) => theme.colors.pagebgcolor};
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ theme }) => theme.colors.white};
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   flex-wrap: wrap;
   &.active_promotions {
@@ -894,9 +892,10 @@ export const GlobalListViewWrapper = styled.div`
 export const ModelListViewWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
-  flex-basis: 80px;
+  flex-basis: 112px;
   font-size: 18px;
   display: flex;
+  gap: 8px;
   flex-direction: column;
   align-items: flex-start;
   .contract {

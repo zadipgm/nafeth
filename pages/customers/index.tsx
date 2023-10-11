@@ -14,7 +14,7 @@ const Page: NextPageWithLayout = (props) => {
       isAddbutton={true}
       deleteable={true}
       details={true}
-      page_color={"#1281C4"}
+      page_color={"#283b58"}
       title={"Customers List"}
       customers={props as ICustomers}
       listtype=""

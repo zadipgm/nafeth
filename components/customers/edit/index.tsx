@@ -269,7 +269,7 @@ const EditCustomer = ({
                     )}
                   </IDValidateWrapper>
                   <InputComponent
-                    label="ID Expiry Date GEO"
+                    label="ID Expiry Date"
                     placeholder=""
                     type="date"
                     onChange={handleChange}

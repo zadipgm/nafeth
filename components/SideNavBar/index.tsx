@@ -20,16 +20,21 @@ const SideNavBar = () => {
       <Container className="desktop">
         <LogoContainer>
           <a href={"/dashboard"}>
-            <Image src="/images/pro2.webp" alt="logo" width={125} height={66} />
+            <Image
+              src="/images/nafeth.png"
+              alt="logo"
+              width={125}
+              height={66}
+            />
           </a>
         </LogoContainer>
         <MenuWrapper>
-          <SideIconWrapper>
+          {/* <SideIconWrapper>
             <Link href="/profile">
               <UsersSvg width="25px" height="25px" fill={colors.gray2} />
               <div>{"User Profile"}</div>
             </Link>
-          </SideIconWrapper>
+          </SideIconWrapper> */}
           <SideIconWrapper>
             <Link href="/dashboard">
               <DashboardSvg fill={colors.gray2} width="25px" height="25px" />

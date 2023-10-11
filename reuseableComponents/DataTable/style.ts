@@ -4,6 +4,7 @@ export const DataTableContainer = styled.div`
 
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
+ 
 `
 
 export const DataViewWrapper = styled.div`
@@ -45,8 +46,12 @@ export const DataView = styled.div`
 export const TableWrapper = styled.div`
 overflow-x: auto;
 padding: 20px;
+ background-color: #f4f5f3;
 `
 export const Table = styled.table`
+tr:nth-child(even) {
+  background-color: #fff;
+}
   display: table;
   border-collapse: collapse;
   
@@ -65,12 +70,22 @@ export const Table = styled.table`
     }
   }
 `;
+export const THeader = styled.th`
+padding: 15px 8px;
+border-bottom-width: 0;
+    font-size: 1.25em;
+    font-weight: 300;
+        border-bottom: 1px solid #9b9b9b;
+        text-align: left;
+            color: #252422;
+`
 export const TableData = styled.td`
 white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-      padding: 5px 16px;
-  border-bottom: 1px solid #dddddd;
+  padding: 0px 8px;
+  border-top: 1px solid #9b9b9b;
+  border-bottom: 1px solid #9b9b9b;
   text-align: left;
   &.table-header {
     font-size: 14px;
@@ -81,6 +96,7 @@ white-space: nowrap;
 `;
 export const Row = styled.tr`
   display: table-row;
+
   &.show {
     display: table-row-group;
     position: relative;

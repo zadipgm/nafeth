@@ -52,19 +52,16 @@ const MobileHeader = () => {
       >
         <>
           <div onClick={handleClose}>
-            <CloseSvg />
+            <CloseSvg fill="#fff" />
           </div>
-          <SideIconWrapper>
-            <DashboardSvg
-              fill={colors.pageTextColor}
-              width="23px"
-              height="23px"
-            />
-            <Link href="/">{"Dashboard"}</Link>
+          <SideIconWrapper className="mobile">
+            <DashboardSvg fill={colors.white} width="23px" height="23px" />
+            <Link href="/dashboard">{"Dashboard"}</Link>
           </SideIconWrapper>
           <SideBarAccordions
             sideBarMenuData={menu.result}
             handleClose={handleClose}
+            classnames={"mobile"}
           />
           {/* <ProfileComponent /> */}
         </>

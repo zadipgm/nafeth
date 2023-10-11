@@ -25,4 +25,6 @@ export interface AppContexts {
     carColor?: ILookUp,
     carType?: ILookUp,
     carMake?: ILookUp,
+    paymentType?: ILookUp,
+    paymentCategory?: ILookUp,
 }

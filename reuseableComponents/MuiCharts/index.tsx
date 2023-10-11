@@ -37,8 +37,6 @@ const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
               cornerRadius: 10,
               startAngle: -190,
               endAngle: 180,
-              cx: 350,
-              cy: 190,
             },
           ]}
           onClick={() => console.log("here is")}

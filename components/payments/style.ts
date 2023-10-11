@@ -12,5 +12,6 @@ export const Container = styled.div`
 /* padding: 15px; */
 `
 export const CarPlateWrapper = styled.div`
-width: 32.5%;
+/* width: 32.5%; */
+max-width: 32.5%;
 `
