@@ -134,8 +134,8 @@ export const ContractGrid = styled.div`
   flex-wrap: wrap;
 `;
 export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
-  width: 24%;
-  flex-grow: 1;
+  width: 25%;
+ 
   color: ${({ color }) => color};
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: ${({ theme }) => theme.colors.white};
@@ -157,10 +157,7 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     width: 100%;
     margin: 15px 0px;
   }
-  @media (min-width: 768px) {
-    width: 80%;
-    /* margin: 0 auto; */
-  }
+ 
   @media (min-width: 1024px) {
     width: 48%;
     /* margin: 0 auto; */
@@ -169,7 +166,7 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     width: 32%;
   }
   @media (min-width: 1640px) {
-    width: 23%;
+    width: 24%;
   }
 `;
 export const ButtonWrapper = styled.div`
@@ -449,6 +446,7 @@ export const CardMakeModelWrapper = styled.div`
   width: 100%;
   .customer_full_name {
     color: ${({ theme }) => theme.colors.sideBarBgColor};
+    font-size: 22px;
   }
 `;
 export const Strong = styled.strong<{ color: string }>`
@@ -460,6 +458,12 @@ export const Span = styled.span<{ color: string }>`
   font-size: 14px;
   color: ${({ color }) => color};
 `;
+export const ContractNumber = styled.div`
+display: flex;
+justify-content: flex-start;
+align-items: center;
+/* gap: 2px; */
+`
 export const CardMakeModel = styled.div`
   font-size: 22px;
   color: ${({ theme }) => theme.colors.sideBarBgColor};
@@ -678,6 +682,9 @@ export const RentList = styled.ul`
   color: white;
   flex-grow: 1;
     flex-basis: 300px;
+    &.customer-selected{
+      background-color: #000000ad;
+    }
   &.rental-details {
     margin: 20px;
     border-radius: 100px;
@@ -872,6 +879,10 @@ export const ListViewContainer = styled.div`
 export const GlobalListViewWrapper = styled.div`
   margin: 20px 0px;
   padding: 0px 15px 15px 15px;
+  &.contract-list-view{
+  padding: 10px 15px 15px 15px;
+
+  }
   border-radius: 20px;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -889,6 +900,20 @@ export const GlobalListViewWrapper = styled.div`
     cursor: pointer;
   }
 `;
+export const ContractCustomer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+&.short-list-view{
+  flex-direction: column;
+  align-items: flex-start;
+}
+& .contract-customer{
+  font-size: 20px;
+  font-weight: 700;
+}
+`
 export const ModelListViewWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
@@ -896,6 +921,31 @@ export const ModelListViewWrapper = styled.div`
   font-size: 18px;
   display: flex;
   gap: 8px;
+ 
+  &.short-list-view{
+    transition: all.5s;
+    border:2px solid transparent;
+    display: flex;
+    width: 97%;
+    cursor: pointer;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     &.active{
+      border:2px solid ${({ theme }) => theme.colors.nafethBlue};
+     }
+  }
+  &.contract-number{
+flex-basis: 150px;
+display: flex;
+flex-direction: column;
+  }
   flex-direction: column;
   align-items: flex-start;
   .contract {
@@ -909,7 +959,7 @@ export const ModelListViewWrapper = styled.div`
     color: ${({ theme }) => theme.colors.darkBlue};
   }
   .make-model {
-    font-size: 17px;
+    font-size: 26px;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.sideBarBgColor};
     line-height: 21px;
@@ -917,6 +967,9 @@ export const ModelListViewWrapper = styled.div`
 `;
 export const CardPlateWrapper = styled.div`
   width: 100%;
+  &.short-list-view{
+    width: 50%;
+  }
 `;
 export const ReuseAbleList = styled.ul`
   margin: 0;
@@ -981,6 +1034,8 @@ export const Status = styled.div<{ color: string }>`
   justify-content: center;
   border-radius: 8px;
 `;
+
+
 export const CarTypeSvgWrapper = styled.div`
   flex-grow: 1;
   flex-basis: 200px;

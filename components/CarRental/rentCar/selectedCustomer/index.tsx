@@ -29,7 +29,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
 
   return (
     <RentWrapper className={`${type}-card`}>
-      <RentList>
+      <RentList className="customer-selected">
         <RentListItem>
           <CarDetailsTitle>{type} ID</CarDetailsTitle>
           <CarDetailsSubTitle>{customer.id}</CarDetailsSubTitle>
@@ -139,11 +139,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
           </div>
         </OtherDetailsTitleWrapper>
         {type === "Customer" && (
-          <CardUserSvg
-            width="200px"
-            height="200px"
-            fill={colors.sideBarBgColor}
-          />
+          <CardUserSvg width="200px" height="200px" fill={"#000000ad"} />
         )}
         {type === "Customer" && (
           <OtherDetailsList>

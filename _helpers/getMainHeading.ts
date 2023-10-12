@@ -35,5 +35,5 @@ export const GetMainHeading = (heading: string) => {
         return mainHeading = "maintenace services"
     if (heading === "workshopbranches")
         return mainHeading = "workshop branches"
-
+    return mainHeading
 };

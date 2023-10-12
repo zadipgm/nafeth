@@ -9,11 +9,11 @@ interface IProps {
   data: IUser;
 }
 const UserList = ({ data }: IProps) => {
-  const { locale, colors }: any = useTheme();
+  const { locale, colors } = useTheme();
 
   return (
     <>
-      <Title color={colors.darkYellow}>
+      <Title color={colors.sideBarBgColor}>
         <h2>User List</h2>
       </Title>
 
@@ -22,11 +22,12 @@ const UserList = ({ data }: IProps) => {
         isDeleteAble={false}
         isDuplicate={false}
         linkPageUrl={"Users"}
-        page_color={colors.darkYellow}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="User Details"
         showFilter={true}
         showAddButton={true}
         addButtonText="Add User"
+        isEditAble={true}
       />
     </>
   );

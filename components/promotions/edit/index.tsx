@@ -13,7 +13,7 @@ import {
 import { ICarModel } from "@/models/carmodel";
 import { IPrices } from "@/models/pricelist";
 import { IPromotions } from "@/models/promotions";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
@@ -117,7 +117,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="Promotion Name English"
                 placeholder="name in english"
                 type="text"
@@ -126,7 +126,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="End Date"
                 placeholder=""
                 type="text"
@@ -135,9 +135,8 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Start Time"
                 placeholder="name in english"
                 type="text"
@@ -146,7 +145,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="End Time"
                 placeholder=""
                 type="text"
@@ -155,9 +154,8 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Promotion Name Arabic"
                 placeholder="name in arabic"
                 type="text"
@@ -167,7 +165,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 required={true}
               />
 
-              <InputComponent
+              <InputField
                 label="discount"
                 placeholder="10"
                 type="text"
@@ -176,9 +174,8 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Start Date"
                 placeholder=""
                 type="text"

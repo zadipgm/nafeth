@@ -133,31 +133,33 @@ const DataTable = ({
     let filterHeader = header.filter((id) => id != "id");
     filterHeader.push("Actions");
     console.log(filterHeader);
-    return filterByLocale(locale, filterHeader).map((key: any, index: any) => {
-      return (
-        <THeader key={index} className="table-header">
-          <TableDataWrapper>
-            <Data>{key.toUpperCase()}</Data>
-            {key.toUpperCase() === "ACTIONS" ? (
-              ""
-            ) : (
-              <div>
-                <span
-                  onClick={() => HandleAscending(key, setSearchvalue, data)}
-                >
-                  <SortUp fill={colors.gray1} width="15px" height="15px" />
-                </span>
-                <span
-                  onClick={() => HandleDescending(key, setSearchvalue, data)}
-                >
-                  <SortDown fill={colors.gray1} width="15px" height="15px" />
-                </span>
-              </div>
-            )}
-          </TableDataWrapper>
-        </THeader>
-      );
-    });
+    return filterByLocale(locale, filterHeader)
+      .slice(0, 5)
+      .map((key: any, index: any) => {
+        return (
+          <THeader key={index} className="table-header">
+            <TableDataWrapper>
+              <Data>{key.toUpperCase()}</Data>
+              {key.toUpperCase() === "ACTIONS" ? (
+                ""
+              ) : (
+                <div>
+                  <span
+                    onClick={() => HandleAscending(key, setSearchvalue, data)}
+                  >
+                    <SortUp fill={colors.gray1} width="15px" height="15px" />
+                  </span>
+                  <span
+                    onClick={() => HandleDescending(key, setSearchvalue, data)}
+                  >
+                    <SortDown fill={colors.gray1} width="15px" height="15px" />
+                  </span>
+                </div>
+              )}
+            </TableDataWrapper>
+          </THeader>
+        );
+      });
   };
 
   const hanldeEdit = (id: any) => {
@@ -256,13 +258,13 @@ const DataTable = ({
                   return (
                     <>
                       <Row key={item.nationalID}>
-                        {filterByLocale(locale, keys).map(
-                          (key: any, i: any) => {
+                        {filterByLocale(locale, keys)
+                          .slice(0, 5)
+                          .map((key: any, i: any) => {
                             return (
                               <TableData key={i}>{`${item[key]}`}</TableData>
                             );
-                          }
-                        )}
+                          })}
                         <TableData>
                           <ToolTipWrapper>
                             {isViewAble && (

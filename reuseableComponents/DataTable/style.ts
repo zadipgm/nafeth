@@ -80,10 +80,11 @@ border-bottom-width: 0;
             color: #252422;
 `
 export const TableData = styled.td`
+padding: 10px 8px;
 white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px 8px;
+  /* padding: 0px 8px; */
   border-top: 1px solid #9b9b9b;
   border-bottom: 1px solid #9b9b9b;
   text-align: left;

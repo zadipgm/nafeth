@@ -18,6 +18,7 @@ import {
   CardTransmitionWrapper,
   CardTypeIconWrapper,
   CardWrapper,
+  ContractNumber,
   Span,
   Strong,
 } from "@/components/CarRental/style";
@@ -31,6 +32,7 @@ import IssueDateSvg from "@/public/icons/issueDateSvg";
 import ReturnDateSvg from "@/public/icons/returnDateSvg";
 import CalendarSvg from "@/public/icons/calendarSvg";
 import { EditSvg } from "@/public/icons/editSvg";
+import CarContractNumberSvg from "@/public/icons/carContractNumberSvg";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   cars: ICarModel;
@@ -83,7 +85,14 @@ const Grid = ({
         <CardMakeModelWrapper>
           <Tooltip content={"Contract Number"} color={"success"}>
             <CardMakeModel color={isTheme().color}>
-              <div>{contract.contractNo}</div>
+              <ContractNumber>
+                <CarContractNumberSvg
+                  fill={colors.sideBarBgColor}
+                  width="25px"
+                  height="25px"
+                />
+                {contract.contractNo}
+              </ContractNumber>
             </CardMakeModel>
           </Tooltip>
           <Tooltip
@@ -91,6 +100,12 @@ const Grid = ({
             color={"warning"}
             className="customer_full_name"
           >
+            <IconComponent
+              width={"25px"}
+              height="25px"
+              fill={colors.sideBarBgColor}
+              icon={"carduserSvg"}
+            />
             {
               filterCustomer(customers, contract.customerID)[0][
                 `fullname_${locale}`
@@ -98,7 +113,7 @@ const Grid = ({
             }
           </Tooltip>
         </CardMakeModelWrapper>
-        <CardMakeModelWrapper>
+        {/* <CardMakeModelWrapper>
           <Tooltip content={"car make/model"} color={"success"}>
             <CardMakeModel color={isTheme().color} className="contract">
               <div>
@@ -115,7 +130,7 @@ const Grid = ({
               color={filterCar(cars, contract.carID)[0].color[`name_${locale}`]}
             ></CardColor>
           </Tooltip>
-        </CardMakeModelWrapper>
+        </CardMakeModelWrapper> */}
         <Tooltip content="Daily Rent" color={"error"}>
           <Strong color={isTheme().color}>{contract.dailyPrice}</Strong>
           <Span color={isTheme().color}>/day</Span>

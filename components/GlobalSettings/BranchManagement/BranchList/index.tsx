@@ -12,22 +12,14 @@ interface IProps {
   branches: IBranchModel;
 }
 const BranchList = ({ branches }: IProps) => {
-  const { locale, colors }: any = useTheme();
+  const { locale, colors } = useTheme();
 
   return (
     <>
-      <Title color={colors.purple}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Branch List</h2>
       </Title>
-      {/* <TableComponent
-        tableData={branches.result}
-        headerValue={[`name_${locale}`, "email", "address", "phone", "active"]}
-        isDeleteAble={false}
-        isDuplicate={false}
-        linkPageUrl={"branches"}
-        page_color={colors.purple}
-        sideBarTitle="Branch Details"
-      /> */}
+
       <DataTable
         data={branches.result}
         isDeleteAble={false}
@@ -35,7 +27,7 @@ const BranchList = ({ branches }: IProps) => {
         isDuplicate={false}
         isViewAble={true}
         linkPageUrl={"branches"}
-        page_color={colors.purple}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="Branch Details"
         size="600px"
         showAddButton={true}

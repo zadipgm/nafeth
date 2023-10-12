@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { PaymentTable } from "@/global/fakeData";
 import DataTable from "@/reuseableComponents/DataTable";
 import { Container, PaymentContainer } from "./style";
-import { useAppData } from "@/context/appContext";
+import { useAppData } from "@/context/paymentLookupContext";
 import { AppContexts } from "@/models/appContext";
 const Payments = () => {
   const { locale, colors }: any = useTheme();
@@ -29,7 +29,7 @@ const Payments = () => {
           showAddButton={true}
           addButtonText="Add Receipt"
           showFilter={true}
-          paymentButton={true}
+          paymentButton={false}
         />
       </Container>
     </PaymentContainer>

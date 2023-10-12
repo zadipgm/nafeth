@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
 import AddPayment from "@/components/payments/add";
-import { AppDataProvider } from "@/context/appContext";
+import { AppDataProvider } from "@/context/paymentLookupContext";
 const Page: NextPageWithLayout = () => {
   return (
     <AppDataProvider>

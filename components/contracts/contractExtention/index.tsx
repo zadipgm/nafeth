@@ -8,14 +8,13 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { carplate } from "@/global/fakeData";
-import InputComponent from "@/reuseableComponents/InputField";
+
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
-import { CarPlateExtention } from "../style";
+import { CarPlateExtention, ExtentionContainer } from "../style";
 import { ICarModel } from "@/models/carmodel";
 import { ICustomers } from "@/models/customers";
 import { IContracts } from "@/models/individualContracts";
@@ -23,6 +22,7 @@ import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { filterBranch, filterCar, filterCustomer } from "@/_helpers/filters";
 import { Update } from "@/api/putApis/update";
 import { IBranchModel } from "@/models/branch";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface IProps {
   contract: IContracts;
   cars: ICarModel;
@@ -94,7 +94,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
   };
   console.log(contract.result[0].actualReturnDate);
   return (
-    <div>
+    <ExtentionContainer>
       <Title color={colors.sideBarBgColor}>
         <h2>Contract Extention</h2>
       </Title>
@@ -116,14 +116,13 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Extended date"
                 type="date"
-                variant="filled"
                 value={formattedDate(new Date())}
                 disabled={true}
               />
-              <InputComponent
+              <InputField
                 label="Name"
                 type="text"
                 value={
@@ -132,60 +131,48 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
                   ]
                 }
                 disabled={true}
-                variant="filled"
               />
 
-              <InputComponent
+              <InputField
                 label="Contract Number"
                 type="text"
                 value={contract.result[0].contractNo}
                 disabled={true}
-                variant="filled"
               />
-              <InputComponent
+              <InputField
                 label="Make/Model"
                 type="text"
                 value={carMakeMOdel}
                 disabled={true}
-                variant="filled"
               />
 
-              <InputComponent
+              <InputField
                 label="Current Return Date"
                 type="date"
                 value={contract.result[0].actualReturnDate}
                 disabled={true}
-                variant="filled"
               />
 
-              <InputComponent
+              <InputField
                 label="New Return Date"
                 type="date"
                 name="returnDate"
                 defaultValue={data.returnDate}
-                variant="filled"
                 onChange={handleChange}
                 required={true}
               />
 
-              <InputComponent
+              <InputField
                 label="Comments"
                 type="text"
                 name="comments"
-                multiline={true}
-                rows={2}
                 onChange={handleChange}
                 required={true}
               />
             </FormBox>
           </FormBoxWrapper>
           <GroupButtons>
-            <Button
-              variant="contained"
-              color="success"
-              className="pricelist-save-button"
-              type="submit"
-            >
+            <Button variant="contained" color="success" type="submit">
               Save
             </Button>
             <Button
@@ -198,7 +185,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </ExtentionContainer>
   );
 };
 export default ContractExtention;

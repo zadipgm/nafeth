@@ -15,11 +15,11 @@ import Box from "@mui/material/Box";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { ICompanyNozhum } from "@/models/globalsettings";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   nozhum: ICompanyNozhum;
 }
@@ -102,34 +102,34 @@ const Nodhom = ({ nozhum }: ISettings) => {
         >
           <FormBoxWrapper>
             <FormBox className="nodhom" color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Nozm - Client Alias"
                 defaultValue={nozhumValues.clientAlias}
                 name="clientAlias"
                 onChange={(e) => onChangeHandler(e)}
               />
-              <InputComponent
+              <InputField
                 label="Nozm - Client Secret"
                 defaultValue={nozhumValues.clientSecret}
                 name="clientSecret"
                 onChange={(e) => onChangeHandler(e)}
               />
 
-              <InputComponent
+              <InputField
                 label="Nozm - Client ID"
                 defaultValue={nozhumValues.clientId}
                 name="clientId"
                 onChange={(e) => onChangeHandler(e)}
               />
 
-              <InputComponent
+              <InputField
                 label="Nozm - Username"
                 defaultValue={nozhumValues.username}
                 name="username"
                 onChange={(e) => onChangeHandler(e)}
               />
 
-              <InputComponent
+              <InputField
                 label="Nozm - Password"
                 defaultValue={nozhumValues.password}
                 name="password"

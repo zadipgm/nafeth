@@ -40,6 +40,7 @@ import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { createPost } from "@/api/postApis/createBranch";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { NumOfDays } from "@/_helpers/getDays";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface IProps {
   customers: ICustomers;
   car: ICarModel;
@@ -121,9 +122,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
     });
     console.log("handleChange", data);
   };
-  const handleSubmit = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let body = {
       customerID: customer?.id,
@@ -223,14 +222,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
   return (
     <>
       <RentContainer>
-        <Title
-          color={car.result[0].color.name_en}
-          textColor={
-            car.result[0].color.name_en.toLocaleLowerCase() === "white"
-              ? "black"
-              : "#fff"
-          }
-        >
+        <Title color={colors.sideBarBgColor}>
           <h2>Selected Car</h2>
         </Title>
 
@@ -302,7 +294,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       )}
       {isCustomerAdded && (
         <RentContainer>
-          <Title color={colors.sideBarBgColor}>
+          <Title color={"#000000ad"}>
             <h2>Selected Customer</h2>
           </Title>
           <SelectedCustomer customer={customer as customer} type={"Customer"} />
@@ -366,7 +358,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           editable={true}
           deleteable={false}
           details={false}
-          page_color={colors.purple}
+          page_color={"#000000ad"}
           listtype={"driver"}
           title={"Select a Driver"}
           onCustomerSelected={onDriverSelected}
@@ -397,211 +389,167 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           </Button>
         </GroupButtons>
       )}
-      {ShowContractDetials && (
-        <>
-          <RentContainer>
-            <Title color={colors.green}>
-              <h2>Contract Detail</h2>
-            </Title>
 
-            <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-              <Box
-                component="form"
-                sx={{
-                  width: "100%",
-                  maxWidth: "100%",
-                  padding: "15px",
-                }}
-                noValidate={false}
-                autoComplete="off"
-              >
-                <FormBoxWrapper>
-                  <FormBox
-                    color={isTheme().color}
-                    className="car-contract-details"
-                  >
-                    <InputComponent
-                      label="From Date"
-                      placeholder=""
-                      type="date"
-                      defaultValue={data.issueDate}
-                      onChange={handleChange}
-                      name={"issueDate"}
-                      variant="filled"
-                      required={true}
-                      classname="car-contract-details"
-                    />
-                    <InputComponent
-                      label="To Date"
-                      placeholder=""
-                      type="date"
-                      variant="filled"
-                      onChange={handleChange}
-                      name={"actualReturnDate"}
-                      required={true}
-                      classname="car-contract-details"
-                    />
-                    <InputComponent
-                      label="Days"
-                      placeholder=""
-                      type="text"
-                      onChange={handleChange}
-                      value={
-                        Math.trunc(
-                          NumOfDays(data.issueDate, data.actualReturnDate)
-                        ) === 0
-                          ? 1
-                          : Math.trunc(
-                              NumOfDays(data.issueDate, data.actualReturnDate)
-                            )
-                      }
-                      name={"actualTotalDays"}
-                      required={true}
-                      classname="car-contract-details"
-                    />
-                  </FormBox>
-                </FormBoxWrapper>
+      <FormWrapper
+        bcolor={isTheme().bcolor}
+        color={isTheme().color}
+        className="contract-details"
+      >
+        <Box
+          component="form"
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            padding: "15px",
+          }}
+          noValidate={false}
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          {ShowContractDetials && (
+            <>
+              <RentContainer>
+                <Title color={colors.sideBarBgColor}>
+                  <h2>Contract Detail</h2>
+                </Title>
 
-                <FormBoxWrapper>
-                  <FormBox
-                    color={isTheme().color}
-                    className="car-contract-comment"
-                  >
-                    <InputComponent
-                      label="Comments"
-                      placeholder=""
-                      type="text"
-                      onChange={handleChange}
-                      name={"issueComments"}
-                      required={true}
-                      multiline={true}
-                      rows={3}
+                <FormBox color={isTheme().color} className="contract-pricing">
+                  <InputField
+                    label="From Date"
+                    placeholder=""
+                    type="date"
+                    defaultValue={data.issueDate}
+                    onChange={handleChange}
+                    name={"issueDate"}
+                    required={true}
+                  />
+                  <InputField
+                    label="To Date"
+                    placeholder=""
+                    type="date"
+                    onChange={handleChange}
+                    name={"actualReturnDate"}
+                    required={true}
+                  />
+                  <InputField
+                    label="Days"
+                    placeholder=""
+                    type="text"
+                    onChange={handleChange}
+                    value={
+                      Math.trunc(
+                        NumOfDays(data.issueDate, data.actualReturnDate)
+                      ) === 0
+                        ? 1
+                        : Math.trunc(
+                            NumOfDays(data.issueDate, data.actualReturnDate)
+                          )
+                    }
+                    name={"actualTotalDays"}
+                    required={true}
+                  />
+
+                  <InputField
+                    label="Comments"
+                    placeholder=""
+                    type="text"
+                    onChange={handleChange}
+                    name={"issueComments"}
+                    required={true}
+                  />
+                </FormBox>
+              </RentContainer>
+
+              <GroupButtons>
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="create-contract-button"
+                  onClick={() => setShowPricing(true)}
+                  endIcon={
+                    <ArrowCircleSvg
+                      width="15px"
+                      height="15px"
+                      fill={colors.white}
                     />
-                  </FormBox>
-                </FormBoxWrapper>
-              </Box>
-            </FormWrapper>
-          </RentContainer>
-          <GroupButtons>
-            <Button
-              variant="contained"
-              color="success"
-              className="create-contract-button"
-              onClick={() => setShowPricing(true)}
-              endIcon={
-                <ArrowCircleSvg
-                  width="15px"
-                  height="15px"
-                  fill={colors.white}
-                />
-              }
-            >
-              Next
-            </Button>
-          </GroupButtons>
-        </>
-      )}
-      {showPricing && (
-        <>
-          <RentContainer>
-            <Title color={colors.sideBarBgColor}>
-              <h3>Pricing</h3>
-            </Title>
-            <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
-              <Box
-                component="form"
-                sx={{
-                  width: "100%",
-                  maxWidth: "100%",
-                  padding: "15px",
-                }}
-                noValidate={false}
-                autoComplete="off"
-              >
-                <FormBoxWrapper>
-                  <FormBox
-                    color={isTheme().color}
-                    className="car-contract-details"
-                  >
-                    <InputComponent
-                      label="Total Rented Cost"
-                      placeholder=""
-                      type="text"
-                      value={totalRentedCost}
-                      required={true}
-                      disabled={true}
-                      variant="filled"
-                      classname="car-contract-details"
-                    />
-                    <InputComponent
-                      label="Total Accessories Cost"
-                      placeholder=""
-                      type="text"
-                      disabled={true}
-                      value={totalAccesoriesCost}
-                      variant="filled"
-                      name={"date"}
-                      required={true}
-                      classname="car-contract-details"
-                    />
-                    <InputComponent
-                      label="Total Cost"
-                      placeholder=""
-                      type="text"
-                      value={totalCost}
-                      name={"days"}
-                      variant="filled"
-                      disabled={true}
-                      required={true}
-                      classname="car-contract-details"
-                    />
-                  </FormBox>
-                </FormBoxWrapper>
-                <FormBoxWrapper>
-                  <FormBox
-                    color={isTheme().color}
-                    className="car-contract-details"
-                  >
-                    <InputComponent
-                      label="Advance Amount"
-                      placeholder=""
-                      type="text"
-                      name={"advanceAmount"}
-                      onChange={handleChange}
-                      required={true}
-                      classname="car-contract-cost"
-                    />
-                    <InputComponent
-                      label="Remaining Cost"
-                      placeholder=""
-                      type="text"
-                      disabled={true}
-                      id="outlined-disabled"
-                      value={remianingCost}
-                      variant="filled"
-                      name={"days"}
-                      required={true}
-                      classname="car-contract-cost"
-                    />
-                  </FormBox>
-                </FormBoxWrapper>
-              </Box>
-            </FormWrapper>
-          </RentContainer>
-          <GroupButtons>
-            <Button
-              variant="contained"
-              className="create-contract-button"
-              onClick={(e) => handleSubmit(e)}
-              endIcon={
-                <CheckSvg width="15px" height="15px" fill={colors.white} />
-              }
-            >
-              Create Contract
-            </Button>
-          </GroupButtons>
-        </>
-      )}
+                  }
+                >
+                  Next
+                </Button>
+              </GroupButtons>
+            </>
+          )}
+          {showPricing && (
+            <>
+              <RentContainer>
+                <Title color={colors.sideBarBgColor}>
+                  <h3>Pricing</h3>
+                </Title>
+
+                <FormBox color={isTheme().color} className="contract-pricing">
+                  <InputField
+                    label="Total Rented Cost"
+                    placeholder=""
+                    type="text"
+                    value={totalRentedCost}
+                    required={true}
+                    disabled={true}
+                  />
+                  <InputField
+                    label="Total Accessories Cost"
+                    placeholder=""
+                    type="text"
+                    disabled={true}
+                    value={totalAccesoriesCost}
+                    name={"date"}
+                    required={true}
+                  />
+                  <InputField
+                    label="Total Cost"
+                    placeholder=""
+                    type="text"
+                    value={totalCost}
+                    name={"days"}
+                    disabled={true}
+                    required={true}
+                  />
+
+                  <InputField
+                    label="Advance Amount"
+                    placeholder=""
+                    type="text"
+                    name={"advanceAmount"}
+                    defaultValue={0}
+                    onChange={handleChange}
+                    required={false}
+                  />
+                  <InputField
+                    label="Remaining Cost"
+                    placeholder=""
+                    type="text"
+                    disabled={true}
+                    value={remianingCost}
+                    name={"days"}
+                    required={true}
+                  />
+                </FormBox>
+              </RentContainer>
+              <GroupButtons>
+                <Button
+                  variant="contained"
+                  className="create-contract-button"
+                  type="submit"
+                  endIcon={
+                    <CheckSvg width="15px" height="15px" fill={colors.white} />
+                  }
+                >
+                  Create Contract
+                </Button>
+              </GroupButtons>
+            </>
+          )}
+        </Box>
+      </FormWrapper>
     </>
   );
 };

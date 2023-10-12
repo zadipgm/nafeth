@@ -6,8 +6,7 @@ import {
   FormWrapper,
   GroupButtons,
 } from "../../compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
-import InputComponent from "@/reuseableComponents/InputField";
+import { Box, Button } from "@mui/material";
 import { tajeerLicense } from "@/global/fakeData";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { useRouter } from "next/router";
@@ -21,6 +20,8 @@ import { IRegions } from "@/models/regions";
 import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 
 interface IProps {
   branches: IBranchModel;
@@ -106,7 +107,7 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
           >
             <FormBoxWrapper>
               <FormBox color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="English Name"
                   placeholder="English Name"
                   type="text"
@@ -115,22 +116,23 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   onChange={handleChange}
                   required={true}
                 />
-                <TextField
-                  select
+                <SelectField
                   label="City"
                   name="cityId"
                   onChange={handleChange}
-                  defaultValue={data.city}
+                  defaultValue={data?.city.name_en}
                   value={data.city.id}
                   required
                 >
-                  {cities.result.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {isLTR ? option.name_en : option.name_en}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <InputComponent
+                  <>
+                    {cities.result.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {isLTR ? option.name_en : option.name_en}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <InputField
                   label="Phone"
                   placeholder="0581955852"
                   type="text"
@@ -138,11 +140,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"phone"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <TextField
-                  select
+                <SelectField
                   label="License Number - Tajeer"
                   onChange={handleChange}
                   defaultValue={data.tajeerLicenseNo}
@@ -150,15 +149,16 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name="tajeerLicenseNo"
                   required
                 >
-                  {tajeerLicense.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </FormBox>
-              <FormBox color={isTheme().color}>
-                <InputComponent
+                  <>
+                    {tajeerLicense.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+
+                <InputField
                   label="Arabic Name"
                   placeholder="Arabic Name"
                   type="text"
@@ -166,10 +166,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   value={data?.name_ar}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <InputComponent
+                <InputField
                   label="Address"
                   placeholder="7001234576"
                   type="text"
@@ -177,10 +175,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"address"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <InputComponent
+                <InputField
                   label="Fax Number"
                   placeholder="966114003880"
                   type="text"
@@ -188,10 +184,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"fax"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <InputComponent
+                <InputField
                   label="Latitude"
                   placeholder="24.716318063611002"
                   type="text"
@@ -199,13 +193,9 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"latitude"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
-                <TextField
-                  select
+
+                <SelectField
                   label="Country"
                   name="countryId"
                   defaultValue={data?.country.id}
@@ -213,13 +203,15 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   required
                   onChange={handleChange}
                 >
-                  {countries.result.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {isLTR ? option.name_en : option.name_en}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <InputComponent
+                  <>
+                    {countries.result.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {isLTR ? option.name_en : option.name_en}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <InputField
                   label="Email"
                   placeholder="abc@gmail.com"
                   type="email"
@@ -227,10 +219,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"email"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <InputComponent
+                <InputField
                   label="PO BOX"
                   placeholder="966114003880"
                   type="text"
@@ -238,10 +228,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   value={!Number(data?.poBox) ? "" : data?.poBox}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-                <InputComponent
+                <InputField
                   label="Longitude"
                   placeholder="24.716318063611002"
                   type="text"
@@ -249,13 +237,8 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   name={"longitude"}
                   onChange={handleChange}
                   required={true}
-                  // error={error}
-                  // helperText={error ? "Please enter name in english" : ""}
                 />
-              </FormBox>
-            </FormBoxWrapper>
-            <FormBoxWrapper>
-              <FormBox color={isTheme().color} className="regions">
+
                 <SwitchesComponent
                   title="Active/Inactive"
                   info={""}
@@ -265,21 +248,21 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   defaultChecked={data.active === "Y" ? true : false}
                   value={data.active}
                 />
-                <TextField
-                  select
+                <SelectField
                   label="Region"
                   defaultValue={regions.result[0].id}
                   name="regionId"
                   value={data.region.id}
                   onChange={handleChange}
-                  className="regions-dropdown"
                 >
-                  {regions.result.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {isLTR ? option.name_en : option.name_en}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  <>
+                    {regions.result.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {isLTR ? option.name_en : option.name_en}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
               </FormBox>
             </FormBoxWrapper>
 

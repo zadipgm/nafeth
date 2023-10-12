@@ -8,19 +8,16 @@ import {
   GsettingsTitle,
 } from "../style";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { days, hours, minutes } from "@/global/fakeData";
-import TabsComponent from "@/reuseableComponents/Tabs";
-import SwitchesComponent from "@/reuseableComponents/toggleButton";
-import InputComponent from "@/reuseableComponents/InputField";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import { ICompanyCustom } from "@/models/globalsettings";
 import Swal from "sweetalert2";
 import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   custom_settings: ICompanyCustom;
 }
@@ -128,35 +125,36 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="custom-settings" color={isTheme().color}>
-                <TextField
-                  id="outlined-select-currency"
-                  select
+                <SelectField
                   label="Hours"
                   defaultValue={freeHour}
                   name="hours"
                   onChange={(e) => handleFreeHour(e)}
                 >
-                  {hours.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  select
+                  <>
+                    {hours.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <SelectField
                   label="Minutes"
                   defaultValue={freeMinut}
                   name="minuts"
                   onChange={(e) => handleFreeMinut(e)}
                 >
-                  {minutes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  <>
+                    {minutes.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
 
-                <InputComponent
+                <InputField
                   label="Maximum km adjustment"
                   placeholder="10"
                   defaultValue={customValues.maxKMAdjustment}
@@ -164,20 +162,21 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
 
-                <TextField
-                  select
+                <SelectField
                   label="Grace Day"
                   defaultValue={customValues.graceDay}
                   name="graceDay"
                   onChange={(e) => onChangeHandler(e)}
                 >
-                  {days.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <InputComponent
+                  <>
+                    {days.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <InputField
                   label="VAT Deduction %"
                   placeholder="15.00"
                   defaultValue={customValues.vat}
@@ -185,34 +184,34 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
 
-                <TextField
-                  id="outlined-select-currency"
-                  select
+                <SelectField
                   label="Grace Day hours"
                   defaultValue={graceStartHour}
                   onChange={(e) => handleGraceHour(e)}
                 >
-                  {hours.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  id="outlined-select-currency"
-                  select
+                  <>
+                    {hours.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <SelectField
                   label="Grace Day minutes"
                   defaultValue={graceStarMinut}
                   onChange={(e) => handleGraceMinut(e)}
                 >
-                  {minutes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  <>
+                    {minutes.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
 
-                <InputComponent
+                <InputField
                   label="Tax Number"
                   placeholder="1233212"
                   defaultValue={customValues.taxNo}
@@ -220,23 +219,19 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
 
-                <InputComponent
+                <InputField
                   label="English Description"
                   placeholder="Please enter here...."
                   name="terms_en"
-                  multiline
                   defaultValue={customValues.terms_en}
-                  rows={1}
                   onChange={(e) => onChangeHandler(e)}
                   classname="group-edit-form-description"
                 />
-                <InputComponent
+                <InputField
                   label="الوصف العربي"
                   placeholder=" الرجاء الدخول هنا....."
                   name="terms_ar"
-                  multiline
                   defaultValue={customValues.terms_ar}
-                  rows={1}
                   type="textarea"
                   classname="group-edit-form-description"
                   onChange={(e) => onChangeHandler(e)}

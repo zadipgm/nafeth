@@ -4,6 +4,7 @@ import {
   ButtonWrapper,
   CardPlateWrapper,
   CarTypeSvgWrapper,
+  ContractCustomer,
   GlobalListViewWrapper,
   ListViewContainer,
   ModelListViewWrapper,
@@ -31,8 +32,8 @@ interface IProps {
   contract: Contract;
   cars: ICarModel;
   page: string;
-  customers: ICustomers;
-  toggleDrawer: (param1: Anchor, param2: boolean, param3: any) => void;
+  customers?: ICustomers;
+  toggleDrawer?: (param1: Anchor, param2: boolean, param3: any) => void;
   isViewable: boolean;
   isEditable: boolean;
   isExtendable: boolean;
@@ -74,8 +75,8 @@ const List = ({
         {...(true ? { timeout: 2000 } : {})}
       >
         <div>
-          <GlobalListViewWrapper>
-            <ModelListViewWrapper>
+          <GlobalListViewWrapper className="contract-list-view">
+            <ModelListViewWrapper className="contract-number">
               <Tooltip
                 content={"Contract number"}
                 color={"primary"}
@@ -83,10 +84,31 @@ const List = ({
                 placement={"top"}
               >
                 <div className="contract">
-                  <CarContractNumberSvg />
+                  <CarContractNumberSvg
+                    fill={colors.sideBarBgColor}
+                    width="25px"
+                    height="25px"
+                  />
                   <span className="make-model">{contract.contractNo}</span>
                 </div>
               </Tooltip>
+              <ContractCustomer>
+                <IconComponent
+                  width={"25px"}
+                  height="25px"
+                  fill={colors.sideBarBgColor}
+                  icon={"carduserSvg"}
+                />
+
+                <span className="contract-customer">
+                  {
+                    filterCustomer(customers!, contract.customerID)[0][
+                      `fullname_${locale}`
+                    ]
+                  }
+                </span>
+              </ContractCustomer>
+
               <CardPlateWrapper>
                 <CarPlate car={carplate} />
               </CardPlateWrapper>
@@ -170,7 +192,7 @@ const List = ({
                   </span>
                 </ReuseAbleListItem>
               </Tooltip>
-              <Tooltip
+              {/* <Tooltip
                 content={"Customer Name"}
                 color={"primary"}
                 className={page}
@@ -191,7 +213,7 @@ const List = ({
                     ]
                   }
                 </ReuseAbleListItem>
-              </Tooltip>
+              </Tooltip> */}
               <Tooltip
                 content={page === "disputed" ? "Damage Cost" : "Advance Amount"}
                 color={"primary"}
@@ -364,7 +386,7 @@ const List = ({
                 {isViewable && (
                   <Button
                     onClick={() =>
-                      toggleDrawer(
+                      toggleDrawer?.(
                         locale === "en" ? "right" : "left",
                         true,
                         contract

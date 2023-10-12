@@ -26,7 +26,7 @@ const GroupAccessManagement = ({ data }: IProps) => {
             isDuplicate={true}
             sideBarTitle="Group Details"
             data={data.result}
-            isEditAble={false}
+            isEditAble={true}
             isViewAble={true}
             size="600px"
             showAddButton={true}

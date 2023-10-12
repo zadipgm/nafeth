@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import LoadingScreen from "./loading";
 import { DataProvider } from "@/context/cityContext";
-import { AppDataProvider } from "@/context/appContext";
+import { AppDataProvider } from "@/context/paymentLookupContext";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };

@@ -8,9 +8,8 @@ import {
   FormWrapper,
   GroupButtons,
 } from "../../compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { language } from "@/global/fakeData";
 import { useRouter } from "next/router";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
@@ -27,6 +26,8 @@ import {
   IUserList,
 } from "@/models/userModel";
 import { Update } from "@/api/putApis/update";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IEdit {
   result: IUserList[];
   manager: ILookupManager;
@@ -110,7 +111,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
   };
   return (
     <Container>
-      <Title color={colors.darkYellow}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Edit User</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -127,7 +128,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="User Name"
                 placeholder="User Name"
                 type="text"
@@ -136,7 +137,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Full Name in English"
                 placeholder="Full Name in English"
                 type="text"
@@ -145,20 +146,21 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Base Branch"
                 defaultValue={data.baseBranch}
                 name="baseBranch"
                 onChange={handleChange}
               >
-                {baseBranch.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {isLTR ? option.name_en : option.name_ar}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <InputComponent
+                <>
+                  {baseBranch.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_ar}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <InputField
                 label="Phone"
                 placeholder="966581955852"
                 type="text"
@@ -167,7 +169,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Maximum discount on contracts"
                 placeholder="0"
                 type="text"
@@ -176,27 +178,26 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <PasswordWrapper>
-                <InputComponent
-                  label="Password"
-                  placeholder="Password"
-                  type={passwordShown ? "text" : "password"}
-                  name={"password"}
-                  defaultValue={data.password}
-                  onChange={handleChange}
-                  required={true}
-                />
-                <EyesWrapper onClick={togglePassword}>
+
+              {/* <PasswordWrapper> */}
+              <InputField
+                label="Password"
+                placeholder="Password"
+                type={passwordShown ? "text" : "password"}
+                name={"password"}
+                defaultValue={data.password}
+                onChange={handleChange}
+                required={true}
+              />
+              {/* <EyesWrapper onClick={togglePassword}>
                   {passwordShown ? (
                     <VisibilityOutlinedIcon color={"primary"} />
                   ) : (
                     <VisibilityOffOutlinedIcon color={"primary"} />
                   )}
                 </EyesWrapper>
-              </PasswordWrapper>
-              <InputComponent
+              </PasswordWrapper> */}
+              <InputField
                 label="الاسم الكامل بالعربي"
                 placeholder="الاسم الكامل بالعربي"
                 type="text"
@@ -205,20 +206,21 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Group"
                 name="groupId"
                 defaultValue={data.group}
                 onChange={handleChange}
               >
-                {group.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {isLTR ? option.name_en : option.name_ar}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <InputComponent
+                <>
+                  {group.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_ar}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <InputField
                 label="Email"
                 placeholder="xyz@gmail.com"
                 type="text"
@@ -227,40 +229,40 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="language"
                 defaultValue={data.language}
                 name="language"
                 onChange={handleChange}
               >
-                {language.map((option, i) => (
-                  <MenuItem key={i} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>{" "}
-            <FormBox color={isTheme().color}>
-              <PasswordWrapper>
-                <InputComponent
-                  label="Confirm Password"
-                  placeholder="confirm password"
-                  type={passwordShown ? "text" : "password"}
-                  name={"confirmPassword"}
-                  defaultValue={confirm_password}
-                  onChange={handleConfirmPassword}
-                  required={true}
-                />
-                <EyesWrapper onClick={togglePassword}>
+                <>
+                  {language.map((option, i) => (
+                    <option key={i} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              {/* <PasswordWrapper> */}
+              <InputField
+                label="Confirm Password"
+                placeholder="confirm password"
+                type={passwordShown ? "text" : "password"}
+                name={"confirmPassword"}
+                defaultValue={confirm_password}
+                onChange={handleConfirmPassword}
+                required={true}
+              />
+              {/* <EyesWrapper onClick={togglePassword}>
                   {passwordShown ? (
                     <VisibilityOutlinedIcon color={"primary"} />
                   ) : (
                     <VisibilityOffOutlinedIcon color={"primary"} />
                   )}
                 </EyesWrapper>
-              </PasswordWrapper>
-              <InputComponent
+              </PasswordWrapper> */}
+              <InputField
                 label="ID Number"
                 placeholder="ID Number"
                 type="text"
@@ -269,20 +271,21 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Manager"
                 defaultValue={data.manager}
                 name="managerId"
                 onChange={handleChange}
               >
-                {manager.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {isLTR ? option.name_en : option.name_ar}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <InputComponent
+                <>
+                  {manager.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {isLTR ? option.name_en : option.name_ar}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <InputField
                 label="designation"
                 placeholder="Branch supervisor"
                 type="text"

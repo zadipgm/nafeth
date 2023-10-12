@@ -4,9 +4,12 @@ export const Container = styled.div``;
 
 export const FormContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+  margin-top:20px ;
 `;
 export const FormWrapper = styled.div<{ bcolor: string; color: string }>`
   background-color: rgb(244, 245, 243);
+  &.contract-details{}
   color: ${({ color }) => color};
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -47,9 +50,13 @@ export const ImageWrapper = styled.div`
 `;
 export const FormBox = styled.div<{ color: string }>`
   display: flex;
+      width: 100%;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 12px;
+  &.contract-pricing{
+    padding: 15px;
+  }
   .car-plate-number {
     flex-grow: 1;
     flex-basis: 500px;
@@ -70,6 +77,10 @@ export const FormBoxWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  &.summary{
+
+    padding: 12px;
+  }
   &.price-list {
     align-items: baseline;
   }
@@ -226,4 +237,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &.contract-search-payment{
+margin-top: 16px;
+  }
 `;

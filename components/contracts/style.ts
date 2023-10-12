@@ -17,6 +17,13 @@ export const Container = styled.div`
     }
   }
 `;
+export const ExtentionContainer = styled.div`
+ border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`
+export const DetailSection = styled.div`
+width:100%;
+`
 export const AccountTable = styled.table`
   border-collapse: collapse;
   width: 100%;
@@ -46,7 +53,7 @@ color: red;
 export const ReturnContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-  margin: 20px;
+  margin-top: 20px;
 `;
 export const Unpaid = styled.div`
   padding: 0px 30px;

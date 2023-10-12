@@ -15,11 +15,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { ICompanyAddress } from "@/models/globalsettings";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   national_address: ICompanyAddress;
 }
@@ -98,21 +98,21 @@ const NationalAddress = ({ national_address }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="national-address" color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="Building No."
                   placeholder="2222"
                   defaultValue={national_addressValues.buildingNo}
                   name="buildingNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Street Name"
                   placeholder="Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh"
                   defaultValue={national_addressValues.streetName}
                   name="streetName"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="District"
                   placeholder="Al Malaz"
                   defaultValue={national_addressValues.district}
@@ -120,14 +120,14 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
 
-                <InputComponent
+                <InputField
                   label="City"
                   placeholder="Riyadh"
                   defaultValue={national_addressValues.city}
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Country"
                   placeholder="Saudi Arabia"
                   defaultValue={national_addressValues.country}
@@ -135,7 +135,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
 
-                <InputComponent
+                <InputField
                   label="ZIP Code"
                   placeholder="12665"
                   defaultValue={national_addressValues.zipCode1}
@@ -143,7 +143,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   classname="zip-code"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="ZIP Code"
                   placeholder="12665"
                   defaultValue={national_addressValues.zipCode2}

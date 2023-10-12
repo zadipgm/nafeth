@@ -1,5 +1,9 @@
 import * as React from "react";
-import { CarDetailsHeading, EditDisputeContainer } from "../style";
+import {
+  CarDetailsHeading,
+  DetailSection,
+  EditDisputeContainer,
+} from "../style";
 import { useTheme } from "styled-components";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import { IContracts } from "@/models/individualContracts";
@@ -13,9 +17,8 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import {
   filterBranch,
   filterCar,
@@ -33,6 +36,9 @@ import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import InputField from "@/reuseableComponents/customInputField/input";
+import { CarPlateWrapper } from "@/components/payments/style";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
   contracts: IContracts;
   cars: ICarModel;
@@ -126,17 +132,16 @@ const EditDisputeContracts = ({
           autoComplete="off"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+          <FormBox color={isTheme().color}>
+            <FormBoxWrapper className="summary">
+              <InputField
                 label="Contract Number"
                 type="text"
                 name={"plateText1_ar"}
                 value={contracts.result[0].contractNo}
-                variant="filled"
                 disabled={true}
               />
-              <InputComponent
+              <InputField
                 label="Price List"
                 type="text"
                 value={
@@ -145,20 +150,16 @@ const EditDisputeContracts = ({
                     contracts.result[0].pricelistID
                   )[0][`name_${locale}`]
                 }
-                variant="filled"
                 disabled={true}
               />
-              <InputComponent
+              <InputField
                 label="KM Out"
                 type="text"
-                variant="filled"
                 disabled={true}
                 value={contracts.result[0].kmOut}
               />
-            </FormBox>
 
-            <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Customer Name"
                 type="text"
                 name={"plateText1_ar"}
@@ -167,13 +168,11 @@ const EditDisputeContracts = ({
                     `fullname_${locale}`
                   ]
                 }
-                variant="filled"
                 disabled={true}
               />
-              <InputComponent
+              <InputField
                 label="Issued branch"
                 disabled={true}
-                variant="filled"
                 type="text"
                 value={
                   filterBranch(branches, contracts.result[0].issueBranchID)[0][
@@ -181,17 +180,14 @@ const EditDisputeContracts = ({
                   ]
                 }
               />
-              <InputComponent
+              <InputField
                 label="Issue Date"
                 type="text"
                 disabled={true}
                 value={contracts.result[0].issueDate}
-                variant="filled"
               />
-            </FormBox>
 
-            <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Nationality"
                 type="text"
                 value={
@@ -199,37 +195,35 @@ const EditDisputeContracts = ({
                     .nationality[`name_${locale}`]
                 }
                 disabled={true}
-                variant="filled"
               />
-              <InputComponent
+              <InputField
                 label="Issued User"
                 type="text"
                 disabled={true}
-                variant="filled"
                 value={
                   filterUser(users, Number(contracts.result[0].issueBy))[0][
                     `fullname_${locale}`
                   ]
                 }
               />
-              <InputComponent
+              <InputField
                 label="Expiry Date"
                 type="text"
                 disabled={true}
                 value={contracts.result[0].actualReturnDate}
-                variant="filled"
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <Title color={colors.sideBarBgColor}>
-            <h2>{"Car Details"}</h2>
-          </Title>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <CarPlate car={filterCar(cars, contracts.result[0].carID)[0]} />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+            </FormBoxWrapper>
+            <DetailSection>
+              <Title color={colors.sideBarBgColor}>
+                <h2>{"Car Details"}</h2>
+              </Title>
+            </DetailSection>
+            <FormBoxWrapper className="summary">
+              <CarPlateWrapper>
+                <CarPlate car={filterCar(cars, contracts.result[0].carID)[0]} />
+              </CarPlateWrapper>
+
+              <InputField
                 label="Car Make/Model"
                 type="text"
                 disabled={true}
@@ -238,22 +232,16 @@ const EditDisputeContracts = ({
                   cars,
                   contracts.result[0].carID
                 )}
-                variant="filled"
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Car Year"
                 type="text"
                 disabled={true}
                 value={filterCar(cars, contracts.result[0].carID)[0].year}
-                variant="filled"
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Car Type"
                 type="text"
                 disabled={true}
@@ -262,11 +250,9 @@ const EditDisputeContracts = ({
                     `name_${locale}`
                   ]
                 }
-                variant="filled"
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Car Color"
                 type="text"
                 disabled={true}
@@ -275,110 +261,95 @@ const EditDisputeContracts = ({
                     `name_${locale}`
                   ]
                 }
-                variant="filled"
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Insurance Expiry Date"
                 type="text"
                 disabled={true}
                 value={
                   filterCar(cars, contracts.result[0].carID)[0].insuranceExpDate
                 }
-                variant="filled"
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Spare parts value"
                 name={"sparePartsCost"}
                 type="text"
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Oil change value"
                 type="text"
                 onChange={handleChange}
                 name={"oilChangeCost"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="The value of car damage assessment"
                 type="text"
                 onChange={handleChange}
                 name={"damageCost"}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <Title color={colors.sideBarBgColor}>
-            <h2>{"Contract Procedures"}</h2>
-          </Title>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+            </FormBoxWrapper>
+            <DetailSection>
+              <Title color={colors.sideBarBgColor}>
+                <h2>{"Contract Procedures"}</h2>
+              </Title>
+            </DetailSection>
+            <FormBoxWrapper className="summary">
+              <InputField
                 label="Car Condition"
                 value={filterCar(cars, contracts.result[0].carID)[0].status}
-                variant="filled"
                 disabled={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <TextField
-                select
+
+              <SelectField
                 onChange={handleChange}
                 label="Payment Status"
                 name="disputedBillingStatus"
-                // onChange={handleChange}
                 defaultValue={""}
               >
-                {paymentStatus.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+                <>
+                  {paymentStatus.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              <InputField
                 label="KM In"
                 type="text"
                 onChange={handleChange}
                 name={"disputedKMIn"}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Return Date"
                 type="date"
                 onChange={handleChange}
-                variant="filled"
                 name={"disputedSubmitedDatetime"}
                 defaultValue={data.disputedSubmitedDatetime}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="comments">
-              <InputComponent
+
+              <InputField
                 label="comments"
                 type="text"
                 onChange={handleChange}
                 name={"disputedComments"}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
+            </FormBoxWrapper>
+          </FormBox>
+
           <GroupButtons>
             <Button
               variant="contained"

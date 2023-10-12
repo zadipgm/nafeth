@@ -2,6 +2,7 @@ import { isTheme } from "@/_helpers/getTheme";
 import CarPlate from "@/components/CarRental/CarPlate";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import {
+  ButtonWrapper,
   FormBox,
   FormBoxWrapper,
   FormWrapper,
@@ -24,19 +25,39 @@ import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import InputField from "@/reuseableComponents/customInputField/input";
 import SelectField from "@/reuseableComponents/customeSelectField/select";
 
-import { useAppData } from "@/context/appContext";
+import { useAppData } from "@/context/paymentLookupContext";
 import { AppContexts } from "@/models/appContext";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { ILookUp } from "@/models/lookup";
+import ModalComponent from "@/reuseableComponents/modal";
+import ContractListView from "@/components/contracts/contractListView";
+import ShortListView from "@/reuseableComponents/ShortListView.tsx";
 const AddPayment = () => {
   const { locale } = useTheme();
+  const [open, setOpen] = React.useState(false);
   const AppDataContext: AppContexts = useAppData();
   console.log("dataaaaa", AppDataContext);
   const [category, setCategory] = React.useState(0);
   const [payments, setPayments] = React.useState("");
   const [activity, setActivity] = React.useState<ILookUp>();
-
+  const [c_number, setC_number] = React.useState();
+  const [modalData, setModalData] = React.useState();
+  const handleOpen = () => {
+    let username = getName() as string;
+    let password = getPassword() as string;
+    let company = getCompany() as string;
+    fetchData(
+      username,
+      password,
+      `/contracts/Individual?search=${c_number}`,
+      company
+    ).then((data) => setModalData(data));
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleCategoryField = async (e: any) => {
     let id = e.target.value;
     let username = getName() as string;
@@ -52,7 +73,7 @@ const AddPayment = () => {
   };
   const { colors } = useTheme();
   const router = useRouter();
-  console.log("here is iddd", typeof category);
+  console.log("here is iddd", modalData);
   return (
     <AddPaymentContainer>
       <Title color={colors.sideBarBgColor}>
@@ -135,11 +156,17 @@ const AddPayment = () => {
                 <>
                   <InputField
                     label="Contract Number"
-                    type="text"
+                    type="number"
                     name={"contract_number"}
-                    //   onChange={handleChange}
+                    onChange={(e) => setC_number(e.target.value)}
                     required={true}
                   />
+                  <ButtonWrapper className="contract-search-payment">
+                    <Button variant="contained" onClick={handleOpen}>
+                      Search
+                    </Button>
+                  </ButtonWrapper>
+
                   <InputField
                     label="Cutomer Name"
                     type="text"
@@ -193,7 +220,16 @@ const AddPayment = () => {
                   />
                 </>
               )}
-
+              <ModalComponent open={open} handleClose={handleClose} size={"md"}>
+                <>
+                  <ShortListView
+                    contracts={AppDataContext?.contracts}
+                    customers={AppDataContext?.Customers}
+                    cars={AppDataContext?.cars}
+                    close={handleClose}
+                  />
+                </>
+              </ModalComponent>
               <InputField
                 label="Amount"
                 type="text"

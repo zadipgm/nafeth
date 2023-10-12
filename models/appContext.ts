@@ -1,8 +1,9 @@
 import { ICarModel } from "./carmodel";
 import { ICitiesModel } from "./city";
 import { ICountriesModel } from "./country";
-import { ICategory, IPriceList } from "./customers";
+import { ICategory, ICustomers, IPriceList } from "./customers";
 import { IGroups } from "./groups";
+import { IContracts } from "./individualContracts";
 import { ILookUp } from "./lookup";
 import { IRegions } from "./regions";
 import { IBaseBranch, IManager } from "./userModel";
@@ -27,4 +28,6 @@ export interface AppContexts {
     carMake?: ILookUp,
     paymentType?: ILookUp,
     paymentCategory?: ILookUp,
+    contracts?: IContracts
+    Customers?: ICustomers
 }
