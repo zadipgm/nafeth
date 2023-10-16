@@ -7,7 +7,13 @@ import DataTable from "@/reuseableComponents/DataTable";
 import { Container, PaymentContainer } from "./style";
 import { useAppData } from "@/context/paymentLookupContext";
 import { AppContexts } from "@/models/appContext";
-const Payments = () => {
+import { IPayments } from "@/models/payments";
+import { paymentKeys } from "@/constants";
+interface IProps {
+  payments: IPayments;
+}
+const Payments = ({ payments }: IProps) => {
+  console.log("here is payment", payments);
   const { locale, colors }: any = useTheme();
 
   return (
@@ -17,7 +23,7 @@ const Payments = () => {
       </Title>
       <Container>
         <DataTable
-          data={PaymentTable}
+          data={payments.result}
           isDeleteAble={false}
           isEditAble={false}
           isDuplicate={false}
@@ -30,6 +36,7 @@ const Payments = () => {
           addButtonText="Add Receipt"
           showFilter={true}
           paymentButton={false}
+          keys={paymentKeys}
         />
       </Container>
     </PaymentContainer>

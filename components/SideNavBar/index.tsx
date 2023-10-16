@@ -13,7 +13,7 @@ import UsersSvg from "@/public/icons/USERS";
 
 const SideNavBar = () => {
   const { menu } = React.useContext(GlobalUserContext);
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
 
   return (
     <>
@@ -38,7 +38,7 @@ const SideNavBar = () => {
           <SideIconWrapper>
             <Link href="/dashboard">
               <DashboardSvg fill={colors.gray2} width="25px" height="25px" />
-              <div>{"Dashboard"}</div>
+              <div>{translations?.dashboard}</div>
             </Link>
           </SideIconWrapper>
           <SideBarAccordions sideBarMenuData={menu.result} />

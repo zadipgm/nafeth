@@ -19,7 +19,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
-import { Button, Fab, IconButton } from "@mui/material";
+import { Button, ButtonGroup, Fab, IconButton } from "@mui/material";
 import { filterByLocale } from "@/hooks/filterByLocale";
 import { HandleAscending, HandleDescending } from "@/hooks/useSorting";
 import SortUp from "@/public/icons/sortUp";
@@ -52,6 +52,8 @@ import ViewButton from "../viewsButton";
 import SearchComponent from "../SearchComponent";
 import { SearchTabsWrapper } from "@/components/contracts/style";
 import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
+import { CloseIconWrapper } from "@/components/header/styled.components";
+import CloseSvg from "@/public/icons/closeSvg";
 
 interface IProps {
   data?: any;
@@ -69,6 +71,12 @@ interface IProps {
   showAddButton?: boolean;
   addButtonText?: string;
   paymentButton?: boolean;
+  viewButtons?: boolean;
+  handleClose?: () => void;
+  isSelectable?: boolean;
+  handleContractNumber?: (param: number) => void;
+  showCloseIcon?: boolean;
+  keys?: string[];
 }
 type Anchor = "top" | "left" | "bottom" | "right";
 const DataTable = ({
@@ -85,7 +93,13 @@ const DataTable = ({
   sideBarTitle,
   addButtonText,
   showAddButton,
-  paymentButton,
+  classname,
+  viewButtons,
+  handleClose,
+  isSelectable,
+  showCloseIcon,
+  handleContractNumber,
+  keys,
 }: IProps) => {
   const { colors, locale } = useTheme();
   const router = useRouter();
@@ -129,43 +143,44 @@ const DataTable = ({
   };
 
   const renderTableHeader = () => {
-    let header = Object?.keys(data && data[0]);
-    let filterHeader = header.filter((id) => id != "id");
-    filterHeader.push("Actions");
-    console.log(filterHeader);
-    return filterByLocale(locale, filterHeader)
-      .slice(0, 5)
-      .map((key: any, index: any) => {
-        return (
-          <THeader key={index} className="table-header">
-            <TableDataWrapper>
-              <Data>{key.toUpperCase()}</Data>
-              {key.toUpperCase() === "ACTIONS" ? (
-                ""
-              ) : (
-                <div>
-                  <span
-                    onClick={() => HandleAscending(key, setSearchvalue, data)}
-                  >
-                    <SortUp fill={colors.gray1} width="15px" height="15px" />
-                  </span>
-                  <span
-                    onClick={() => HandleDescending(key, setSearchvalue, data)}
-                  >
-                    <SortDown fill={colors.gray1} width="15px" height="15px" />
-                  </span>
-                </div>
-              )}
-            </TableDataWrapper>
-          </THeader>
-        );
-      });
+    return filterByLocale(locale, keys).map((key: any, index: any) => {
+      return (
+        <THeader key={index} className="table-header">
+          <TableDataWrapper>
+            <Data>{key.toUpperCase().replaceAll("_", " ")}</Data>
+            {key.toUpperCase() === "ACTIONS" ? (
+              ""
+            ) : (
+              <div>
+                <span
+                  onClick={() => HandleAscending(key, setSearchvalue, data)}
+                >
+                  <SortUp fill={colors.gray1} width="15px" height="15px" />
+                </span>
+                <span
+                  onClick={() => HandleDescending(key, setSearchvalue, data)}
+                >
+                  <SortDown fill={colors.gray1} width="15px" height="15px" />
+                </span>
+              </div>
+            )}
+          </TableDataWrapper>
+        </THeader>
+      );
+    });
   };
 
   const hanldeEdit = (id: any) => {
     router.push({
       pathname: `/${linkPageUrl}/edit/${id}`,
     });
+  };
+  const handleSelectedContract = (id: number) => {
+    console.log("handleSelected", id);
+    handleContractNumber?.(id);
+    setTimeout(() => {
+      handleClose?.();
+    }, 500);
   };
   const hanldeDelete = (id: any) => {
     let userName = getName() as string;
@@ -188,21 +203,21 @@ const DataTable = ({
     let list = searchvalue?.filter((item: any) => item.id != id);
     setSearchvalue(list);
   };
-  const renderTableNestedHeader = () => {
-    if (data[0]?.procedures !== null) {
-      let header = Object?.keys(data && data[0]?.procedures[0]);
-      return (
-        header &&
-        header?.map((key, index) => {
-          return (
-            <TableData className="table-header" key={index}>
-              {key.toUpperCase()}
-            </TableData>
-          );
-        })
-      );
-    }
-  };
+  // const renderTableNestedHeader = () => {
+  //   if (data[0]?.procedures !== null) {
+  //     let header = Object?.keys(data && data[0]?.procedures[0]);
+  //     return (
+  //       header &&
+  //       header?.map((key, index) => {
+  //         return (
+  //           <TableData className="table-header" key={index}>
+  //             {key.toUpperCase()}
+  //           </TableData>
+  //         );
+  //       })
+  //     );
+  //   }
+  // };
 
   const handleView = (val: string) => {
     if (val === "grid") {
@@ -216,12 +231,19 @@ const DataTable = ({
   };
   return (
     <DataTableContainer>
+      {showCloseIcon && (
+        <CloseIconWrapper onClick={handleClose}>
+          <CloseSvg />
+        </CloseIconWrapper>
+      )}
       {showFilter && (
         <SearchTabsWrapper
           bcolor={isTheme()?.bcolor}
           color={isTheme()?.inputColor}
         >
-          <ViewButton handleView={handleView} list={list} grid={grid} />
+          {viewButtons && (
+            <ViewButton handleView={handleView} list={list} grid={grid} />
+          )}
 
           {showAddButton && (
             <Fab
@@ -243,6 +265,8 @@ const DataTable = ({
             data={data}
             setSearchvalue={setSearchvalue}
             currentRecords={currentRecords}
+            keys={keys}
+            classname={classname}
           />
         </SearchTabsWrapper>
       )}
@@ -254,17 +278,20 @@ const DataTable = ({
               searchvalue
                 ?.slice(0, recordsPerPage as number)
                 ?.map((item: any, index: any) => {
-                  let keys = Object?.keys(item)?.filter((id) => id !== "id");
                   return (
                     <>
                       <Row key={item.nationalID}>
-                        {filterByLocale(locale, keys)
-                          .slice(0, 5)
-                          .map((key: any, i: any) => {
+                        {filterByLocale(locale, keys).map(
+                          (key: any, i: any) => {
                             return (
-                              <TableData key={i}>{`${item[key]}`}</TableData>
+                              <TableData key={i}>
+                                {`${typeof item[key]}` === "object"
+                                  ? `${item[key][`name_${locale}`]}`
+                                  : `${item[key]}`}{" "}
+                              </TableData>
                             );
-                          })}
+                          }
+                        )}
                         <TableData>
                           <ToolTipWrapper>
                             {isViewAble && (
@@ -284,11 +311,7 @@ const DataTable = ({
                                 </IconButton>
                               </Tooltip>
                             )}
-                            {paymentButton && (
-                              <GroupButtons className="paynow">
-                                <Button variant="contained">Pay Now</Button>
-                              </GroupButtons>
-                            )}
+
                             {isDuplicate && (
                               <Tooltip
                                 content="Duplicate"
@@ -316,6 +339,19 @@ const DataTable = ({
                                   <EditSvg size={20} fill={"#0072F5"} />
                                 </IconButton>
                               </Tooltip>
+                            )}
+                            {isSelectable && (
+                              <ButtonGroup
+                                variant="contained"
+                                color="primary"
+                                onClick={() =>
+                                  handleSelectedContract(
+                                    item.contractNo ? item.contractNo : item.id
+                                  )
+                                }
+                              >
+                                <Button>Select</Button>
+                              </ButtonGroup>
                             )}
                             {isDeleteAble && (
                               <Tooltip

@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
+import { Container } from "../../style";
 const AddLoyalityList = () => {
   const { colors } = useTheme();
   const router = useRouter();
@@ -66,7 +67,7 @@ const AddLoyalityList = () => {
     );
   };
   return (
-    <div>
+    <Container>
       <Title color={colors.sideBarBgColor}>
         <h2>Add New List</h2>
       </Title>
@@ -155,7 +156,7 @@ const AddLoyalityList = () => {
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default AddLoyalityList;

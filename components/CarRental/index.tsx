@@ -37,8 +37,8 @@ import MainSectionCard from "@/reuseableComponents/HeaderCards/mainSectionCard";
 import { GlobalUserContext } from "@/context";
 import { Title } from "../GlobalSettings/BranchManagement/style";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-import { useData } from "@/context/cityContext";
 import MUIPaiChart from "@/reuseableComponents/MuiCharts";
+import { carKeys } from "@/constants";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
@@ -103,7 +103,7 @@ const CarRent = ({
         ) : (
           <HeaderCard
             title={""}
-            card={header_card}
+            card={header_card.slice(0, 4)}
             chart_data={Car_chart_data}
             chartTitle="Car summary"
             page="car-management"
@@ -160,6 +160,8 @@ const CarRent = ({
               data={cars.result}
               currentRecords={cars.result}
               setSearchvalue={setSearchvalue}
+              keys={carKeys}
+              classname="small_size"
             />
           </SearchTabsWrapper>
           {list && (

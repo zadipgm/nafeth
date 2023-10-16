@@ -7,16 +7,18 @@ import {
   RentListItem,
 } from "../../style";
 import CloseSvg from "@/public/icons/closeSvg";
-import InputComponent from "@/reuseableComponents/InputField";
 import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
 import { Button } from "@mui/material";
 import { ICarModel } from "@/models/carmodel";
+import { useTheme } from "styled-components";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface IProps {
   handleClose: () => void;
   car: ICarModel;
   getCustomPrice: (price: any) => void;
 }
 const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
+  const { translations } = useTheme();
   const obj = {
     mileage: car.result[0].mileage,
     dailyRent: car.result[0].dailyRent,
@@ -44,99 +46,98 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
   return (
     <>
       <ModalHeader>
-        <h3>Custom Price</h3>
+        <h3>{translations?.customePrice}</h3>
         <div onClick={() => handleClose()}>
           <CloseSvg />
         </div>
       </ModalHeader>
 
       <RentList className="custom-price">
-        <InputComponent
+        <InputField
           type="text"
-          label="Daily Rent"
+          label={translations?.dailyRent as string}
           defaultValue={data.dailyRent}
           name="dailyRent"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Weekly Rent"
+          label={translations?.weeklyRent as string}
           defaultValue={data.weeklyRent}
           name="weeklyRent"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Monthly Rent"
+          label={translations?.monthlyRent as string}
           defaultValue={data.monthlyRent}
           name="monthlyRent"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="min Rate"
+          label={translations?.minRate as string}
           defaultValue={data.minDailyRent}
           name="minDailyRent"
           onChange={handleChange}
           disabled={true}
-          variant="filled"
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Full Tank Price"
+          label={translations?.fullTankPrice as string}
           defaultValue={data.fullFuelCost}
           name="fullFuelCost"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Extra Hour"
+          label={translations?.graceHours as string}
           defaultValue={data.graceHours}
           name="graceHours"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Extra per Hour"
+          label={translations?.extraperHour as string}
           defaultValue={data.graceCharge}
           name="graceCharge"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Per KM price"
+          label={translations?.perkMprice as string}
           defaultValue={data.perExtraKM}
           name="perExtraKM"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="Daily KM Limit"
+          label={translations?.dailyKMLimit as string}
           defaultValue={data.dailyKMlimit}
           name="dailyKMlimit"
           onChange={handleChange}
           required
         />
 
-        <InputComponent
+        <InputField
           type="text"
-          label="KM out"
+          label={translations?.kmout as string}
           defaultValue={data.mileage}
           name="mileage"
           onChange={handleChange}
@@ -149,10 +150,10 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
           color="success"
           onClick={() => handleSave()}
         >
-          Save
+          {translations?.save}
         </Button>
         <Button variant="contained" color="error" onClick={() => handleClose()}>
-          Cancel
+          {translations?.cancel}
         </Button>
       </GroupButtons>
     </>

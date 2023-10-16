@@ -62,6 +62,7 @@ import CarRentSvg from "@/public/icons/cars";
 import CarRented from "@/public/icons/carRentedSvg";
 import { IBranchModel } from "@/models/branch";
 import ContractGridView from "../contractGridView";
+import { contractKeys } from "@/constants";
 
 interface IProps {
   contracts: IContracts;
@@ -151,6 +152,8 @@ const ContractPage = ({
               data={contracts.result}
               currentRecords={contracts.result}
               setSearchvalue={setSearchvalue}
+              keys={contractKeys}
+              classname="small_size"
             />
           </SearchTabsWrapper>
           {list && (

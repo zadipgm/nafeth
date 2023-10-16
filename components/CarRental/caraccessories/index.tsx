@@ -8,6 +8,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { Container } from "../style";
+import { accessoriesKeys } from "@/constants";
 interface IProps {
   list: IAccessory;
 }
@@ -34,6 +35,7 @@ const CarAccessoryList = ({ list }: IProps) => {
         size="400px"
         showAddButton={true}
         addButtonText="Add New   List"
+        keys={accessoriesKeys}
       />
     </Container>
   );

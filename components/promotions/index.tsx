@@ -1,4 +1,5 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
+import { promotionKeys } from "@/constants";
 import { IPriceList } from "@/models/customers";
 import { IPrices } from "@/models/pricelist";
 import { IPromotions } from "@/models/promotions";
@@ -24,7 +25,7 @@ const PromotionsList = ({ list }: IProps) => {
         showFilter={true}
         isDeleteAble={false}
         isEditAble={true}
-        isViewAble={true}
+        isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"promotions"}
         page_color={colors.sideBarBgColor}
@@ -32,6 +33,8 @@ const PromotionsList = ({ list }: IProps) => {
         size="800px"
         showAddButton={true}
         addButtonText="Add New List"
+        keys={promotionKeys}
+        classname="small_size"
       />
     </DataTableContainer>
   );

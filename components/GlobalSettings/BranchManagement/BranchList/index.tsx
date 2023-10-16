@@ -7,6 +7,7 @@ import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
 import { Title } from "../style";
 import DataTable from "@/reuseableComponents/DataTable";
+import { branchKeys } from "@/constants";
 
 interface IProps {
   branches: IBranchModel;
@@ -23,7 +24,7 @@ const BranchList = ({ branches }: IProps) => {
       <DataTable
         data={branches.result}
         isDeleteAble={false}
-        isEditAble={false}
+        isEditAble={true}
         isDuplicate={false}
         isViewAble={true}
         linkPageUrl={"branches"}
@@ -33,6 +34,7 @@ const BranchList = ({ branches }: IProps) => {
         showAddButton={true}
         addButtonText="Add Branch"
         showFilter={true}
+        keys={branchKeys}
       />
     </>
   );

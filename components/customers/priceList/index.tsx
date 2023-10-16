@@ -6,6 +6,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { LoyaltyContainer } from "../style";
+import { priceListKeys } from "@/constants";
 interface IProps {
   list: IPrices;
 }
@@ -30,6 +31,7 @@ const PriceListComponent = ({ list }: IProps) => {
         showAddButton={true}
         addButtonText="Add New List"
         showFilter={true}
+        keys={priceListKeys}
       />
     </LoyaltyContainer>
   );

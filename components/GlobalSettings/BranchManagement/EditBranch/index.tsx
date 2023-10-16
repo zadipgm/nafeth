@@ -120,8 +120,7 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   label="City"
                   name="cityId"
                   onChange={handleChange}
-                  defaultValue={data?.city.name_en}
-                  value={data.city.id}
+                  defaultValue={data?.city.id}
                   required
                 >
                   <>
@@ -199,7 +198,6 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
                   label="Country"
                   name="countryId"
                   defaultValue={data?.country.id}
-                  value={data.country.id}
                   required
                   onChange={handleChange}
                 >

@@ -119,8 +119,9 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
     flex-basis: 400px;
   }
   .car-management {
-    flex-grow: 1;
-    flex-basis: 375px;
+    flex-grow: 0;
+    flex-basis: 365px;
+    justify-content: space-between;
   }
   .promotions {
     border: 2px solid transparent;
@@ -134,8 +135,7 @@ export const ContractGrid = styled.div`
   flex-wrap: wrap;
 `;
 export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
-  width: 25%;
- 
+  width: 23%;
   color: ${({ color }) => color};
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: ${({ theme }) => theme.colors.white};

@@ -122,7 +122,7 @@ const GermanyGDPperCapita = [
 ];
 
 export default function StackedAreas() {
-  const { isLTR } = useTheme();
+  const { isLTR, translations } = useTheme();
   const customize = {
     height: 350,
     legend: { hidden: true },
@@ -132,7 +132,7 @@ export default function StackedAreas() {
   };
   return (
     <LineCharWrapper>
-      <h4>Cars Track Records</h4>
+      <h4>{translations?.carsTrackRecords}</h4>
       <LineChart
         xAxis={[
           {
@@ -194,7 +194,7 @@ export default function StackedAreas() {
         ]}
         {...customize}
       />
-      <p className="bottom">Car Records From 2013 to 2023</p>
+      <p className="bottom">{translations?.carRecordsFrom}</p>
     </LineCharWrapper>
   );
 }

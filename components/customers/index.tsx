@@ -41,6 +41,7 @@ import { GroupButtons } from "../GlobalSettings/compnaySettings/style";
 import { ICustomers, customer } from "@/models/customers";
 import SearchComponent from "@/reuseableComponents/SearchComponent";
 import { SearchBarWrapper } from "../contracts/style";
+import { customersKeys } from "@/constants";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   editable: boolean;
@@ -143,6 +144,7 @@ const CustomersList = ({
             data={customers.result}
             currentRecords={customers.result}
             setSearchvalue={setSearchvalue}
+            keys={customersKeys}
           />
         </SearchBarWrapper>
 

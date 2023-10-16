@@ -73,8 +73,8 @@ tr:nth-child(even) {
 export const THeader = styled.th`
 padding: 15px 8px;
 border-bottom-width: 0;
-    font-size: 1.25em;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 600;
         border-bottom: 1px solid #9b9b9b;
         text-align: left;
             color: #252422;

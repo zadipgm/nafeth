@@ -52,7 +52,7 @@ interface IProps {
   pricelist: IPriceList;
 }
 const RentCar = ({ customers, car, car_accessories }: IProps) => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   let obj = {
     customerID: 0,
@@ -247,7 +247,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
             <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
           }
         >
-          Next
+          {translations?.next}
         </Button>
         <Button
           variant="contained"
@@ -256,7 +256,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           onClick={() => handleOpenCutomPrice()}
           endIcon={<CashSvg width="15px" height="15px" fill={colors.white} />}
         >
-          Custom Price
+          {translations?.customePrice}
         </Button>
         <Button
           variant="contained"
@@ -265,7 +265,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           onClick={() => setAccessories(true)}
           endIcon={<AddIcon width="15px" height="15px" fill={colors.white} />}
         >
-          Add Accessories
+          {translations?.addAccessories}
         </Button>
       </GroupButtons>
       <ModalComponent

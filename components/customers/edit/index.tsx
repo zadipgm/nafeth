@@ -108,7 +108,7 @@ const EditCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `customers/Customers/${data.id}`;
+    let url = `customers/${data.id}`;
     await Update(userName, userPassword, url, company, data).then(
       (res: any) => {
         if (res.status == 200) {
@@ -136,7 +136,7 @@ const EditCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `/customers/Customers/ValidateID/${data.idNumber}`;
+    let url = `/customers/ValidateID/${data.idNumber}`;
 
     await fetchData(userName, userPassword, url, company).then((res: any) => {
       if (res.message == "success") {

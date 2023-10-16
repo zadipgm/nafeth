@@ -6,7 +6,7 @@ import { IGroups } from "./groups";
 import { IContracts } from "./individualContracts";
 import { ILookUp } from "./lookup";
 import { IRegions } from "./regions";
-import { IBaseBranch, IManager } from "./userModel";
+import { IBaseBranch, IManager, IUser } from "./userModel";
 
 export interface AppContexts {
     cars?: ICarModel,
@@ -30,4 +30,7 @@ export interface AppContexts {
     paymentCategory?: ILookUp,
     contracts?: IContracts
     Customers?: ICustomers
+    paymentMethods?: ILookUp
+    banks?: ILookUp
+    user?: IUser
 }

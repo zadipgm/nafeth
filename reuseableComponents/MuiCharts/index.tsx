@@ -15,7 +15,7 @@ interface IProps {
   classname?: string;
 }
 const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
-  const { isLTR } = useTheme();
+  const { isLTR, translations } = useTheme();
   const customize = {
     height: 350,
     legend: { hidden: false },
@@ -25,7 +25,7 @@ const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
   return (
     <Container bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
       <Chart>
-        <h4>Cars Status</h4>
+        <h4>{translations?.carsStatus as string}</h4>
         <PieChart
           className="pie-chart"
           series={[
@@ -42,7 +42,7 @@ const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
           onClick={() => console.log("here is")}
           {...customize}
         />
-        <p className="bottom">Total cars</p>
+        <p className="bottom">{translations?.totalCars as string}</p>
       </Chart>
       <MuiLineChart />
     </Container>

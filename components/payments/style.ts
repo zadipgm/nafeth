@@ -13,5 +13,7 @@ export const Container = styled.div`
 `
 export const CarPlateWrapper = styled.div`
 /* width: 32.5%; */
-max-width: 32.5%;
+/* max-width: 35.5%; */
+flex-grow: 1;
+flex-basis: 250px;
 `

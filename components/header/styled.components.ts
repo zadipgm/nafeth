@@ -52,6 +52,8 @@ export const CloseIconWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 12px;
+    cursor: pointer;
 `
 export const LangButton = styled.a`
 text-decoration:none ;

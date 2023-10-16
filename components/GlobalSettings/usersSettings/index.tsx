@@ -4,6 +4,7 @@ import { useTheme } from "styled-components";
 import { Title } from "../BranchManagement/style";
 import { IUser } from "@/models/userModel";
 import DataTable from "@/reuseableComponents/DataTable";
+import { userKeys } from "@/constants";
 
 interface IProps {
   data: IUser;
@@ -28,6 +29,7 @@ const UserList = ({ data }: IProps) => {
         showAddButton={true}
         addButtonText="Add User"
         isEditAble={true}
+        keys={userKeys}
       />
     </>
   );

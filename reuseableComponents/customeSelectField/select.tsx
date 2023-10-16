@@ -9,6 +9,7 @@ interface IProps {
   name?: string;
   defaultValue?: string | number;
   children?: React.ReactElement;
+  disabled?: boolean;
 }
 const SelectField = ({
   label,
@@ -19,12 +20,14 @@ const SelectField = ({
   name,
   children,
   defaultValue,
+  disabled = false,
 }: IProps) => {
   return (
     <Container className={classname}>
       <Label htmlFor={label}>{label}</Label>
       <Select
         name={name}
+        disabled={disabled}
         onChange={onChange}
         required={required}
         value={value}

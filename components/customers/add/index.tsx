@@ -69,7 +69,7 @@ const AddCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = "customers/Customers";
+    let url = "Customers";
     if (checkID) {
       await createPost(userName, userPassword, url, company, data).then(
         (res: any) => {
@@ -105,7 +105,7 @@ const AddCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `/customers/Customers/ValidateID/${data.idNumber}`;
+    let url = `/customers/ValidateID/${data.idNumber}`;
 
     await fetchData(userName, userPassword, url, company).then((res: any) => {
       if (res.message == "success") {

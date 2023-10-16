@@ -6,6 +6,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import { IGroups } from "@/models/groups";
 import { Title } from "../BranchManagement/style";
 import DataTable from "@/reuseableComponents/DataTable";
+import { groupKeys } from "@/constants";
 interface IProps {
   data: IGroups;
 }
@@ -32,6 +33,7 @@ const GroupAccessManagement = ({ data }: IProps) => {
             showAddButton={true}
             addButtonText="Add Group"
             showFilter={true}
+            keys={groupKeys}
           />
         </DataTableWrapper>
       </Container>

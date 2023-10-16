@@ -106,7 +106,8 @@ export const GroupButtons = styled.div`
   gap: 12px;
   padding: 12px;
   & .MuiButtonBase-root {
-    width: 200px;
+    width: 211px;
+    gap: 12px;
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     &.pricelist-save-button {
       background-color: ${({ theme }) => theme.colors.sideBarBgColor};
@@ -117,10 +118,11 @@ export const GroupButtons = styled.div`
     &.dispute-cancel {
       background-color: ${({ theme }) => theme.colors.gray1};
     }
-    &.paynow {
+    &.selectButton {
       color: ${({ theme }) => theme.colors.white};
       padding: 10px 20px;
       font-size: 14px;
+      width: 150px;
     }
   }
   &.global-settings-save-button {

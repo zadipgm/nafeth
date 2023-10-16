@@ -27,7 +27,7 @@ interface IProps {
   customPrice: Icustomprice;
 }
 const SelectedCar = ({ car, customPrice }: IProps) => {
-  const { locale } = useTheme();
+  const { locale, translations } = useTheme();
   const router = useRouter();
   const carPlate = {
     plateText1_ar: car.result[0].plateText1_ar,
@@ -42,17 +42,17 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
     <RentWrapper className="car-card">
       <RentList>
         <RentListItem>
-          <CarDetailsTitle>Car ID</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.carID}</CarDetailsTitle>
           <CarDetailsSubTitle>{car.result[0].id}</CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Issue Branch</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.issueBranch}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {car.result[0].branch[`name_${locale}`]}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Mileage</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.mileage}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.mileage
               ? customPrice?.mileage
@@ -60,39 +60,41 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>color</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.color}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {car.result[0].color[`name_${locale}`]}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Rented times</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.rentedTimes}</CarDetailsTitle>
           <CarDetailsSubTitle>{car.result[0].timesRented}</CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Insurance policy number</CarDetailsTitle>
+          <CarDetailsTitle>
+            {translations?.insurancepolicynumber}
+          </CarDetailsTitle>
           <CarDetailsSubTitle>{car.result[0].policyNo}</CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Insurance Type</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.insuranceType}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {car.result[0].insuranceType[`name_${locale}`]}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Penality Fee</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.penalityFee}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {car.result[0].insurancePenality}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Insurance company</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.insuranceCompany}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {car.result[0].insurance[`name_${locale}`]}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Min Rate</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.minRate}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.minDailyRent
               ? customPrice.minDailyRent
@@ -100,7 +102,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Full Tank Price</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.fullTankPrice}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.fullFuelCost
               ? customPrice?.fullFuelCost
@@ -108,7 +110,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Daily KM Limit</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.dailyKMLimit}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.dailyKMlimit
               ? customPrice?.dailyKMlimit
@@ -116,7 +118,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Extra per KM</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.extraPerKM}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.perExtraKM
               ? customPrice?.perExtraKM
@@ -124,7 +126,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Grace Hours</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.graceHours}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.graceHours
               ? customPrice?.graceHours
@@ -132,7 +134,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Grace Charge</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.graceCharge}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.graceCharge
               ? customPrice?.graceCharge
@@ -141,7 +143,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
         </RentListItem>
 
         <RentListItem>
-          <CarDetailsTitle>Daily Rent</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.dailyRent}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.dailyRent
               ? customPrice?.dailyRent
@@ -149,7 +151,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Weekly Rent</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.weeklyRent}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.weeklyRent
               ? customPrice?.weeklyRent
@@ -157,7 +159,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>Monthly Rent</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.monthlyRent}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customPrice?.monthlyRent
               ? customPrice?.monthlyRent
@@ -169,7 +171,7 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
         <OtherDetailsList className="other-details">
           <RentListItem className="other-detail">
             <CarDetailsTitle className="other-detail">
-              Make/Model
+              {translations?.makemodel}
             </CarDetailsTitle>
             <CarDetailsSubTitle className="other-detail">
               {car.result[0].make[`name_${locale}`]}/
@@ -177,7 +179,9 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
             </CarDetailsSubTitle>
           </RentListItem>
           <RentListItem className="other-detail">
-            <CarDetailsTitle className="other-detail">Year</CarDetailsTitle>
+            <CarDetailsTitle className="other-detail">
+              {translations?.year}
+            </CarDetailsTitle>
             <CarDetailsSubTitle className="other-detail">
               {car.result[0].year}
             </CarDetailsSubTitle>
@@ -204,7 +208,9 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
             </CarDetailsSubTitle>
           </RentListItem>
           <RentListItem className="other-details">
-            <CarDetailsTitle className="other-details">Mileage</CarDetailsTitle>
+            <CarDetailsTitle className="other-details">
+              {translations?.mileage}
+            </CarDetailsTitle>
             <CarDetailsSubTitle>{car.result[0].mileage}</CarDetailsSubTitle>
           </RentListItem>
         </OtherDetailsList>
