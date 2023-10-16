@@ -6,10 +6,10 @@ justify-content: flex-start;
 align-items: center;
 gap: 10px;
 flex-grow: 1;
-flex-basis: 30px;
+flex-basis: 10px;
 `
 export const GridViewWrapper = styled.div`
-border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
 border-radius: 8px;
 cursor: pointer;
 display: flex;
@@ -21,7 +21,7 @@ padding: 4px;
 }
 `
 export const ListViewWrapper = styled.div`
-border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
 border-radius: 8px;
 cursor: pointer;
 display: flex;

@@ -5,27 +5,38 @@ import { useTheme } from "styled-components";
 import { PaymentTable } from "@/global/fakeData";
 import DataTable from "@/reuseableComponents/DataTable";
 import { Container, PaymentContainer } from "./style";
-const Payments = () => {
+import { useAppData } from "@/context/paymentLookupContext";
+import { AppContexts } from "@/models/appContext";
+import { IPayments } from "@/models/payments";
+import { paymentKeys } from "@/constants";
+interface IProps {
+  payments: IPayments;
+}
+const Payments = ({ payments }: IProps) => {
+  console.log("here is payment", payments);
   const { locale, colors }: any = useTheme();
+
   return (
     <PaymentContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Payments</h2>
       </Title>
       <Container>
         <DataTable
-          data={PaymentTable}
+          data={payments.result}
           isDeleteAble={false}
           isEditAble={false}
           isDuplicate={false}
           isViewAble={true}
-          linkPageUrl={"payment"}
-          page_color={colors.nafethBlue}
+          linkPageUrl={"payments"}
+          page_color={colors.sideBarBgColor}
           sideBarTitle="Payment Details"
-          size="400px"
+          size="600px"
           showAddButton={true}
           addButtonText="Add Receipt"
           showFilter={true}
+          paymentButton={false}
+          keys={paymentKeys}
         />
       </Container>
     </PaymentContainer>

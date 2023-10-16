@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/cars/Cars",
+    "/cars/",
     company as string
   );
   const result = await res;

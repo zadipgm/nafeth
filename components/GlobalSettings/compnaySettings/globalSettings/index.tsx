@@ -11,18 +11,16 @@ import {
 } from "../style";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import Input from "@mui/material/Input";
 import Image from "next/image";
 import { cities, countries } from "@/global/fakeData";
-import InputComponent from "@/reuseableComponents/InputField";
-import { TextField } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import { IcompanyGlobal } from "@/models/globalsettings";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface ISettings {
   global_settinigs: IcompanyGlobal;
 }
@@ -95,22 +93,21 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="Registration Date"
                   defaultValue={globalValues.registrationDate}
                   name="registrationDate"
                   disabled={true}
-                  variant="filled"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Company Name"
                   placeholder="ZADIP GROUP"
                   defaultValue={globalValues.companyName}
                   name="companyName"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="PO Box Number"
                   placeholder="12345"
                   defaultValue={globalValues.poBox}
@@ -118,25 +115,23 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   type="number"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
-                <InputComponent
+
+                <InputField
                   label="CR Expiry Date"
                   placeholder="2023-12-31"
                   defaultValue={globalValues.expiryDate}
                   name="expiryDate"
                   disabled={true}
-                  variant="filled"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="CR Number"
                   placeholder="7001234576"
                   defaultValue={globalValues.crNumber}
                   name="crNumber"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Fax Number"
                   placeholder="966114003880"
                   defaultValue={globalValues.fax}
@@ -144,95 +139,84 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   type="number"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
-                <InputComponent
+
+                <InputField
                   label="Company Domain Alias"
                   value={"BETA"}
                   disabled={true}
-                  variant="filled"
                   defaultValue={globalValues.companyAlias}
                   name="companyAlias"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <TextField
-                  id="outlined-select-currency"
-                  select
+                <SelectField
                   label="Country"
                   defaultValue={globalValues.country.id}
                   name="companyAlias"
                   onChange={(e) => onChangeHandler(e)}
                 >
-                  {
-                    <MenuItem
-                      key={countries[0].value}
-                      value={countries[0].value}
-                    >
-                      {countries[0].label}
-                    </MenuItem>
-                  }
-                </TextField>
+                  <>
+                    {
+                      <option
+                        key={countries[0].value}
+                        value={countries[0].value}
+                      >
+                        {countries[0].label}
+                      </option>
+                    }
+                  </>
+                </SelectField>
 
-                <InputComponent
+                <InputField
                   label="Email"
                   placeholder="muhammad@gmail.com"
                   defaultValue={globalValues.email}
                   name="email"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-            </FormBoxWrapper>
-            <FormBoxWrapper>
-              <FormBox className="global-settings1" color={isTheme().color}>
-                <InputComponent
+
+                <InputField
                   label="SMS Balance"
                   disabled={true}
-                  variant="filled"
                   defaultValue={globalValues.sms}
                   name="sms"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <TextField
-                  id="outlined-select-currency"
-                  select
+                <SelectField
                   label="City"
                   defaultValue={globalValues.city.id}
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
                 >
-                  {cities?.map((option) => (
-                    <MenuItem key={option?.value} value={option?.value}>
-                      {/* {isLTR ? option?.name_en : option?.name_ar} */}
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <InputComponent
+                  <>
+                    {cities?.map((option) => (
+                      <option key={option?.value} value={option?.value}>
+                        {/* {isLTR ? option?.name_en : option?.name_ar} */}
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <InputField
                   label="Phone Number"
                   placeholder="581955852"
                   defaultValue={globalValues.phone}
                   name="phone"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox className="global-settings" color={isTheme().color}>
-                <CompnayLogo>
-                  <InputComponent
-                    label=""
-                    classname="company-logo"
-                    type="file"
-                    helperText="Maximum Size 1mb"
-                    defaultValue={globalValues.logo}
-                    name="logo"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                  <Image
-                    src="/images/car-logo.jpg"
-                    alt="compnay-logo"
-                    width={270}
-                    height={140}
-                  />
-                </CompnayLogo>
+
+                <InputField
+                  label="Company logo"
+                  type="file"
+                  defaultValue={globalValues.logo}
+                  name="logo"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+                <Image
+                  src="/images/car-logo.jpg"
+                  alt="compnay-logo"
+                  width={270}
+                  height={140}
+                />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>

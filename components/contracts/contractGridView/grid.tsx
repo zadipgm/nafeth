@@ -18,6 +18,7 @@ import {
   CardTransmitionWrapper,
   CardTypeIconWrapper,
   CardWrapper,
+  ContractNumber,
   Span,
   Strong,
 } from "@/components/CarRental/style";
@@ -31,6 +32,7 @@ import IssueDateSvg from "@/public/icons/issueDateSvg";
 import ReturnDateSvg from "@/public/icons/returnDateSvg";
 import CalendarSvg from "@/public/icons/calendarSvg";
 import { EditSvg } from "@/public/icons/editSvg";
+import CarContractNumberSvg from "@/public/icons/carContractNumberSvg";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface IProps {
   cars: ICarModel;
@@ -83,7 +85,14 @@ const Grid = ({
         <CardMakeModelWrapper>
           <Tooltip content={"Contract Number"} color={"success"}>
             <CardMakeModel color={isTheme().color}>
-              <div>{contract.contractNo}</div>
+              <ContractNumber>
+                <CarContractNumberSvg
+                  fill={colors.sideBarBgColor}
+                  width="25px"
+                  height="25px"
+                />
+                {contract.contractNo}
+              </ContractNumber>
             </CardMakeModel>
           </Tooltip>
           <Tooltip
@@ -91,6 +100,12 @@ const Grid = ({
             color={"warning"}
             className="customer_full_name"
           >
+            <IconComponent
+              width={"25px"}
+              height="25px"
+              fill={colors.sideBarBgColor}
+              icon={"carduserSvg"}
+            />
             {
               filterCustomer(customers, contract.customerID)[0][
                 `fullname_${locale}`
@@ -98,7 +113,7 @@ const Grid = ({
             }
           </Tooltip>
         </CardMakeModelWrapper>
-        <CardMakeModelWrapper>
+        {/* <CardMakeModelWrapper>
           <Tooltip content={"car make/model"} color={"success"}>
             <CardMakeModel color={isTheme().color} className="contract">
               <div>
@@ -115,7 +130,7 @@ const Grid = ({
               color={filterCar(cars, contract.carID)[0].color[`name_${locale}`]}
             ></CardColor>
           </Tooltip>
-        </CardMakeModelWrapper>
+        </CardMakeModelWrapper> */}
         <Tooltip content="Daily Rent" color={"error"}>
           <Strong color={isTheme().color}>{contract.dailyPrice}</Strong>
           <Span color={isTheme().color}>/day</Span>
@@ -147,7 +162,7 @@ const Grid = ({
               <IssueDateSvg
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
               <p>{contract.issueDate}</p>
             </Tooltip>
@@ -157,7 +172,7 @@ const Grid = ({
               <ReturnDateSvg
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
               <p>{contract.actualReturnDate}</p>
             </Tooltip>
@@ -167,7 +182,7 @@ const Grid = ({
               <IconComponent
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
                 icon={"carRentedSvg"}
               />
               <p>{contract.weeklyPrice}</p>
@@ -178,7 +193,7 @@ const Grid = ({
               <IconComponent
                 width={"25px"}
                 height="25px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
                 icon={"carTotalSvg"}
               />
               <p>{contract.monthlyPrice}</p>
@@ -217,7 +232,11 @@ const Grid = ({
               variant={"outlined"}
               className="edit"
               endIcon={
-                <EditSvg width="15px" height="15px" fill={colors.nafethBlue} />
+                <EditSvg
+                  width="15px"
+                  height="15px"
+                  fill={colors.sideBarBgColor}
+                />
               }
             >
               Edit
@@ -232,7 +251,7 @@ const Grid = ({
                 <ArrowCircleSvg
                   width="15px"
                   height="15px"
-                  fill={colors.nafethBlue}
+                  fill={colors.sideBarBgColor}
                 />
               }
             >

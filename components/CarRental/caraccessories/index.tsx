@@ -8,6 +8,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { Container } from "../style";
+import { accessoriesKeys } from "@/constants";
 interface IProps {
   list: IAccessory;
 }
@@ -18,7 +19,7 @@ const CarAccessoryList = ({ list }: IProps) => {
 
   return (
     <Container>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Car Accessories List</h2>
       </Title>
       <DataTable
@@ -29,11 +30,12 @@ const CarAccessoryList = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"caraccessories"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="Car Accessories Details"
         size="400px"
         showAddButton={true}
         addButtonText="Add New   List"
+        keys={accessoriesKeys}
       />
     </Container>
   );

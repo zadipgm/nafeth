@@ -17,25 +17,17 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }: IProps) => {
   };
   return (
     <PaginationList>
-      <PaginationListItem>
-        <Link onClick={prevPage} href="#">
-          {"<<"}
-        </Link>
-      </PaginationListItem>
+      <PaginationListItem onClick={prevPage}>{"<<"}</PaginationListItem>
       {pageNumbers.map((pgNumber) => (
         <PaginationListItem
           onClick={() => setCurrentPage(pgNumber)}
           key={pgNumber}
           className={`page-item ${currentPage == pgNumber ? "active" : ""} `}
         >
-          <Link href="#">{pgNumber}</Link>
+          {pgNumber}
         </PaginationListItem>
       ))}
-      <PaginationListItem>
-        <Link onClick={nextPage} href="#">
-          {">>"}
-        </Link>
-      </PaginationListItem>
+      <PaginationListItem onClick={nextPage}>{">>"}</PaginationListItem>
     </PaginationList>
   );
 };

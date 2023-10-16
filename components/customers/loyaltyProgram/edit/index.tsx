@@ -10,7 +10,7 @@ import {
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { ILoyality } from "@/models/loyality";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
@@ -66,7 +66,7 @@ const EditLoyalityList = ({ list }: IProps) => {
   };
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Edit List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -83,7 +83,7 @@ const EditLoyalityList = ({ list }: IProps) => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="PackageName"
                 placeholder="Package Name"
                 type="text"
@@ -92,7 +92,7 @@ const EditLoyalityList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Rental income"
                 placeholder="10"
                 type="text"
@@ -101,9 +101,8 @@ const EditLoyalityList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Extra KM"
                 placeholder="10"
                 type="text"
@@ -112,7 +111,7 @@ const EditLoyalityList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Extra Hours"
                 placeholder="2"
                 type="text"
@@ -121,9 +120,8 @@ const EditLoyalityList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Discount %"
                 placeholder="2"
                 type="text"

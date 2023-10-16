@@ -22,6 +22,7 @@ import { Badge } from "@mui/material";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import MobileHeader from "../mobile";
+import { GetMainHeading } from "@/_helpers/getMainHeading";
 interface IProps {
   themeToggler: () => void;
   theme: string;
@@ -42,32 +43,33 @@ const DesktopHeader = ({ themeToggler, theme }: IProps) => {
     Cookies.remove("isLogin");
     router.push("/login");
   };
+
   return (
     <Container>
-      <LogoContainer>
-        <a href={"/dashboard"}>
-          <Image src="/images/pro2.webp" alt="logo" width={140} height={66} />
-        </a>
-      </LogoContainer>
+      <div className="link">
+        {GetMainHeading(
+          router.pathname.replaceAll("/", "")
+        )?.toLocaleUpperCase()}
+      </div>
       <Wrappper>
-        {theme === "light" ? (
+        {/* {theme === "light" ? (
           <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
-            <Tooltip content="Dark mood" color="invert" placement="leftStart">
+            <Tooltip content="Dark mode" color="invert" placement="leftStart">
               <NightlightRoundOutlinedIcon />
             </Tooltip>
           </LightMood>
         ) : (
           <LightMood onClick={ThemeToggle} color={isTheme()?.color}>
-            <Tooltip content="Light mood" placement="leftStart">
+            <Tooltip content="Light mode" placement="leftStart">
               <LightModeIcon className="dark" />
             </Tooltip>
           </LightMood>
-        )}
-        <NotificationIcon>
+        )} */}
+        {/* <NotificationIcon>
           <Badge color="secondary" badgeContent={2} showZero>
             <BellIcon width="30px" height="30px" fill={colors.pageTextColor} />
           </Badge>
-        </NotificationIcon>
+        </NotificationIcon> */}
         <LangaugeButtons title_en="ENGLISH" title_ar="العربية" />
         <LogoutWrapper onClick={handleLogout}>
           <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}

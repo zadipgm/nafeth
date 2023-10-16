@@ -38,10 +38,12 @@ declare module "styled-components" {
       darkblue2: string;
       lightblue1: string;
       headerbgcolor: string
+      sideBarBgColor: string;
       headersideBarbgcolor: string;
       pagebgcolor: string,
       pageTextColor: string
       headerSiderBarBorderColor: string
+      borderBottomColor: string
     };
   }
 }
@@ -56,6 +58,7 @@ export const lightTheme: DefaultTheme = {
   isDark: "",
   themeToggle: () => { },
   colors: {
+    borderBottomColor: "#DDDDDD",
     bussinesBlue: "#1976d2",
     themeColor: "linear-gradient(-49deg,#022646cc 22%,#12baff);",
     lightThemeColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
@@ -69,7 +72,7 @@ export const lightTheme: DefaultTheme = {
     black1: "#292929",
     gray1: "#5a5c69",
     cyan: "#06B7DB",
-    gray2: "#a19c9c",
+    gray2: "#cfcfcf",
     gray3: "#cfcfcf45", green: "#22741bb5",
     nafethBlue: "#1281C4",
     purple: "#7828C8",
@@ -78,9 +81,10 @@ export const lightTheme: DefaultTheme = {
     lightRed: "#ff000026",
     darkblue2: "#2a4158",
     lightblue1: "#1c8da4",
+    sideBarBgColor: "#283b58",
     headersideBarbgcolor: "#ababab",
     headerbgcolor: "#fff",
-    pagebgcolor: "#F4F6FA",
+    pagebgcolor: "#f4f3ef",
     pageTextColor: "#222222ad",
     headerSiderBarBorderColor: "#e6edef"
   },
@@ -96,6 +100,7 @@ export const darkTheme: DefaultTheme = {
   isDark: "",
   themeToggle: () => { },
   colors: {
+    borderBottomColor: "#DDDDDD",
     bussinesBlue: "#1976d2",
     themeColor: "linear-gradient(-49deg,#022646cc 22%,#12baff);",
     lightThemeColor: "linear-gradient(-49deg,#09589d29 22%,#56ceff33);",
@@ -108,7 +113,7 @@ export const darkTheme: DefaultTheme = {
     black: "#000", cyan: "#06B7DB",
     black1: "#292929",
     gray1: "#5a5c69",
-    gray2: "#a19c9c",
+    gray2: "#cfcfcf",
     gray3: "#cfcfcf45",
     nafethBlue: "#1281C4",
     green: "#22741bb5",
@@ -118,9 +123,10 @@ export const darkTheme: DefaultTheme = {
     darkblue2: "#2a4158",
     lightblue1: "#1c8da4",
     lightRed: "#ff000026",
+    sideBarBgColor: "#283b58",
     headersideBarbgcolor: "#111727",
     headerbgcolor: "#111727",
-    pagebgcolor: "#202938",
+    pagebgcolor: "#f4f3ef",
     pageTextColor: "#ffffffb3",
     headerSiderBarBorderColor: "#36405d"
   },

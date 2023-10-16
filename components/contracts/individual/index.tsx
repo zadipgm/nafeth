@@ -62,6 +62,7 @@ import CarRentSvg from "@/public/icons/cars";
 import CarRented from "@/public/icons/carRentedSvg";
 import { IBranchModel } from "@/models/branch";
 import ContractGridView from "../contractGridView";
+import { contractKeys } from "@/constants";
 
 interface IProps {
   contracts: IContracts;
@@ -134,7 +135,7 @@ const ContractPage = ({
               page === "return"
                 ? colors.darkYellow
                 : page === "individual"
-                ? colors.nafethBlue
+                ? colors.sideBarBgColor
                 : colors.red
             }
           >
@@ -151,6 +152,8 @@ const ContractPage = ({
               data={contracts.result}
               currentRecords={contracts.result}
               setSearchvalue={setSearchvalue}
+              keys={contractKeys}
+              classname="small_size"
             />
           </SearchTabsWrapper>
           {list && (
@@ -196,7 +199,7 @@ const ContractPage = ({
               item={details}
             >
               <div>
-                <DetailsTitle color={colors.nafethBlue}>
+                <DetailsTitle color={colors.sideBarBgColor}>
                   Contract Details
                 </DetailsTitle>
                 <DetailWrapper

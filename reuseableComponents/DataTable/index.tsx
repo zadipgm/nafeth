@@ -10,16 +10,16 @@ import {
   CardList,
   CardListItems,
   CardListItemsWrapper,
-  Button,
   TableDataWrapper,
   ToolTipWrapper,
   DataTableContainer,
   TableWrapper,
+  THeader,
 } from "./style";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
-import { Fab, IconButton } from "@mui/material";
+import { Button, ButtonGroup, Fab, IconButton } from "@mui/material";
 import { filterByLocale } from "@/hooks/filterByLocale";
 import { HandleAscending, HandleDescending } from "@/hooks/useSorting";
 import SortUp from "@/public/icons/sortUp";
@@ -39,6 +39,7 @@ import { Delete } from "@/api/delete";
 import Swal from "sweetalert2";
 import DrawerComponent from "../Drawer";
 import {
+  ButtonWrapper,
   DetailList,
   DetailListItem,
   DetailWrapper,
@@ -50,6 +51,9 @@ import { isTheme } from "@/_helpers/getTheme";
 import ViewButton from "../viewsButton";
 import SearchComponent from "../SearchComponent";
 import { SearchTabsWrapper } from "@/components/contracts/style";
+import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
+import { CloseIconWrapper } from "@/components/header/styled.components";
+import CloseSvg from "@/public/icons/closeSvg";
 
 interface IProps {
   data?: any;
@@ -66,6 +70,13 @@ interface IProps {
   size?: string;
   showAddButton?: boolean;
   addButtonText?: string;
+  paymentButton?: boolean;
+  viewButtons?: boolean;
+  handleClose?: () => void;
+  isSelectable?: boolean;
+  handleContractNumber?: (param: number) => void;
+  showCloseIcon?: boolean;
+  keys?: string[];
 }
 type Anchor = "top" | "left" | "bottom" | "right";
 const DataTable = ({
@@ -82,6 +93,13 @@ const DataTable = ({
   sideBarTitle,
   addButtonText,
   showAddButton,
+  classname,
+  viewButtons,
+  handleClose,
+  isSelectable,
+  showCloseIcon,
+  handleContractNumber,
+  keys,
 }: IProps) => {
   const { colors, locale } = useTheme();
   const router = useRouter();
@@ -125,15 +143,11 @@ const DataTable = ({
   };
 
   const renderTableHeader = () => {
-    let header = Object?.keys(data && data[0]);
-    let filterHeader = header.filter((id) => id != "id");
-    filterHeader.push("Actions");
-    console.log(filterHeader);
-    return filterByLocale(locale, filterHeader).map((key: any, index: any) => {
+    return filterByLocale(locale, keys).map((key: any, index: any) => {
       return (
-        <TableData key={index} className="table-header">
+        <THeader key={index} className="table-header">
           <TableDataWrapper>
-            <Data>{key.toUpperCase()}</Data>
+            <Data>{key.toUpperCase().replaceAll("_", " ")}</Data>
             {key.toUpperCase() === "ACTIONS" ? (
               ""
             ) : (
@@ -151,7 +165,7 @@ const DataTable = ({
               </div>
             )}
           </TableDataWrapper>
-        </TableData>
+        </THeader>
       );
     });
   };
@@ -160,6 +174,13 @@ const DataTable = ({
     router.push({
       pathname: `/${linkPageUrl}/edit/${id}`,
     });
+  };
+  const handleSelectedContract = (id: number) => {
+    console.log("handleSelected", id);
+    handleContractNumber?.(id);
+    setTimeout(() => {
+      handleClose?.();
+    }, 500);
   };
   const hanldeDelete = (id: any) => {
     let userName = getName() as string;
@@ -182,21 +203,21 @@ const DataTable = ({
     let list = searchvalue?.filter((item: any) => item.id != id);
     setSearchvalue(list);
   };
-  const renderTableNestedHeader = () => {
-    if (data[0]?.procedures !== null) {
-      let header = Object?.keys(data && data[0]?.procedures[0]);
-      return (
-        header &&
-        header?.map((key, index) => {
-          return (
-            <TableData className="table-header" key={index}>
-              {key.toUpperCase()}
-            </TableData>
-          );
-        })
-      );
-    }
-  };
+  // const renderTableNestedHeader = () => {
+  //   if (data[0]?.procedures !== null) {
+  //     let header = Object?.keys(data && data[0]?.procedures[0]);
+  //     return (
+  //       header &&
+  //       header?.map((key, index) => {
+  //         return (
+  //           <TableData className="table-header" key={index}>
+  //             {key.toUpperCase()}
+  //           </TableData>
+  //         );
+  //       })
+  //     );
+  //   }
+  // };
 
   const handleView = (val: string) => {
     if (val === "grid") {
@@ -210,12 +231,19 @@ const DataTable = ({
   };
   return (
     <DataTableContainer>
+      {showCloseIcon && (
+        <CloseIconWrapper onClick={handleClose}>
+          <CloseSvg />
+        </CloseIconWrapper>
+      )}
       {showFilter && (
         <SearchTabsWrapper
           bcolor={isTheme()?.bcolor}
           color={isTheme()?.inputColor}
         >
-          <ViewButton handleView={handleView} list={list} grid={grid} />
+          {viewButtons && (
+            <ViewButton handleView={handleView} list={list} grid={grid} />
+          )}
 
           {showAddButton && (
             <Fab
@@ -225,7 +253,7 @@ const DataTable = ({
                 color: "white",
                 borderRadius: "8px",
                 flexGrow: "1",
-                flexBasis: "100px",
+                flexBasis: "250px",
               }}
               onClick={() => router.push(`/${linkPageUrl}/add` as string)}
             >
@@ -237,6 +265,8 @@ const DataTable = ({
             data={data}
             setSearchvalue={setSearchvalue}
             currentRecords={currentRecords}
+            keys={keys}
+            classname={classname}
           />
         </SearchTabsWrapper>
       )}
@@ -248,14 +278,17 @@ const DataTable = ({
               searchvalue
                 ?.slice(0, recordsPerPage as number)
                 ?.map((item: any, index: any) => {
-                  let keys = Object?.keys(item)?.filter((id) => id !== "id");
                   return (
                     <>
                       <Row key={item.nationalID}>
                         {filterByLocale(locale, keys).map(
                           (key: any, i: any) => {
                             return (
-                              <TableData key={i}>{`${item[key]}`}</TableData>
+                              <TableData key={i}>
+                                {`${typeof item[key]}` === "object"
+                                  ? `${item[key][`name_${locale}`]}`
+                                  : `${item[key]}`}{" "}
+                              </TableData>
                             );
                           }
                         )}
@@ -278,6 +311,7 @@ const DataTable = ({
                                 </IconButton>
                               </Tooltip>
                             )}
+
                             {isDuplicate && (
                               <Tooltip
                                 content="Duplicate"
@@ -306,6 +340,19 @@ const DataTable = ({
                                 </IconButton>
                               </Tooltip>
                             )}
+                            {isSelectable && (
+                              <ButtonGroup
+                                variant="contained"
+                                color="primary"
+                                onClick={() =>
+                                  handleSelectedContract(
+                                    item.contractNo ? item.contractNo : item.id
+                                  )
+                                }
+                              >
+                                <Button>Select</Button>
+                              </ButtonGroup>
+                            )}
                             {isDeleteAble && (
                               <Tooltip
                                 content="Delete"
@@ -320,7 +367,7 @@ const DataTable = ({
                           </ToolTipWrapper>
                         </TableData>
                       </Row>
-                      <Row className={active === item.id ? "show" : "hide"}>
+                      {/* <Row className={active === item.id ? "show" : "hide"}>
                         <br></br>
                         {nestedTable &&
                           data[0]?.procedures !== null &&
@@ -342,7 +389,7 @@ const DataTable = ({
                             );
                           })}
                         <br></br>
-                      </Row>
+                      </Row> */}
                     </>
                   );
                 })}

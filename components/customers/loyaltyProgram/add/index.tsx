@@ -8,13 +8,14 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
+import { Container } from "../../style";
 const AddLoyalityList = () => {
   const { colors } = useTheme();
   const router = useRouter();
@@ -66,8 +67,8 @@ const AddLoyalityList = () => {
     );
   };
   return (
-    <div>
-      <Title color={colors.nafethBlue}>
+    <Container>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add New List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -84,7 +85,7 @@ const AddLoyalityList = () => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="Package Name"
                 placeholder="Loyality Name in english"
                 type="text"
@@ -92,7 +93,7 @@ const AddLoyalityList = () => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Rental income"
                 placeholder="10"
                 type="text"
@@ -100,9 +101,8 @@ const AddLoyalityList = () => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Extra KM"
                 placeholder="Loyality Name in arabic"
                 type="text"
@@ -110,7 +110,7 @@ const AddLoyalityList = () => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Extra Hours"
                 placeholder="10"
                 type="text"
@@ -118,9 +118,8 @@ const AddLoyalityList = () => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Discount %"
                 placeholder="name in arabic"
                 type="text"
@@ -157,7 +156,7 @@ const AddLoyalityList = () => {
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default AddLoyalityList;

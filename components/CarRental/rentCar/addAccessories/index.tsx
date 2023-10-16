@@ -24,7 +24,7 @@ const AddAccessories = ({
   getCar_accessories,
   caraccessories,
 }: IProps) => {
-  const { colors, locale } = useTheme();
+  const { colors, locale, translations } = useTheme();
   console.log("here is car accessories", caraccessories);
   const [allchecked, setAllChecked] = React.useState<string[]>(caraccessories);
   const handleChange = (e: { target: { checked: boolean; value: string } }) => {
@@ -40,8 +40,8 @@ const AddAccessories = ({
   };
   return (
     <AddAccessoriesContainer>
-      <Title color={colors.nafethBlue}>
-        <h2>Add Accessories</h2>
+      <Title color={colors.sideBarBgColor}>
+        <h2>{translations?.addAccessories}</h2>
       </Title>
       <AccessoriesWrapper>
         {car_accessories.result.map((acc) => {
@@ -61,11 +61,11 @@ const AddAccessories = ({
                 />
               </FormGroup>
 
-              <strong>Accessories:</strong>
+              <strong>{translations?.accessories}:</strong>
               <span>{acc[`accessories_${locale}`]}</span>
-              <strong>Description:</strong>
+              <strong>{translations?.description}:</strong>
               <span> {acc[`description_${locale}`]}</span>
-              <strong>Cost:</strong>
+              <strong>{translations?.cost}:</strong>
               <span>{acc.cost}</span>
             </AccessoriesContainer>
           );

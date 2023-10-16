@@ -18,7 +18,7 @@ const ViewButton = ({ handleView, list, grid }: IProps) => {
           onClick={() => handleView("grid")}
           className={grid ? "active" : ""}
         >
-          <GridView width="30px" height="30px" fill={colors.nafethBlue} />
+          <GridView width="30px" height="30px" fill={colors.sideBarBgColor} />
         </GridViewWrapper>
       </Tooltip>
       <Tooltip content={"List View"} color={"success"}>
@@ -26,7 +26,7 @@ const ViewButton = ({ handleView, list, grid }: IProps) => {
           onClick={() => handleView("list")}
           className={list ? "active" : ""}
         >
-          <ListView width="30px" height="30px" fill={colors.nafethBlue} />
+          <ListView width="30px" height="30px" fill={colors.sideBarBgColor} />
         </ListViewWrapper>
       </Tooltip>
     </ViewsWrapper>

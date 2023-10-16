@@ -17,6 +17,13 @@ export const Container = styled.div`
     }
   }
 `;
+export const ExtentionContainer = styled.div`
+ border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`
+export const DetailSection = styled.div`
+width:100%;
+`
 export const AccountTable = styled.table`
   border-collapse: collapse;
   width: 100%;
@@ -46,7 +53,7 @@ color: red;
 export const ReturnContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-  margin: 20px;
+  margin-top: 20px;
 `;
 export const Unpaid = styled.div`
   padding: 0px 30px;
@@ -85,8 +92,8 @@ export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
   & .MuiFormControl-root {
-    width: 58%;
-    margin: 20px 0px;
+    
+    /* margin: 20px 0px; */
     & .MuiFormLabel-root {
       color: ${({ color }) => color};
     }
@@ -103,9 +110,13 @@ export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   }
 `;
 export const CarPlateExtention = styled.div`
-width: 20%;
+width: 30%;
 margin: 12px auto;
 display: flex;
+@media (max-width: 768px) {
+    width: 80%;
+    margin: 15px auto;
+  }
 `
 export const SearchTabsWrapper = styled.div<{
   bcolor?: string;
@@ -114,10 +125,11 @@ export const SearchTabsWrapper = styled.div<{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 10px 0px;
-  padding: 0px 20px ;
+ 
+  padding: 10px 20px;
   gap: 20px;
  flex-wrap: wrap;
+ width: 100%;
   .search-input-dashboard {
     width: 99%;
     margin: 0;
@@ -133,18 +145,9 @@ export const SearchBarWrapper = styled.div<{ bcolor?: string; color?: string }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 74%;
+  width: 100%;
   gap: 15px;
-  @media (max-width: 600px) {
-    width: 100%;
-    display: block;
-  }
-  &.car-management {
-   
-  }
-  &.dashboard {
-   
-  }
+  flex-wrap: wrap;
   & .search-input-car {
     width: 100%;
     & .MuiInputBase-root {
@@ -153,7 +156,7 @@ export const SearchBarWrapper = styled.div<{ bcolor?: string; color?: string }>`
       }
       color: ${({ color }) => color};
       & .MuiOutlinedInput-notchedOutline {
-        border-color: ${({ theme }) => theme.colors.nafethBlue} !important;
+        border-color: ${({ theme }) => theme.colors.sideBarBgColor} !important;
         color: ${({ color }) => color};
       }
     }
@@ -209,7 +212,7 @@ export const Keys = styled.span`
   text-transform: capitalize;
   padding: 6px 0px;
   :hover {
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
   }
 `;
 export const ContractWrapper = styled.div`

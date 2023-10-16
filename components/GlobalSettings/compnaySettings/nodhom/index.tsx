@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
@@ -16,11 +15,11 @@ import Box from "@mui/material/Box";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { ICompanyNozhum } from "@/models/globalsettings";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   nozhum: ICompanyNozhum;
 }
@@ -79,23 +78,16 @@ const Nodhom = ({ nozhum }: ISettings) => {
   };
   return (
     <FormContainer>
-      <CardContainer>
-        <Logo bgcolor="#44A0E1">
-          <Image
-            src="/images/nodhom.svg"
-            alt="nodhom"
-            width={270}
-            height={100}
-          />
-          <Text>
-            {translations?.nodhom}
-            <br />
-            <Link href={"https://nodhom.com/financial"}>
-              https://nodhom.com/financial.
-            </Link>
-          </Text>
-        </Logo>
-      </CardContainer>
+      <Logo bgcolor="#44A0E1">
+        <Image src="/images/nodhom.svg" alt="nodhom" width={270} height={100} />
+        <Text>
+          {translations?.nodhom}
+          <br />
+          <Link href={"https://nodhom.com/financial"}>
+            https://nodhom.com/financial.
+          </Link>
+        </Text>
+      </Logo>
 
       <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
         <Box
@@ -110,48 +102,40 @@ const Nodhom = ({ nozhum }: ISettings) => {
         >
           <FormBoxWrapper>
             <FormBox className="nodhom" color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Nozm - Client Alias"
                 defaultValue={nozhumValues.clientAlias}
                 name="clientAlias"
                 onChange={(e) => onChangeHandler(e)}
               />
-              <InputComponent
+              <InputField
                 label="Nozm - Client Secret"
                 defaultValue={nozhumValues.clientSecret}
                 name="clientSecret"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-            <FormBox className="nodhom" color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Nozm - Client ID"
                 defaultValue={nozhumValues.clientId}
                 name="clientId"
                 onChange={(e) => onChangeHandler(e)}
               />
 
-              <InputComponent
+              <InputField
                 label="Nozm - Username"
                 defaultValue={nozhumValues.username}
                 name="username"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox
-              className="nodhom-second-last-child"
-              color={isTheme().color}
-            >
-              <InputComponent
+
+              <InputField
                 label="Nozm - Password"
                 defaultValue={nozhumValues.password}
                 name="password"
                 onChange={(e) => onChangeHandler(e)}
               />
-            </FormBox>
-            <FormBox className="nodhom-last-child" color={isTheme().color}>
+
               <SwitchesComponent
                 title="Enable Nodhom System"
                 titlewidth="67%"

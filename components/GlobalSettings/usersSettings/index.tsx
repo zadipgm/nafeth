@@ -3,35 +3,33 @@ import * as React from "react";
 import { useTheme } from "styled-components";
 import { Title } from "../BranchManagement/style";
 import { IUser } from "@/models/userModel";
+import DataTable from "@/reuseableComponents/DataTable";
+import { userKeys } from "@/constants";
 
 interface IProps {
   data: IUser;
 }
 const UserList = ({ data }: IProps) => {
-  const { locale, colors }: any = useTheme();
+  const { locale, colors } = useTheme();
 
   return (
     <>
-      <Title color={colors.darkYellow}>
+      <Title color={colors.sideBarBgColor}>
         <h2>User List</h2>
       </Title>
-      <TableComponent
-        tableData={data}
-        headerValue={[
-          "username",
-          `fullname_${locale}`,
-          "idNumber",
-          // "groupId",
-          "email",
-          "phone",
-          "active",
-          // "baseBranch",
-        ]}
+
+      <DataTable
+        data={data}
         isDeleteAble={false}
         isDuplicate={false}
         linkPageUrl={"Users"}
-        page_color={colors.darkYellow}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="User Details"
+        showFilter={true}
+        showAddButton={true}
+        addButtonText="Add User"
+        isEditAble={true}
+        keys={userKeys}
       />
     </>
   );

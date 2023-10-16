@@ -6,22 +6,18 @@ import {
   FormWrapper,
   GroupButtons,
   GsettingsTitle,
-  ZipCode,
 } from "../style";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { days, hours, minutes } from "@/global/fakeData";
-import TabsComponent from "@/reuseableComponents/Tabs";
-import SwitchesComponent from "@/reuseableComponents/toggleButton";
-import InputComponent from "@/reuseableComponents/InputField";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
 import { ICompanyCustom } from "@/models/globalsettings";
 import Swal from "sweetalert2";
 import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   custom_settings: ICompanyCustom;
 }
@@ -129,129 +125,113 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="custom-settings" color={isTheme().color}>
-                <ZipCode>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Hours"
-                    defaultValue={freeHour}
-                    name="hours"
-                    onChange={(e) => handleFreeHour(e)}
-                  >
+                <SelectField
+                  label="Hours"
+                  defaultValue={freeHour}
+                  name="hours"
+                  onChange={(e) => handleFreeHour(e)}
+                >
+                  <>
                     {hours.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <option key={option.value} value={option.value}>
                         {option.label}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </TextField>
-                  <TextField
-                    select
-                    label="Minutes"
-                    defaultValue={freeMinut}
-                    name="minuts"
-                    onChange={(e) => handleFreeMinut(e)}
-                  >
+                  </>
+                </SelectField>
+                <SelectField
+                  label="Minutes"
+                  defaultValue={freeMinut}
+                  name="minuts"
+                  onChange={(e) => handleFreeMinut(e)}
+                >
+                  <>
                     {minutes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <option key={option.value} value={option.value}>
                         {option.label}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </TextField>
-                </ZipCode>
-                <InputComponent
+                  </>
+                </SelectField>
+
+                <InputField
                   label="Maximum km adjustment"
                   placeholder="10"
                   defaultValue={customValues.maxKMAdjustment}
                   name="maxKMAdjustment"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox color={isTheme().color}>
-                <TextField
-                  select
+
+                <SelectField
                   label="Grace Day"
                   defaultValue={customValues.graceDay}
                   name="graceDay"
                   onChange={(e) => onChangeHandler(e)}
                 >
-                  {days.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <InputComponent
+                  <>
+                    {days.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </>
+                </SelectField>
+                <InputField
                   label="VAT Deduction %"
                   placeholder="15.00"
                   defaultValue={customValues.vat}
                   name="vat"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox
-                className="custom-settings-last-child"
-                color={isTheme().color}
-              >
-                <ZipCode>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Grace Day hours"
-                    defaultValue={graceStartHour}
-                    onChange={(e) => handleGraceHour(e)}
-                  >
+
+                <SelectField
+                  label="Grace Day hours"
+                  defaultValue={graceStartHour}
+                  onChange={(e) => handleGraceHour(e)}
+                >
+                  <>
                     {hours.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <option key={option.value} value={option.value}>
                         {option.label}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </TextField>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Grace Day minutes"
-                    defaultValue={graceStarMinut}
-                    onChange={(e) => handleGraceMinut(e)}
-                  >
+                  </>
+                </SelectField>
+                <SelectField
+                  label="Grace Day minutes"
+                  defaultValue={graceStarMinut}
+                  onChange={(e) => handleGraceMinut(e)}
+                >
+                  <>
                     {minutes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <option key={option.value} value={option.value}>
                         {option.label}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </TextField>
-                </ZipCode>
-                <InputComponent
+                  </>
+                </SelectField>
+
+                <InputField
                   label="Tax Number"
                   placeholder="1233212"
                   defaultValue={customValues.taxNo}
                   name="taxNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-            </FormBoxWrapper>
 
-            <FormBoxWrapper className="tabs">
-              <FormBox
-                className="group-edit-form-description"
-                color={isTheme().color}
-              >
-                <InputComponent
+                <InputField
                   label="English Description"
                   placeholder="Please enter here...."
                   name="terms_en"
-                  multiline
                   defaultValue={customValues.terms_en}
-                  rows={3}
                   onChange={(e) => onChangeHandler(e)}
                   classname="group-edit-form-description"
                 />
-                <InputComponent
+                <InputField
                   label="الوصف العربي"
                   placeholder=" الرجاء الدخول هنا....."
                   name="terms_ar"
-                  multiline
                   defaultValue={customValues.terms_ar}
-                  rows={3}
                   type="textarea"
                   classname="group-edit-form-description"
                   onChange={(e) => onChangeHandler(e)}

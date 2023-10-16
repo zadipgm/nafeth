@@ -7,12 +7,12 @@ interface ICarProps {
   cars: ICarModel;
 }
 const Dashboard = ({ cars }: ICarProps) => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   return (
     <>
-      <Title color={colors.darkBlue}>
-        <h2> Welcome to the Kaleen Car Rental</h2>
-      </Title>
+      {/* <Title color={colors.darkBlue}>
+        <h2>{translations?.welcomeNote}</h2>
+      </Title> */}
       <CarRent cars={cars} page={"dashboard"} title={"Available Cars"} />
     </>
   );

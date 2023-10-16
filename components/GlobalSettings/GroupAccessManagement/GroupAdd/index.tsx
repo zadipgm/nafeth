@@ -6,12 +6,10 @@ import {
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Box, Button } from "@mui/material";
-import InputComponent from "@/reuseableComponents/InputField";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Container, SwitchContainer, SwitchWrapper } from "../style";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
-import TabsComponent from "@/reuseableComponents/Tabs";
 import { switch_data } from "@/global/fakeData";
 import SideBarAccordions from "@/components/SideNavBar/sidebaraccordion";
 import { IModuleTypes } from "@/models/module";
@@ -21,6 +19,7 @@ import axios from "axios";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import Swal from "sweetalert2";
 import { Title } from "../../BranchManagement/style";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface IProps {
   title: string;
   data: IModuleTypes[];
@@ -96,7 +95,7 @@ export default function GroupAddForm({ title, data }: IProps) {
   return (
     <>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
-        <Title color={colors.nafethBlue}>
+        <Title color={colors.sideBarBgColor}>
           <h2>{title}</h2>
         </Title>
         <FormWrapper
@@ -115,14 +114,14 @@ export default function GroupAddForm({ title, data }: IProps) {
           >
             <FormBoxWrapper>
               <FormBox className="group-edit-form" color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="English Name"
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
                   classname="group-edit-form"
                 />
-                <InputComponent
+                <InputField
                   label="اسم عربي"
                   placeholder="زيشان"
                   onChange={hanldeFormData}
@@ -130,38 +129,27 @@ export default function GroupAddForm({ title, data }: IProps) {
                   classname="group-edit-form"
                 />
               </FormBox>
-            </FormBoxWrapper>
-            <FormBoxWrapper className="tabs">
+
               <FormBox
                 className="group-edit-form-description"
                 color={isTheme().color}
               >
-                <InputComponent
+                <InputField
                   label="English Description"
                   placeholder="Please enter here...."
                   onChange={hanldeFormData}
                   name="description_en"
-                  multiline
                   classname="group-edit-form-description"
-                  rows={4}
                 />
-                <InputComponent
+                <InputField
                   label="الوصف العربي"
                   placeholder=" الرجاء الدخول هنا....."
                   onChange={hanldeFormData}
                   name="description_ar"
-                  multiline
-                  rows={4}
                   classname="group-edit-form-description"
                   type="textarea"
                 />
-              </FormBox>
-            </FormBoxWrapper>
-            <FormBoxWrapper>
-              <FormBox
-                className="group-edit-form-checkbox"
-                color={isTheme().color}
-              >
+
                 <SwitchContainer>
                   <SwitchWrapper>
                     {switch_data.map((item, key) => {

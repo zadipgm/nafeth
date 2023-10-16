@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useTheme } from "styled-components";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { useRouter } from "next/router";
 import {
   FormBox,
@@ -21,6 +20,8 @@ import Swal from "sweetalert2";
 import { Update } from "@/api/putApis/update";
 import { ICarModel } from "@/models/carmodel";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
   cars: ICarModel;
   carTransmission: ILookUp;
@@ -122,7 +123,7 @@ const AddCar = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `cars/Cars/${data.id}`;
+    let url = `cars//${data.id}`;
 
     await Update(userName, userPassword, url, company, data).then(
       (res: any) => {
@@ -163,10 +164,10 @@ const AddCar = ({
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color} className="Car-plate">
-              <div>
+              <div className="car-plate-number">
                 <label htmlFor="carPalte arabic">Car Plate in Arabic</label>
                 <CarPlateInArabicWrapper>
-                  <InputComponent
+                  <InputField
                     label="ح"
                     placeholder="ح"
                     type="text"
@@ -176,7 +177,7 @@ const AddCar = ({
                     required={true}
                     classname="car-plate-arabic"
                   />
-                  <InputComponent
+                  <InputField
                     label="ب"
                     placeholder="ب"
                     type="text"
@@ -186,7 +187,7 @@ const AddCar = ({
                     required={true}
                     classname="car-plate-arabic"
                   />
-                  <InputComponent
+                  <InputField
                     label="ا"
                     placeholder="ا"
                     type="text"
@@ -198,22 +199,11 @@ const AddCar = ({
                   />
                 </CarPlateInArabicWrapper>
               </div>
-              <div>
-                <label htmlFor="carPalte arabic">Plate Number</label>
-                <InputComponent
-                  label="Pate number"
-                  placeholder="1234"
-                  type="text"
-                  name={"plateNo"}
-                  defaultValue={data.plateNo}
-                  onChange={handleChange}
-                  required={true}
-                />
-              </div>
-              <div>
+
+              <div className="car-plate-number">
                 <label htmlFor="carPalte arabic">Car Plate in English</label>
                 <CarPlateInArabicWrapper>
-                  <InputComponent
+                  <InputField
                     label="J"
                     placeholder="J"
                     type="text"
@@ -223,7 +213,7 @@ const AddCar = ({
                     required={true}
                     classname="car-plate-arabic"
                   />
-                  <InputComponent
+                  <InputField
                     label="B"
                     placeholder="B"
                     type="text"
@@ -233,7 +223,7 @@ const AddCar = ({
                     required={true}
                     classname="car-plate-arabic"
                   />
-                  <InputComponent
+                  <InputField
                     label="A"
                     placeholder="A"
                     type="text"
@@ -245,20 +235,34 @@ const AddCar = ({
                   />
                 </CarPlateInArabicWrapper>
               </div>
+              <div className="car-plate-number">
+                <label htmlFor="carPalte arabic">Plate Number</label>
+                <CarPlateInArabicWrapper>
+                  <InputField
+                    label="Pate number"
+                    placeholder="1234"
+                    type="text"
+                    name={"plateNo"}
+                    defaultValue={data.plateNo}
+                    onChange={handleChange}
+                    required={true}
+                  />
+                  <InputField
+                    label="Chassis Number"
+                    placeholder="WFER23453453"
+                    type="text"
+                    name={"chasisNo"}
+                    defaultValue={data.chasisNo}
+                    onChange={handleChange}
+                    required={true}
+                  />
+                </CarPlateInArabicWrapper>
+              </div>
             </FormBox>
           </FormBoxWrapper>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
-                label="Chassis Number"
-                placeholder="WFER23453453"
-                type="text"
-                name={"chasisNo"}
-                defaultValue={data.chasisNo}
-                onChange={handleChange}
-                required={true}
-              />
-              <InputComponent
+              <InputField
                 label="Purchase Amount"
                 placeholder=""
                 type="text"
@@ -267,16 +271,16 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
+                label="Buying Date"
                 type="date"
                 name={"buyingDate"}
                 defaultValue={data.buyingDate}
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Serial number"
                 placeholder="3453453"
                 type="text"
@@ -285,40 +289,41 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="make"
                 name="makeID"
                 onChange={handleChange}
                 defaultValue={data.makeID}
               >
-                {carMake.result.map((option) => (
-                  <MenuItem
-                    key={option.id}
-                    value={option.id}
-                    onClick={() => handleCarMakeID(option.id)}
-                  >
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <>
+                  {carMake.result.map((option) => (
+                    <option
+                      key={option.id}
+                      value={option.id}
+                      onClick={() => handleCarMakeID(option.id)}
+                    >
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
 
-              <TextField
-                select
+              <SelectField
                 label="Transmission"
                 name="transmissionID"
                 onChange={handleChange}
                 defaultValue={data.transmissionID}
               >
-                {carTransmission.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+                <>
+                  {carTransmission.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              <InputField
                 label="mileage"
                 placeholder="mileage"
                 type="text"
@@ -327,105 +332,106 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="model"
                 name="modelID"
                 onChange={handleChange}
                 defaultValue={data.modelID}
               >
-                {modelID?.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
+                <>
+                  {modelID?.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 label="color"
                 name="colorID"
                 onChange={handleChange}
                 defaultValue={data.colorID}
               >
-                {carColor.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="car-fuel-types-section">
-              <TextField
-                select
+                <>
+                  {carColor.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              <SelectField
                 label="Fuel Type"
                 name="fuelTypeID"
                 onChange={handleChange}
                 defaultValue={data.fuelTypeID}
               >
-                {carFuel.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
+                <>
+                  {carFuel.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 label="Plate Type"
                 name="plateTypeID"
                 onChange={handleChange}
                 defaultValue={data.plateTypeID}
               >
-                {carPlateType.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
+                <>
+                  {carPlateType.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 defaultValue={data.carTypeID}
                 label="Car Type"
                 name="carTypeID"
                 onChange={handleChange}
               >
-                {carType.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="car-typeID">
-              <TextField
-                select
+                <>
+                  {carType.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              <SelectField
                 label="Branch"
                 name="branchID"
                 onChange={handleChange}
                 defaultValue={data.branchID}
               >
-                {branches.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
+                <>
+                  {branches.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 label="year"
                 name="year"
                 onChange={handleChange}
                 defaultValue={data.year}
               >
-                {years.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <>
+                  {years.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
             </FormBox>
           </FormBoxWrapper>
           <Title color={colors.cyan}>
@@ -433,7 +439,7 @@ const AddCar = ({
           </Title>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Daily Rent"
                 placeholder="30"
                 type="text"
@@ -442,7 +448,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Weekly Rent"
                 placeholder="345"
                 type="text"
@@ -451,7 +457,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="monthlyRent"
                 placeholder="2122"
                 type="text"
@@ -460,9 +466,8 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Min Daily Rent"
                 placeholder="3453453"
                 type="text"
@@ -471,7 +476,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Per Extra KM"
                 placeholder="0.25"
                 type="text"
@@ -480,7 +485,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Daily KM limit"
                 placeholder="200"
                 type="text"
@@ -489,9 +494,8 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Grace Hours"
                 placeholder="3"
                 type="text"
@@ -500,7 +504,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Full Fuel Cost"
                 placeholder=""
                 type="text"
@@ -509,7 +513,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Grace Charge"
                 placeholder="3453453"
                 type="text"
@@ -525,33 +529,35 @@ const AddCar = ({
           </Title>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <TextField
-                select
+              <SelectField
                 label="Insurance Company"
                 name="insuranceID"
                 onChange={handleChange}
                 defaultValue={data.insuranceID}
               >
-                {carInsurance.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
+                <>
+                  {carInsurance.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 label="Insurance Type"
                 name="insuranceTypeID"
                 onChange={handleChange}
                 defaultValue={data.insuranceTypeID}
               >
-                {carInsuranceType.result.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name_en}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <InputComponent
+                <>
+                  {carInsuranceType.result.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name_en}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <InputField
                 label="Policy No"
                 placeholder="3453453"
                 type="text"
@@ -560,9 +566,8 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Insurance Expiry"
                 type="date"
                 name={"insuranceExpDate"}
@@ -570,7 +575,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Registration Expiry "
                 placeholder="dd/mm/yyyy"
                 type="text"
@@ -579,7 +584,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Inspection Expiry"
                 placeholder="dd/mm/yyyy"
                 type="text"
@@ -588,9 +593,8 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Insurance Penality"
                 placeholder="100"
                 type="text"
@@ -599,7 +603,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Operating Card No"
                 placeholder="100"
                 type="text"
@@ -608,7 +612,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Operating Card IssueDate"
                 placeholder="100"
                 type="text"
@@ -617,11 +621,8 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+
+              <InputField
                 label="Operating Card Expiry Date"
                 placeholder="100"
                 type="text"
@@ -630,9 +631,7 @@ const AddCar = ({
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}></FormBox>
-            <FormBox color={isTheme().color}>
+
               <SwitchesComponent
                 title="Active/Inactive"
                 info={""}

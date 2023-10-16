@@ -10,7 +10,7 @@ import {
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { IPrices } from "@/models/pricelist";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
@@ -61,7 +61,7 @@ const EditList = ({ list }: IProps) => {
   };
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Edit List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -78,7 +78,7 @@ const EditList = ({ list }: IProps) => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="Name English"
                 placeholder="name in english"
                 type="text"
@@ -87,7 +87,7 @@ const EditList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="discount"
                 placeholder="10"
                 type="text"
@@ -96,9 +96,8 @@ const EditList = ({ list }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Name Arabic"
                 placeholder="name in arabic"
                 type="text"

@@ -37,7 +37,8 @@ import MainSectionCard from "@/reuseableComponents/HeaderCards/mainSectionCard";
 import { GlobalUserContext } from "@/context";
 import { Title } from "../GlobalSettings/BranchManagement/style";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-import { useData } from "@/context/cityContext";
+import MUIPaiChart from "@/reuseableComponents/MuiCharts";
+import { carKeys } from "@/constants";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
   cars: any;
@@ -55,11 +56,9 @@ const CarRent = ({
   selectedCarID,
 }: ICarProps) => {
   const router = useRouter();
-  const data = useData();
-  console.log("here is context api", data);
   const { userName, userPassword, company } =
     React.useContext(GlobalUserContext);
-  const { colors, isMobile } = useTheme();
+  const { colors, isMobile, isLTR, translations } = useTheme();
   const [show, setShow] = React.useState(4);
   const [state, setState] = React.useState({
     top: false,
@@ -93,6 +92,7 @@ const CarRent = ({
       setList(true);
     }
   };
+  console.log(router.pathname.replaceAll("/", ""));
   return (
     <>
       <Container>
@@ -102,15 +102,22 @@ const CarRent = ({
           ""
         ) : (
           <HeaderCard
-            title={"Car Management"}
-            card={header_card}
+            title={""}
+            card={header_card.slice(0, 4)}
             chart_data={Car_chart_data}
             chartTitle="Car summary"
             page="car-management"
           />
         )}
         {page === "dashboard" ? (
-          <MainSectionCard page={"dashboard"} card={header_card_dashboard} />
+          <>
+            <MainSectionCard page={"dashboard"} card={header_card_dashboard} />
+            <MUIPaiChart
+              chart_data={Car_chart_data}
+              title={"chartTitle"}
+              classname={page}
+            />
+          </>
         ) : (
           ""
         )}
@@ -120,11 +127,11 @@ const CarRent = ({
           color={isTheme().color}
           className="car-management"
         >
-          <Title color={colors.nafethBlue}>
+          <Title color={colors.sideBarBgColor}>
             {page === "dashboard" ? (
-              <h2>Available Cars</h2>
+              <h2>{isLTR ? "Available Cars" : "السيارات المتوفرة"}</h2>
             ) : (
-              <h2>Cars List</h2>
+              <h2>{isLTR ? "Car List" : "قائمة سيارة"}</h2>
             )}
           </Title>
           <SearchTabsWrapper
@@ -137,7 +144,7 @@ const CarRent = ({
                 aria-label={"add"}
                 style={{
                   margin: "12px 0px",
-                  backgroundColor: `${colors.nafethBlue}`,
+                  backgroundColor: `${colors.sideBarBgColor}`,
                   color: "white",
                   width: `${isMobile ? "100%" : "17%"}`,
                   borderRadius: "8px",
@@ -145,7 +152,7 @@ const CarRent = ({
                 className="add_button_filter"
                 onClick={() => router.push(`/cars/add` as string)}
               >
-                Add Car
+                {translations?.addCar}
                 <AddIcon />
               </Fab>
             )}
@@ -153,6 +160,8 @@ const CarRent = ({
               data={cars.result}
               currentRecords={cars.result}
               setSearchvalue={setSearchvalue}
+              keys={carKeys}
+              classname="small_size"
             />
           </SearchTabsWrapper>
           {list && (
@@ -180,55 +189,57 @@ const CarRent = ({
           <DrawerComponent
             state={state}
             toggleDrawer={toggleDrawer}
-            width="600px"
+            width="850px"
           >
             <div>
-              <DetailsTitle color={colors.nafethBlue}>Car Details</DetailsTitle>
+              <DetailsTitle color={colors.sideBarBgColor}>
+                {translations?.carDetails}
+              </DetailsTitle>
               <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
                 <DetailList>
                   <DetailListItem>
                     <CarRentSvg width="30px" height="30px" />
-                    <Strongtext>Daily Rent</Strongtext>
+                    <Strongtext>{translations?.dailyRent}</Strongtext>
                     <Spantext>{carDetails?.dailyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarRentSvg width="30px" height="30px" />{" "}
-                    <Strongtext>Weekly Rent</Strongtext>
+                    <Strongtext>{translations?.weeklyRent}</Strongtext>
                     <Spantext>{carDetails?.weeklyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarRentSvg width="30px" height="30px" />
-                    <Strongtext>Monthly Rent</Strongtext>
+                    <Strongtext>{translations?.monthlyRent}</Strongtext>
                     <Spantext>{carDetails?.monthlyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarManageSvg width="30px" height="30px" />
-                    <Strongtext>Daily KM Limit</Strongtext>
+                    <Strongtext>{translations?.dailyKMLimit}</Strongtext>
                     <Spantext>{carDetails?.dailyKMlimit}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarMileageSvg width="30px" height="30px" />
-                    <Strongtext>Per Extra KM</Strongtext>
+                    <Strongtext>{translations?.perExtraKM}</Strongtext>
                     <Spantext>{carDetails?.perExtraKM}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarInsuranceSvg width="30px" height="30px" />{" "}
-                    <Strongtext>Insurance Provider</Strongtext>
+                    <Strongtext>{translations?.insuranceProvider}</Strongtext>
                     <Spantext>{carDetails?.insurance.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarPlateSvg width="30px" height="30px" />{" "}
-                    <Strongtext>Plate Type</Strongtext>
+                    <Strongtext>{translations?.plateType}</Strongtext>
                     <Spantext>{carDetails?.plateType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <EconomicSvg width="30px" height="30px" />
-                    <Strongtext>Car Type</Strongtext>
+                    <Strongtext>{translations?.carType}</Strongtext>
                     <Spantext>{carDetails?.carType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
                     <CarPetrolSvg width="30px" height="30px" />
-                    <Strongtext>Fuel Type</Strongtext>
+                    <Strongtext>{translations?.fuelType}</Strongtext>
                     <Spantext>{carDetails?.fuelType.name_en}</Spantext>
                   </DetailListItem>
                   <Button
@@ -236,7 +247,7 @@ const CarRent = ({
                     className="rent-button"
                     onClick={() => router.push(`/cars/rent/${carDetails?.id}`)}
                   >
-                    Rent
+                    {translations?.rent}
                   </Button>
                 </DetailList>
               </DetailWrapper>
@@ -255,7 +266,7 @@ const CarRent = ({
                 />
               }
             >
-              View more
+              {translations?.viewMore}
             </Button>
           )}
         </CardListWrapper>

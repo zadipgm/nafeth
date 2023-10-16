@@ -7,6 +7,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { LoyaltyContainer } from "../style";
+import { loyaltyKeys } from "@/constants";
 interface IProps {
   list: ILoyality;
 }
@@ -16,7 +17,7 @@ const LoyaltyList = ({ list }: IProps) => {
   const { colors } = useTheme();
   return (
     <LoyaltyContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>List of Memberships</h2>
       </Title>
       <DataTable
@@ -26,13 +27,14 @@ const LoyaltyList = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"loyalty"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="loyalty Details"
         size="400px"
         showFilter={true}
         showAddButton={true}
         addButtonText="Add New List"
         classname={"certificate"}
+        keys={loyaltyKeys}
       />
     </LoyaltyContainer>
   );

@@ -1,18 +1,27 @@
 import { styled } from "styled-components";
 
-export const LineCharWrapper = styled.div<{ bcolor: string, color: string }>`
+export const LineCharWrapper = styled.div`
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 border-radius: 8px;
 color: ${({ color }) => color};
-  background-color: ${({ bcolor }) => bcolor};
-  padding:0px 10px;
-    @media(max-width:600px){
- overflow: auto;
-  width:100%;
-  margin-bottom: 20px;
+  background-color: white;
+  padding:10px;
+flex-grow: 1;
+flex-basis: 400px;
+h4{
+  color: #252422;
+    font-weight: 300;
+    margin: 8px;
+    font-size: 1.5em;
 }
-   @media(min-width:600px){
- overflow: auto;
-  width:100%;
+.bottom{
+  border-top: 1px solid ${({ theme }) => theme.colors.borderBottomColor};
+  padding-top: 10px;
+  font-size: 15px;
+}
+div{
+  svg{
+    direction: ltr;
+  }
 }
 `

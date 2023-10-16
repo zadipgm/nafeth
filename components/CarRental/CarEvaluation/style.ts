@@ -28,7 +28,7 @@ export const EvaluationSubmit = styled.input`
   border-radius: 5px;
   outline: none;
   border: none;
-  background-color: ${({ theme }) => theme.colors.nafethBlue};
+  background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   color: #fff;
   cursor: pointer;
   transition: .5s;

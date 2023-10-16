@@ -1,16 +1,12 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
   FormWrapper,
   GroupButtons,
-  GsettingsTitle,
-  ImageWrapper,
   Logo,
   Text,
-  ZipCode,
 } from "../style";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -19,11 +15,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "styled-components";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { ICompanyAddress } from "@/models/globalsettings";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   national_address: ICompanyAddress;
 }
@@ -79,23 +75,16 @@ const NationalAddress = ({ national_address }: ISettings) => {
   return (
     <>
       <FormContainer>
-        <CardContainer>
-          <Logo bgcolor="#1c8da4">
-            <Image
-              src="/images/spl.svg"
-              alt="nodhom"
-              width={270}
-              height={100}
-            />
-            <Text>
-              {translations?.spl}
-              <br />
-              <Link href={"https://splonline.com.sa/"}>
-                https://splonline.com.sa/.
-              </Link>
-            </Text>
-          </Logo>
-        </CardContainer>
+        <Logo bgcolor="#1c8da4">
+          <Image src="/images/spl.svg" alt="nodhom" width={270} height={100} />
+          <Text>
+            {translations?.spl}
+            <br />
+            <Link href={"https://splonline.com.sa/"}>
+              https://splonline.com.sa/.
+            </Link>
+          </Text>
+        </Logo>
         <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"
@@ -109,61 +98,59 @@ const NationalAddress = ({ national_address }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="national-address" color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="Building No."
                   placeholder="2222"
                   defaultValue={national_addressValues.buildingNo}
                   name="buildingNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Street Name"
                   placeholder="Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh"
                   defaultValue={national_addressValues.streetName}
                   name="streetName"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="District"
                   placeholder="Al Malaz"
                   defaultValue={national_addressValues.district}
                   name="district"
                   onChange={(e) => onChangeHandler(e)}
                 />
-              </FormBox>
-              <FormBox className="national-address" color={isTheme().color}>
-                <InputComponent
+
+                <InputField
                   label="City"
                   placeholder="Riyadh"
                   defaultValue={national_addressValues.city}
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Country"
                   placeholder="Saudi Arabia"
                   defaultValue={national_addressValues.country}
                   name="country"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <ZipCode>
-                  <InputComponent
-                    label="ZIP Code"
-                    placeholder="12665"
-                    defaultValue={national_addressValues.zipCode1}
-                    name="zipCode1"
-                    classname="zip-code"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                  <InputComponent
-                    label="ZIP Code"
-                    placeholder="12665"
-                    defaultValue={national_addressValues.zipCode2}
-                    name="zipCode2"
-                    classname="zip-code"
-                    onChange={(e) => onChangeHandler(e)}
-                  />
-                </ZipCode>
+
+                <InputField
+                  label="ZIP Code"
+                  placeholder="12665"
+                  defaultValue={national_addressValues.zipCode1}
+                  name="zipCode1"
+                  classname="zip-code"
+                  onChange={(e) => onChangeHandler(e)}
+                />
+                <InputField
+                  label="ZIP Code"
+                  placeholder="12665"
+                  defaultValue={national_addressValues.zipCode2}
+                  name="zipCode2"
+                  classname="zip-code"
+                  onChange={(e) => onChangeHandler(e)}
+                />
               </FormBox>
             </FormBoxWrapper>
             <GroupButtons>

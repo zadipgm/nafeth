@@ -5,7 +5,10 @@ export const Filter = styled.div`
   align-items: center;
   gap: 8px;
 flex-grow: 1;
-flex-basis: 400px;
+flex-basis: 450px;
+&.small_size{
+  flex-basis: 200px;
+}
   .MuiFormControl-root{
     width: 100%;
   }
@@ -17,5 +20,8 @@ flex-basis: 400px;
 `;
 export const SearchWrapper = styled.div`
  flex-grow: 1;
-flex-basis: 400px;
+flex-basis: 450px;
+&.small_size{
+  flex-basis: 200px;
+}
 `;

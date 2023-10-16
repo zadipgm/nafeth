@@ -16,7 +16,7 @@ export function DataProvider({ children }: any) {
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = "/cars/Cars";
+    let url = "/cars/";
     const fetchCarData = async () => {
       const response = await fetchData(userName, userPassword, url, company);
       const result = await response;

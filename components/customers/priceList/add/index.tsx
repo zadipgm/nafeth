@@ -8,7 +8,7 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
@@ -61,7 +61,7 @@ const AddList = () => {
   };
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add New List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -78,7 +78,7 @@ const AddList = () => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="Name English"
                 placeholder="name in english"
                 type="text"
@@ -86,7 +86,7 @@ const AddList = () => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="discount"
                 placeholder="10"
                 type="text"
@@ -94,9 +94,8 @@ const AddList = () => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Name Arabic"
                 placeholder="name in arabic"
                 type="text"

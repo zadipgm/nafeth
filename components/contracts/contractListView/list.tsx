@@ -4,6 +4,7 @@ import {
   ButtonWrapper,
   CardPlateWrapper,
   CarTypeSvgWrapper,
+  ContractCustomer,
   GlobalListViewWrapper,
   ListViewContainer,
   ModelListViewWrapper,
@@ -31,8 +32,8 @@ interface IProps {
   contract: Contract;
   cars: ICarModel;
   page: string;
-  customers: ICustomers;
-  toggleDrawer: (param1: Anchor, param2: boolean, param3: any) => void;
+  customers?: ICustomers;
+  toggleDrawer?: (param1: Anchor, param2: boolean, param3: any) => void;
   isViewable: boolean;
   isEditable: boolean;
   isExtendable: boolean;
@@ -74,51 +75,79 @@ const List = ({
         {...(true ? { timeout: 2000 } : {})}
       >
         <div>
-          <GlobalListViewWrapper>
-            <ModelListViewWrapper>
-              <Tooltip content={"Contract number"} color={"success"}>
+          <GlobalListViewWrapper className="contract-list-view">
+            <ModelListViewWrapper className="contract-number">
+              <Tooltip
+                content={"Contract number"}
+                color={"primary"}
+                className={page}
+                placement={"top"}
+              >
                 <div className="contract">
-                  <CarContractNumberSvg />
+                  <CarContractNumberSvg
+                    fill={colors.sideBarBgColor}
+                    width="25px"
+                    height="25px"
+                  />
                   <span className="make-model">{contract.contractNo}</span>
                 </div>
               </Tooltip>
+              <ContractCustomer>
+                <IconComponent
+                  width={"25px"}
+                  height="25px"
+                  fill={colors.sideBarBgColor}
+                  icon={"carduserSvg"}
+                />
+
+                <span className="contract-customer">
+                  {
+                    filterCustomer(customers!, contract.customerID)[0][
+                      `fullname_${locale}`
+                    ]
+                  }
+                </span>
+              </ContractCustomer>
+
               <CardPlateWrapper>
                 <CarPlate car={carplate} />
               </CardPlateWrapper>
             </ModelListViewWrapper>
             <ReuseAbleList>
-              <ReuseAbleListItem>
-                <Tooltip
-                  content={
-                    page === "disputed" ? "Oil Change Cost" : "Daily Rent"
-                  }
-                  color={"success"}
-                >
+              <Tooltip
+                content={page === "disputed" ? "Oil Change Cost" : "Daily Rent"}
+                color={"primary"}
+                className={page}
+                placement={"top"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={page === "disputed" ? "carWorkshopSvg" : "cars"}
                     />
                   </div>
                   {page === "disputed"
                     ? contract.oilChangeCost
                     : contract.dailyPrice}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip
-                  content={
-                    page === "disputed" ? "Spare parts cost" : "Weekly Price"
-                  }
-                  color={"success"}
-                >
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                placement={"top"}
+                content={
+                  page === "disputed" ? "Spare parts cost" : "Weekly Price"
+                }
+                color={"primary"}
+                className={page}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={
                         page === "disputed" ? "availableCars" : "carRentedSvg"
                       }
@@ -127,22 +156,24 @@ const List = ({
                   {page === "disputed"
                     ? contract.sparePartsCost
                     : contract.weeklyPrice}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip
-                  content={
-                    page === "disputed"
-                      ? "Disputed Billing Status"
-                      : "Monthly Price"
-                  }
-                  color={"success"}
-                >
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                placement={"top"}
+                content={
+                  page === "disputed"
+                    ? "Disputed Billing Status"
+                    : "Monthly Price"
+                }
+                color={"primary"}
+                className={page}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"carTotalSvg"}
                     />
                   </div>
@@ -159,15 +190,20 @@ const List = ({
                       ? contract.disputedBillingStatus
                       : contract.monthlyPrice}
                   </span>
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip content={"Customer Name"} color={"success"}>
+                </ReuseAbleListItem>
+              </Tooltip>
+              {/* <Tooltip
+                content={"Customer Name"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"carduserSvg"}
                     />
                   </div>
@@ -176,85 +212,102 @@ const List = ({
                       `fullname_${locale}`
                     ]
                   }
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip
-                  content={
-                    page === "disputed" ? "Damage Cost" : "Advance Amount"
-                  }
-                  color={"success"}
-                >
+                </ReuseAbleListItem>
+              </Tooltip> */}
+              <Tooltip
+                content={page === "disputed" ? "Damage Cost" : "Advance Amount"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={page === "disputed" ? "carAccidentSvg" : "payments"}
                     />
                   </div>
                   {page === "disputed"
                     ? contract.damageCost
                     : contract.advanceAmount}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip
-                  content={page === "disputed" ? "Km In" : "km out"}
-                  color={"success"}
-                >
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                content={page === "disputed" ? "Km In" : "km out"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"carStolenSvg"}
                     />
                   </div>
                   {page === "disputed" ? contract.disputedKMIn : contract.kmOut}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip content={"check out time"} color={"success"}>
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                content={"check out time"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"clockSvg"}
                     />
                   </div>
                   {contract.timeOut}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip content={"Issue Date"} color={"success"}>
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                content={"Issue Date"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"issueDateSvg"}
                     />
                   </div>
                   {contract.issueDate}
-                </Tooltip>
-              </ReuseAbleListItem>
-              <ReuseAbleListItem>
-                <Tooltip content={"Return Date"} color={"success"}>
+                </ReuseAbleListItem>
+              </Tooltip>
+              <Tooltip
+                content={"Return Date"}
+                color={"primary"}
+                className={page}
+                placement={"bottom"}
+              >
+                <ReuseAbleListItem>
                   <div>
                     <IconComponent
                       width={"25px"}
                       height="25px"
-                      fill={colors.nafethBlue}
+                      fill={colors.sideBarBgColor}
                       icon={"returnDateSvg"}
                     />
                   </div>
                   {page === "disputed"
                     ? contract.disputedSubmitedDatetime
                     : contract.actualReturnDate}
-                </Tooltip>
-              </ReuseAbleListItem>
+                </ReuseAbleListItem>
+              </Tooltip>
             </ReuseAbleList>
             <CarTypeSvgWrapper>
               <span className="make-model">
@@ -323,7 +376,7 @@ const List = ({
                       <EditSvg
                         width="15px"
                         height="15px"
-                        fill={colors.nafethBlue}
+                        fill={colors.sideBarBgColor}
                       />
                     }
                   >
@@ -333,7 +386,7 @@ const List = ({
                 {isViewable && (
                   <Button
                     onClick={() =>
-                      toggleDrawer(
+                      toggleDrawer?.(
                         locale === "en" ? "right" : "left",
                         true,
                         contract
@@ -345,7 +398,7 @@ const List = ({
                       <ArrowCircleSvg
                         width="15px"
                         height="15px"
-                        fill={colors.nafethBlue}
+                        fill={colors.sideBarBgColor}
                       />
                     }
                   >

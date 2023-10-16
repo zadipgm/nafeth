@@ -1,12 +1,10 @@
 import * as React from "react";
 import {
-  CardContainer,
   FormBox,
   FormBoxWrapper,
   FormContainer,
   FormWrapper,
   GroupButtons,
-  GsettingsTitle,
   Logo,
   Text,
 } from "../style";
@@ -15,13 +13,12 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "styled-components";
-import Input from "@/reuseableComponents/InputField";
 import { isTheme } from "@/_helpers/getTheme";
 import { ICompanyTajeer } from "@/models/globalsettings";
-import InputComponent from "@/reuseableComponents/InputField";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { Update } from "@/api/putApis/update";
 import Swal from "sweetalert2";
+import InputField from "@/reuseableComponents/customInputField/input";
 interface ISettings {
   tajeer_portal: ICompanyTajeer;
 }
@@ -74,23 +71,22 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
   return (
     <>
       <FormContainer>
-        <CardContainer>
-          <Logo bgcolor={"#8E3A47"}>
-            <Image
-              src="/images/tajeer.png"
-              alt="tajeer"
-              width={270}
-              height={100}
-            />
-            <Text>
-              {translations?.tajeer}
-              <br />
-              <Link href={"https://services.taajeer.com/"}>
-                https://services.taajeer.com/.
-              </Link>
-            </Text>
-          </Logo>
-        </CardContainer>
+        <Logo bgcolor={"#8E3A47"}>
+          <Image
+            src="/images/tajeer.png"
+            alt="tajeer"
+            width={270}
+            height={100}
+          />
+          <Text>
+            {translations?.tajeer}
+            <br />
+            <Link href={"https://services.taajeer.com/"}>
+              https://services.taajeer.com/.
+            </Link>
+          </Text>
+        </Logo>
+
         <FormWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
           <Box
             component="form"
@@ -104,7 +100,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
           >
             <FormBoxWrapper>
               <FormBox className="tajeer" color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="Tajeer Application ID"
                   placeholder="c49fda9f"
                   defaultValue={tajeer_portal.tajeerAppId}
@@ -112,7 +108,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Tajeer Application Key"
                   placeholder="0a0ecdd133cbda8414c36b1d9f8f8f51"
                   defaultValue={tajeer_portal.tajeerAppKey}
@@ -120,7 +116,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   classname="tajeer"
                   onChange={(e) => onChangeHandler(e)}
                 />
-                <InputComponent
+                <InputField
                   label="Tajeer User Credentials"
                   placeholder="YXBpVXNlcjEwNjYzNzk6RXZpbHNpZGUwMDch"
                   defaultValue={tajeer_portal.tajeerUserCreditials}
@@ -132,7 +128,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
             </FormBoxWrapper>
             <FormBoxWrapper>
               <FormBox color={isTheme().color}>
-                <InputComponent
+                <InputField
                   label="Naql Authority License"
                   placeholder="1234542"
                   defaultValue={tajeer_portal.tajeerAuthorityLicense}

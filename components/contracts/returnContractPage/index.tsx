@@ -1,6 +1,6 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import * as React from "react";
-import { AccountTable, Paid, ReturnContainer, Unpaid } from "../style";
+import { AccountTable, ReturnContainer } from "../style";
 import { useTheme } from "styled-components";
 import {
   FormBox,
@@ -8,9 +8,8 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
-import InputComponent from "@/reuseableComponents/InputField";
 import { bank, evalueation, payment, status } from "@/global/fakeData";
 import {
   CarDetailsSubTitle,
@@ -21,7 +20,6 @@ import {
 import { useRouter } from "next/router";
 import moment from "moment";
 import Swal from "sweetalert2";
-import CashSvg from "@/public/icons/payments";
 import { IContracts } from "@/models/individualContracts";
 import { ICarModel } from "@/models/carmodel";
 import { ICustomers, IPriceList } from "@/models/customers";
@@ -34,12 +32,12 @@ import {
 } from "@/_helpers/filters";
 import { IBranchModel } from "@/models/branch";
 import { IAccessory } from "@/models/IAccessory";
-import DatePicker from "@/reuseableComponents/DatePicker";
-import DatePickerComponent from "@/reuseableComponents/DatePicker";
 import { NumOfDays } from "@/_helpers/getDays";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
   contract: IContracts;
   cars: ICarModel;
@@ -220,7 +218,7 @@ const ReturnContract = ({
   };
   return (
     <ReturnContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Contract Details</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -232,50 +230,47 @@ const ReturnContract = ({
             padding: "15px",
           }}
           noValidate={false}
-          autoComplete="off"
+          autoComplete="on"
         >
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Contract Number"
                 type="text"
                 value={contract.result[0].contractNo}
-                variant={"filled"}
                 disabled={true}
               />
-
-              <InputComponent
+              <InputField
                 label="Price List"
                 type="text"
                 value={PriceName}
-                variant={"filled"}
                 disabled={true}
               />
-
-              <InputComponent
+              <InputField
                 label="Issue Branch"
                 type="text"
                 value={branchName}
-                variant={"filled"}
                 disabled={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Customer Name"
                 type="text"
                 value={customerName}
-                variant="filled"
                 disabled={true}
               />{" "}
-              <InputComponent
+              <InputField
                 label="Make/ Model"
                 type="text"
                 value={carMakeMOdel}
-                variant="filled"
                 disabled={true}
               />
-              <InputComponent
+              <InputField
+                label="KM Out"
+                type="text"
+                value={contract.result[0].kmOut}
+                disabled={true}
+              />
+              <InputField
                 label="KM In"
                 placeholder="100000017"
                 type="text"
@@ -283,60 +278,47 @@ const ReturnContract = ({
                 name={"kmIn"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
-                label="KM Out"
-                type="text"
-                value={contract.result[0].kmOut}
-                variant="filled"
-                disabled={true}
-              />
               {/* <DatePickerComponent onChange={handleChange} /> */}
-              <InputComponent
+              <InputField
                 label="Return Date"
                 type="date"
-                variant="filled"
                 onChange={handleChange}
                 defaultValue={data.retunDate}
                 name={"retunDate"}
                 required={true}
-                mindate={contract.result[0].issueDate}
               />
-              <TextField
-                select
+              <SelectField
                 label="Evaluation"
                 name="evaluation"
                 required
                 onChange={handleChange}
               >
-                {evalueation.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="return-contract">
-              <TextField
-                select
+                <>
+                  {evalueation.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+              <SelectField
                 label="Status"
                 name="status"
                 required
                 onChange={handleChange}
               >
-                {status.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <>
+                  {status.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
             </FormBox>
           </FormBoxWrapper>
           <ReturnContainer>
-            <Title color={colors.nafethBlue}>
+            <Title color={colors.sideBarBgColor}>
               <h2>Rental Details</h2>
             </Title>
             <RentList className="rental-details">
@@ -380,7 +362,7 @@ const ReturnContract = ({
           </ReturnContainer>
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
-              <Title color={colors.nafethBlue}>
+              <Title color={colors.sideBarBgColor}>
                 <h2>Rent Account</h2>
               </Title>
               <AccountTable>
@@ -459,84 +441,71 @@ const ReturnContract = ({
 
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <ReturnContainer>
-              <Title color={colors.nafethBlue}>
+              <Title color={colors.sideBarBgColor}>
                 <h2>Summary</h2>
               </Title>
-              <FormBoxWrapper>
+              <FormBoxWrapper className="summary">
                 <FormBox color={isTheme().color}>
-                  <InputComponent
+                  <InputField
                     label="Total Rent"
                     type="text"
                     value={totalRent}
-                    variant="filled"
                     disabled={true}
                   />
-
-                  <InputComponent
+                  <InputField
                     label="Other Charge"
                     placeholder="100000017"
                     type="text"
                     value={"0.00"}
-                    variant="filled"
                     name={"name_en"}
                     disabled={true}
                     required={true}
                   />
-
-                  <InputComponent
+                  <InputField
                     label="Net Total"
                     type="text"
-                    variant="filled"
                     value={netTotal}
                     disabled={true}
                     name={"name_en"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+                  <InputField
                     label="Gross Total"
                     placeholder="100000017"
                     type="text"
-                    variant="filled"
                     value={grossTotal}
                     name={"name_en"}
                     disabled={true}
                     required={true}
                   />{" "}
-                  <InputComponent
+                  <InputField
                     label="VAT"
                     placeholder="100000017"
                     type="text"
                     value={vat}
                     name={"name_en"}
-                    variant="filled"
                     disabled={true}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Refunded"
                     placeholder="100000017"
                     type="text"
-                    variant="filled"
                     value={"0.00"}
                     name={"name_en"}
                     disabled={true}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+                  <InputField
                     label="Paid"
                     placeholder="100000017"
                     type="text"
-                    variant="filled"
                     value={"0.00"}
                     name={"name_en"}
                     disabled={true}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Discount"
                     placeholder="10"
                     onChange={handleChange}
@@ -544,64 +513,55 @@ const ReturnContract = ({
                     name={"discount"}
                     required={true}
                   />
-                  <TextField
-                    select
-                    label="PaymentType"
-                    name="Category"
-                    required
-                  >
-                    {payment.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        value={option.value}
-                        onClick={() => onBankChange(option.value)}
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="comments">
-                  <InputComponent
+                  <SelectField label="PaymentType" name="Category" required>
+                    <>
+                      {payment.map((option) => (
+                        <option
+                          key={option.value}
+                          value={option.value}
+                          onClick={() => onBankChange(option.value)}
+                        >
+                          {option.label}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+                  <InputField
                     label="Comments"
                     placeholder=""
                     type="text"
                     name={"comments"}
                     required={true}
-                    multiline={true}
-                    rows={1}
                   />
+                  {isbank && (
+                    <>
+                      <InputField
+                        label="Transaction Number"
+                        placeholder="445522667"
+                        type="text"
+                        name={"name_en"}
+                        required={true}
+                      />
+                      <SelectField label="Bank" name="Category" required>
+                        <>
+                          {" "}
+                          {bank.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </>
+                      </SelectField>
+                      <InputField
+                        label="Transaction Date"
+                        type="date"
+                        name={"name_en"}
+                        required={true}
+                      />
+                    </>
+                  )}
                 </FormBox>
               </FormBoxWrapper>
-              {isbank && (
-                <FormBoxWrapper>
-                  <FormBox color={isTheme().color} className="bank-name">
-                    <InputComponent
-                      label="Transaction Number"
-                      placeholder="445522667"
-                      type="text"
-                      name={"name_en"}
-                      required={true}
-                    />
-                    <TextField select label="Bank" name="Category" required>
-                      {bank.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <InputComponent
-                      label="Transaction Date"
-                      type="date"
-                      variant="filled"
-                      name={"name_en"}
-                      required={true}
-                    />
-                  </FormBox>
-                </FormBoxWrapper>
-              )}
             </ReturnContainer>
           )}
           <GroupButtons>

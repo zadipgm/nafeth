@@ -1,11 +1,16 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
+flex-grow: 1;
+flex-basis: 400px;
 .data-search{
 width: 100%;
 }
+.MuiFormControl-root{
+        width: 100%;}
 &.date-time{
     .MuiFormControl-root{
+        width: 100%;
         .MuiInputBase-root{
             .MuiInputBase-root >input{
                 -webkit-text-fill-color: transparent !important;
@@ -13,7 +18,7 @@ width: 100%;
         }
     }
 }
-&.customer-email{
+/* &.customer-email{
     width: 50%;
 }
 &.nationality{
@@ -69,5 +74,5 @@ input[type="date"]{
         width: 100%;
 
     }
-}
+} */
 `

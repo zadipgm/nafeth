@@ -3,12 +3,24 @@ import { MenuItem, TextField } from "@mui/material";
 import { Filter, SearchWrapper } from "./style";
 import InputComponent from "../InputField";
 import { RequestSearch } from "@/hooks/useSorting";
+import SelectField from "../customeSelectField/select";
+import InputField from "../customInputField/input";
+import { useTheme } from "styled-components";
 interface IProps {
   data: any;
   setSearchvalue: any;
   currentRecords: any;
+  keys?: string[];
+  classname?: string;
 }
-const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
+const SearchComponent = ({
+  data,
+  setSearchvalue,
+  currentRecords,
+  keys,
+  classname,
+}: IProps) => {
+  const { translations } = useTheme();
   const [filterKey, setFilterKey] = React.useState("id");
   const handlerChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,32 +33,31 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
     setFilterKey(value);
   };
   const renderColumnKeys = () => {
-    let header = Object?.keys(data && data[0]);
+    let header = keys;
     return header?.map((key, index) => {
       return (
-        <MenuItem key={index} value={key}>
+        <option key={index} value={key}>
           {key.charAt(0).toUpperCase() +
             key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}
-        </MenuItem>
+        </option>
       );
     });
   };
   return (
     <>
-      <Filter>
-        <TextField
-          select
-          label="Filter By Column"
+      <Filter className={classname}>
+        <SelectField
+          label={translations?.filterByColumn as string}
           onChange={(e) => handlerChange(e)}
         >
-          {data && renderColumnKeys()}
-        </TextField>
+          <>{data && renderColumnKeys()}</>
+        </SelectField>
       </Filter>
-      <SearchWrapper>
-        <InputComponent
+      <SearchWrapper className={classname}>
+        <InputField
           classname="data-search"
           type="search"
-          label={`Search record by ${filterKey}`}
+          label={`${translations?.searchRecordBy} ${filterKey}`}
           onChange={(e) =>
             RequestSearch(
               e.target.value,
@@ -57,8 +68,8 @@ const SearchComponent = ({ data, setSearchvalue, currentRecords }: IProps) => {
           }
           placeholder={
             filterKey.toLocaleLowerCase().includes("date")
-              ? "search by date format yyyy-mm-dd"
-              : "search"
+              ? `${translations?.searchbydateformat} yyyy-mm-dd`
+              : `${translations?.search}`
           }
         />
       </SearchWrapper>

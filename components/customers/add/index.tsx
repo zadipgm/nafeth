@@ -8,10 +8,8 @@ import {
   FormBoxWrapper,
   FormWrapper,
   GroupButtons,
-  ZipCode,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
-import InputComponent from "@/reuseableComponents/InputField";
+import { Box, Button } from "@mui/material";
 import { bodyObjecCustomer } from "@/global/fakeData";
 import VerifySvg from "@/public/icons/verifySvg";
 import { useRouter } from "next/router";
@@ -23,6 +21,8 @@ import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { createPost } from "@/api/postApis/createBranch";
 import Swal from "sweetalert2";
 import { fetchData } from "@/api/fetchapis/fetchData";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
   category: ICategory;
   IdType: IidType;
@@ -69,7 +69,7 @@ const AddCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = "customers/Customers";
+    let url = "Customers";
     if (checkID) {
       await createPost(userName, userPassword, url, company, data).then(
         (res: any) => {
@@ -105,7 +105,7 @@ const AddCustomer = ({
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
-    let url = `/customers/Customers/ValidateID/${data.idNumber}`;
+    let url = `/customers/ValidateID/${data.idNumber}`;
 
     await fetchData(userName, userPassword, url, company).then((res: any) => {
       if (res.message == "success") {
@@ -128,7 +128,7 @@ const AddCustomer = ({
   };
   return (
     <Container>
-      <Title color={colors.green}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add Customer</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -147,60 +147,58 @@ const AddCustomer = ({
 
           <FormBoxWrapper>
             <FormBox color={isTheme().color} className="customer-code">
-              <InputComponent
+              <InputField
                 label="Customer Code"
                 placeholder="100000017"
                 type="text"
                 value={max_number as string}
                 name={"name_en"}
                 disabled={true}
-                variant="filled"
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Category"
                 name="category"
                 onChange={handleChange}
                 defaultValue={""}
                 required
               >
-                {category.result.map((option) => (
-                  <MenuItem
-                    key={option.id}
-                    value={option.id}
-                    onClick={() => hanldeCategoryID(option.id)}
-                  >
-                    {option[`name_${locale}`]}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormBox>
-          </FormBoxWrapper>
-          {categoryID === 1 ? (
-            <>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
-                  <TextField
-                    select
+                <>
+                  {category.result.map((option) => (
+                    <option
+                      key={option.id}
+                      value={option.id}
+                      onClick={() => hanldeCategoryID(option.id)}
+                    >
+                      {option[`name_${locale}`]}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
+
+              {categoryID === 1 ? (
+                <>
+                  <SelectField
                     label="IDType"
                     name="idType"
                     onChange={handleChange}
                     defaultValue={""}
                     required
                   >
-                    {IdType.result.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        onClick={() => hanldeIDType(option.id)}
-                      >
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {IdType.result.map((option) => (
+                        <option
+                          key={option.id}
+                          value={option.id}
+                          onClick={() => hanldeIDType(option.id)}
+                        >
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
                   <IDValidateWrapper>
-                    <InputComponent
+                    <InputField
                       label="ID"
                       placeholder="2529283364"
                       type="text"
@@ -223,7 +221,7 @@ const AddCustomer = ({
                       Validate
                     </Button>
                     {IDTypes === 1 || IDTypes === 2 ? (
-                      <InputComponent
+                      <InputField
                         label="ID Version"
                         placeholder="2"
                         type="text"
@@ -236,17 +234,16 @@ const AddCustomer = ({
                       ""
                     )}
                   </IDValidateWrapper>
-                  <InputComponent
-                    label="ID Expiry Date GEO"
+                  <InputField
+                    label="ID Expiry Date"
                     placeholder=""
                     type="date"
                     onChange={handleChange}
                     name={"idExpiryDate_gregorian"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+
+                  <InputField
                     label="Full Name En"
                     placeholder="zeshan"
                     type="text"
@@ -256,45 +253,47 @@ const AddCustomer = ({
                     required={true}
                   />
                   {IDTypes === 1 || IDTypes === 2 ? (
-                    <TextField
-                      select
+                    <SelectField
                       label="Issue City"
                       name="idissuecity"
                       onChange={handleChange}
                       defaultValue={""}
                       required
                     >
-                      {cities.result.map((option) => (
-                        <MenuItem
-                          key={option.id}
-                          value={option.id}
-                          onClick={() => hanldeIDType(option.id)}
-                        >
-                          {option[`name_${locale}`]}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      <>
+                        {cities.result.map((option) => (
+                          <option
+                            key={option.id}
+                            value={option.id}
+                            onClick={() => hanldeIDType(option.id)}
+                          >
+                            {option[`name_${locale}`]}
+                          </option>
+                        ))}
+                      </>
+                    </SelectField>
                   ) : (
-                    <TextField
-                      select
+                    <SelectField
                       label="Issue Country"
                       name="idIssueCountry"
                       onChange={handleChange}
                       defaultValue={""}
                       required
                     >
-                      {countries.result.map((option) => (
-                        <MenuItem
-                          key={option.id}
-                          value={option.id}
-                          onClick={() => hanldeIDType(option.id)}
-                        >
-                          {option[`name_${locale}`]}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      <>
+                        {countries.result.map((option) => (
+                          <option
+                            key={option.id}
+                            value={option.id}
+                            onClick={() => hanldeIDType(option.id)}
+                          >
+                            {option[`name_${locale}`]}
+                          </option>
+                        ))}
+                      </>
+                    </SelectField>
                   )}
-                  <InputComponent
+                  <InputField
                     label="License Number"
                     placeholder="2529283364"
                     type="text"
@@ -303,9 +302,8 @@ const AddCustomer = ({
                     name={"licenseNo"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+
+                  <InputField
                     label="Full Name AR"
                     placeholder="zeshan"
                     type="text"
@@ -314,7 +312,7 @@ const AddCustomer = ({
                     name={"fullname_ar"}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="ID Expiry Date Hijri"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
@@ -323,7 +321,7 @@ const AddCustomer = ({
                     name={"idExpiryDate_hijri"}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Expiry of the license (Hijri)"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
@@ -332,11 +330,8 @@ const AddCustomer = ({
                     name={"licExpiryDate_hijri"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+
+                  <InputField
                     label="Expiry of the license (Geo)"
                     placeholder=""
                     type="date"
@@ -345,7 +340,7 @@ const AddCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Mobile Number"
                     placeholder="966581955852"
                     type="text"
@@ -354,9 +349,8 @@ const AddCustomer = ({
                     name={"mobileNo"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+
+                  <InputField
                     label="Employer"
                     placeholder="zadip"
                     type="text"
@@ -366,37 +360,38 @@ const AddCustomer = ({
                     required={true}
                   />
 
-                  <TextField
-                    select
+                  <SelectField
                     label="City of Residence"
                     name="residentCity"
                     onChange={handleChange}
                     defaultValue={""}
-                    required
+                    required={true}
                   >
-                    {cities.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <TextField
-                    select
+                    <>
+                      {cities.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+
+                  <SelectField
                     label="Price List"
                     name="pricelist"
                     onChange={handleChange}
                     defaultValue={""}
-                    required
+                    required={true}
                   >
-                    {pricelist.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <InputComponent
+                    <>
+                      {pricelist.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+                  <InputField
                     label="Work Phone"
                     placeholder="966581955852"
                     type="text"
@@ -405,11 +400,8 @@ const AddCustomer = ({
                     name={"workPhone"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="nationality">
-                  <InputComponent
+
+                  <InputField
                     label="Email"
                     placeholder="zeshan@gmail.com"
                     type="email"
@@ -419,26 +411,24 @@ const AddCustomer = ({
                     classname="customer-email"
                     required={true}
                   />
-                  <TextField
-                    select
+                  <SelectField
                     label="Nationality"
                     name="nationality"
                     onChange={handleChange}
                     defaultValue={""}
-                    required
-                    className="customer-nationality"
+                    required={true}
+                    classname="customer-nationality"
                   >
-                    {countries.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="nationality">
-                  <InputComponent
+                    <>
+                      {countries.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+
+                  <InputField
                     label="Date of Birth Hijri"
                     placeholder="20/04/1445"
                     type="text"
@@ -447,7 +437,7 @@ const AddCustomer = ({
                     classname="nationality"
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Date of Birth gregorian"
                     placeholder="zeshan@gmail.com"
                     type="date"
@@ -464,16 +454,12 @@ const AddCustomer = ({
                     classname={"customer-switch"}
                     value={data.active}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-            </>
-          ) : (
-            // ----------------------------company form start from here---------------------------------------
-            <>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color}>
+                </>
+              ) : (
+                // ----------------------------company form start from here---------------------------------------
+                <>
                   <IDValidateWrapper>
-                    <InputComponent
+                    <InputField
                       label="CR Number"
                       placeholder="2529283364"
                       type="text"
@@ -495,16 +481,15 @@ const AddCustomer = ({
                       Validate
                     </Button>
                   </IDValidateWrapper>
-                  <InputComponent
+                  <InputField
                     label="Compnay Name"
                     placeholder="zeshan"
                     type="text"
                     name={"Compnay name"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <InputComponent
+
+                  <InputField
                     label="Expiry Date"
                     placeholder="dd/mm/yyyy"
                     type="text"
@@ -512,71 +497,67 @@ const AddCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="phone"
                     placeholder="966581955852"
                     type="text"
                     name={"phone"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color}>
-                  <TextField
-                    select
+
+                  <SelectField
                     label="Price List"
                     name="Place of  issue"
                     // onChange={handleChange}
                     // value={data.cityId}
                     required
                   >
-                    {cities.result.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        defaultValue={""}
-                      >
-                        {option.name_en}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {cities.result.map((option) => (
+                        <option
+                          key={option.id}
+                          value={option.id}
+                          defaultValue={""}
+                        >
+                          {option.name_en}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
 
-                  <InputComponent
+                  <InputField
                     label="VAT Number"
                     placeholder="4321566"
                     type="text"
                     name={"VAT"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-              <FormBoxWrapper>
-                <FormBox color={isTheme().color} className="employee-compnay">
-                  <InputComponent
+
+                  <InputField
                     label="Employee Name"
                     placeholder="zeshan"
                     type="text"
                     name={"emp name"}
                     required={true}
                   />
-                </FormBox>
-                <FormBox color={isTheme().color} className="employee-compnay">
-                  <InputComponent
+
+                  <InputField
                     label="Mobile Number"
                     placeholder="966581955852"
                     type="text"
                     name={"phone"}
                     required={true}
                   />
-                </FormBox>
-              </FormBoxWrapper>
-            </>
-          )}
-          <Title color={colors.green}>
+                </>
+              )}
+            </FormBox>
+          </FormBoxWrapper>
+          <Title color={colors.sideBarBgColor}>
             <h3>Address</h3>
           </Title>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Building Number"
                 placeholder="1234"
                 type="text"
@@ -584,7 +565,7 @@ const AddCustomer = ({
                 name={"cA_buildingNo"}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="City"
                 placeholder="Riyadh"
                 type="text"
@@ -592,9 +573,7 @@ const AddCustomer = ({
                 name={"cA_City"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Street Name"
                 placeholder="king fahad"
                 type="text"
@@ -602,7 +581,7 @@ const AddCustomer = ({
                 name={"cA_StreetName"}
                 required={true}
               />{" "}
-              <InputComponent
+              <InputField
                 label="Country"
                 placeholder="saudi arabia"
                 type="text"
@@ -610,9 +589,7 @@ const AddCustomer = ({
                 name={"cA_Country"}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="District"
                 placeholder="al malaz"
                 type="text"
@@ -620,39 +597,31 @@ const AddCustomer = ({
                 name={"cA_District"}
                 required={true}
               />
-              <ZipCode className="zip-code">
-                <InputComponent
-                  label="Zip-code1"
-                  placeholder="12664"
-                  type="text"
-                  onChange={handleChange}
-                  name={"cA_PostalCode"}
-                  required={true}
-                  classname="zip-code"
-                />{" "}
-                <InputComponent
-                  label="Zip-code2"
-                  placeholder="12664"
-                  type="text"
-                  onChange={handleChange}
-                  name={"cA_AdditionalPostalCode"}
-                  required={true}
-                  classname="zip-code"
-                />
-              </ZipCode>
-            </FormBox>
-          </FormBoxWrapper>
-          <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="Additional">
-              <InputComponent
+              <InputField
+                label="Zip-code1"
+                placeholder="12664"
+                type="text"
+                onChange={handleChange}
+                name={"cA_PostalCode"}
+                required={true}
+                classname="zip-code"
+              />{" "}
+              <InputField
+                label="Zip-code2"
+                placeholder="12664"
+                type="text"
+                onChange={handleChange}
+                name={"cA_AdditionalPostalCode"}
+                required={true}
+                classname="zip-code"
+              />
+              <InputField
                 label="Additional Information"
                 placeholder=""
                 type="text"
-                multiline={true}
                 onChange={handleChange}
                 name={"comments"}
                 required={true}
-                rows={2}
               />
             </FormBox>
           </FormBoxWrapper>

@@ -4,11 +4,11 @@ import List from "./list";
 import { ICustomers } from "@/models/customers";
 type Anchor = "top" | "left" | "bottom" | "right";
 interface ICarProps {
-  contracts: any;
+  contracts?: any;
   cars?: any;
-  customers: ICustomers;
-  toggleDrawer: (param1: Anchor, param2: boolean, param3: any) => void;
-  handleEdit: (param: any) => void;
+  customers?: ICustomers;
+  toggleDrawer?: (param1: Anchor, param2: boolean, param3: any) => void;
+  handleEdit?: (param: any) => void;
   show: number;
   page: string;
   isViewable: boolean;
@@ -35,8 +35,8 @@ const ContractListView = ({
   toggleDrawer,
 }: ICarProps) => {
   return (
-    <ListViewContainer>
-      {contracts.slice(0, show)?.map((contract: any, i: any) => {
+    <>
+      {contracts?.slice(0, show)?.map((contract: any, i: any) => {
         return (
           <List
             key={i}
@@ -55,7 +55,7 @@ const ContractListView = ({
           />
         );
       })}
-    </ListViewContainer>
+    </>
   );
 };
 export default ContractListView;

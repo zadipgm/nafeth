@@ -20,7 +20,7 @@ export const SlectedAccessories = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 30px;
   padding: 8px;
-  border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+  border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
 `;
 export const Accessory = styled.div`
   display: flex;
@@ -38,6 +38,7 @@ export const AccessoriesContainer = styled.div`
   align-items: center;
   margin: 10px;
   display: flex;
+  flex-wrap: wrap;
   cursor: pointer;
   & .MuiFormGroup-root {
     label {
@@ -108,18 +109,19 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 0px 10px;
+  padding: 0px 20px;
   .active_promotions {
-    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
     cursor: pointer;
   }
-  .individual{
-     flex-grow: 1;
+  .individual {
+    flex-grow: 1;
     flex-basis: 400px;
   }
   .car-management {
-    flex-grow: 1;
-    flex-basis: 375px;
+    flex-grow: 0;
+    flex-basis: 365px;
+    justify-content: space-between;
   }
   .promotions {
     border: 2px solid transparent;
@@ -133,13 +135,13 @@ export const ContractGrid = styled.div`
   flex-wrap: wrap;
 `;
 export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
-  width: 24%;
-  flex-grow: 1;
+  width: 23%;
   color: ${({ color }) => color};
-  background-color: ${({ bcolor }) => bcolor};
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ theme }) => theme.colors.white};
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 22px;
+ 
   transition: all.5s;
   position: relative;
 
@@ -155,10 +157,7 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
     width: 100%;
     margin: 15px 0px;
   }
-  @media (min-width: 768px) {
-    width: 80%;
-    /* margin: 0 auto; */
-  }
+ 
   @media (min-width: 1024px) {
     width: 48%;
     /* margin: 0 auto; */
@@ -167,21 +166,23 @@ export const CardWrapper = styled.div<{ bcolor?: string; color?: string }>`
     width: 32%;
   }
   @media (min-width: 1640px) {
-    width: 23%;
+    width: 24%;
   }
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
+  font-family: inherit;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   width: 100%;
   flex-wrap: wrap;
-
   &.accessory {
+    font-family: inherit;
     justify-content: center;
   }
   &.promotions {
+    font-family: inherit;
     justify-content: flex-end;
     @media (max-width: 600px) {
       width: 100%;
@@ -192,11 +193,11 @@ export const ButtonWrapper = styled.div`
       margin-bottom: 10px;
     }
   }
-
   &.car-management {
   }
-
+ 
   &.customer {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
     padding: 15px 0px 0px 0px;
@@ -207,10 +208,13 @@ export const ButtonWrapper = styled.div`
       flex-grow: 1;
       flex-basis: 100px;
       font-size: 10px !important;
+      svg {
+          margin: 0px 7px;
+        }
       &:hover {
         color: #fff;
-        border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
-        background-color: ${({ theme }) => theme.colors.nafethBlue};
+        border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor};
+        background-color: ${({ theme }) => theme.colors.sideBarBgColor};
         & .MuiButton-endIcon {
           svg {
             path {
@@ -222,11 +226,15 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .print {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
     border: 1px solid ${({ theme }) => theme.colors.cyan};
     color: ${({ theme }) => theme.colors.cyan};
+    svg {
+          margin: 0px 7px;
+        }
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.cyan};
@@ -242,6 +250,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .retrun {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
@@ -261,6 +273,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .extention {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     border: 1px solid ${({ theme }) => theme.colors.purple};
@@ -272,6 +288,7 @@ export const ButtonWrapper = styled.div`
       background-color: ${({ theme }) => theme.colors.purple};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           fill: #fff;
           path {
             stroke: #fff;
@@ -281,21 +298,29 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .nozhum {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     width: 100%;
     font-size: 10px !important;
     &:hover {
       color: #fff;
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     }
   }
   & .details {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.green};
     border: 1px solid ${({ theme }) => theme.colors.green};
     svg {
+     
       path {
         fill: ${({ theme }) => theme.colors.green};
       }
@@ -321,16 +346,20 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .edit {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     &:hover {
       color: #fff;
-      border: 1px solid ${({ theme }) => theme.colors.nafethBlue};
-      background-color: ${({ theme }) => theme.colors.nafethBlue};
+      border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor};
+      background-color: ${({ theme }) => theme.colors.sideBarBgColor};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           path {
             stroke: #fff;
           }
@@ -339,17 +368,23 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .rent {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
     color: ${({ theme }) => theme.colors.purple};
     border: 1px solid ${({ theme }) => theme.colors.purple};
+    
     &:hover {
       color: #fff;
       border: 1px solid ${({ theme }) => theme.colors.purple};
       background-color: ${({ theme }) => theme.colors.purple};
       & .MuiButton-endIcon {
         svg {
+          margin: 0px 7px;
           path {
             stroke: #fff;
           }
@@ -358,6 +393,10 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .delete {
+    font-family: inherit;
+    svg {
+          margin: 0px 7px;
+        }
     flex-grow: 1;
     flex-basis: 100px;
     font-size: 10px !important;
@@ -377,9 +416,12 @@ export const ButtonWrapper = styled.div`
     }
   }
   & .dispute {
+    font-family: inherit;
     flex-grow: 1;
     flex-basis: 100px;
-
+    svg {
+          margin: 0px 7px;
+        }
     font-size: 10px !important;
     color: red;
     border: 1px solid red;
@@ -403,7 +445,8 @@ export const CardMakeModelWrapper = styled.div`
   align-items: center;
   width: 100%;
   .customer_full_name {
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
+    font-size: 22px;
   }
 `;
 export const Strong = styled.strong<{ color: string }>`
@@ -415,12 +458,15 @@ export const Span = styled.span<{ color: string }>`
   font-size: 14px;
   color: ${({ color }) => color};
 `;
-export const CardMakeModel = styled.div<{ color: string }>`
+export const ContractNumber = styled.div`
+display: flex;
+justify-content: flex-start;
+align-items: center;
+/* gap: 2px; */
+`
+export const CardMakeModel = styled.div`
   font-size: 22px;
-  &.contract {
-    color: ${({ color }) => color};
-  }
-  color: ${({ theme }) => theme.colors.nafethBlue};
+  color: ${({ theme }) => theme.colors.sideBarBgColor};
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -606,6 +652,7 @@ export const CarPlateInArabicWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   .car-plate-arabic {
     width: 100%;
@@ -613,24 +660,11 @@ export const CarPlateInArabicWrapper = styled.div`
 `;
 export const RentWrapper = styled.div`
   display: flex;
-  @media (max-width: 600px) {
-    display: block;
-    &.car-card {
-      height: unset !important;
-    }
-  }
+  flex-wrap: wrap;
   margin: 30px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 70px;
-  /* &.car-card {
-    height: 400px;
-  } */
-  &.Customer-card {
-    height: 300px;
-  }
-  &.driver-card {
-    height: 200px;
-  }
+  
 `;
 export const RentList = styled.ul`
   margin: 0;
@@ -644,8 +678,13 @@ export const RentList = styled.ul`
   border-top-left-radius: 70px;
   border-bottom-left-radius: 70px;
   border-bottom-right-radius: 70px;
-  background-color: ${({ theme }) => theme.colors.nafethBlue};
+  background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   color: white;
+  flex-grow: 1;
+    flex-basis: 300px;
+    &.customer-selected{
+      background-color: #000000ad;
+    }
   &.rental-details {
     margin: 20px;
     border-radius: 100px;
@@ -681,16 +720,11 @@ export const RentList = styled.ul`
   &.custom-price {
     background-color: transparent;
     color: black;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
-    margin: 0;
-    > li {
-      width: 20%;
-      margin: 0px 4px;
-      span {
-        color: ${({ theme }) => theme.colors.gray1};
-      }
-    }
+    gap: 15px;
+   
+    
   }
   @media (max-width: 600px) {
     width: 100%;
@@ -699,6 +733,7 @@ export const RentList = styled.ul`
 export const RentListItem = styled.li`
   display: flex;
   flex-grow: 1;
+  flex-wrap: wrap;
   flex-basis: 200px;
   flex-direction: column;
   justify-content: flex-start;
@@ -719,6 +754,8 @@ export const RentListItem = styled.li`
 export const CarOtherDetails = styled.div`
   width: 30%;
   padding: 15px;
+  flex-grow: 1;
+    flex-basis: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -770,7 +807,8 @@ export const BackICon = styled.div`
   }
 `;
 export const CarDetailsTitle = styled.span`
-  color: ${({ theme }) => theme.colors.black1};
+  color: ${({ theme }) => theme.colors.gray2};
+  font-weight: 600;
   &.other-detail {
     color: ${({ theme }) => theme.colors.black1};
   }
@@ -790,7 +828,7 @@ export const CarDetailsSubTitle = styled.span<{ color?: string }>`
     text-align: center;
     border-radius: 8px;
     color: ${({ color }) => color};
-    background-color: ${({ theme }) => theme.colors.nafethBlue};
+    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
   }
 `;
 export const OtherDetailsList = styled.ul`
@@ -809,6 +847,7 @@ export const CarplateSvgWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  flex-wrap: wrap;
 `;
 export const OtherDetailsListItem = styled.li`
   display: flex;
@@ -834,21 +873,26 @@ export const IDIcon = styled.div`
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
 export const ListViewContainer = styled.div`
-  padding: 0px 15px;
+  padding: 0px 20px;
 `;
 
 export const GlobalListViewWrapper = styled.div`
   margin: 20px 0px;
-  padding: 15px;
-  border-radius: 22px;
+  padding: 0px 15px 15px 15px;
+  &.contract-list-view{
+  padding: 10px 15px 15px 15px;
+
+  }
+  border-radius: 20px;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ theme }) => theme.colors.white};
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   flex-wrap: wrap;
   &.active_promotions {
-    border: 2px solid ${({ theme }) => theme.colors.nafethBlue};
+    border: 2px solid ${({ theme }) => theme.colors.sideBarBgColor};
     cursor: pointer;
   }
   &.promotions {
@@ -856,12 +900,52 @@ export const GlobalListViewWrapper = styled.div`
     cursor: pointer;
   }
 `;
+export const ContractCustomer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+&.short-list-view{
+  flex-direction: column;
+  align-items: flex-start;
+}
+& .contract-customer{
+  font-size: 20px;
+  font-weight: 700;
+}
+`
 export const ModelListViewWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
-  flex-basis: 80px;
+  flex-basis: 112px;
   font-size: 18px;
   display: flex;
+  gap: 8px;
+ 
+  &.short-list-view{
+    transition: all.5s;
+    border:2px solid transparent;
+    display: flex;
+    width: 97%;
+    cursor: pointer;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     &.active{
+      border:2px solid ${({ theme }) => theme.colors.nafethBlue};
+     }
+  }
+  &.contract-number{
+flex-basis: 150px;
+display: flex;
+flex-direction: column;
+  }
   flex-direction: column;
   align-items: flex-start;
   .contract {
@@ -875,14 +959,17 @@ export const ModelListViewWrapper = styled.div`
     color: ${({ theme }) => theme.colors.darkBlue};
   }
   .make-model {
-    font-size: 17px;
+    font-size: 26px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
     line-height: 21px;
   }
 `;
 export const CardPlateWrapper = styled.div`
   width: 100%;
+  &.short-list-view{
+    width: 50%;
+  }
 `;
 export const ReuseAbleList = styled.ul`
   margin: 0;
@@ -894,14 +981,29 @@ export const ReuseAbleList = styled.ul`
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  .car-management{
+flex-grow: 1;
+flex-basis: 150px;
+}
+.dashboard{
+flex-grow: 1;
+flex-basis: 150px;
+}
+.individual{
+  flex-grow: 1;
+flex-basis: 150px;
+}
+.disputed{
+  flex-grow: 1;
+flex-basis: 150px;
+}
 `;
 export const ReuseAbleListItem = styled.li<{ color?: string }>`
   display: flex;
   justify-content: flex-start;
   color: ${({ color }) => color};
   gap: 8px;
-  flex-grow: 1;
-  flex-basis: 150px;
+  width: 100%;
   background-color: #d7d6d645;
   padding: 3px 3px 0px 3px;
   margin: 3px;
@@ -932,6 +1034,8 @@ export const Status = styled.div<{ color: string }>`
   justify-content: center;
   border-radius: 8px;
 `;
+
+
 export const CarTypeSvgWrapper = styled.div`
   flex-grow: 1;
   flex-basis: 200px;
@@ -941,11 +1045,11 @@ export const CarTypeSvgWrapper = styled.div`
   .make-model {
     font-size: 17px;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.nafethBlue};
+    color: ${({ theme }) => theme.colors.sideBarBgColor};
     line-height: 21px;
   }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-    align-items: end;
+  align-items: end;
 `;

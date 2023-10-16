@@ -10,7 +10,7 @@ import {
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { ICarModel } from "@/models/carmodel";
-import InputComponent from "@/reuseableComponents/InputField";
+import InputField from "@/reuseableComponents/customInputField/input";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
@@ -101,7 +101,7 @@ const AddPromotionList = ({ cars }: IProps) => {
   };
   return (
     <div>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Add New List</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -118,7 +118,7 @@ const AddPromotionList = ({ cars }: IProps) => {
         >
           <FormBoxWrapper className="price-list">
             <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+              <InputField
                 label="Promotion name English"
                 placeholder="name in english"
                 type="text"
@@ -126,7 +126,7 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Start Date"
                 placeholder=""
                 type="date"
@@ -135,9 +135,8 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Promotion name Arabic"
                 placeholder="name in arabic"
                 type="text"
@@ -145,7 +144,7 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="End Date"
                 placeholder=""
                 type="date"
@@ -154,9 +153,8 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="Start Time"
                 placeholder="name in english"
                 type="time"
@@ -166,7 +164,7 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="discount"
                 placeholder="10"
                 type="text"
@@ -174,9 +172,8 @@ const AddPromotionList = ({ cars }: IProps) => {
                 onChange={handleChange}
                 required={true}
               />
-            </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
-              <InputComponent
+
+              <InputField
                 label="End Time"
                 placeholder=""
                 type="time"

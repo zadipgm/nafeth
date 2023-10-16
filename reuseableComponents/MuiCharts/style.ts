@@ -4,25 +4,31 @@ export const Container = styled.div<{ bcolor?: string; color?: string }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
-  @media(min-width:600px){
-  flex-direction: column;
-  width:100%;
-}
- @media(min-width:1024px){
-  flex-direction: column;
-  width: 23%;
-}
+  width: 100%;
+
 `
 export const Chart = styled.div<{ bcolor?: string; color?: string }>`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 border-radius: 8px;
 color: ${({ color }) => color};
-  background-color: ${({ bcolor }) => bcolor};
-  padding:0px 10px;
-  width: 100%;
+  background-color: white;
+  padding:10px ;
+ flex-grow: 1;
+flex-basis: 400px;
 
+h4{
+  color: #252422;
+    font-weight: 300;
+    margin: 8px;
+    font-size: 1.5em;
+}
+.bottom{
+  border-top: 1px solid ${({ theme }) => theme.colors.borderBottomColor};
+  padding-top: 10px;
+  font-size: 15px;
+}
 `;
 export const Title = styled.h2`
    

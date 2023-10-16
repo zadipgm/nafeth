@@ -14,7 +14,7 @@ const Page: NextPageWithLayout = (props) => {
       isAddbutton={true}
       deleteable={true}
       details={true}
-      page_color={"#1281C4"}
+      page_color={"#283b58"}
       title={"Customers List"}
       customers={props as ICustomers}
       listtype=""
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<{
   const res = await fetchData(
     userName as string,
     userPassword as string,
-    "/customers/Customers",
+    "/customers",
     company as string
   );
   const result = await res;

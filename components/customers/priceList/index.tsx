@@ -6,6 +6,7 @@ import TableComponent from "@/reuseableComponents/TableComponent";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import { LoyaltyContainer } from "../style";
+import { priceListKeys } from "@/constants";
 interface IProps {
   list: IPrices;
 }
@@ -14,7 +15,7 @@ const PriceListComponent = ({ list }: IProps) => {
   const { colors } = useTheme();
   return (
     <LoyaltyContainer>
-      <Title color={colors.nafethBlue}>
+      <Title color={colors.sideBarBgColor}>
         <h2>Price Lists</h2>
       </Title>
       <DataTable
@@ -24,12 +25,13 @@ const PriceListComponent = ({ list }: IProps) => {
         isViewAble={false}
         isDuplicate={false}
         linkPageUrl={"pricelist"}
-        page_color={colors.nafethBlue}
+        page_color={colors.sideBarBgColor}
         sideBarTitle="Pricelist Details"
         size="400px"
         showAddButton={true}
         addButtonText="Add New List"
         showFilter={true}
+        keys={priceListKeys}
       />
     </LoyaltyContainer>
   );

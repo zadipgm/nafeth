@@ -75,7 +75,7 @@ const Grid = ({
           <Tooltip content={"car make/model"} color={"success"}>
             <CardMakeModel color={isTheme().color}>
               <div>
-                {car.make.name_en} {car.model.name_en}/
+                {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
                 <span className="year">{car.year}</span>
               </div>
             </CardMakeModel>
@@ -105,13 +105,21 @@ const Grid = ({
         <CardSpecsWrapper>
           <CardTransmitionWrapper>
             <Tooltip content="Weekly Rent" color={"warning"}>
-              <CarRentSvg width="25px" height="25px" fill={isTheme().color} />
+              <CarRentSvg
+                width="25px"
+                height="25px"
+                fill={colors.sideBarBgColor}
+              />
               <p>{car.weeklyRent}</p>
             </Tooltip>
           </CardTransmitionWrapper>
           <CardTransmitionWrapper>
             <Tooltip content="Fuel Type" color={"success"}>
-              <CarPetrolSvg width="25px" height="25px" fill={isTheme().color} />
+              <CarPetrolSvg
+                width="25px"
+                height="25px"
+                fill={colors.sideBarBgColor}
+              />
               <p>{car.fuelType.name_en}</p>
             </Tooltip>
           </CardTransmitionWrapper>{" "}
@@ -120,7 +128,7 @@ const Grid = ({
               <NumberOfRentedSvg
                 width="25px"
                 height="25px"
-                fill={isTheme().color}
+                fill={colors.sideBarBgColor}
               />
               <p>{car.timesRented}</p>
             </Tooltip>
@@ -130,7 +138,7 @@ const Grid = ({
               <CarMileageSvg
                 width="25px"
                 height="25px"
-                fill={isTheme().color}
+                fill={colors.sideBarBgColor}
               />
               <p>{car.mileage}</p>
             </Tooltip>
@@ -155,7 +163,11 @@ const Grid = ({
               className="edit"
               onClick={() => handleEdit(car.id)}
               endIcon={
-                <EditSvg width="15px" height="15px" fill={colors.nafethBlue} />
+                <EditSvg
+                  width="15px"
+                  height="15px"
+                  fill={colors.sideBarBgColor}
+                />
               }
             >
               Edit
@@ -183,7 +195,7 @@ const Grid = ({
               <ArrowCircleSvg
                 width="15px"
                 height="15px"
-                fill={colors.nafethBlue}
+                fill={colors.sideBarBgColor}
               />
             }
           >

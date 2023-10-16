@@ -88,7 +88,10 @@ const CustomCheckbox = ({
             <SpanText aria-disabled>{"create"}</SpanText>
             <CreateSvg width="20px" height="20px" fill={colors.green} />
           </CheckboxWrapper>
-          <CheckboxWrapper color={colors.nafethBlue} hoverColor={"#1976d282"}>
+          <CheckboxWrapper
+            color={colors.sideBarBgColor}
+            hoverColor={"#1976d282"}
+          >
             <Checkbox
               type="checkbox"
               aria-disabled
@@ -98,7 +101,7 @@ const CustomCheckbox = ({
               defaultChecked={put === 1 ? true : false}
             />
             <SpanText aria-disabled>{"edit"}</SpanText>
-            <EditSvg width="20px" height="20px" fill={colors.nafethBlue} />
+            <EditSvg width="20px" height="20px" fill={colors.sideBarBgColor} />
           </CheckboxWrapper>
           <CheckboxWrapper color={colors.red} hoverColor={"dd37376b"}>
             <Checkbox
