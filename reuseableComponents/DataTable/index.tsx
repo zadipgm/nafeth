@@ -114,6 +114,7 @@ const DataTable = ({
   const [drawerData, setDrawerData] = React.useState<any>();
   const [list, setList] = React.useState(true);
   const [grid, setGrid] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(false);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -145,7 +146,7 @@ const DataTable = ({
   const renderTableHeader = () => {
     return filterByLocale(locale, keys).map((key: any, index: any) => {
       return (
-        <THeader key={index} className="table-header">
+        <THeader key={key} className="table-header">
           <TableDataWrapper>
             <Data>{key.toUpperCase().replaceAll("_", " ")}</Data>
             {key.toUpperCase() === "ACTIONS" ? (
@@ -468,15 +469,17 @@ const DataTable = ({
           )}
         </CardViewContainer>
       )}
-      <PaginationWrapper>
-        <PaginationOuterDiv>
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </PaginationOuterDiv>
-      </PaginationWrapper>
+      {data?.length >= 10 && (
+        <PaginationWrapper>
+          <PaginationOuterDiv>
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </PaginationOuterDiv>
+        </PaginationWrapper>
+      )}
     </DataTableContainer>
   );
 };

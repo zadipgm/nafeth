@@ -48,12 +48,13 @@ export const ImageWrapper = styled.div`
   border-radius: 8px;
   background-color: white;
 `;
-export const FormBox = styled.div<{ color: string }>`
+export const FormBox = styled.div`
   display: flex;
       width: 100%;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 12px;
+
   &.contract-pricing{
     padding: 15px;
   }
@@ -77,6 +78,9 @@ export const FormBoxWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  & .close-icon{
+    cursor: pointer;
+  }
   &.summary{
 
     padding: 12px;
@@ -95,6 +99,10 @@ export const FormBoxWrapper = styled.div`
   }
 `;
 export const GroupButtons = styled.div`
+&.add-bill-button{
+  margin-top: 16px;
+  justify-content: flex-end;
+}
   &.rent-car-group-button {
     padding: 20px 0px;
     margin: 20px 0px;
@@ -104,6 +112,7 @@ export const GroupButtons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
   padding: 12px;
   & .MuiButtonBase-root {
     width: 211px;

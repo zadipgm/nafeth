@@ -9,8 +9,7 @@ import {
   FormWrapper,
   GroupButtons,
 } from "@/components/GlobalSettings/compnaySettings/style";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
-import InputComponent from "@/reuseableComponents/InputField";
+import { Box, Button } from "@mui/material";
 import { bodyObjecCustomer } from "@/global/fakeData";
 import VerifySvg from "@/public/icons/verifySvg";
 import { useRouter } from "next/router";
@@ -24,6 +23,8 @@ import Swal from "sweetalert2";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { Update } from "@/api/putApis/update";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
+import InputField from "@/reuseableComponents/customInputField/input";
+import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
   customer: ICustomers;
   category: ICategory;
@@ -178,64 +179,64 @@ const EditCustomer = ({
 
           <FormBoxWrapper>
             <FormBox color={isTheme().color} className="customer-code">
-              <InputComponent
+              <InputField
                 label="Customer Code"
                 placeholder="100000017"
                 type="text"
                 defaultValue={data.id}
                 name={"name_en"}
                 disabled={true}
-                variant="filled"
                 required={true}
               />
-              <TextField
-                select
+              <SelectField
                 label="Category"
                 name="category"
                 onChange={handleChange}
                 defaultValue={data.category}
                 required
               >
-                {category.result.map((option) => (
-                  <MenuItem
-                    key={option.id}
-                    value={option.id}
-                    onClick={() => hanldeCategoryID(option.id)}
-                  >
-                    {option[`name_${locale}`]}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <>
+                  {category.result.map((option) => (
+                    <option
+                      key={option.id}
+                      value={option.id}
+                      onClick={() => hanldeCategoryID(option.id)}
+                    >
+                      {option[`name_${locale}`]}
+                    </option>
+                  ))}
+                </>
+              </SelectField>
 
               {categoryID === 1 ? (
                 <>
-                  <TextField
-                    select
+                  <SelectField
                     label="IDType"
                     name="idType"
                     onChange={handleChange}
                     defaultValue={data.idType}
                     required
                   >
-                    {IdType.result.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        onClick={() => hanldeIDType(option.id)}
-                      >
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {IdType.result.map((option) => (
+                        <option
+                          key={option.id}
+                          value={option.id}
+                          onClick={() => hanldeIDType(option.id)}
+                        >
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
                   <IDValidateWrapper>
-                    <InputComponent
+                    <InputField
                       label="ID"
                       placeholder="2529283364"
                       type="text"
                       defaultValue={data.idNumber}
                       onChange={handleChange}
                       disabled={true}
-                      variant="filled"
                       name={"idNumber"}
                       required={true}
                     />
@@ -255,7 +256,7 @@ const EditCustomer = ({
                       Validate
                     </Button>
                     {IDTypes === 1 || IDTypes === 2 ? (
-                      <InputComponent
+                      <InputField
                         label="ID Version"
                         placeholder="2"
                         type="text"
@@ -268,7 +269,7 @@ const EditCustomer = ({
                       ""
                     )}
                   </IDValidateWrapper>
-                  <InputComponent
+                  <InputField
                     label="ID Expiry Date"
                     placeholder=""
                     type="date"
@@ -278,7 +279,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Full Name En"
                     placeholder="zeshan"
                     type="text"
@@ -288,45 +289,47 @@ const EditCustomer = ({
                     required={true}
                   />
                   {IDTypes === 1 || IDTypes === 2 ? (
-                    <TextField
-                      select
+                    <SelectField
                       label="Issue City"
                       name="idissuecity"
                       onChange={handleChange}
                       defaultValue={data.idissuecity}
                       required
                     >
-                      {cities.result.map((option) => (
-                        <MenuItem
-                          key={option.id}
-                          value={option.id}
-                          onClick={() => hanldeIDType(option.id)}
-                        >
-                          {option[`name_${locale}`]}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      <>
+                        {cities.result.map((option) => (
+                          <option
+                            key={option.id}
+                            value={option.id}
+                            onClick={() => hanldeIDType(option.id)}
+                          >
+                            {option[`name_${locale}`]}
+                          </option>
+                        ))}
+                      </>
+                    </SelectField>
                   ) : (
-                    <TextField
-                      select
+                    <SelectField
                       label="Issue Country"
                       name="idIssueCountry"
                       onChange={handleChange}
                       defaultValue={data.idIssueCountry}
                       required
                     >
-                      {countries.result.map((option) => (
-                        <MenuItem
-                          key={option.id}
-                          value={option.id}
-                          onClick={() => hanldeIDType(option.id)}
-                        >
-                          {option[`name_${locale}`]}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      <>
+                        {countries.result.map((option) => (
+                          <option
+                            key={option.id}
+                            value={option.id}
+                            onClick={() => hanldeIDType(option.id)}
+                          >
+                            {option[`name_${locale}`]}
+                          </option>
+                        ))}
+                      </>
+                    </SelectField>
                   )}
-                  <InputComponent
+                  <InputField
                     label="License Number"
                     placeholder="2529283364"
                     type="text"
@@ -336,7 +339,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Full Name AR"
                     placeholder="zeshan"
                     type="text"
@@ -345,7 +348,7 @@ const EditCustomer = ({
                     name={"fullname_ar"}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="ID Expiry Date Hijri"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
@@ -355,7 +358,7 @@ const EditCustomer = ({
                     defaultValue={data.idExpiryDate_hijri}
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Expiry of the license (Hijri)"
                     placeholder="HijriDate 20/04/1445"
                     type="text"
@@ -365,7 +368,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Expiry of the license (Geo)"
                     placeholder=""
                     type="date"
@@ -375,7 +378,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Mobile Number"
                     placeholder="966581955852"
                     type="text"
@@ -386,7 +389,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Employer"
                     placeholder="zadip"
                     type="text"
@@ -396,36 +399,38 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <TextField
-                    select
+                  <SelectField
                     label="City of Residence"
                     name="residentCity"
                     onChange={handleChange}
                     defaultValue={data.residentCity}
                     required
                   >
-                    {cities.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {cities.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
 
-                  <TextField
-                    select
+                  <SelectField
                     label="Price List"
                     name="pricelist"
                     onChange={handleChange}
                     defaultValue={data.pricelist}
                     required
                   >
-                    {pricelist.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <InputComponent
+                    <>
+                      {pricelist.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
+                  <InputField
                     label="Work Phone"
                     placeholder="966581955852"
                     type="text"
@@ -435,7 +440,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Email"
                     placeholder="zeshan@gmail.com"
                     type="email"
@@ -445,23 +450,23 @@ const EditCustomer = ({
                     classname="customer-email"
                     required={true}
                   />
-                  <TextField
-                    select
+                  <SelectField
                     label="Nationality"
                     name="nationality"
                     onChange={handleChange}
                     defaultValue={data.nationality}
-                    required
-                    className="customer-nationality"
+                    required={true}
                   >
-                    {countries.result.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option[`name_${locale}`]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {countries.result.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option[`name_${locale}`]}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
 
-                  <InputComponent
+                  <InputField
                     label="Date of Birth Hijri"
                     placeholder="20/04/1445"
                     type="text"
@@ -471,7 +476,7 @@ const EditCustomer = ({
                     classname="nationality"
                     required={true}
                   />
-                  <InputComponent
+                  <InputField
                     label="Date of Birth gregorian"
                     placeholder=""
                     type="date"
@@ -495,7 +500,7 @@ const EditCustomer = ({
                 // ----------------------------company form start from here---------------------------------------
                 <>
                   <IDValidateWrapper>
-                    <InputComponent
+                    <InputField
                       label="CR Number"
                       placeholder="2529283364"
                       type="text"
@@ -517,7 +522,7 @@ const EditCustomer = ({
                       Validate
                     </Button>
                   </IDValidateWrapper>
-                  <InputComponent
+                  <InputField
                     label="Compnay Name"
                     placeholder="zeshan"
                     type="text"
@@ -525,7 +530,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Expiry Date"
                     placeholder="dd/mm/yyyy"
                     type="text"
@@ -533,7 +538,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="phone"
                     placeholder="966581955852"
                     type="text"
@@ -541,26 +546,27 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <TextField
-                    select
+                  <SelectField
                     label="Price List"
                     name="Place of  issue"
                     // onChange={handleChange}
                     // value={data.cityId}
                     required
                   >
-                    {cities.result.map((option) => (
-                      <MenuItem
-                        key={option.id}
-                        value={option.id}
-                        defaultValue={""}
-                      >
-                        {option.name_en}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <>
+                      {cities.result.map((option) => (
+                        <option
+                          key={option.id}
+                          value={option.id}
+                          defaultValue={""}
+                        >
+                          {option.name_en}
+                        </option>
+                      ))}
+                    </>
+                  </SelectField>
 
-                  <InputComponent
+                  <InputField
                     label="VAT Number"
                     placeholder="4321566"
                     type="text"
@@ -568,7 +574,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Employee Name"
                     placeholder="zeshan"
                     type="text"
@@ -576,7 +582,7 @@ const EditCustomer = ({
                     required={true}
                   />
 
-                  <InputComponent
+                  <InputField
                     label="Mobile Number"
                     placeholder="966581955852"
                     type="text"
@@ -592,7 +598,7 @@ const EditCustomer = ({
           </Title>
           <FormBoxWrapper>
             <FormBox color={isTheme().color}>
-              <InputComponent
+              <InputField
                 label="Building Number"
                 placeholder="1234"
                 type="text"
@@ -601,7 +607,7 @@ const EditCustomer = ({
                 name={"cA_buildingNo"}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="City"
                 placeholder="Riyadh"
                 type="text"
@@ -610,7 +616,7 @@ const EditCustomer = ({
                 name={"cA_City"}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Street Name"
                 placeholder="king fahad"
                 type="text"
@@ -619,7 +625,7 @@ const EditCustomer = ({
                 name={"cA_StreetName"}
                 required={true}
               />{" "}
-              <InputComponent
+              <InputField
                 label="Country"
                 placeholder="saudi arabia"
                 type="text"
@@ -628,7 +634,7 @@ const EditCustomer = ({
                 name={"cA_Country"}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="District"
                 placeholder="al malaz"
                 type="text"
@@ -637,7 +643,7 @@ const EditCustomer = ({
                 name={"cA_District"}
                 required={true}
               />
-              <InputComponent
+              <InputField
                 label="Zip-code1"
                 placeholder="12664"
                 type="text"
@@ -647,7 +653,7 @@ const EditCustomer = ({
                 required={true}
                 classname="zip-code"
               />{" "}
-              <InputComponent
+              <InputField
                 label="Zip-code2"
                 placeholder="12664"
                 type="text"
@@ -657,15 +663,13 @@ const EditCustomer = ({
                 required={true}
                 classname="zip-code"
               />
-              <InputComponent
+              <InputField
                 label="Additional Information"
                 placeholder=""
                 type="text"
                 defaultValue={data.comments}
-                multiline={true}
                 onChange={handleChange}
                 name={"comments"}
-                rows={2}
               />
             </FormBox>
           </FormBoxWrapper>

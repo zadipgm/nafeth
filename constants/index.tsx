@@ -89,3 +89,10 @@ export const paymentKeys = [
   "branchName_en",
   "branchName_ar",
 ];
+export const contractPaymentKeys = [
+  "date",
+  "amount",
+  "activity_en",
+  "activity_ar",
+  "comments",
+];

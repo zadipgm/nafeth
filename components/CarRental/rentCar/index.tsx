@@ -223,7 +223,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
     <>
       <RentContainer>
         <Title color={colors.sideBarBgColor}>
-          <h2>Selected Car</h2>
+          <h2>{translations?.selectedCar}</h2>
         </Title>
 
         <SelectedCar car={car} customPrice={customPrice as Icustomprice} />
@@ -286,7 +286,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           details={false}
           listtype={"customer"}
           page_color={colors.sideBarBgColor}
-          title={"Select a Customer"}
+          title={translations?.selectCustomer as string}
           onCustomerSelected={onCustomerSelected}
           customers={customers}
           isAddbutton={true}
@@ -295,7 +295,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       {isCustomerAdded && (
         <RentContainer>
           <Title color={"#000000ad"}>
-            <h2>Selected Customer</h2>
+            <h2>{translations?.selectedCustomer}</h2>
           </Title>
           <SelectedCustomer customer={customer as customer} type={"Customer"} />
         </RentContainer>
@@ -312,7 +312,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
             }
           >
-            Next
+            {translations?.next}
           </Button>
           {isCustomerAdded && (
             <Button
@@ -328,7 +328,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                 />
               }
             >
-              Add Driver
+              {translations?.addDriver}
             </Button>
           )}
           <Button
@@ -349,7 +349,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               />
             }
           >
-            Edit Customer
+            {translations?.editCustomer}
           </Button>
         </GroupButtons>
       )}
@@ -369,7 +369,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       {isDriverAdded && (
         <RentContainer>
           <Title color={colors.purple}>
-            <h2>Selected Driver</h2>
+            <h2>{translations?.selectedDriver}</h2>
           </Title>
           <SelectedCustomer customer={driver as customer} type={"Driver"} />
         </RentContainer>
@@ -385,7 +385,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
             }
           >
-            Add Contract Details
+            {translations?.addContractDetails}
           </Button>
         </GroupButtons>
       )}
@@ -410,12 +410,12 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
             <>
               <RentContainer>
                 <Title color={colors.sideBarBgColor}>
-                  <h2>Contract Detail</h2>
+                  <h2>{translations?.contractDetail}</h2>
                 </Title>
 
                 <FormBox color={isTheme().color} className="contract-pricing">
                   <InputField
-                    label="From Date"
+                    label={translations?.fromDate as string}
                     placeholder=""
                     type="date"
                     defaultValue={data.issueDate}
@@ -424,7 +424,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={true}
                   />
                   <InputField
-                    label="To Date"
+                    label={translations?.toDate as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -432,7 +432,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={true}
                   />
                   <InputField
-                    label="Days"
+                    label={translations?.days as string}
                     placeholder=""
                     type="text"
                     onChange={handleChange}
@@ -450,7 +450,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                   />
 
                   <InputField
-                    label="Comments"
+                    label={translations?.Comments as string}
                     placeholder=""
                     type="text"
                     onChange={handleChange}
@@ -474,7 +474,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     />
                   }
                 >
-                  Next
+                  {translations?.next}
                 </Button>
               </GroupButtons>
             </>
@@ -483,12 +483,12 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
             <>
               <RentContainer>
                 <Title color={colors.sideBarBgColor}>
-                  <h3>Pricing</h3>
+                  <h3>{translations?.pricing}</h3>
                 </Title>
 
                 <FormBox color={isTheme().color} className="contract-pricing">
                   <InputField
-                    label="Total Rented Cost"
+                    label={translations?.totalRentedCost as string}
                     placeholder=""
                     type="text"
                     value={totalRentedCost}
@@ -496,7 +496,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     disabled={true}
                   />
                   <InputField
-                    label="Total Accessories Cost"
+                    label={translations?.totalAccessoriesCost as string}
                     placeholder=""
                     type="text"
                     disabled={true}
@@ -505,7 +505,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={true}
                   />
                   <InputField
-                    label="Total Cost"
+                    label={translations?.totalCost as string}
                     placeholder=""
                     type="text"
                     value={totalCost}
@@ -515,7 +515,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                   />
 
                   <InputField
-                    label="Advance Amount"
+                    label={translations?.advanceAmount as string}
                     placeholder=""
                     type="text"
                     name={"advanceAmount"}
@@ -524,7 +524,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={false}
                   />
                   <InputField
-                    label="Remaining Cost"
+                    label={translations?.remainingCost as string}
                     placeholder=""
                     type="text"
                     disabled={true}
@@ -543,7 +543,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     <CheckSvg width="15px" height="15px" fill={colors.white} />
                   }
                 >
-                  Create Contract
+                  {translations?.createContract}
                 </Button>
               </GroupButtons>
             </>

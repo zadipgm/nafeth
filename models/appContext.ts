@@ -34,3 +34,6 @@ export interface AppContexts {
     banks?: ILookUp
     user?: IUser
 }
+export interface IReturnPageContexts {
+    activity?: ILookUp
+}

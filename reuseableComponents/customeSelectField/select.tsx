@@ -29,7 +29,7 @@ const SelectField = ({
         name={name}
         disabled={disabled}
         onChange={onChange}
-        required={required}
+        required
         value={value}
         defaultValue={defaultValue}
       >

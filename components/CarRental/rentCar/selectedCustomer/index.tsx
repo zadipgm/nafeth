@@ -24,7 +24,7 @@ interface IProps {
   type: string;
 }
 const SelectedCustomer = ({ customer, type }: IProps) => {
-  const { colors, isLTR, locale } = useTheme();
+  const { translations, isLTR, locale } = useTheme();
   const router = useRouter();
 
   return (
@@ -36,13 +36,13 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         </RentListItem>
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>License Number</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.licenseNumber}</CarDetailsTitle>
             <CarDetailsSubTitle>{customer.licenseNo}</CarDetailsSubTitle>
           </RentListItem>
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>License Expiry</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.licenseExpiry}</CarDetailsTitle>
             <CarDetailsSubTitle>
               {isLTR
                 ? customer.licenseExpDate_gregorian
@@ -52,7 +52,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>Nationality</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.nationality}</CarDetailsTitle>
             <CarDetailsSubTitle>
               {customer.nationality[`name_${locale}`]}
             </CarDetailsSubTitle>
@@ -60,18 +60,18 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>Mobile Number</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.mobileNumber}</CarDetailsTitle>
             <CarDetailsSubTitle>{customer.mobileNo}</CarDetailsSubTitle>
           </RentListItem>
         )}
         <RentListItem>
-          <CarDetailsTitle>Date of Birth</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.dateofBirth}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {isLTR ? customer.dob_gregorian : customer.dob_hijri}
           </CarDetailsSubTitle>
         </RentListItem>
         <RentListItem>
-          <CarDetailsTitle>ID Type</CarDetailsTitle>
+          <CarDetailsTitle>{translations?.iDType}</CarDetailsTitle>
           <CarDetailsSubTitle>
             {customer.idType[`name_${locale}`]}
           </CarDetailsSubTitle>
@@ -79,7 +79,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
 
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>Price List</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.priceList}</CarDetailsTitle>
             <CarDetailsSubTitle>
               {customer.pricelist[`name_${locale}`]}
             </CarDetailsSubTitle>
@@ -87,7 +87,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>ID Expiry</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.iDExpiry}</CarDetailsTitle>
             <CarDetailsSubTitle>
               {isLTR
                 ? customer.idExpiryDate_gregorian
@@ -97,31 +97,34 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>Employer</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.employer}</CarDetailsTitle>
             <CarDetailsSubTitle>{customer.employerName}</CarDetailsSubTitle>
           </RentListItem>
         )}
         {type === "Driver" && (
           <RentListItem>
-            <CarDetailsTitle>{type} National ID</CarDetailsTitle>
+            <CarDetailsTitle>
+              {type}
+              {translations?.nationalID}
+            </CarDetailsTitle>
             <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
           </RentListItem>
         )}
         {type === "Driver" && (
           <RentListItem>
-            <CarDetailsTitle>City</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.city}</CarDetailsTitle>
             <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
           </RentListItem>
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>ID Version No</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.iDVersionNo}</CarDetailsTitle>
             <CarDetailsSubTitle>{customer.version}</CarDetailsSubTitle>
           </RentListItem>
         )}
         {type === "Customer" && (
           <RentListItem>
-            <CarDetailsTitle>Place of issue</CarDetailsTitle>
+            <CarDetailsTitle>{translations?.placeofissue}</CarDetailsTitle>
             <CarDetailsSubTitle>
               {customer.idissuecity[`name_${locale}`]}
             </CarDetailsSubTitle>
@@ -144,12 +147,14 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         {type === "Customer" && (
           <OtherDetailsList>
             <RentListItem className="other-details">
-              <CarDetailsTitle className="other-details">City</CarDetailsTitle>
+              <CarDetailsTitle className="other-details">
+                {translations?.city}
+              </CarDetailsTitle>
               <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
             </RentListItem>
             <RentListItem className="other-details">
               <CarDetailsTitle className="other-details">
-                National ID
+                {translations?.nationalID}
               </CarDetailsTitle>
               <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
             </RentListItem>
