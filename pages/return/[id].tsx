@@ -11,17 +11,20 @@ import { IContracts } from "@/models/individualContracts";
 import ReturnContract from "@/components/contracts/returnContractPage";
 import { IBranchModel } from "@/models/branch";
 import { IAccessory } from "@/models/IAccessory";
+import { AppDataProvider } from "@/context/returnpageContext";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
-    <ReturnContract
-      contract={props.contract}
-      cars={props.cars}
-      customers={props.customers}
-      pricelist={props.pricelist}
-      branch={props.branch}
-      accessories={props.accessories}
-    />
+    <AppDataProvider>
+      <ReturnContract
+        contract={props.contract}
+        cars={props.cars}
+        customers={props.customers}
+        pricelist={props.pricelist}
+        branch={props.branch}
+        accessories={props.accessories}
+      />
+    </AppDataProvider>
   );
 };
 Page.getLayout = function getLayout(page: ReactElement) {

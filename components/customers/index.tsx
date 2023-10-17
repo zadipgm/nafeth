@@ -65,13 +65,12 @@ const CustomersList = ({
   listtype,
   onCustomerSelected,
 }: IProps) => {
-  console.log("customers", customers);
+  const { locale, colors, translations } = useTheme();
   const [show, setShow] = React.useState(3);
   const [open, setOpen] = React.useState(false);
   const [isBlock, setisBlock] = React.useState(false);
   const [buttonValue, setButtonValue] = React.useState("Block");
   const [customerDetail, setCustomerDetail] = React.useState<customer>();
-  const { locale, colors } = useTheme();
   const router = useRouter();
   const [prohibitedValue, setprohibitedValue] = React.useState("");
   const [searchvalue, setSearchvalue] = React.useState(customers.result);
@@ -137,7 +136,7 @@ const CustomersList = ({
                 })
               }
             >
-              Add Customer <AddIcon />
+              {translations?.addCustomer} <AddIcon />
             </Fab>
           )}
           <SearchComponent
@@ -282,7 +281,7 @@ const CustomersList = ({
                           />
                         }
                       >
-                        Add Driver
+                        {translations?.addDriver}
                       </Button>
                     )}
 
@@ -299,7 +298,7 @@ const CustomersList = ({
                         }
                         onClick={() => handleEdit(item.id)}
                       >
-                        Edit
+                        {translations?.edit}
                       </Button>
                     )}
                     {deleteable && (
@@ -314,7 +313,7 @@ const CustomersList = ({
                           />
                         }
                       >
-                        delete
+                        {translations?.delete}
                       </Button>
                     )}
                     {details && (
@@ -336,7 +335,7 @@ const CustomersList = ({
                           />
                         }
                       >
-                        Details
+                        {translations?.details}
                       </Button>
                     )}
                   </ButtonWrapper>
@@ -353,7 +352,7 @@ const CustomersList = ({
             >
               <div>
                 <DetailsTitle color={colors.sideBarBgColor as string}>
-                  {"Customer Details"}
+                  {translations?.customerDetails}
                 </DetailsTitle>
 
                 <DetailWrapper
@@ -362,84 +361,80 @@ const CustomersList = ({
                 >
                   <DetailList className="customer-info">
                     <DetailListItem>
-                      <Strongtext>{"IDType"}</Strongtext>
+                      <Strongtext>{translations?.iDType}</Strongtext>
                       <Spantext>
                         {customerDetail?.idType[`name_${locale}`]}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Version No."}</Strongtext>
+                      <Strongtext>{translations?.iDVersionNo}</Strongtext>
                       <Spantext>{customerDetail?.version}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"License Expiry Date Hijri"}</Strongtext>
+                      <Strongtext>{translations?.licenseExphijri}</Strongtext>
                       <Spantext>{customerDetail?.licExpiryDate_hijri}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"License Expiry Date gregorian"}</Strongtext>
+                      <Strongtext>{translations?.licenseExpiry}</Strongtext>
                       <Spantext>
                         {customerDetail?.licenseExpDate_gregorian}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"City of residence"}</Strongtext>
+                      <Strongtext>{translations?.cityofresidence}</Strongtext>
                       <Spantext>
                         {customerDetail?.residentCity[`name_${locale}`]}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"E-mail"}</Strongtext>
+                      <Strongtext>{translations?.email}</Strongtext>
                       <Spantext>{customerDetail?.email}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Home Phone"}</Strongtext>
-                      <Spantext>{customerDetail?.homePhone}</Spantext>
-                    </DetailListItem>
-                    <DetailListItem>
-                      <Strongtext>{"Home Phone"}</Strongtext>
+                      <Strongtext>{translations?.mobileNumber}</Strongtext>
                       <Spantext>{customerDetail?.homePhone}</Spantext>
                     </DetailListItem>
 
                     <DetailListItem>
-                      <Strongtext>{"Prohibition Notes"}</Strongtext>
+                      <Strongtext>{translations?.prohibitionNotes}</Strongtext>
                       <Spantext>{prohibitedValue}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Place of issue"}</Strongtext>
+                      <Strongtext>{translations?.placeofissue}</Strongtext>
                       <Spantext>
                         {customerDetail?.idIssueCountry[`name_${locale}`]}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Nationality"}</Strongtext>
+                      <Strongtext>{translations?.nationality}</Strongtext>
                       <Spantext>
                         {customerDetail?.nationality[`name_${locale}`]}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Employer"}</Strongtext>
+                      <Strongtext>{translations?.employer}</Strongtext>
                       <Spantext>{customerDetail?.employerName}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"dob hijri"}</Strongtext>
+                      <Strongtext>{translations?.dateofbirthhijri}</Strongtext>
                       <Spantext>{customerDetail?.dob_hijri}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"dob gregorian"}</Strongtext>
+                      <Strongtext>{translations?.dateofBirth}</Strongtext>
                       <Spantext>{customerDetail?.dob_gregorian}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Price List"}</Strongtext>
+                      <Strongtext>{translations?.priceList}</Strongtext>
                       <Spantext>
                         {customerDetail?.pricelist[`name_${locale}`]}
                       </Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>{"Business Phone"}</Strongtext>
+                      <Strongtext>{translations?.businessPhone}</Strongtext>
                       <Spantext>{customerDetail?.workPhone}</Spantext>
                     </DetailListItem>
                     <DetailListItem className="address">
-                      <Strongtext>{"Permanent Address"}</Strongtext>
+                      <Strongtext>{translations?.permanentAddress}</Strongtext>
                       <Spantext>
                         {customerDetail?.cA_PostalCode},
                         {customerDetail?.cA_StreetName},
@@ -487,14 +482,14 @@ const CustomersList = ({
                           )
                         }
                       >
-                        Save
+                        {translations?.save}
                       </Button>
                       <Button
                         variant={"contained"}
                         className="details"
                         color="error"
                       >
-                        Cancel
+                        {translations?.cancel}
                       </Button>
                     </GroupButtons>
                   </div>
@@ -514,7 +509,7 @@ const CustomersList = ({
               <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
             }
           >
-            View more
+            {translations?.viewMore}
           </Button>
         )}
       </Wrapper>

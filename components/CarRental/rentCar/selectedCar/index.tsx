@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { ICarModel } from "@/models/carmodel";
 import IconComponent from "@/reuseableComponents/IconComponent";
 import { Icustomprice } from "@/models/customerPrice";
+import { CarPlateWrapper } from "@/components/payments/style";
 
 interface IProps {
   car: ICarModel;
@@ -195,7 +196,9 @@ const SelectedCar = ({ car, customPrice }: IProps) => {
             icon={car.result[0].carType.name_en.trim()}
             stroke="gray"
           />
-          <CarPlate car={carPlate} classname="rent-page" />
+          <CarPlateWrapper>
+            <CarPlate car={carPlate} classname="rent-page" />
+          </CarPlateWrapper>
         </CarplateSvgWrapper>
         <OtherDetailsList>
           <RentListItem className="other-details">

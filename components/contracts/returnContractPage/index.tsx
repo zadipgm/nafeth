@@ -18,42 +18,30 @@ import {
   RentListItem,
 } from "@/components/CarRental/style";
 import { useRouter } from "next/router";
-import moment from "moment";
 import Swal from "sweetalert2";
 import { IContracts } from "@/models/individualContracts";
-import { ICarModel } from "@/models/carmodel";
-import { ICustomers, IPriceList } from "@/models/customers";
-import {
-  filterAccessory,
-  filterBranch,
-  filterCar,
-  filterCustomer,
-  filterPriceList,
-} from "@/_helpers/filters";
-import { IBranchModel } from "@/models/branch";
-import { IAccessory } from "@/models/IAccessory";
-import { NumOfDays } from "@/_helpers/getDays";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import InputField from "@/reuseableComponents/customInputField/input";
 import SelectField from "@/reuseableComponents/customeSelectField/select";
+import ModalComponent from "@/reuseableComponents/modal";
+import CloseSvg from "@/public/icons/closeSvg";
+import { useReturnPageData } from "@/context/returnpageContext";
+import { IReturnPageContexts } from "@/models/appContext";
+import { createPost } from "@/api/postApis/createBranch";
+import DataTable from "@/reuseableComponents/DataTable";
+import { contractKeys, contractPaymentKeys } from "@/constants";
+import { fetchData } from "@/api/fetchapis/fetchData";
+import {
+  IContractPayment,
+  IContractPaymentResult,
+} from "@/models/contractPayment";
 interface IProps {
   contract: IContracts;
-  cars: ICarModel;
-  customers: ICustomers;
-  pricelist: IPriceList;
-  branch: IBranchModel;
-  accessories: IAccessory;
 }
-const ReturnContract = ({
-  contract,
-  cars,
-  customers,
-  pricelist,
-  branch,
-  accessories,
-}: IProps) => {
+const ReturnContract = ({ contract }: IProps) => {
+  const returnPage: IReturnPageContexts = useReturnPageData();
   const returnobj = {
     retunDate: formattedDate(new Date()),
     kmIn: "",
@@ -62,18 +50,74 @@ const ReturnContract = ({
     comments: "",
     discount: "",
   };
-  const { colors, locale, isLTR } = useTheme();
-  const router = useRouter();
-  const [kmOut, setKmOut] = React.useState("");
-  const [data, setData] = React.useState(returnobj);
-  const [isbank, setIsbank] = React.useState(false);
-  const onBankChange = (type: string) => {
-    if (type === "Bank Transfer" || type === "Sadad") {
-      setIsbank(true);
-    } else {
-      setIsbank(false);
-    }
+  const billobj = {
+    amount: 0,
+    contractNo: 0,
+    activity: 0,
+    date: formattedDate(new Date()),
+    comments: "",
   };
+  let userName = getName() as string;
+  let userPassword = getPassword() as string;
+  let company = getCompany() as string;
+  const { colors, locale } = useTheme();
+  const router = useRouter();
+  const [data, setData] = React.useState(returnobj);
+  const [bill, setBill] = React.useState(billobj);
+  const [open, setOpen] = React.useState(false);
+  const [contractBill, setContractBill] = React.useState<IContractPayment>();
+
+  const fetchContractPayments = React.useCallback(async () => {
+    let url = `/contracts/Individual/${contract.result[0].contractNo}/bills`;
+    const res = await fetchData(userName, userPassword, url, company);
+    setContractBill(res);
+  }, [contractBill]);
+  React.useEffect(() => {
+    fetchContractPayments();
+  }, []);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    fetchContractPayments();
+  };
+  const hanldeBillChange = (e: { target: { name: any; value: any } }) => {
+    setBill({ ...bill, [e.target.name]: e.target.value });
+  };
+  const hanldelSubmitBill = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let body = {
+      amount: bill.amount,
+      contractNo: contract.result[0].contractNo,
+      activity: bill.activity,
+      date: bill.date,
+      comments: bill.comments,
+    };
+    await createPost(
+      userName,
+      userPassword,
+      `contracts/Individual/${contract.result[0].contractNo}/bills`,
+      company,
+      body
+    ).then((res: any) => {
+      if (res.status == 200) {
+        Swal.fire("Thank you!", "payment has been done!.", "success");
+        fetchContractPayments();
+        setOpen(false);
+      } else {
+        console.log(res);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+        setOpen(true);
+      }
+    });
+    console.log("contractBill", contractBill);
+  };
+
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
       ...data,
@@ -81,75 +125,6 @@ const ReturnContract = ({
     });
   };
 
-  const PriceName = filterPriceList(
-    pricelist,
-    contract.result[0].pricelistID
-  )[0][`name_${locale}`];
-
-  const branchName = filterBranch(branch, contract.result[0].issueBranchID)[0][
-    `name_${locale}`
-  ];
-  const customerName = filterCustomer(
-    customers,
-    contract.result[0].customerID
-  )[0][`fullname_${locale}`];
-
-  const carMakeMOdel = `${
-    isLTR
-      ? filterCar(cars, contract.result[0].carID)[0].make.name_en
-      : filterCar(cars, contract.result[0].carID)[0].make.name_ar
-  }/${
-    isLTR
-      ? filterCar(cars, contract.result[0].carID)[0].model.name_en
-      : filterCar(cars, contract.result[0].carID)[0].model.name_ar
-  }`;
-
-  //time diffrence
-  let checkInTime = moment(
-    new Date().getHours() + ":" + new Date().getMinutes(),
-    "H:mm"
-  );
-  let checkoutTime = moment(contract.result[0].timeOut, "H:mm");
-
-  let ExtraTime = moment(checkInTime).diff(moment(checkoutTime), "h");
-  // get number of days from date start and end date
-  let days = NumOfDays(contract.result[0].issueDate, data.retunDate);
-  //price*dailyrent
-  let dailyPrice = contract.result[0].dailyPrice * days;
-  //extra hours price
-  let extraHourPrice = contract.result[0].graceHoursPrice * ExtraTime;
-  //extra kmLimit
-  const extraKmLimit =
-    contract.result[0].kmLimit * contract.result[0].actualTotalDays;
-  //extra km
-  const extraKm = Number(data.kmIn) - contract.result[0].kmOut;
-  extraKm - extraKmLimit;
-  const extraKmPrice = extraKm * contract.result[0].extraKmPrice;
-
-  //totalPrice
-  const total =
-    Number(dailyPrice) +
-    Number(extraHourPrice) +
-    Number(extraKmPrice > extraKmLimit ? extraKmPrice : 0);
-  //AccessoryPrice
-  const accessoryPrice = filterAccessory(
-    accessories,
-    contract.result[0].accessoriesID
-  );
-  const totalRent = Number(total) + Number(accessoryPrice);
-
-  // gross total
-  let otherAmount = 0;
-  let discountAmount = 0;
-  let paid = 0;
-  const grossTotal = totalRent + otherAmount - Number(data.discount) - paid;
-
-  // vat
-  let vatAmount = 15 / 100;
-  const vat = vatAmount * grossTotal;
-
-  //Net Total
-  const netTotal = grossTotal + vat;
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -159,34 +134,31 @@ const ReturnContract = ({
       status: data.status,
       freehours: contract.result[0].graceHours,
       returnDate: data.retunDate,
-      daysRented: days,
-      daysCost: dailyPrice,
-      timeIn: new Date().getHours() + ":" + new Date().getMinutes(),
-      extraTime: Math.sign(ExtraTime) === -1 ? "00:00" : `${ExtraTime}:00`,
-      timeCost: extraHourPrice,
+      daysRented: 2,
+      daysCost: 2,
+      timeIn: "12:00",
+      extraTime: "00:00",
+      timeCost: 12,
       kmIn: Number(data.kmIn),
-      extraKM: extraKm,
-      kmCost: extraKmPrice,
-      accessoriesCost: Number(accessoryPrice.toString()),
+      extraKM: 12,
+      kmCost: 12,
+      accessoriesCost: 12,
       pricelistLoyalityDiscount: 0,
       promotionDiscount: 0,
-      totalRentCost: totalRent,
+      totalRentCost: 12,
       otherCost: 0,
       discount: 0,
-      grossTotal: grossTotal,
+      grossTotal: 12,
       vatPercent: 15,
-      vatAmount: vat,
+      vatAmount: 12,
       refunded: 0,
       paid: contract.result[0].advanceAmount,
-      netTotal: netTotal,
+      netTotal: 12,
       returnComments: data.comments,
       returnBranchID: contract.result[0].issueBranchID,
       returnBy: 0,
     };
 
-    let userName = getName() as string;
-    let userPassword = getPassword() as string;
-    let company = getCompany() as string;
     let url = `contracts/Individual/${contract.result[0].contractNo}/return`;
     if (Number(data.kmIn) > contract.result[0].kmOut) {
       await Update(userName, userPassword, url, company, body).then(
@@ -243,25 +215,25 @@ const ReturnContract = ({
               <InputField
                 label="Price List"
                 type="text"
-                value={PriceName}
+                value={12}
                 disabled={true}
               />
               <InputField
                 label="Issue Branch"
                 type="text"
-                value={branchName}
+                value={"main"}
                 disabled={true}
               />
               <InputField
                 label="Customer Name"
                 type="text"
-                value={customerName}
+                value={"zeshan"}
                 disabled={true}
               />{" "}
               <InputField
                 label="Make/ Model"
                 type="text"
-                value={carMakeMOdel}
+                value={"toyota"}
                 disabled={true}
               />
               <InputField
@@ -278,7 +250,6 @@ const ReturnContract = ({
                 name={"kmIn"}
                 required={true}
               />
-              {/* <DatePickerComponent onChange={handleChange} /> */}
               <InputField
                 label="Return Date"
                 type="date"
@@ -361,179 +332,295 @@ const ReturnContract = ({
             </RentList>
           </ReturnContainer>
           {Number(data.kmIn) > contract.result[0].kmOut && (
-            <ReturnContainer>
-              <Title color={colors.sideBarBgColor}>
-                <h2>Rent Account</h2>
-              </Title>
-              <AccountTable>
-                <tr>
-                  <td>Return Date</td>
-                  <td>{data.retunDate}</td>
-                  <td>Issue Date</td>
-                  <td>{contract.result[0].issueDate}</td>
-                  <td>Number of days</td>
-                  <td>{days}</td>
-                  <td>Price</td>
-                  <td>{dailyPrice}</td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr>
-                  <td>Check-in time</td>
-                  <td>
-                    {new Date().getHours() + ":" + new Date().getMinutes()}
-                  </td>
-                  <td>Checkout time</td>
-                  <td>{contract.result[0].timeOut}</td>
-                  <td>Extra time</td>
-                  <td> {Math.sign(ExtraTime) === -1 ? 0 : ExtraTime}</td>
-                  <td>Price</td>
-                  <td>
-                    {Math.sign(extraHourPrice) === -1 ? 0 : extraHourPrice}
-                  </td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr>
-                  <td>KM Out</td>
-                  <td>{contract.result[0].kmOut}</td>
-                  <td>KM In</td>
-                  <td>{data.kmIn}</td>
-                  <td>Extra KM</td>
-                  <td>{extraKm}</td>
-                  <td>Price</td>
-                  <td>{extraKmPrice > extraKmLimit ? extraKmPrice : 0}</td>
-                </tr>
-                <tr></tr>
-              </AccountTable>
-              <AccountTable>
-                <tr className="last-table">
-                  <td>Total</td>
-                  <td>{total}</td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr className="last-table">
-                  <td>Loyality/Pricelist</td>
-                  <td className="red">00.00</td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr className="last-table">
-                  <td>Discount</td>
-                  <td className="red">00.00</td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr className="last-table">
-                  <td>Accessories</td>
-                  <td>{accessoryPrice}</td>
-                </tr>
-              </AccountTable>
-              <AccountTable>
-                <tr className="last-table">
-                  <td>Total Rent</td>
-                  <td>{totalRent}</td>
-                </tr>
-              </AccountTable>
-            </ReturnContainer>
-          )}
+            <>
+              <ReturnContainer>
+                <Title color={colors.sideBarBgColor}>
+                  <h2>Rent Account</h2>
+                </Title>
+                <AccountTable>
+                  <tr>
+                    <td>Return Date</td>
+                    <td>{data.retunDate}</td>
+                    <td>Issue Date</td>
+                    <td>{contract.result[0].issueDate}</td>
+                    <td>Number of days</td>
+                    <td>{12}</td>
+                    <td>Price</td>
+                    <td>{12}</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr>
+                    <td>Check-in time</td>
+                    <td>
+                      {new Date().getHours() + ":" + new Date().getMinutes()}
+                    </td>
+                    <td>Checkout time</td>
+                    <td>{contract.result[0].timeOut}</td>
+                    <td>Extra time</td>
+                    <td> {Math.sign(12) === -1 ? 0 : 12}</td>
+                    <td>Price</td>
+                    <td>{Math.sign(12) === -1 ? 0 : 12}</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr>
+                    <td>KM Out</td>
+                    <td>{contract.result[0].kmOut}</td>
+                    <td>KM In</td>
+                    <td>{data.kmIn}</td>
+                    <td>Extra KM</td>
+                    <td>{12}</td>
+                    <td>Price</td>
+                    <td>{12 > 12 ? 12 : 0}</td>
+                  </tr>
+                  <tr></tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr className="last-table">
+                    <td>Total</td>
+                    <td>{12}</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr className="last-table">
+                    <td>Loyality/Pricelist</td>
+                    <td className="red">00.00</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr className="last-table">
+                    <td>Discount</td>
+                    <td className="red">00.00</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr className="last-table">
+                    <td>Accessories</td>
 
-          {Number(data.kmIn) > contract.result[0].kmOut && (
-            <ReturnContainer>
-              <Title color={colors.sideBarBgColor}>
-                <h2>Summary</h2>
-              </Title>
-              <FormBoxWrapper className="summary">
-                <FormBox color={isTheme().color}>
-                  <InputField
-                    label="Total Rent"
-                    type="text"
-                    value={totalRent}
-                    disabled={true}
-                  />
-                  <InputField
-                    label="Other Charge"
-                    placeholder="100000017"
-                    type="text"
-                    value={"0.00"}
-                    name={"name_en"}
-                    disabled={true}
-                    required={true}
-                  />
-                  <InputField
-                    label="Net Total"
-                    type="text"
-                    value={netTotal}
-                    disabled={true}
-                    name={"name_en"}
-                    required={true}
-                  />
-                  <InputField
-                    label="Gross Total"
-                    placeholder="100000017"
-                    type="text"
-                    value={grossTotal}
-                    name={"name_en"}
-                    disabled={true}
-                    required={true}
-                  />{" "}
-                  <InputField
-                    label="VAT"
-                    placeholder="100000017"
-                    type="text"
-                    value={vat}
-                    name={"name_en"}
-                    disabled={true}
-                    required={true}
-                  />
-                  <InputField
-                    label="Refunded"
-                    placeholder="100000017"
-                    type="text"
-                    value={"0.00"}
-                    name={"name_en"}
-                    disabled={true}
-                    required={true}
-                  />
-                  <InputField
-                    label="Paid"
-                    placeholder="100000017"
-                    type="text"
-                    value={"0.00"}
-                    name={"name_en"}
-                    disabled={true}
-                    required={true}
-                  />
-                  <InputField
-                    label="Discount"
-                    placeholder="10"
-                    onChange={handleChange}
-                    type="text"
-                    name={"discount"}
-                    required={true}
-                  />
-                  <SelectField label="PaymentType" name="Category" required>
-                    <>
-                      {payment.map((option) => (
-                        <option
-                          key={option.value}
-                          value={option.value}
-                          onClick={() => onBankChange(option.value)}
+                    <td className="red">00.00</td>
+                  </tr>
+                </AccountTable>
+                <AccountTable>
+                  <tr className="last-table">
+                    <td>Total Rent</td>
+                    <td>{12}</td>
+                  </tr>
+                </AccountTable>
+              </ReturnContainer>
+              <GroupButtons className="add-bill-button">
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={handleOpen}
+                >
+                  Add Bill
+                </Button>
+              </GroupButtons>
+              <ModalComponent open={open} handleClose={handleClose}>
+                <>
+                  <FormWrapper
+                    bcolor={isTheme().bcolor}
+                    color={isTheme().color}
+                  >
+                    <Box
+                      component="form"
+                      sx={{
+                        width: "100%",
+                        maxWidth: "100%",
+                        padding: "15px",
+                      }}
+                      noValidate={false}
+                      autoComplete="on"
+                      onSubmit={(e) => hanldelSubmitBill(e)}
+                    >
+                      <FormBoxWrapper>
+                        <div onClick={handleClose} className="close-icon">
+                          <CloseSvg fill={colors.sideBarBgColor} />
+                        </div>
+                        <FormBox>
+                          <InputField
+                            label="Date"
+                            type="date"
+                            onChange={hanldeBillChange}
+                            defaultValue={formattedDate(new Date())}
+                            name={"date"}
+                            required={true}
+                          />
+                          <SelectField
+                            label="Activity"
+                            name="activity"
+                            required={true}
+                            defaultValue={0}
+                            onChange={hanldeBillChange}
+                          >
+                            <>
+                              <option value={0} disabled>
+                                Select Activity..
+                              </option>
+                              {returnPage?.activity?.result.map((option) => (
+                                <option key={option.id} value={option.id}>
+                                  {option[`name_${locale}`]}
+                                </option>
+                              ))}
+                            </>
+                          </SelectField>
+
+                          <InputField
+                            label="Amount"
+                            type="number"
+                            onChange={hanldeBillChange}
+                            defaultValue={"0"}
+                            name={"amount"}
+                            required={true}
+                          />
+                          <InputField
+                            label="Comments"
+                            placeholder=""
+                            type="text"
+                            onChange={hanldeBillChange}
+                            name={"comments"}
+                            required={true}
+                          />
+                        </FormBox>
+                      </FormBoxWrapper>
+                      <GroupButtons>
+                        <Button
+                          variant="contained"
+                          color="success"
+                          className="paylater-button"
+                          type="submit"
                         >
-                          {option.label}
-                        </option>
-                      ))}
-                    </>
-                  </SelectField>
-                  <InputField
-                    label="Comments"
-                    placeholder=""
-                    type="text"
-                    name={"comments"}
-                    required={true}
+                          Add
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          onClick={handleClose}
+                        >
+                          Cancel
+                        </Button>
+                      </GroupButtons>
+                    </Box>
+                  </FormWrapper>
+                </>
+              </ModalComponent>
+            </>
+          )}
+          {Number(data.kmIn) > contract.result[0].kmOut && (
+            <>
+              {contractBill?.result?.length! > 0 && (
+                <ReturnContainer>
+                  <Title color={colors.sideBarBgColor}>
+                    <h2>Payments</h2>
+                  </Title>
+                  <DataTable
+                    data={contractBill?.result}
+                    isDeleteAble={false}
+                    isEditAble={false}
+                    isViewAble={false}
+                    isDuplicate={false}
+                    page_color={colors.sideBarBgColor}
+                    size="400px"
+                    showFilter={false}
+                    showAddButton={false}
+                    keys={contractPaymentKeys}
                   />
-                  {isbank && (
+                </ReturnContainer>
+              )}
+              <ReturnContainer>
+                <Title color={colors.sideBarBgColor}>
+                  <h2>Summary</h2>
+                </Title>
+                <FormBoxWrapper className="summary">
+                  <FormBox color={isTheme().color}>
+                    <InputField
+                      label="Total Rent"
+                      type="text"
+                      value={12}
+                      disabled={true}
+                    />
+                    <InputField
+                      label="Other Charge"
+                      placeholder="100000017"
+                      type="text"
+                      value={"0.00"}
+                      name={"name_en"}
+                      disabled={true}
+                      required={true}
+                    />
+                    <InputField
+                      label="Net Total"
+                      type="text"
+                      value={12}
+                      disabled={true}
+                      name={"name_en"}
+                      required={true}
+                    />
+                    <InputField
+                      label="Gross Total"
+                      placeholder="100000017"
+                      type="text"
+                      value={12}
+                      name={"name_en"}
+                      disabled={true}
+                      required={true}
+                    />{" "}
+                    <InputField
+                      label="VAT"
+                      placeholder="100000017"
+                      type="text"
+                      value={12}
+                      name={"name_en"}
+                      disabled={true}
+                      required={true}
+                    />
+                    <InputField
+                      label="Refunded"
+                      placeholder="100000017"
+                      type="text"
+                      value={"0.00"}
+                      name={"name_en"}
+                      disabled={true}
+                      required={true}
+                    />
+                    <InputField
+                      label="Paid"
+                      placeholder="100000017"
+                      type="text"
+                      value={"0.00"}
+                      name={"name_en"}
+                      disabled={true}
+                      required={true}
+                    />
+                    <InputField
+                      label="Discount"
+                      placeholder="10"
+                      onChange={handleChange}
+                      type="text"
+                      name={"discount"}
+                      required={true}
+                    />
+                    <SelectField label="PaymentType" name="Category" required>
+                      <>
+                        {payment.map((option) => (
+                          <option
+                            key={option.value}
+                            value={option.value}
+                            // onClick={() => onBankChange(option.value)}
+                          >
+                            {option.label}
+                          </option>
+                        ))}
+                      </>
+                    </SelectField>
+                    <InputField
+                      label="Comments"
+                      placeholder=""
+                      type="text"
+                      name={"comments"}
+                      required={true}
+                    />
                     <>
                       <InputField
                         label="Transaction Number"
@@ -559,37 +646,37 @@ const ReturnContract = ({
                         required={true}
                       />
                     </>
-                  )}
-                </FormBox>
-              </FormBoxWrapper>
-            </ReturnContainer>
+                  </FormBox>
+                </FormBoxWrapper>
+              </ReturnContainer>
+              <GroupButtons>
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="add-customer-save-button"
+                  // type="submit"
+                  // onClick={(e) => handleSubmit(e)}
+                >
+                  PayNow
+                </Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  className="paylater-button"
+                  // type="submit"
+                >
+                  PayLater
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => router.back()}
+                >
+                  Cancel
+                </Button>
+              </GroupButtons>
+            </>
           )}
-          <GroupButtons>
-            <Button
-              variant="contained"
-              color="success"
-              className="add-customer-save-button"
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-            >
-              PayNow
-            </Button>
-            <Button
-              variant="contained"
-              color="success"
-              className="paylater-button"
-              type="submit"
-            >
-              PayLater
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => router.back()}
-            >
-              Cancel
-            </Button>
-          </GroupButtons>
         </Box>
       </FormWrapper>
     </ReturnContainer>
