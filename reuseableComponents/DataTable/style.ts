@@ -45,8 +45,9 @@ export const DataView = styled.div`
 `;
 export const TableWrapper = styled.div`
 overflow-x: auto;
-padding: 20px;
+/* padding: 20px; */
  background-color: #f4f5f3;
+ border-radius: 8px;
 `
 export const Table = styled.table`
 tr:nth-child(even) {

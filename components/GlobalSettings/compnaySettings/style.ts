@@ -78,6 +78,9 @@ export const FormBoxWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  &.return-page{
+    padding: 15px;
+  }
   & .close-icon{
     cursor: pointer;
   }
@@ -99,9 +102,15 @@ export const FormBoxWrapper = styled.div`
   }
 `;
 export const GroupButtons = styled.div`
+&.return_page_buttons{
+  margin-top: 20px;
+}
 &.add-bill-button{
   margin-top: 16px;
   justify-content: flex-end;
+}
+& .add-customer-save-button{
+  width: 350px;
 }
   &.rent-car-group-button {
     padding: 20px 0px;
@@ -115,7 +124,7 @@ export const GroupButtons = styled.div`
   flex-wrap: wrap;
   padding: 12px;
   & .MuiButtonBase-root {
-    width: 211px;
+    width: 250px;
     gap: 12px;
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     &.pricelist-save-button {

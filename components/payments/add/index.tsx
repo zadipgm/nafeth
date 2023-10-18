@@ -539,14 +539,6 @@ const AddPayment = () => {
             </Button>
             <Button
               variant="contained"
-              color="primary"
-              type="submit"
-              onClick={() => setPaymentStatus("unpaid")}
-            >
-              {translations?.payLater as string}
-            </Button>
-            <Button
-              variant="contained"
               color="error"
               onClick={() => router.back()}
             >

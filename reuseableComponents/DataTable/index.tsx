@@ -60,7 +60,6 @@ interface IProps {
   linkPageUrl?: string;
   showFilter: boolean;
   isEditAble?: boolean;
-  nestedTable?: boolean;
   isViewAble?: boolean;
   isDeleteAble?: boolean;
   classname?: string;
@@ -84,7 +83,6 @@ const DataTable = ({
   linkPageUrl,
   showFilter,
   isEditAble,
-  nestedTable,
   isViewAble,
   isDeleteAble,
   page_color,
@@ -103,7 +101,7 @@ const DataTable = ({
 }: IProps) => {
   const { colors, locale } = useTheme();
   const router = useRouter();
-  const [searchvalue, setSearchvalue] = React.useState(data);
+  const [searchvalue, setSearchvalue] = React.useState([]);
   const [active, setActive] = React.useState(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [recordsPerPage, setRecordPerPage] = React.useState(10);
@@ -114,13 +112,15 @@ const DataTable = ({
   const [drawerData, setDrawerData] = React.useState<any>();
   const [list, setList] = React.useState(true);
   const [grid, setGrid] = React.useState(false);
-  const [refresh, setRefresh] = React.useState(false);
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+  React.useEffect(() => {
+    setSearchvalue(data);
+  }, [data]);
   React.useEffect(() => {
     let value = currentRecords;
     setSearchvalue(value);

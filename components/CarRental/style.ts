@@ -808,7 +808,8 @@ export const BackICon = styled.div`
 `;
 export const CarDetailsTitle = styled.span`
   color: ${({ theme }) => theme.colors.gray2};
-  font-weight: 600;
+  font-size: 14px;
+    font-weight: 600;
   &.other-detail {
     color: ${({ theme }) => theme.colors.black1};
   }

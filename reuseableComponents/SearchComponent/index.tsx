@@ -21,7 +21,7 @@ const SearchComponent = ({
   classname,
 }: IProps) => {
   const { translations } = useTheme();
-  const [filterKey, setFilterKey] = React.useState("id");
+  const [filterKey, setFilterKey] = React.useState("");
   const handlerChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -47,10 +47,17 @@ const SearchComponent = ({
     <>
       <Filter className={classname}>
         <SelectField
+          required={true}
           label={translations?.filterByColumn as string}
           onChange={(e) => handlerChange(e)}
+          defaultValue={""}
         >
-          <>{data && renderColumnKeys()}</>
+          <>
+            <option value="" disabled>
+              {translations?.selectColumntofilter}...
+            </option>
+            {data && renderColumnKeys()}
+          </>
         </SelectField>
       </Filter>
       <SearchWrapper className={classname}>

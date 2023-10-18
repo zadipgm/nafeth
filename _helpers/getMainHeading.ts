@@ -1,39 +1,42 @@
 export const GetMainHeading = (heading: string) => {
+    console.log("here is heading", heading)
     let mainHeading = "Dashboard";
-    if (heading === "cars") return mainHeading = "Cars";
-    if (heading === "branchtransfer") return mainHeading = "Branch transfer";
-    if (heading === "caraccessories") return mainHeading = "car accessories";
-    if (heading === "caralerts") return mainHeading = "car alerts"
-    if (heading === "workshop") return mainHeading = "workshop"
-    if (heading === "individualcontracts")
-        return mainHeading = "Open contracts"
-    if (heading === "disputecontracts")
+    if (heading.startsWith("/cars")) return mainHeading = "Cars";
+    if (heading.startsWith("/branchtransfer")) return mainHeading = "Branch transfer";
+    if (heading.startsWith("caraccessories")) return mainHeading = "car accessories";
+    if (heading.startsWith("caralerts")) return mainHeading = "car alerts"
+    if (heading.startsWith("workshop")) return mainHeading = "workshop"
+    if (heading.startsWith("individualcontracts"))
+        return mainHeading = "Open contract"
+    if (heading.startsWith("disputecontracts"))
         return mainHeading = "disputed contracts"
-    if (heading === "promotions")
+    if (heading.startsWith("return[id"))
+        return mainHeading = "Return contracts"
+    if (heading.startsWith("promotions"))
         return mainHeading = "promotions"
-    if (heading === "companycontracts")
+    if (heading.startsWith("companycontracts"))
         return mainHeading = "company contracts"
-    if (heading === "einvoice")
+    if (heading.startsWith("einvoice"))
         return mainHeading = "e invoice"
-    if (heading === "customers")
+    if (heading.startsWith("customers"))
         return mainHeading = "customers"
-    if (heading === "pricelist")
-        return mainHeading = "pricelist"
-    if (heading === "loyalty")
+    if (heading.startsWith("pricelist"))
+        return mainHeading = "price list"
+    if (heading.startsWith("loyalty"))
         return mainHeading = "loyalty"
-    if (heading === "payments")
+    if (heading.startsWith("payments"))
         return mainHeading = "payments"
-    if (heading === "globalsettings")
+    if (heading.startsWith("globalsettings"))
         return mainHeading = "global settings"
-    if (heading === "branches")
+    if (heading.startsWith("branches"))
         return mainHeading = "branches"
-    if (heading === "groups")
+    if (heading.startsWith("groups"))
         return mainHeading = "groups"
-    if (heading === "Users")
+    if (heading.startsWith("Users"))
         return mainHeading = "Users"
-    if (heading === "maintenaceservices")
+    if (heading.startsWith("maintenaceservices"))
         return mainHeading = "maintenace services"
-    if (heading === "workshopbranches")
+    if (heading.startsWith("workshopbranches"))
         return mainHeading = "workshop branches"
     return mainHeading
 };
