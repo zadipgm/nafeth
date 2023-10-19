@@ -6,8 +6,9 @@ import { useRouter } from "next/router";
 interface IProps {
   title_en: string;
   title_ar: string;
+  classname: string;
 }
-const LangaugeButtons = ({ title_ar, title_en }: IProps) => {
+const LangaugeButtons = ({ title_ar, title_en, classname }: IProps) => {
   const { locale } = useTheme();
   const router = useRouter();
   const changeLocale = React.useCallback(() => {
@@ -21,7 +22,11 @@ const LangaugeButtons = ({ title_ar, title_en }: IProps) => {
   }, [locale]);
   return locale === "ar" ? (
     <Langwrapper onClick={() => changeLocale()}>
-      <LangButton href={`/en${router.asPath}`} color={isTheme()?.color}>
+      <LangButton
+        href={`/en${router.asPath}`}
+        color={isTheme()?.color}
+        className={classname}
+      >
         <IconWrapper>
           <img width="30px" height="30px" src="/images/us.svg" />
         </IconWrapper>
@@ -30,7 +35,11 @@ const LangaugeButtons = ({ title_ar, title_en }: IProps) => {
     </Langwrapper>
   ) : (
     <Langwrapper>
-      <LangButton href={`/ar${router.asPath}`} color={isTheme()?.color}>
+      <LangButton
+        href={`/ar${router.asPath}`}
+        color={isTheme()?.color}
+        className={classname}
+      >
         <IconWrapper onClick={() => changeLocale()}>
           <img width="30" height="30" src="/images/saudi.svg" />
         </IconWrapper>

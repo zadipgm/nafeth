@@ -31,6 +31,13 @@ export const Container = styled.div`
 export const MenuWrapper = styled.div`
   padding-top: 20px;
 `;
+export const CloseIconLangButton = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+padding: 5px 10px;
+`
 export const SideIconWrapper = styled.div`
   display: flex;
   padding: 12px 0px;

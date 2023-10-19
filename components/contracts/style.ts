@@ -18,12 +18,12 @@ export const Container = styled.div`
   }
 `;
 export const ExtentionContainer = styled.div`
- border-radius: 8px;
+  border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-`
+`;
 export const DetailSection = styled.div`
-width:100%;
-`
+  width: 100%;
+`;
 export const AccountTable = styled.table`
   border-collapse: collapse;
   width: 100%;
@@ -31,8 +31,8 @@ export const AccountTable = styled.table`
     border: 1px solid #ddd;
     width: 10%;
     padding: 0px 6px;
-    &.red{
-color: red;
+    &.red {
+      color: red;
     }
   }
   tr:nth-child(even) {
@@ -54,37 +54,126 @@ export const ReturnContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   margin-top: 20px;
+  &.summary {
+    padding-bottom: 7px;
+  }
+  &.return-page {
+    margin-top: 0;
+  }
 `;
-export const Unpaid = styled.div`
-  padding: 0px 30px;
-  color: red;
+export const Summary = styled.div`
+  background-color: white;
+
+  padding: 15px;
+  margin: 50px auto;
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  @media (min-width: 600px) {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+  @media (min-width: 1040px) {
+    width: 60%;
+    margin-bottom: 10px;
+  }
 `;
-export const Paid = styled.div`
-  padding: 0px 30px;
-  color: green;
+export const RentSummary = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0px 10px;
+  border-radius: 6px;
+  margin: 8px 0px 0px 0px;
+
+  &.summary {
+    background-color: #f4f5f3;
+    letter-spacing: 0.6px;
+
+    color: ${({ theme }) => theme.colors.black1};
+    padding: 10px;
+    .des {
+      font-weight: 600;
+    }
+  }
+
+  &.rent {
+    border-top: 2px solid #d9d9d9;
+    border-top-style: dotted;
+    border-radius: unset;
+  }
+
+  &.other_charges {
+    border-bottom: 2px solid #d9d9d9;
+    border-bottom-style: dotted;
+    border-radius: unset;
+  }
+  &.net_total {
+    width: 48%;
+    justify-content: space-between;
+    margin: 0 0 0 auto;
+    border-bottom: 1px solid #d9d9d9;
+    border-bottom-style: dotted;
+    border-radius: unset;
+    background-color: #f4f5f3;
+    letter-spacing: 0.6px;
+    color: ${({ theme }) => theme.colors.black1};
+  }
+  & .total_amount {
+    font-size: 14px;
+    font-weight: 600;
+  }
 `;
+
+export const Description = styled.div`
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  width: 200px;
+  font-weight: 600;
+  &.des {
+    width: 150px;
+  }
+  &.total_amount {
+    width: 70px;
+  }
+`;
+export const Amount = styled.div`
+  font-size: 14px;
+  letter-spacing: 0.6px;
+
+  &.positive {
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: 600;
+  }
+  &.negetive {
+    color: ${({ theme }) => theme.colors.red};
+    font-weight: 600;
+  }
+`;
+
 export const ContractsTitle = styled.h2`
   margin: 0px;
   font-size: 20px;
 `;
 export const EditDisputeContainer = styled.div`
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-`
+`;
 export const CarDetailsHeading = styled.div<{ color: string }>`
-background-color: ${({ color }) => color};
-display: flex;
-justify-content: center;
-align-items: center;
-width: 200px;
-margin: 0 auto;
-border-radius: 8px;
-color: white;
-`
-export const DisputedContainer = styled.div`
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: ${({ color }) => color};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin: 0 auto;
   border-radius: 8px;
-`
+  color: white;
+`;
+export const DisputedContainer = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+`;
 export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   width: 100%;
   padding-bottom: 3px;
@@ -92,7 +181,6 @@ export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   color: ${({ color }) => color};
   background-color: ${({ bcolor }) => bcolor};
   & .MuiFormControl-root {
-    
     /* margin: 20px 0px; */
     & .MuiFormLabel-root {
       color: ${({ color }) => color};
@@ -110,14 +198,14 @@ export const ListWrapper = styled.div<{ bcolor?: string; color?: string }>`
   }
 `;
 export const CarPlateExtention = styled.div`
-width: 30%;
-margin: 12px auto;
-display: flex;
-@media (max-width: 768px) {
+  width: 30%;
+  margin: 12px auto;
+  display: flex;
+  @media (max-width: 768px) {
     width: 80%;
     margin: 15px auto;
   }
-`
+`;
 export const SearchTabsWrapper = styled.div<{
   bcolor?: string;
   color?: string;
@@ -125,18 +213,18 @@ export const SearchTabsWrapper = styled.div<{
   display: flex;
   justify-content: flex-start;
   align-items: center;
- 
+
   padding: 10px 20px;
   gap: 20px;
- flex-wrap: wrap;
- width: 100%;
+  flex-wrap: wrap;
+  width: 100%;
   .search-input-dashboard {
     width: 99%;
     margin: 0;
     color: ${({ color }) => color};
     background-color: ${({ bcolor }) => bcolor};
   }
-  .add_button_filter{
+  .add_button_filter {
     flex-grow: 1;
     flex-basis: 200px;
   }
@@ -165,7 +253,7 @@ export const SearchBarWrapper = styled.div<{ bcolor?: string; color?: string }>`
 export const ContractCard = styled.div<{ cardcolor?: string; color?: string }>`
   color: ${({ color }) => color};
   background-color: ${({ cardcolor }) => cardcolor};
- 
+
   transition: 0.5s;
   width: 23.9%;
   padding: 15px;

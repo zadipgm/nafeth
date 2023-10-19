@@ -1,37 +1,17 @@
 import * as React from "react";
 import {
-  ContactNumberWrapper,
   Container,
-  ContractCard,
-  ContractWrapper,
   ContractsTitle,
-  DataWrapper,
-  Keys,
   ListWrapper,
   SearchTabsWrapper,
-  SvgKeysWrapper,
 } from "../style";
 import { isTheme } from "@/_helpers/getTheme";
 import { useTheme } from "styled-components";
-import InputComponent from "@/reuseableComponents/InputField";
-import {
-  Contracts,
-  Contracts_chart_data,
-  chart_dataset,
-  contract_header_card,
-  header_card,
-  header_card_dashboard,
-} from "@/global/fakeData";
 import Button from "@mui/material/Button";
-import IconComponent from "@/reuseableComponents/IconComponent";
-import CarContractNumberSvg from "@/public/icons/carContractNumberSvg";
 import DrawerComponent from "@/reuseableComponents/Drawer";
-import Link from "next/link";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-import { Grow } from "@mui/material";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import {
-  ButtonWrapper,
   DetailList,
   DetailListItem,
   DetailWrapper,
@@ -39,27 +19,14 @@ import {
   Spantext,
   Strongtext,
 } from "@/components/CarRental/style";
-import { useRouter } from "next/router";
-import ReturnSvg from "@/public/icons/returnSvg";
-import { List, ListItem } from "@/components/customers/style";
-import { Tooltip } from "@nextui-org/react";
-import CarPlate from "@/components/CarRental/CarPlate";
-import CarYearSvg from "@/public/icons/carYearSvg";
-import CardUserSvg from "@/public/icons/carduserSvg";
-import IssueDateSvg from "@/public/icons/issueDateSvg";
-import ReturnDateSvg from "@/public/icons/returnDateSvg";
-import SuvSvg from "@/public/icons/SUV";
-import DisputeSvg from "@/public/icons/DisputeSvg";
 import ContractListView from "../contractListView";
 import ViewButton from "@/reuseableComponents/viewsButton";
 import SearchComponent from "@/reuseableComponents/SearchComponent";
 import { Contract, IContracts } from "@/models/individualContracts";
 import { ICarModel } from "@/models/carmodel";
 import { ICustomers, IPriceList } from "@/models/customers";
-import { IAccessory, IAccessoryResult } from "@/models/IAccessory";
+import { IAccessory } from "@/models/IAccessory";
 import { filterBranch, filterCar, filterCustomer } from "@/_helpers/filters";
-import CarRentSvg from "@/public/icons/cars";
-import CarRented from "@/public/icons/carRentedSvg";
 import { IBranchModel } from "@/models/branch";
 import ContractGridView from "../contractGridView";
 import { contractKeys } from "@/constants";
@@ -86,8 +53,6 @@ const ContractPage = ({
   contracts,
   cars,
   customers,
-  priceList,
-  accessories,
   branches,
   page,
   title,
@@ -105,9 +70,8 @@ const ContractPage = ({
     bottom: false,
     right: false,
   });
-  const { colors, locale } = useTheme();
+  const { colors, locale, translations } = useTheme();
   const [show, setShow] = React.useState(4);
-  const router = useRouter();
   const [list, setList] = React.useState(true);
   const [grid, setGrid] = React.useState(false);
   const [details, setDetails] = React.useState<Contract>();
@@ -124,6 +88,16 @@ const ContractPage = ({
     if (val === "list") {
       setGrid(false);
       setList(true);
+    }
+  };
+  const hanldeShowMore = (val: number) => {
+    if (contracts?.result?.length > show) {
+      let diffrence = contracts.result.length - show;
+      if (diffrence >= 4) {
+        setShow((prev) => prev + val);
+      } else {
+        setShow(contracts.result.length);
+      }
     }
   };
   return (
@@ -381,10 +355,10 @@ const ContractPage = ({
               </div>
             </DrawerComponent>
           )}
-          {contracts.result.length > 4 && (
+          {contracts?.result?.length > 4 && (
             <Button
               variant={"contained"}
-              onClick={() => setShow(show + 4)}
+              onClick={() => hanldeShowMore(4)}
               className="load-more"
               endIcon={
                 <ArrowCircleSvg
@@ -393,8 +367,9 @@ const ContractPage = ({
                   fill={colors.white}
                 />
               }
+              disabled={contracts.result.length === show ? true : false}
             >
-              View more
+              {translations?.viewMore}
             </Button>
           )}
         </ListWrapper>

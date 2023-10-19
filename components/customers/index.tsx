@@ -109,7 +109,16 @@ const CustomersList = ({
     let value = e.target.value;
     setprohibitedValue(value);
   };
-
+  const hanldeShowMore = (val: number) => {
+    if (customers?.result?.length > show) {
+      let diffrence = customers.result.length - show;
+      if (diffrence >= 4) {
+        setShow((prev) => prev + val);
+      } else {
+        setShow(customers.result.length);
+      }
+    }
+  };
   return (
     <Container>
       <Title color={page_color}>
@@ -498,16 +507,15 @@ const CustomersList = ({
             </DrawerComponent>
           )}
         </CustomerCardContainer>
-        {show === 19 ? (
-          ""
-        ) : (
+        {customers?.result?.length > 4 && (
           <Button
             variant={"contained"}
-            onClick={() => setShow(show + 4)}
+            onClick={() => hanldeShowMore(4)}
             className="load-more"
             endIcon={
               <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
             }
+            disabled={customers?.result?.length === show ? true : false}
           >
             {translations?.viewMore}
           </Button>

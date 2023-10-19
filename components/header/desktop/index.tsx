@@ -6,16 +6,11 @@ import {
   LightMood,
   LogoContainer,
   LogoutWrapper,
-  NotificationIcon,
   Wrappper,
 } from "../styled.components";
 import { useRouter } from "next/router";
 import LogoutSvg from "@/public/icons/logoutSvg";
-import NightlightRoundOutlinedIcon from "@mui/icons-material/NightlightRoundOutlined";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import { isTheme } from "@/_helpers/getTheme";
-import BellIcon from "@/public/icons/bellIconSvg";
-import LangButtons from "@/reuseableComponents/LangButton";
+
 import LangaugeButtons from "@/reuseableComponents/LangButton";
 import { Tooltip } from "@nextui-org/react";
 import { Badge } from "@mui/material";
@@ -70,8 +65,12 @@ const DesktopHeader = ({ themeToggler, theme }: IProps) => {
             <BellIcon width="30px" height="30px" fill={colors.pageTextColor} />
           </Badge>
         </NotificationIcon> */}
-        <LangaugeButtons title_en="ENGLISH" title_ar="العربية" />
-        <LogoutWrapper onClick={handleLogout}>
+        <LangaugeButtons
+          title_en="ENGLISH"
+          title_ar="العربية"
+          classname="desktops"
+        />
+        <LogoutWrapper onClick={handleLogout} className="desktop-logout">
           <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}
           <span>Logout</span>
         </LogoutWrapper>

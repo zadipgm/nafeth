@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
-import { BurgerMenu, LogoContainer } from "../styled.components";
+import { BurgerMenu, LogoContainer, LogoutWrapper } from "../styled.components";
 import BurgerSvg from "@/public/icons/burgerSvg";
 import { GlobalUserContext } from "@/context";
 import Image from "next/image";
@@ -9,9 +9,15 @@ import ModalComponent from "@/reuseableComponents/modal";
 import CloseSvg from "@/public/icons/closeSvg";
 import ProfileComponent from "@/components/SideNavBar/profile";
 import SideBarAccordions from "@/components/SideNavBar/sidebaraccordion";
-import { SideIconWrapper } from "@/components/SideNavBar/styled.components";
+import {
+  CloseIconLangButton,
+  SideIconWrapper,
+} from "@/components/SideNavBar/styled.components";
 import DashboardSvg from "@/public/icons/dashboard";
 import Link from "next/link";
+import LangaugeButtons from "@/reuseableComponents/LangButton";
+import LogoutSvg from "@/public/icons/logoutSvg";
+import Cookies from "js-cookie";
 
 const MobileHeader = () => {
   const { locale, colors } = useTheme();
@@ -34,6 +40,14 @@ const MobileHeader = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleLogout = () => {
+    Cookies.remove("userName");
+    Cookies.remove("userPassword");
+    Cookies.remove("company");
+    localStorage.clear();
+    Cookies.remove("isLogin");
+    router.push("/login");
+  };
   return (
     <>
       <BurgerMenu onClick={handleOpen}>
@@ -51,9 +65,14 @@ const MobileHeader = () => {
         classname="mobile-modal"
       >
         <>
-          <div onClick={handleClose}>
+          <CloseIconLangButton onClick={handleClose}>
             <CloseSvg fill="#fff" />
-          </div>
+            <LangaugeButtons
+              title_en="ENGLISH"
+              title_ar="العربية"
+              classname="mobile"
+            />
+          </CloseIconLangButton>
           <SideIconWrapper className="mobile">
             <DashboardSvg fill={colors.white} width="23px" height="23px" />
             <Link href="/dashboard">{"Dashboard"}</Link>
@@ -63,6 +82,10 @@ const MobileHeader = () => {
             handleClose={handleClose}
             classnames={"mobile"}
           />
+          <LogoutWrapper onClick={handleLogout} className="mobile">
+            <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}
+            <span>Logout</span>
+          </LogoutWrapper>
           {/* <ProfileComponent /> */}
         </>
       </ModalComponent>

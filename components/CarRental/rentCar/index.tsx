@@ -172,28 +172,35 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       promotionDiscount: data.promotionDiscount,
       accessoriesID: caraccessories.toLocaleString(),
     };
-    console.log("here is body", body);
+
     e.preventDefault();
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
     let url = "contracts/Individual";
-
-    await createPost(userName, userPassword, url, company, body).then(
-      (res: any) => {
-        if (res.status == 200) {
-          Swal.fire("Thank you!", "Contract has been Created!.", "success");
-          router.push("/individualcontracts");
-        } else {
-          console.log(res);
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-          });
+    if (car.result[0].status === "RENTED") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This Car is already Rented, Please select another car.",
+      });
+    } else {
+      await createPost(userName, userPassword, url, company, body).then(
+        (res: any) => {
+          if (res.status == 200) {
+            Swal.fire("Thank you!", "Contract has been Created!.", "success");
+            router.push("/individualcontracts");
+          } else {
+            console.log(res);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          }
         }
-      }
-    );
+      );
+    }
   };
   //total rented cost
   let totalRentedCost =

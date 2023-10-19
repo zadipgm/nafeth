@@ -40,7 +40,7 @@ const DisputedContracts = ({
         isExtendable={false}
         isDisputeable={false}
         isReturnable={true}
-        isPrintAble={true}
+        isPrintAble={false}
       />
     </DisputedContainer>
   );

@@ -132,7 +132,8 @@ const english = {
   dateofbirthhijri: "Date of Birth Hijri",
   businessPhone: "هاتف العمل",
   permanentAddress: "العنوان الدائم",
-  customerDetails: "Customer Details"
+  customerDetails: "Customer Details",
+  selectColumntofilter: "select column to filter"
 
 
 

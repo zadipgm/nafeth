@@ -4,6 +4,9 @@ export const Container = styled.div`
     margin-bottom: 15px;
     flex-grow: 1;
     flex-basis: 250px;
+  &.discount{
+    margin-bottom: 0;
+  }
 `
 export const Label = styled.label`
     font-size: 15px;

@@ -130,6 +130,7 @@ const arabic = {
   dateofbirthhijri: "تاريخ الميلاد الهجري",
   businessPhone: "هاتف العمل ",
   permanentAddress: "العنوان الدائم",
-  customerDetails: "تفاصيل العميل"
+  customerDetails: "تفاصيل العميل",
+  selectColumntofilter: "حدد عمود للتصفية"
 }
 export default arabic;
