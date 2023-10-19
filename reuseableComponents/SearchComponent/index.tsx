@@ -64,7 +64,11 @@ const SearchComponent = ({
         <InputField
           classname="data-search"
           type="search"
-          label={`${translations?.searchRecordBy} ${filterKey}`}
+          label={
+            filterKey === ""
+              ? (`Please first ${translations?.selectColumntofilter}` as string)
+              : (`${translations?.searchRecordBy} ${filterKey}` as string)
+          }
           onChange={(e) =>
             RequestSearch(
               e.target.value,
@@ -73,6 +77,7 @@ const SearchComponent = ({
               setSearchvalue
             )
           }
+          disabled={filterKey === "" ? true : false}
           placeholder={
             filterKey.toLocaleLowerCase().includes("date")
               ? `${translations?.searchbydateformat} yyyy-mm-dd`

@@ -83,13 +83,13 @@ const Grid = ({
         key={contract.contractNo}
       >
         <CardMakeModelWrapper>
-          <Tooltip content={"Contract Number"} color={"success"}>
+          <Tooltip content={"Contract Number"} color={"primary"}>
             <CardMakeModel color={isTheme().color}>
               <ContractNumber>
                 <CarContractNumberSvg
                   fill={colors.sideBarBgColor}
-                  width="25px"
-                  height="25px"
+                  width="40px"
+                  height="40px"
                 />
                 {contract.contractNo}
               </ContractNumber>
@@ -97,7 +97,7 @@ const Grid = ({
           </Tooltip>
           <Tooltip
             content="Customer Name"
-            color={"warning"}
+            color={"primary"}
             className="customer_full_name"
           >
             <IconComponent
@@ -113,25 +113,8 @@ const Grid = ({
             }
           </Tooltip>
         </CardMakeModelWrapper>
-        {/* <CardMakeModelWrapper>
-          <Tooltip content={"car make/model"} color={"success"}>
-            <CardMakeModel color={isTheme().color} className="contract">
-              <div>
-                {filterCar(cars, contract.carID)[0].make[`name_${locale}`]}{" "}
-                {filterCar(cars, contract.carID)[0].model[`name_${locale}`]}/
-                <span className="year">
-                  {filterCar(cars, contract.carID)[0].year}
-                </span>
-              </div>
-            </CardMakeModel>
-          </Tooltip>
-          <Tooltip content="Car Color" color={"warning"}>
-            <CardColor
-              color={filterCar(cars, contract.carID)[0].color[`name_${locale}`]}
-            ></CardColor>
-          </Tooltip>
-        </CardMakeModelWrapper> */}
-        <Tooltip content="Daily Rent" color={"error"}>
+
+        <Tooltip content="Daily Rent" color={"primary"} placement={"bottom"}>
           <Strong color={isTheme().color}>{contract.dailyPrice}</Strong>
           <Span color={isTheme().color}>/day</Span>
         </Tooltip>
@@ -140,7 +123,7 @@ const Grid = ({
             content={
               filterCar(cars, contract.carID)[0].carType[`name_${locale}`]
             }
-            color={"success"}
+            color={"primary"}
           >
             <IconComponent
               width="100px"
@@ -158,7 +141,7 @@ const Grid = ({
         </CardTypeIconWrapper>
         <CardSpecsWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Issue Date" color={"warning"}>
+            <Tooltip content="Issue Date" color={"primary"}>
               <IssueDateSvg
                 width={"25px"}
                 height="25px"
@@ -168,7 +151,7 @@ const Grid = ({
             </Tooltip>
           </CardTransmitionWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Return Date" color={"warning"}>
+            <Tooltip content="Return Date" color={"primary"}>
               <ReturnDateSvg
                 width={"25px"}
                 height="25px"
@@ -178,7 +161,7 @@ const Grid = ({
             </Tooltip>
           </CardTransmitionWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Weekly Rent" color={"warning"}>
+            <Tooltip content="Weekly Rent" color={"primary"}>
               <IconComponent
                 width={"25px"}
                 height="25px"
@@ -189,7 +172,7 @@ const Grid = ({
             </Tooltip>
           </CardTransmitionWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Monthly Rent" color={"warning"}>
+            <Tooltip content="Monthly Rent" color={"primary"}>
               <IconComponent
                 width={"25px"}
                 height="25px"
@@ -276,20 +259,18 @@ const Grid = ({
               Return
             </Button>
           )}
-          {isPrintAble && (
+          {/* {isPrintAble && (
             <Button
               variant={"outlined"}
               className="print"
-              // onClick={() =>
-              //   router.push(`/return/${contract.contractNo}`)
-              // }
+              onClick={() => window.print()}
               endIcon={
                 <ReturnSvg width="15px" height="15px" fill={colors.cyan} />
               }
             >
               Print
             </Button>
-          )}
+          )} */}
         </ButtonWrapper>
       </CardWrapper>
     </Grow>

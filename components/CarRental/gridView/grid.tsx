@@ -72,7 +72,7 @@ const Grid = ({
         key={car.id}
       >
         <CardMakeModelWrapper>
-          <Tooltip content={"car make/model"} color={"success"}>
+          <Tooltip content={"car make/model"} color={"primary"}>
             <CardMakeModel color={isTheme().color}>
               <div>
                 {car.make[`name_${locale}`]} {car.model[`name_${locale}`]} /{" "}
@@ -80,7 +80,7 @@ const Grid = ({
               </div>
             </CardMakeModel>
           </Tooltip>
-          <Tooltip content="Car Color" color={"warning"}>
+          <Tooltip content="Car Color" color={"primary"}>
             <CardColor color={car.color.name_en}></CardColor>
           </Tooltip>
         </CardMakeModelWrapper>
@@ -89,7 +89,7 @@ const Grid = ({
           <Span color={isTheme().color}>/day</Span>
         </Tooltip>
         <CardTypeIconWrapper>
-          <Tooltip content={car.carType.name_en} color={"success"}>
+          <Tooltip content={car.carType.name_en} color={"primary"}>
             <IconComponent
               width="100px"
               height="100px"
@@ -104,7 +104,7 @@ const Grid = ({
         </CardTypeIconWrapper>
         <CardSpecsWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Weekly Rent" color={"warning"}>
+            <Tooltip content="Weekly Rent" color={"primary"}>
               <CarRentSvg
                 width="25px"
                 height="25px"
@@ -114,7 +114,7 @@ const Grid = ({
             </Tooltip>
           </CardTransmitionWrapper>
           <CardTransmitionWrapper>
-            <Tooltip content="Fuel Type" color={"success"}>
+            <Tooltip content="Fuel Type" color={"primary"}>
               <CarPetrolSvg
                 width="25px"
                 height="25px"
@@ -134,7 +134,7 @@ const Grid = ({
             </Tooltip>
           </CardTransmitionWrapper>{" "}
           <CardTransmitionWrapper>
-            <Tooltip content="Mileage" color={"secondary"}>
+            <Tooltip content="Mileage" color={"primary"}>
               <CarMileageSvg
                 width="25px"
                 height="25px"

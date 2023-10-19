@@ -11,8 +11,6 @@ import { LoginProvider } from "@/context";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import LoadingScreen from "./loading";
-import { DataProvider } from "@/context/cityContext";
-import { AppDataProvider } from "@/context/paymentLookupContext";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -69,34 +67,6 @@ const MyApp = ({
     }
   }, [isLogin, router]);
 
-  let t: any;
-  const checkIdleness = () => {
-    window.onload = timerReset;
-    window.onmousemove = timerReset;
-    window.onmousedown = timerReset;
-    window.ontouchstart = timerReset;
-    window.onclick = timerReset;
-    window.onkeydown = timerReset;
-    window.addEventListener("scroll", timerReset, true);
-    function writeYourFunction() {
-      // function for too long inactivity
-      alert("Your session has been expired. Please login again!");
-      setLoading(false);
-      Cookies.remove("isLogin");
-      Cookies.remove("company");
-      Cookies.remove("userPassword");
-      Cookies.remove("userName");
-      window.localStorage.clear();
-      router.push("/login");
-    }
-    function timerReset() {
-      clearTimeout(t);
-      t = setTimeout(writeYourFunction, 1200000);
-    }
-  };
-  React.useEffect(() => {
-    checkIdleness();
-  }, []);
   return getLayout(
     <>
       <Head>

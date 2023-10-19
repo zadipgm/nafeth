@@ -20,7 +20,6 @@ const CarListView = ({
   hanldeSelected,
   selectedCarID,
 }: ICarProps) => {
-  console.log("CarListView", cars);
   return (
     <ListViewContainer>
       {cars.slice(0, show)?.map((car: any, i: any) => {

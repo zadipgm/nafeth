@@ -15,10 +15,10 @@ interface IProps {
   classname?: string;
 }
 const MUIPaiChart = ({ chart_data, title, classname }: IProps) => {
-  const { isLTR, translations } = useTheme();
+  const { isLTR, translations, isMobile } = useTheme();
   const customize = {
     height: 350,
-    legend: { hidden: false },
+    legend: { hidden: true },
     margin: { top: 5 },
     stackingOrder: "descending",
   };

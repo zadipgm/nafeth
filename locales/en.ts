@@ -133,7 +133,7 @@ const english = {
   businessPhone: "هاتف العمل",
   permanentAddress: "العنوان الدائم",
   customerDetails: "Customer Details",
-  selectColumntofilter: "Select Column to filter"
+  selectColumntofilter: "select column to filter"
 
 
 

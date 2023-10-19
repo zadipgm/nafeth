@@ -5,11 +5,9 @@ import DashboardSvg from "@/public/icons/dashboard";
 import { useTheme } from "styled-components";
 import Link from "next/link";
 import { GlobalUserContext } from "@/context";
-import { useRouter } from "next/router";
-import CardUserSvg from "@/public/icons/carduserSvg";
+
 import { LogoContainer } from "../header/styled.components";
 import Image from "next/image";
-import UsersSvg from "@/public/icons/USERS";
 
 const SideNavBar = () => {
   const { menu } = React.useContext(GlobalUserContext);

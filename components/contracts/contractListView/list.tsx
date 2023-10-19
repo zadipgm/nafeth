@@ -86,8 +86,8 @@ const List = ({
                 <div className="contract">
                   <CarContractNumberSvg
                     fill={colors.sideBarBgColor}
-                    width="25px"
-                    height="25px"
+                    width="40px"
+                    height="40px"
                   />
                   <span className="make-model">{contract.contractNo}</span>
                 </div>
@@ -192,28 +192,7 @@ const List = ({
                   </span>
                 </ReuseAbleListItem>
               </Tooltip>
-              {/* <Tooltip
-                content={"Customer Name"}
-                color={"primary"}
-                className={page}
-                placement={"bottom"}
-              >
-                <ReuseAbleListItem>
-                  <div>
-                    <IconComponent
-                      width={"25px"}
-                      height="25px"
-                      fill={colors.sideBarBgColor}
-                      icon={"carduserSvg"}
-                    />
-                  </div>
-                  {
-                    filterCustomer(customers, contract.customerID)[0][
-                      `fullname_${locale}`
-                    ]
-                  }
-                </ReuseAbleListItem>
-              </Tooltip> */}
+
               <Tooltip
                 content={page === "disputed" ? "Damage Cost" : "Advance Amount"}
                 color={"primary"}

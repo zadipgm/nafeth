@@ -34,7 +34,6 @@ import CarMileageSvg from "@/public/icons/carMileageSvg";
 import ViewButton from "@/reuseableComponents/viewsButton";
 import SearchComponent from "@/reuseableComponents/SearchComponent";
 import MainSectionCard from "@/reuseableComponents/HeaderCards/mainSectionCard";
-import { GlobalUserContext } from "@/context";
 import { Title } from "../GlobalSettings/BranchManagement/style";
 import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
 import MUIPaiChart from "@/reuseableComponents/MuiCharts";
@@ -56,8 +55,7 @@ const CarRent = ({
   selectedCarID,
 }: ICarProps) => {
   const router = useRouter();
-  const { userName, userPassword, company } =
-    React.useContext(GlobalUserContext);
+
   const { colors, isMobile, isLTR, translations } = useTheme();
   const [show, setShow] = React.useState(4);
   const [state, setState] = React.useState({
@@ -92,7 +90,16 @@ const CarRent = ({
       setList(true);
     }
   };
-  console.log(router.pathname.replaceAll("/", ""));
+  const hanldeShowMore = (val: number) => {
+    if (cars?.result?.length > show) {
+      let diffrence = cars.result.length - show;
+      if (diffrence >= 4) {
+        setShow((prev) => prev + val);
+      } else {
+        setShow(cars.result.length);
+      }
+    }
+  };
   return (
     <>
       <Container>
@@ -253,10 +260,10 @@ const CarRent = ({
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {cars.result.length > 4 && (
+          {cars?.result?.length > 4 && (
             <Button
               variant={"contained"}
-              onClick={() => setShow(show + 4)}
+              onClick={() => hanldeShowMore(4)}
               className="load-more"
               endIcon={
                 <ArrowCircleSvg
@@ -265,6 +272,7 @@ const CarRent = ({
                   fill={colors.white}
                 />
               }
+              disabled={cars?.result?.length === show ? true : false}
             >
               {translations?.viewMore}
             </Button>

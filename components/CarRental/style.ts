@@ -119,8 +119,7 @@ export const CarWrapper = styled.div<{ bcolor: string; color: string }>`
     flex-basis: 400px;
   }
   .car-management {
-    flex-grow: 0;
-    flex-basis: 365px;
+    
     justify-content: space-between;
   }
   .promotions {
@@ -588,6 +587,13 @@ export const TD = styled.td<{ color?: string }>`
     }
   }
 `;
+export const EnglishCar = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: row-reverse;
+letter-spacing: 0.6px;
+`
 export const DetailsHead = styled.div`
   display: flex;
   justify-content: space-between;
@@ -905,7 +911,8 @@ export const ContractCustomer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-gap: 8px;
+gap: 12px;
+margin: 0px 7px;
 &.short-list-view{
   flex-direction: column;
   align-items: flex-start;
@@ -921,7 +928,7 @@ export const ModelListViewWrapper = styled.div`
   flex-basis: 112px;
   font-size: 18px;
   display: flex;
-  gap: 8px;
+  gap: 2px;
  
   &.short-list-view{
     transition: all.5s;
@@ -953,8 +960,8 @@ flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
-    margin: 6px 0px;
+    
+   
   }
   .color {
     color: ${({ theme }) => theme.colors.darkBlue};

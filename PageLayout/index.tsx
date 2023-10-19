@@ -9,6 +9,7 @@ import { useDarkMode } from "@/hooks/useDarkLightMood";
 import { LoginProvider } from "@/context";
 import Header from "@/components/header";
 import { DataProvider } from "@/context/cityContext";
+
 interface IProps {
   children: ReactElement;
 }
