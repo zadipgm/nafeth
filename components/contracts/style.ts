@@ -64,11 +64,19 @@ export const ReturnContainer = styled.div`
 export const Summary = styled.div`
 
 background-color: white;
-    width: 60%;
+    
     padding: 15px;
     margin: 50px auto;
     border-radius: 8px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+     @media (min-width: 600px) {
+      width: 90%;
+      margin-bottom: 10px;
+    }
+     @media (min-width: 1040px) {
+    width: 60%;
+      margin-bottom: 10px;
+    }
 `
 export const RentSummary = styled.div`
     display: flex;
@@ -126,7 +134,12 @@ font-size: 14px;
 letter-spacing: 0.6px;
 width: 200px;
 font-weight: 600;
-
+&.des{
+  width: 150px;
+}
+&.total_amount{
+  width: 70px;
+}
 `
 export const Amount = styled.div`
 font-size: 14px;
