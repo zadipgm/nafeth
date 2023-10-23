@@ -12,9 +12,7 @@ interface IProps {
   list: ILoyality;
 }
 const LoyaltyList = ({ list }: IProps) => {
-  console.log(list, "list");
-  console.log(list);
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   return (
     <LoyaltyContainer>
       <Title color={colors.sideBarBgColor}>
@@ -32,7 +30,7 @@ const LoyaltyList = ({ list }: IProps) => {
         size="400px"
         showFilter={true}
         showAddButton={true}
-        addButtonText="Add New List"
+        addButtonText={translations?.addNewList as string}
         classname={"certificate"}
         keys={loyaltyKeys}
       />

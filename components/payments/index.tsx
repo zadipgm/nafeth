@@ -27,10 +27,8 @@ const Payments = ({ payments }: IProps) => {
           isDeleteAble={false}
           isEditAble={false}
           isDuplicate={false}
-          isViewAble={true}
-          linkPageUrl={"payments"}
+          isViewAble={false}
           page_color={colors.sideBarBgColor}
-          sideBarTitle="Payment Details"
           size="600px"
           showAddButton={true}
           addButtonText="Add Receipt"

@@ -17,11 +17,12 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
+import { Container } from "../../style";
 interface IProps {
   list: IPrices;
 }
 const EditList = ({ list }: IProps) => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   const [data, setData] = React.useState(list.result[0]);
 
@@ -60,9 +61,9 @@ const EditList = ({ list }: IProps) => {
     );
   };
   return (
-    <div>
+    <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Edit List</h2>
+        <h2>{translations?.editList}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -77,9 +78,9 @@ const EditList = ({ list }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="Name English"
+                label={translations?.fullName_en as string}
                 placeholder="name in english"
                 type="text"
                 name={"priceList_en"}
@@ -88,7 +89,7 @@ const EditList = ({ list }: IProps) => {
                 required={true}
               />
               <InputField
-                label="discount"
+                label={translations?.discount as string}
                 placeholder="10"
                 type="text"
                 name={"discount"}
@@ -98,7 +99,7 @@ const EditList = ({ list }: IProps) => {
               />
 
               <InputField
-                label="Name Arabic"
+                label={translations?.fullName_ar as string}
                 placeholder="name in arabic"
                 type="text"
                 name={"priceList_ar"}
@@ -107,7 +108,7 @@ const EditList = ({ list }: IProps) => {
                 required={true}
               />
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -124,19 +125,19 @@ const EditList = ({ list }: IProps) => {
               className="pricelist-save-button"
               type="submit"
             >
-              Update
+              {translations?.update as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default EditList;

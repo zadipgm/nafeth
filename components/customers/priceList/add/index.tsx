@@ -15,8 +15,9 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
+import { Container } from "../../style";
 const AddList = () => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   let obj = {
     priceList_en: "",
@@ -60,9 +61,9 @@ const AddList = () => {
     );
   };
   return (
-    <div>
+    <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Add New List</h2>
+        <h2>{translations?.addNewList as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -77,9 +78,9 @@ const AddList = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="Name English"
+                label={translations?.fullName_en as string}
                 placeholder="name in english"
                 type="text"
                 name={"priceList_en"}
@@ -87,7 +88,7 @@ const AddList = () => {
                 required={true}
               />
               <InputField
-                label="discount"
+                label={translations?.discount as string}
                 placeholder="10"
                 type="text"
                 name={"discount"}
@@ -96,7 +97,7 @@ const AddList = () => {
               />
 
               <InputField
-                label="Name Arabic"
+                label={translations?.fullName_ar as string}
                 placeholder="name in arabic"
                 type="text"
                 name={"priceList_ar"}
@@ -104,7 +105,7 @@ const AddList = () => {
                 required={true}
               />
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -120,19 +121,19 @@ const AddList = () => {
               className="pricelist-save-button"
               type="submit"
             >
-              Save
+              {translations?.save as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default AddList;

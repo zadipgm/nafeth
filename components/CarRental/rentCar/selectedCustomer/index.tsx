@@ -1,167 +1,108 @@
 import * as React from "react";
-import {
-  Address,
-  BackICon,
-  CarDetailsSubTitle,
-  CarDetailsTitle,
-  CarOtherDetails,
-  Colors,
-  OtherDetailsList,
-  OtherDetailsTitleWrapper,
-  RentList,
-  RentListItem,
-  RentWrapper,
-} from "../../style";
-import { Tooltip } from "@nextui-org/react";
-import ArrowCircleSvg from "@/public/icons/arrowCircleSvg";
-
+import { Label, SelectedList, SelectedListItem, Value } from "../../style";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
-import CardUserSvg from "@/public/icons/carduserSvg";
-import { ICustomers, customer } from "@/models/customers";
+import { ICustomers } from "@/models/customers";
 interface IProps {
-  customer: customer;
+  customer?: ICustomers | any;
   type: string;
 }
 const SelectedCustomer = ({ customer, type }: IProps) => {
   const { translations, isLTR, locale } = useTheme();
-  const router = useRouter();
-
   return (
-    <RentWrapper className={`${type}-card`}>
-      <RentList className="customer-selected">
-        <RentListItem>
-          <CarDetailsTitle>{type} ID</CarDetailsTitle>
-          <CarDetailsSubTitle>{customer.id}</CarDetailsSubTitle>
-        </RentListItem>
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.licenseNumber}</CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.licenseNo}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.licenseExpiry}</CarDetailsTitle>
-            <CarDetailsSubTitle>
+    <>
+      {type === "customer" && (
+        <SelectedList>
+          <SelectedListItem>
+            <Label>{translations?.customerID}</Label>
+            <Value>{customer?.[0].idNumber}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.iDType}</Label>
+            <Value>{customer?.[0].idType[`name_${locale}`]}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.iDExpiry}</Label>
+            <Value>
               {isLTR
-                ? customer.licenseExpDate_gregorian
-                : customer.licExpiryDate_hijri}
-            </CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.nationality}</CarDetailsTitle>
-            <CarDetailsSubTitle>
-              {customer.nationality[`name_${locale}`]}
-            </CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.mobileNumber}</CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.mobileNo}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        <RentListItem>
-          <CarDetailsTitle>{translations?.dateofBirth}</CarDetailsTitle>
-          <CarDetailsSubTitle>
-            {isLTR ? customer.dob_gregorian : customer.dob_hijri}
-          </CarDetailsSubTitle>
-        </RentListItem>
-        <RentListItem>
-          <CarDetailsTitle>{translations?.iDType}</CarDetailsTitle>
-          <CarDetailsSubTitle>
-            {customer.idType[`name_${locale}`]}
-          </CarDetailsSubTitle>
-        </RentListItem>
+                ? customer?.[0].idExpiryDate_gregorian
+                : customer?.[0].idExpiryDate_hijri}
+            </Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.customerName}</Label>
+            <Value>{customer?.[0][`fullname_${locale}`]}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.dateofBirth}</Label>
+            <Value>
+              {isLTR ? customer?.[0].dob_gregorian : customer?.[0].dob_hijri}
+            </Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.mobileNumber}</Label>
+            <Value>{customer?.[0].mobileNo}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.nationality}</Label>
+            <Value>{customer?.[0].nationality[`name_${locale}`]}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.email}</Label>
+            <Value>{customer?.[0].email}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.licenseNumber}</Label>
+            <Value>{customer?.[0].licenseNo}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.city}</Label>
+            <Value>{customer?.[0].cA_City}</Value>
+          </SelectedListItem>
+        </SelectedList>
+      )}
+      {type === "driver" && (
+        <SelectedList>
+          <SelectedListItem>
+            <Label>{translations?.driverID}</Label>
+            <Value>{customer?.[0].idNumber}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.driverIDType}</Label>
+            <Value>{customer?.[0].idType[`name_${locale}`]}</Value>
+          </SelectedListItem>
 
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.priceList}</CarDetailsTitle>
-            <CarDetailsSubTitle>
-              {customer.pricelist[`name_${locale}`]}
-            </CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.iDExpiry}</CarDetailsTitle>
-            <CarDetailsSubTitle>
-              {isLTR
-                ? customer.idExpiryDate_gregorian
-                : customer.idExpiryDate_hijri}
-            </CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.employer}</CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.employerName}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Driver" && (
-          <RentListItem>
-            <CarDetailsTitle>
-              {type}
-              {translations?.nationalID}
-            </CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Driver" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.city}</CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.iDVersionNo}</CarDetailsTitle>
-            <CarDetailsSubTitle>{customer.version}</CarDetailsSubTitle>
-          </RentListItem>
-        )}
-        {type === "Customer" && (
-          <RentListItem>
-            <CarDetailsTitle>{translations?.placeofissue}</CarDetailsTitle>
-            <CarDetailsSubTitle>
-              {customer.idissuecity[`name_${locale}`]}
-            </CarDetailsSubTitle>
-          </RentListItem>
-        )}
-      </RentList>
-      <CarOtherDetails>
-        <OtherDetailsTitleWrapper>
-          <div className="title">
-            <h2>{customer[`fullname_${locale}`]}</h2>
-            <Address>
-              {customer.cA_StreetName},{customer.cA_District},
-              {customer.cA_PostalCode} {customer.cA_City} {customer.cA_Country}
-            </Address>
-          </div>
-        </OtherDetailsTitleWrapper>
-        {type === "Customer" && (
-          <CardUserSvg width="200px" height="200px" fill={"#000000ad"} />
-        )}
-        {type === "Customer" && (
-          <OtherDetailsList>
-            <RentListItem className="other-details">
-              <CarDetailsTitle className="other-details">
-                {translations?.city}
-              </CarDetailsTitle>
-              <CarDetailsSubTitle>{customer.cA_City}</CarDetailsSubTitle>
-            </RentListItem>
-            <RentListItem className="other-details">
-              <CarDetailsTitle className="other-details">
-                {translations?.nationalID}
-              </CarDetailsTitle>
-              <CarDetailsSubTitle>{customer.idNumber}</CarDetailsSubTitle>
-            </RentListItem>
-          </OtherDetailsList>
-        )}
-      </CarOtherDetails>
-    </RentWrapper>
+          <SelectedListItem>
+            <Label>{translations?.driverName}</Label>
+            <Value>{customer?.[0][`fullname_${locale}`]}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.dateofBirth}</Label>
+            <Value>
+              {isLTR ? customer?.[0].dob_gregorian : customer?.[0].dob_hijri}
+            </Value>
+          </SelectedListItem>
+
+          <SelectedListItem>
+            <Label>{translations?.licenseNumber}</Label>
+            <Value>{customer?.[0].licenseNo}</Value>
+          </SelectedListItem>
+          <SelectedListItem>
+            <Label>{translations?.address}</Label>
+            <Value>
+              {customer?.[0].cA_District}
+              {" ,"}
+              {customer?.[0].cA_StreetName} {","}
+              {customer?.[0].cA_buildingNo}
+              {" ,"} {customer?.[0].cA_City}
+              {" ,"}
+              {customer?.[0].cA_Country}
+              {" ,"} {customer?.[0].cA_PostalCode}
+            </Value>
+          </SelectedListItem>
+        </SelectedList>
+      )}
+    </>
   );
 };
 export default SelectedCustomer;

@@ -46,7 +46,7 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
   return (
     <>
       <ModalHeader>
-        <h3>{translations?.customePrice}</h3>
+        <span>{translations?.customePrice}</span>
         <div onClick={() => handleClose()}>
           <CloseSvg />
         </div>

@@ -57,7 +57,7 @@ const EditDisputeContracts = ({
   branches,
   users,
 }: IProps) => {
-  const { colors, locale, isLTR } = useTheme();
+  const { colors, locale, isLTR, translations } = useTheme();
   const router = useRouter();
   const obj = {
     disputedComments: "",
@@ -119,7 +119,7 @@ const EditDisputeContracts = ({
   return (
     <EditDisputeContainer>
       <Title color={colors.sideBarBgColor}>
-        <h2>{"Disputed Pending Contracts"}</h2>
+        <h2>{translations?.DisputedPendingContracts as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -132,17 +132,17 @@ const EditDisputeContracts = ({
           autoComplete="off"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <FormBox color={isTheme().color}>
+          <FormBox>
             <FormBoxWrapper className="summary">
               <InputField
-                label="Contract Number"
+                label={translations?.ContractNumber as string}
                 type="text"
                 name={"plateText1_ar"}
                 value={contracts.result[0].contractNo}
                 disabled={true}
               />
               <InputField
-                label="Price List"
+                label={translations?.priceList as string}
                 type="text"
                 value={
                   filterPriceList(
@@ -153,14 +153,14 @@ const EditDisputeContracts = ({
                 disabled={true}
               />
               <InputField
-                label="KM Out"
+                label={translations?.kmout as string}
                 type="text"
                 disabled={true}
                 value={contracts.result[0].kmOut}
               />
 
               <InputField
-                label="Customer Name"
+                label={translations?.customerName as string}
                 type="text"
                 name={"plateText1_ar"}
                 value={
@@ -171,7 +171,7 @@ const EditDisputeContracts = ({
                 disabled={true}
               />
               <InputField
-                label="Issued branch"
+                label={translations?.issueBranch as string}
                 disabled={true}
                 type="text"
                 value={
@@ -181,14 +181,14 @@ const EditDisputeContracts = ({
                 }
               />
               <InputField
-                label="Issue Date"
+                label={translations?.issueDate as string}
                 type="text"
                 disabled={true}
                 value={contracts.result[0].issueDate}
               />
 
               <InputField
-                label="Nationality"
+                label={translations?.nationality as string}
                 type="text"
                 value={
                   filterCustomer(customers, contracts.result[0].customerID)[0]
@@ -197,7 +197,7 @@ const EditDisputeContracts = ({
                 disabled={true}
               />
               <InputField
-                label="Issued User"
+                label={translations?.IssuedUser as string}
                 type="text"
                 disabled={true}
                 value={
@@ -207,7 +207,7 @@ const EditDisputeContracts = ({
                 }
               />
               <InputField
-                label="Expiry Date"
+                label={translations?.ExpiryDate as string}
                 type="text"
                 disabled={true}
                 value={contracts.result[0].actualReturnDate}
@@ -215,7 +215,7 @@ const EditDisputeContracts = ({
             </FormBoxWrapper>
             <DetailSection>
               <Title color={colors.sideBarBgColor}>
-                <h2>{"Car Details"}</h2>
+                <h2>{translations?.carDetails as string}</h2>
               </Title>
             </DetailSection>
             <FormBoxWrapper className="summary">
@@ -224,7 +224,7 @@ const EditDisputeContracts = ({
               </CarPlateWrapper>
 
               <InputField
-                label="Car Make/Model"
+                label={translations?.makemodel as string}
                 type="text"
                 disabled={true}
                 value={filterCarMakeModel(
@@ -235,14 +235,14 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Car Year"
+                label={translations?.carYear as string}
                 type="text"
                 disabled={true}
                 value={filterCar(cars, contracts.result[0].carID)[0].year}
               />
 
               <InputField
-                label="Car Type"
+                label={translations?.carType as string}
                 type="text"
                 disabled={true}
                 value={
@@ -253,7 +253,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Car Color"
+                label={translations?.carColor as string}
                 type="text"
                 disabled={true}
                 value={
@@ -264,7 +264,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Insurance Expiry Date"
+                label={translations?.insuranceExpiry as string}
                 type="text"
                 disabled={true}
                 value={
@@ -273,7 +273,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Spare parts value"
+                label={translations?.sparepartsvalue as string}
                 name={"sparePartsCost"}
                 type="text"
                 onChange={handleChange}
@@ -281,7 +281,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Oil change value"
+                label={translations?.oilchangevalue as string}
                 type="text"
                 onChange={handleChange}
                 name={"oilChangeCost"}
@@ -289,7 +289,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="The value of car damage assessment"
+                label={translations?.thevalueofcardamageassessment as string}
                 type="text"
                 onChange={handleChange}
                 name={"damageCost"}
@@ -298,23 +298,27 @@ const EditDisputeContracts = ({
             </FormBoxWrapper>
             <DetailSection>
               <Title color={colors.sideBarBgColor}>
-                <h2>{"Contract Procedures"}</h2>
+                <h2>{translations?.contractProcedures as string}</h2>
               </Title>
             </DetailSection>
             <FormBoxWrapper className="summary">
               <InputField
-                label="Car Condition"
+                label={translations?.carCondition as string}
                 value={filterCar(cars, contracts.result[0].carID)[0].status}
                 disabled={true}
               />
 
               <SelectField
                 onChange={handleChange}
-                label="Payment Status"
+                label={translations?.paymentStatus as string}
                 name="disputedBillingStatus"
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectPaymentStatus}
+                  </option>
                   {paymentStatus.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -324,7 +328,7 @@ const EditDisputeContracts = ({
               </SelectField>
 
               <InputField
-                label="KM In"
+                label={translations?.kMIn as string}
                 type="text"
                 onChange={handleChange}
                 name={"disputedKMIn"}
@@ -332,7 +336,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="Return Date"
+                label={translations?.returnDate as string}
                 type="date"
                 onChange={handleChange}
                 name={"disputedSubmitedDatetime"}
@@ -341,7 +345,7 @@ const EditDisputeContracts = ({
               />
 
               <InputField
-                label="comments"
+                label={translations?.Comments as string}
                 type="text"
                 onChange={handleChange}
                 name={"disputedComments"}
@@ -357,7 +361,7 @@ const EditDisputeContracts = ({
               className="dispute-button"
               type="submit"
             >
-              Dispute
+              {translations?.dispute}
             </Button>
             <Button
               variant="contained"
@@ -365,7 +369,7 @@ const EditDisputeContracts = ({
               className="dispute-cancel"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel}
             </Button>
           </GroupButtons>
         </Box>

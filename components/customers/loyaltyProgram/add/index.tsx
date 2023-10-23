@@ -17,7 +17,7 @@ import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
 import { Container } from "../../style";
 const AddLoyalityList = () => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   let obj = {
     packageName: "",
@@ -69,7 +69,7 @@ const AddLoyalityList = () => {
   return (
     <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Add New List</h2>
+        <h2>{translations?.addNewList as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -84,9 +84,9 @@ const AddLoyalityList = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="Package Name"
+                label={translations?.packageName as string}
                 placeholder="Loyality Name in english"
                 type="text"
                 name={"packageName"}
@@ -94,7 +94,7 @@ const AddLoyalityList = () => {
                 required={true}
               />
               <InputField
-                label="Rental income"
+                label={translations?.rentalIncome as string}
                 placeholder="10"
                 type="text"
                 name={"rentalIncome"}
@@ -103,7 +103,7 @@ const AddLoyalityList = () => {
               />
 
               <InputField
-                label="Extra KM"
+                label={translations?.extraKM as string}
                 placeholder="Loyality Name in arabic"
                 type="text"
                 name={"extraKM"}
@@ -111,7 +111,7 @@ const AddLoyalityList = () => {
                 required={true}
               />
               <InputField
-                label="Extra Hours"
+                label={translations?.extraHour as string}
                 placeholder="10"
                 type="text"
                 name={"extraHours"}
@@ -120,7 +120,7 @@ const AddLoyalityList = () => {
               />
 
               <InputField
-                label="Discount %"
+                label={translations?.discount as string}
                 placeholder="name in arabic"
                 type="text"
                 name={"discount"}
@@ -128,7 +128,7 @@ const AddLoyalityList = () => {
                 required={true}
               />
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -144,14 +144,14 @@ const AddLoyalityList = () => {
               className="pricelist-save-button"
               type="submit"
             >
-              Save
+              {translations?.save as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

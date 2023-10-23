@@ -73,7 +73,7 @@ interface IProps {
   viewButtons?: boolean;
   handleClose?: () => void;
   isSelectable?: boolean;
-  handleContractNumber?: (param: number) => void;
+  handleSelect?: (param: number) => void;
   showCloseIcon?: boolean;
   keys?: string[];
 }
@@ -96,13 +96,12 @@ const DataTable = ({
   handleClose,
   isSelectable,
   showCloseIcon,
-  handleContractNumber,
+  handleSelect,
   keys,
 }: IProps) => {
-  const { colors, locale } = useTheme();
+  const { colors, locale, translations } = useTheme();
   const router = useRouter();
   const [searchvalue, setSearchvalue] = React.useState([]);
-  const [active, setActive] = React.useState(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [recordsPerPage, setRecordPerPage] = React.useState(10);
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -178,7 +177,7 @@ const DataTable = ({
   };
   const handleSelectedContract = (id: number) => {
     console.log("handleSelected", id);
-    handleContractNumber?.(id);
+    handleSelect?.(id);
     setTimeout(() => {
       handleClose?.();
     }, 500);
@@ -204,21 +203,6 @@ const DataTable = ({
     let list = searchvalue?.filter((item: any) => item.id != id);
     setSearchvalue(list);
   };
-  // const renderTableNestedHeader = () => {
-  //   if (data[0]?.procedures !== null) {
-  //     let header = Object?.keys(data && data[0]?.procedures[0]);
-  //     return (
-  //       header &&
-  //       header?.map((key, index) => {
-  //         return (
-  //           <TableData className="table-header" key={index}>
-  //             {key.toUpperCase()}
-  //           </TableData>
-  //         );
-  //       })
-  //     );
-  //   }
-  // };
 
   const handleView = (val: string) => {
     if (val === "grid") {
@@ -272,16 +256,16 @@ const DataTable = ({
         </SearchTabsWrapper>
       )}
       {list && (
-        <TableWrapper>
+        <TableWrapper className={classname}>
           <Table>
-            <Row>{renderTableHeader()}</Row>
-            {searchvalue &&
-              searchvalue
-                ?.slice(0, recordsPerPage as number)
-                ?.map((item: any, index: any) => {
-                  return (
-                    <>
-                      <Row key={item.nationalID}>
+            <tbody>
+              <Row>{renderTableHeader()}</Row>
+              {searchvalue &&
+                searchvalue
+                  ?.slice(0, recordsPerPage as number)
+                  ?.map((item: any, index: any) => {
+                    return (
+                      <Row key={item.nationalID ? item.nationalID : item.id}>
                         {filterByLocale(locale, keys).map(
                           (key: any, i: any) => {
                             return (
@@ -351,7 +335,7 @@ const DataTable = ({
                                   )
                                 }
                               >
-                                <Button>Select</Button>
+                                <Button>{translations?.select}</Button>
                               </ButtonGroup>
                             )}
                             {isDeleteAble && (
@@ -368,32 +352,9 @@ const DataTable = ({
                           </ToolTipWrapper>
                         </TableData>
                       </Row>
-                      {/* <Row className={active === item.id ? "show" : "hide"}>
-                        <br></br>
-                        {nestedTable &&
-                          data[0]?.procedures !== null &&
-                          data[0]?.procedures.length > 1 && (
-                            <Row> {renderTableNestedHeader()}</Row>
-                          )}
-                        {item.procedures &&
-                          item.procedures.map((detail: any) => {
-                            return (
-                              <Row key={item.id} className="details-row">
-                                {Object.keys(detail).map((detail_key, i) => {
-                                  return (
-                                    <TableData key={i}>
-                                      {detail[detail_key]}
-                                    </TableData>
-                                  );
-                                })}
-                              </Row>
-                            );
-                          })}
-                        <br></br>
-                      </Row> */}
-                    </>
-                  );
-                })}
+                    );
+                  })}
+            </tbody>
           </Table>
         </TableWrapper>
       )}
@@ -436,27 +397,25 @@ const DataTable = ({
                 (procedure) => procedure !== "procedures"
               );
               return (
-                <>
-                  <CardListItems
-                    key={item.id}
-                    className={item.status === "In-active" ? "in-active" : ""}
-                  >
-                    <CardListItemsWrapper className="card-name">
-                      <CardUserSvg />
-                      <span>{item?.name_en || item?.company_en}</span>
-                    </CardListItemsWrapper>
+                <CardListItems
+                  key={item.id}
+                  className={item.status === "In-active" ? "in-active" : ""}
+                >
+                  <CardListItemsWrapper className="card-name">
+                    <CardUserSvg />
+                    <span>{item?.name_en || item?.company_en}</span>
+                  </CardListItemsWrapper>
+                  <CardListItemsWrapper>
+                    <IDsvg />
+                    <span>{item.id}</span>
+                  </CardListItemsWrapper>
+                  {item?.expire_date && (
                     <CardListItemsWrapper>
-                      <IDsvg />
-                      <span>{item.id}</span>
+                      <CalendarSvg fill={colors.darkBlue} />
+                      <span>{item?.expire_date}</span>
                     </CardListItemsWrapper>
-                    {item?.expire_date && (
-                      <CardListItemsWrapper>
-                        <CalendarSvg fill={colors.darkBlue} />
-                        <span>{item?.expire_date}</span>
-                      </CardListItemsWrapper>
-                    )}
-                  </CardListItems>
-                </>
+                  )}
+                </CardListItems>
               );
             })}
           </CardList>

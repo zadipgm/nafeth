@@ -99,21 +99,21 @@ const NationalAddress = ({ national_address }: ISettings) => {
             <FormBoxWrapper>
               <FormBox className="national-address" color={isTheme().color}>
                 <InputField
-                  label="Building No."
+                  label={translations?.buildingNumber as string}
                   placeholder="2222"
                   defaultValue={national_addressValues.buildingNo}
                   name="buildingNo"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Street Name"
+                  label={translations?.streetName as string}
                   placeholder="Prince Fahad Ibn Ibrahim Al Saud Street, Riyadh"
                   defaultValue={national_addressValues.streetName}
                   name="streetName"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="District"
+                  label={translations?.district as string}
                   placeholder="Al Malaz"
                   defaultValue={national_addressValues.district}
                   name="district"
@@ -121,14 +121,14 @@ const NationalAddress = ({ national_address }: ISettings) => {
                 />
 
                 <InputField
-                  label="City"
+                  label={translations?.city as string}
                   placeholder="Riyadh"
                   defaultValue={national_addressValues.city}
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Country"
+                  label={translations?.country as string}
                   placeholder="Saudi Arabia"
                   defaultValue={national_addressValues.country}
                   name="country"
@@ -136,7 +136,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                 />
 
                 <InputField
-                  label="ZIP Code"
+                  label={translations?.zipcode1 as string}
                   placeholder="12665"
                   defaultValue={national_addressValues.zipCode1}
                   name="zipCode1"
@@ -144,7 +144,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="ZIP Code"
+                  label={translations?.zipcode2 as string}
                   placeholder="12665"
                   defaultValue={national_addressValues.zipCode2}
                   name="zipCode2"
@@ -160,7 +160,7 @@ const NationalAddress = ({ national_address }: ISettings) => {
                 className="national-address-save-button"
                 onClick={(e) => handleSubmit(e)}
               >
-                Save
+                {translations?.save as string}
               </Button>
             </GroupButtons>
           </Box>

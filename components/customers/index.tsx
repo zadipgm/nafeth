@@ -48,7 +48,6 @@ interface IProps {
   deleteable: boolean;
   details: boolean;
   page_color: string;
-  title: string;
   onCustomerSelected?: (param: any) => void;
   customers: ICustomers;
   isAddbutton?: boolean;
@@ -59,7 +58,6 @@ const CustomersList = ({
   deleteable,
   details,
   page_color,
-  title,
   customers,
   isAddbutton,
   listtype,
@@ -122,7 +120,7 @@ const CustomersList = ({
   return (
     <Container>
       <Title color={page_color}>
-        <h2>{title}</h2>
+        <h2>{translations?.customersList}</h2>
       </Title>
       <Wrapper>
         <SearchBarWrapper className="customer-page">

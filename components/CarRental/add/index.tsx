@@ -11,7 +11,7 @@ import {
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Container } from "@/components/GlobalSettings/usersSettings/style";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
-import { CarPlateInArabicWrapper } from "../style";
+import { CarPlateInArabicWrapper, CarPlateNumberInputWrapper } from "../style";
 import { bodyObjectCar } from "@/global/fakeData";
 import { ILookUp } from "@/models/lookup";
 import { fetchData } from "@/api/fetchapis/fetchData";
@@ -44,10 +44,14 @@ const AddCar = ({
   carMake,
 }: IProps) => {
   let obj = bodyObjectCar;
+  const { colors, translations } = useTheme();
+  const router = useRouter();
   const [data, setData] = React.useState(obj);
   const [modelID, setModelID] = React.useState<ILookUp>();
-  const { colors } = useTheme();
-  const router = useRouter();
+  const [makeID, setMakeID] = React.useState(0);
+  let userName = getName() as string;
+  let userPassword = getPassword() as string;
+  let company = getCompany() as string;
   const handleChangeStatus = (e: { target: { name: any; checked: any } }) => {
     setData({
       ...data,
@@ -60,21 +64,65 @@ const AddCar = ({
       [e.target.name]: e.target.value,
     });
   };
-  const handleCarMakeID = async (id: number) => {
-    let username = getName() as string;
-    let password = getPassword() as string;
-    let company = getCompany() as string;
-    await fetchData(username, password, `/lookup/CarModel/${id}`, company).then(
-      (data) => setModelID(data)
-    );
+  const handleCarMakeID = async (e: { target: { value: any } }) => {
+    let id = Number(e.target.value);
+
+    setMakeID(id);
+    await fetchData(
+      userName,
+      userPassword,
+      `/lookup/CarModel/${id}`,
+      company
+    ).then((data) => setModelID(data));
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let userName = getName() as string;
-    let userPassword = getPassword() as string;
-    let company = getCompany() as string;
+    const body = {
+      plateNo: data.plateNo,
+      plateText1_en: data.plateText1_en,
+      plateText2_en: data.plateText2_en,
+      plateText3_en: data.plateText3_en,
+      plateText1_ar: data.plateText1_ar,
+      plateText2_ar: data.plateText2_ar,
+      plateText3_ar: data.plateText3_ar,
+      plateTypeID: data.plateTypeID,
+      chasisNo: data.chasisNo,
+      sequenceNo: data.sequenceNo,
+      buyingDate: data.buyingDate,
+      colorID: data.colorID,
+      carTypeID: data.carTypeID,
+      transmissionID: data.transmissionID,
+      makeID: makeID,
+      modelID: modelID?.result[0].id,
+      year: data.year,
+      mileage: data.mileage,
+      dailyRent: data.dailyRent,
+      weeklyRent: data.weeklyRent,
+      monthlyRent: data.monthlyRent,
+      minDailyRent: data.minDailyRent,
+      perExtraKM: data.perExtraKM,
+      dailyKMlimit: data.dailyKMlimit,
+      graceHours: data.graceHours,
+      graceCharge: data.graceCharge,
+      insuranceID: data.insuranceID,
+      insuranceTypeID: data.insuranceTypeID,
+      policyNo: data.policyNo,
+      insurancePenality: data.insurancePenality,
+      insuranceExpDate: data.insuranceExpDate,
+      registrationExpHijiri: data.registrationExpHijiri,
+      inspectionExpHijiri: data.inspectionExpHijiri,
+      branchID: data.branchID,
+      fuelTypeID: data.fuelTypeID,
+      puchaseCost: data.puchaseCost,
+      fullFuelCost: data.fullFuelCost,
+      operatingCardNo: data.operatingCardNo,
+      operatingCardIssueDate: data.operatingCardExpDate,
+      operatingCardExpDate: data.operatingCardExpDate,
+      active: data.active,
+    };
+
     let url = "cars/";
-    await createPost(userName, userPassword, url, company, data).then(
+    await createPost(userName, userPassword, url, company, body).then(
       (res: any) => {
         if (res.status == 200) {
           Swal.fire("Thank you!", "car has been Created!.", "success");
@@ -98,7 +146,7 @@ const AddCar = ({
   return (
     <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Add New Car</h2>
+        <h2>{translations?.addNewCar}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -113,80 +161,87 @@ const AddCar = ({
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="Car-plate">
+            <FormBox className="Car-plate">
+              <CarPlateNumberInputWrapper>
+                <InputField
+                  label="ح"
+                  placeholder="ح"
+                  type="text"
+                  name={"plateText1_ar"}
+                  value={data.plateText1_ar}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+                <InputField
+                  label="ب"
+                  placeholder="ب"
+                  type="text"
+                  name={"plateText2_ar"}
+                  value={data.plateText2_ar}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+                <InputField
+                  label="ا"
+                  placeholder="ا"
+                  type="text"
+                  name={"plateText3_ar"}
+                  value={data.plateText3_ar}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+                <InputField
+                  label={translations?.carPlateNumber as string}
+                  placeholder="1234"
+                  type="number"
+                  name={"plateNo"}
+                  value={data.plateNo}
+                  onChange={handleChange}
+                  required={true}
+                  maxLength={4}
+                />
+                <InputField
+                  label="J"
+                  placeholder="J"
+                  type="text"
+                  name={"plateText1_en"}
+                  value={data.plateText1_en}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+                <InputField
+                  label="B"
+                  placeholder="B"
+                  type="text"
+                  name={"plateText2_en"}
+                  value={data.plateText2_en}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+                <InputField
+                  label="A"
+                  placeholder="A"
+                  type="text"
+                  name={"plateText3_en"}
+                  value={data.plateText3_en}
+                  onChange={handleChange}
+                  required={true}
+                  classname="car-plate-arabic"
+                  maxLength={1}
+                />
+              </CarPlateNumberInputWrapper>
               <InputField
-                label="ح"
-                placeholder="ح"
-                type="text"
-                name={"plateText1_ar"}
-                value={data.plateText1_ar}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-              <InputField
-                label="ب"
-                placeholder="ب"
-                type="text"
-                name={"plateText2_ar"}
-                value={data.plateText2_ar}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-              <InputField
-                label="ا"
-                placeholder="ا"
-                type="text"
-                name={"plateText3_ar"}
-                value={data.plateText3_ar}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-
-              <InputField
-                label="J"
-                placeholder="J"
-                type="text"
-                name={"plateText1_en"}
-                value={data.plateText1_en}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-              <InputField
-                label="B"
-                placeholder="B"
-                type="text"
-                name={"plateText2_en"}
-                value={data.plateText2_en}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-              <InputField
-                label="A"
-                placeholder="A"
-                type="text"
-                name={"plateText3_en"}
-                value={data.plateText3_en}
-                onChange={handleChange}
-                required={true}
-                classname="car-plate-arabic"
-              />
-
-              <InputField
-                label="Pate number"
-                placeholder="1234"
-                type="text"
-                name={"plateNo"}
-                value={data.plateNo}
-                onChange={handleChange}
-                required={true}
-              />
-              <InputField
-                label="Chassis Number"
+                label={translations?.chassisNumber as string}
                 placeholder="WFER23453453"
                 type="text"
                 name={"chasisNo"}
@@ -196,16 +251,16 @@ const AddCar = ({
               />
 
               <InputField
-                label="Purchase Amount"
-                placeholder=""
-                type="text"
+                label={translations?.purchaseAmount as string}
+                placeholder="23.00"
+                type="number"
                 name={"puchaseCost"}
                 value={data.puchaseCost}
                 onChange={handleChange}
                 required={true}
               />
               <InputField
-                label="Buying Date"
+                label={translations?.buyingDate as string}
                 placeholder=""
                 type="date"
                 name={"buyingDate"}
@@ -215,39 +270,43 @@ const AddCar = ({
               />
 
               <InputField
-                label="Serial number"
+                label={translations?.serialnumber as string}
                 placeholder="3453453"
-                type="text"
+                type="number"
                 name={"sequenceNo"}
                 value={data.sequenceNo}
                 onChange={handleChange}
                 required={true}
               />
               <SelectField
-                label="make"
+                label={translations?.make as string}
                 name="makeID"
-                onChange={handleChange}
+                onChange={handleCarMakeID}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.selectcarmake as string}
+                  </option>
                   {carMake.result.map((option) => (
-                    <option
-                      key={option.id}
-                      value={option.id}
-                      onClick={() => handleCarMakeID(option.id)}
-                    >
+                    <option key={option.id} value={option.id}>
                       {option.name_en}
                     </option>
                   ))}
                 </>
               </SelectField>
               <SelectField
-                label="model"
+                label={translations?.model as string}
                 name="modelID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.selectcarmodel as string}
+                  </option>
                   {modelID?.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -256,12 +315,16 @@ const AddCar = ({
                 </>
               </SelectField>
               <SelectField
-                label="Transmission"
+                label={translations?.Transmission as string}
                 name="transmissionID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelecttransmission as string}
+                  </option>
                   {carTransmission.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -271,7 +334,7 @@ const AddCar = ({
               </SelectField>
 
               <InputField
-                label="mileage"
+                label={translations?.mileage as string}
                 placeholder="mileage"
                 type="text"
                 name={"mileage"}
@@ -281,12 +344,16 @@ const AddCar = ({
               />
 
               <SelectField
-                label="color"
+                label={translations?.color as string}
                 name="colorID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectcolor as string}
+                  </option>
                   {carColor.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -295,12 +362,16 @@ const AddCar = ({
                 </>
               </SelectField>
               <SelectField
-                label="Fuel Type"
+                label={translations?.fuelType as string}
                 name="fuelTypeID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectfueltype as string}
+                  </option>
                   {carFuel.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -309,12 +380,16 @@ const AddCar = ({
                 </>
               </SelectField>
               <SelectField
-                label="Plate Type"
+                label={translations?.plateType as string}
                 name="plateTypeID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectPlateType as string}
+                  </option>
                   {carPlateType.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -324,11 +399,15 @@ const AddCar = ({
               </SelectField>
               <SelectField
                 defaultValue={""}
-                label="Car Type"
+                label={translations?.carType as string}
                 name="carTypeID"
                 onChange={handleChange}
+                required={true}
               >
                 <>
+                  <option value="" disabled>
+                    {translations?.pleaseselectcartype as string}
+                  </option>
                   {carType.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -338,12 +417,16 @@ const AddCar = ({
               </SelectField>
 
               <SelectField
-                label="Branch"
+                label={translations?.branch as string}
                 name="branchID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value="" disabled>
+                    {translations?.pleaseselectBranch as string}
+                  </option>
                   {branches.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -352,12 +435,16 @@ const AddCar = ({
                 </>
               </SelectField>
               <SelectField
-                label="year"
+                label={translations?.year as string}
                 name="year"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseselectyear as string}
+                  </option>
                   {years.map((option) => (
                     <option key={option} value={option}>
                       {option}
@@ -368,12 +455,12 @@ const AddCar = ({
             </FormBox>
           </FormBoxWrapper>
           <Title color={colors.sideBarBgColor}>
-            <h2>Rental Details</h2>
+            <h2>{translations?.rentalDetails as string}</h2>
           </Title>
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
-                label="Daily Rent"
+                label={translations?.dailyRent as string}
                 placeholder="30"
                 type="text"
                 name={"dailyRent"}
@@ -382,7 +469,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Weekly Rent"
+                label={translations?.weeklyRent as string}
                 placeholder="345"
                 type="text"
                 name={"weeklyRent"}
@@ -391,7 +478,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="monthlyRent"
+                label={translations?.monthlyRent as string}
                 placeholder="2122"
                 type="text"
                 name={"monthlyRent"}
@@ -401,8 +488,8 @@ const AddCar = ({
               />
 
               <InputField
-                label="Min Daily Rent"
-                placeholder="3453453"
+                label={translations?.minDailyRent as string}
+                placeholder="70"
                 type="text"
                 name={"minDailyRent"}
                 value={data.minDailyRent}
@@ -410,7 +497,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Per Extra KM"
+                label={translations?.perExtraKM as string}
                 placeholder="0.25"
                 type="text"
                 name={"perExtraKM"}
@@ -419,7 +506,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Daily KM limit"
+                label={translations?.dailyKMLimit as string}
                 placeholder="200"
                 type="text"
                 name={"dailyKMlimit"}
@@ -429,7 +516,7 @@ const AddCar = ({
               />
 
               <InputField
-                label="Grace Hours"
+                label={translations?.graceHours as string}
                 placeholder="3"
                 type="text"
                 name={"graceHours"}
@@ -438,7 +525,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Full Fuel Cost"
+                label={translations?.falseullFuelCost as string}
                 placeholder=""
                 type="text"
                 name={"fullFuelCost"}
@@ -447,7 +534,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Grace Charge"
+                label={translations?.graceCharge as string}
                 placeholder="3453453"
                 type="text"
                 name={"graceCharge"}
@@ -458,17 +545,21 @@ const AddCar = ({
             </FormBox>
           </FormBoxWrapper>
           <Title color={colors.sideBarBgColor}>
-            <h2>Other details</h2>
+            <h2>{translations?.otherdetails as string}</h2>
           </Title>
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <SelectField
-                label="Insurance Company"
+                label={translations?.insuranceCompany as string}
                 name="insuranceID"
                 onChange={handleChange}
                 defaultValue={""}
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseselectinsurancecompany as string}
+                  </option>
                   {carInsurance.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -477,12 +568,16 @@ const AddCar = ({
                 </>
               </SelectField>
               <SelectField
-                label="Insurance Type"
+                label={translations?.insuranceType as string}
                 name="insuranceTypeID"
                 onChange={handleChange}
+                required={true}
                 defaultValue={""}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseselectinsurancetype as string}
+                  </option>
                   {carInsuranceType.result.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.name_en}
@@ -491,7 +586,7 @@ const AddCar = ({
                 </>
               </SelectField>
               <InputField
-                label="Policy No"
+                label={translations?.policyNo as string}
                 placeholder="3453453"
                 type="text"
                 name={"policyNo"}
@@ -501,7 +596,7 @@ const AddCar = ({
               />
 
               <InputField
-                label="Insurance Expiry"
+                label={translations?.insuranceExpiry as string}
                 placeholder=""
                 type="date"
                 name={"insuranceExpDate"}
@@ -510,8 +605,8 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Registration Expiry "
-                placeholder="dd/mm/yyyy"
+                label={translations?.registrationExpiry as string}
+                placeholder="14/02/1445"
                 type="text"
                 name={"registrationExpHijiri"}
                 value={data.registrationExpHijiri}
@@ -519,8 +614,8 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Inspection Expiry"
-                placeholder="dd/mm/yyyy"
+                label={translations?.inspectionExpiry as string}
+                placeholder="14/02/1445"
                 type="text"
                 name={"inspectionExpHijiri"}
                 value={data.inspectionExpHijiri}
@@ -529,7 +624,7 @@ const AddCar = ({
               />
 
               <InputField
-                label="Insurance Penality"
+                label={translations?.insurancePenality as string}
                 placeholder="100"
                 type="text"
                 name={"insurancePenality"}
@@ -538,7 +633,7 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Operating Card No"
+                label={translations?.operatingCardNo as string}
                 placeholder="100"
                 type="text"
                 name={"operatingCardNo"}
@@ -547,8 +642,8 @@ const AddCar = ({
                 required={true}
               />
               <InputField
-                label="Operating Card IssueDate"
-                placeholder="dd/mm/yyyy"
+                label={translations?.operatingCardIssueDate as string}
+                placeholder="14/02/1445"
                 type="text"
                 name={"operatingCardIssueDate"}
                 value={data.operatingCardIssueDate}
@@ -557,8 +652,8 @@ const AddCar = ({
               />
 
               <InputField
-                label="Operating Card Expiry Date"
-                placeholder="dd/mm/yyyy"
+                label={translations?.operatingCardExpiryDate as string}
+                placeholder="14/02/1445"
                 type="text"
                 name={"operatingCardExpDate"}
                 value={data.operatingCardExpDate}
@@ -566,23 +661,8 @@ const AddCar = ({
                 required={true}
               />
 
-              <SelectField
-                label="Insurance Type"
-                name="insuranceTypeID"
-                onChange={handleChange}
-                defaultValue={""}
-              >
-                <>
-                  {carInsuranceType.result.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.name_en}
-                    </option>
-                  ))}
-                </>
-              </SelectField>
-
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -597,14 +677,14 @@ const AddCar = ({
               className="add-car-save-button"
               type="submit"
             >
-              Save
+              {translations?.save as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

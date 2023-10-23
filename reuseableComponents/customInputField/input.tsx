@@ -12,6 +12,7 @@ interface IProps {
   name?: string;
   defaultValue?: string | number;
   onBlur?: (e: any) => void;
+  maxLength?: number;
 }
 const InputField = ({
   label,
@@ -25,6 +26,7 @@ const InputField = ({
   name,
   onBlur,
   defaultValue,
+  maxLength,
 }: IProps) => {
   return (
     <Container className={classname}>
@@ -39,6 +41,7 @@ const InputField = ({
         name={name}
         defaultValue={defaultValue}
         onBlur={onBlur}
+        maxLength={maxLength}
       />
     </Container>
   );

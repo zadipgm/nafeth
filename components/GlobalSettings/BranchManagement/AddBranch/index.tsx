@@ -118,7 +118,7 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
             onSubmit={(e) => handleSubmit(e)}
           >
             <FormBoxWrapper>
-              <FormBox color={isTheme().color}>
+              <FormBox>
                 <InputField
                   label="English Name"
                   placeholder="English Name"
@@ -133,9 +133,13 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
                   name="cityId"
                   onChange={handleChange}
                   value={data.cityId}
-                  required
+                  required={true}
+                  defaultValue={""}
                 >
                   <>
+                    <option value={""} disabled>
+                      Please select city...
+                    </option>
                     {cities.result.map((option) => (
                       <option key={option.id} value={option.id}>
                         {isLTR ? option.name_en : option.name_en}
@@ -157,9 +161,13 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
                   onChange={handleChange}
                   value={data.tajeerLicenseNo}
                   name="tajeerLicenseNo"
-                  required
+                  required={true}
+                  defaultValue={""}
                 >
                   <>
+                    <option value={""} disabled>
+                      Please select license number - tajeer...
+                    </option>
                     {tajeerLicense.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -209,10 +217,14 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
                   label="Country"
                   name="countryId"
                   value={data.countryId}
-                  required
+                  defaultValue={""}
                   onChange={handleChange}
+                  required={true}
                 >
                   <>
+                    <option value={""} disabled>
+                      Please select country...
+                    </option>
                     {countries.result.map((option) => (
                       <option key={option.id} value={option.id}>
                         {isLTR ? option.name_en : option.name_en}
@@ -262,8 +274,12 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
                   name="regionId"
                   value={data.regionId}
                   onChange={handleChange}
+                  required={true}
                 >
                   <>
+                    <option value={""} disabled>
+                      Please select region...
+                    </option>
                     {regions.result.map((option) => (
                       <option key={option.id} value={option.id}>
                         {isLTR ? option.name_en : option.name_en}

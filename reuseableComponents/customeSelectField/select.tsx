@@ -13,7 +13,7 @@ interface IProps {
 }
 const SelectField = ({
   label,
-  required,
+  required = true,
   onChange,
   classname,
   value,
@@ -29,7 +29,7 @@ const SelectField = ({
         name={name}
         disabled={disabled}
         onChange={onChange}
-        required
+        required={required}
         value={value}
         defaultValue={defaultValue}
       >

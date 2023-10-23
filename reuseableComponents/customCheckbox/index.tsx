@@ -62,7 +62,7 @@ const CustomCheckbox = ({
 
   return (
     <CheckBoxContainer>
-      <CheckboxWrapper color={colors.purple} hoverColor={"#7828c870"}>
+      <CheckboxWrapper color={colors.purple} hoverColor={colors.purple}>
         <Checkbox
           type="checkbox"
           aria-disabled
@@ -72,7 +72,7 @@ const CustomCheckbox = ({
           defaultChecked={get === 1 ? true : false}
         />
         <SpanText aria-disabled>{"view"}</SpanText>
-        <ViewSvg width="20px" height="20px" fill={colors.purple} />
+        <ViewSvg width="20px" height="20px" fill={colors.gray2} />
       </CheckboxWrapper>
       {formData.get === 1 && (
         <>
@@ -86,11 +86,11 @@ const CustomCheckbox = ({
               defaultChecked={post === 1 ? true : false}
             />
             <SpanText aria-disabled>{"create"}</SpanText>
-            <CreateSvg width="20px" height="20px" fill={colors.green} />
+            <CreateSvg width="20px" height="20px" fill={colors.gray2} />
           </CheckboxWrapper>
           <CheckboxWrapper
-            color={colors.sideBarBgColor}
-            hoverColor={"#1976d282"}
+            color={colors.nafethBlue}
+            hoverColor={colors.nafethBlue}
           >
             <Checkbox
               type="checkbox"
@@ -101,7 +101,7 @@ const CustomCheckbox = ({
               defaultChecked={put === 1 ? true : false}
             />
             <SpanText aria-disabled>{"edit"}</SpanText>
-            <EditSvg width="20px" height="20px" fill={colors.sideBarBgColor} />
+            <EditSvg width="20px" height="20px" fill={colors.gray2} />
           </CheckboxWrapper>
           <CheckboxWrapper color={colors.red} hoverColor={"dd37376b"}>
             <Checkbox
@@ -113,7 +113,7 @@ const CustomCheckbox = ({
               defaultChecked={del === 1 ? true : false}
             />
             <SpanText aria-disabled>{"delete"}</SpanText>
-            <DeleteSvg width="20px" height="20px" fill={colors.red} />
+            <DeleteSvg width="20px" height="20px" fill={colors.gray2} />
           </CheckboxWrapper>
         </>
       )}

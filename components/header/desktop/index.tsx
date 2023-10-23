@@ -24,7 +24,7 @@ interface IProps {
 }
 const DesktopHeader = ({ themeToggler, theme }: IProps) => {
   const router = useRouter();
-  const { colors, isMobile }: any = useTheme();
+  const { translations } = useTheme();
   const ThemeToggle = () => {
     themeToggler();
     let localTheme = theme === "dark" ? "light" : "dark";
@@ -72,7 +72,7 @@ const DesktopHeader = ({ themeToggler, theme }: IProps) => {
         />
         <LogoutWrapper onClick={handleLogout} className="desktop-logout">
           <LogoutSvg fill={"red"} width={"25px"} height={"25px"} />{" "}
-          <span>Logout</span>
+          <span>{translations?.logout}</span>
         </LogoutWrapper>
       </Wrappper>
     </Container>

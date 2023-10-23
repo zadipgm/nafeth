@@ -8,11 +8,9 @@ export const FormContainer = styled.div`
   margin-top:20px ;
 `;
 export const FormWrapper = styled.div<{ bcolor: string; color: string }>`
-  background-color: rgb(244, 245, 243);
-  &.contract-details{}
-  color: ${({ color }) => color};
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
+ 
+  
+
   &.group-edit-list-form {
     border-bottom: 1px solid ${({ theme }) => theme.colors.gray2};
     margin-bottom: 15px;
@@ -102,8 +100,12 @@ export const FormBoxWrapper = styled.div`
   }
 `;
 export const GroupButtons = styled.div`
+
 &.return_page_buttons{
   margin-top: 20px;
+  & .MuiButtonBase-root {
+    width: 290px;
+  }
 }
 &.add-bill-button{
   margin-top: 16px;
@@ -112,10 +114,12 @@ export const GroupButtons = styled.div`
 & .add-customer-save-button{
   width: 350px;
 }
-  &.rent-car-group-button {
-    padding: 20px 0px;
-    margin: 20px 0px;
-    flex-wrap: wrap;
+  &.rent-car-group-button{
+    .arrow{
+      .MuiButton-endIcon{
+        transform: rotate(90deg);
+      }
+    }
   }
   display: flex;
   justify-content: center;
@@ -126,6 +130,7 @@ export const GroupButtons = styled.div`
   & .MuiButtonBase-root {
     width: 250px;
     gap: 12px;
+    font-size: 16px;
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     &.pricelist-save-button {
       background-color: ${({ theme }) => theme.colors.sideBarBgColor};

@@ -25,7 +25,7 @@ interface ISettings {
   global_settinigs: IcompanyGlobal;
 }
 const GlobalSettings = ({ global_settinigs }: ISettings) => {
-  const { isLTR }: any = useTheme();
+  const { translations } = useTheme();
   const [globalValues, setGlobalValues] = React.useState(global_settinigs);
   const onChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -78,7 +78,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
     <>
       <FormContainer>
         <GsettingsTitle>
-          <h2>Global Settings</h2>
+          <h2>{translations?.globalSettings as string}</h2>
         </GsettingsTitle>
         <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
           <Box
@@ -92,23 +92,23 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
             autoComplete="off"
           >
             <FormBoxWrapper>
-              <FormBox color={isTheme().color}>
+              <FormBox>
                 <InputField
-                  label="Registration Date"
+                  label={translations?.registrationDate as string}
                   defaultValue={globalValues.registrationDate}
                   name="registrationDate"
                   disabled={true}
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Company Name"
+                  label={translations?.companyName as string}
                   placeholder="ZADIP GROUP"
                   defaultValue={globalValues.companyName}
                   name="companyName"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="PO Box Number"
+                  label={translations?.pOBoxNumber as string}
                   placeholder="12345"
                   defaultValue={globalValues.poBox}
                   name="poBox"
@@ -117,7 +117,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                 />
 
                 <InputField
-                  label="CR Expiry Date"
+                  label={translations?.cRExpiryDate as string}
                   placeholder="2023-12-31"
                   defaultValue={globalValues.expiryDate}
                   name="expiryDate"
@@ -125,14 +125,14 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="CR Number"
+                  label={translations?.cRNumber as string}
                   placeholder="7001234576"
                   defaultValue={globalValues.crNumber}
                   name="crNumber"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Fax Number"
+                  label={translations?.faxNumber as string}
                   placeholder="966114003880"
                   defaultValue={globalValues.fax}
                   name="fax"
@@ -141,7 +141,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                 />
 
                 <InputField
-                  label="Company Domain Alias"
+                  label={translations?.companyDomainAlias as string}
                   value={"BETA"}
                   disabled={true}
                   defaultValue={globalValues.companyAlias}
@@ -149,25 +149,25 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <SelectField
-                  label="Country"
+                  label={translations?.country as string}
                   defaultValue={globalValues.country.id}
                   name="companyAlias"
                   onChange={(e) => onChangeHandler(e)}
+                  required={true}
                 >
                   <>
-                    {
-                      <option
-                        key={countries[0].value}
-                        value={countries[0].value}
-                      >
-                        {countries[0].label}
-                      </option>
-                    }
+                    <option value="" disabled>
+                      ....
+                    </option>
+
+                    <option key={countries[0].value} value={countries[0].value}>
+                      {countries[0].label}
+                    </option>
                   </>
                 </SelectField>
 
                 <InputField
-                  label="Email"
+                  label={translations?.email as string}
                   placeholder="muhammad@gmail.com"
                   defaultValue={globalValues.email}
                   name="email"
@@ -175,19 +175,23 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                 />
 
                 <InputField
-                  label="SMS Balance"
+                  label={translations?.sMSBalance as string}
                   disabled={true}
                   defaultValue={globalValues.sms}
                   name="sms"
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <SelectField
-                  label="City"
+                  label={translations?.city as string}
                   defaultValue={globalValues.city.id}
                   name="city"
                   onChange={(e) => onChangeHandler(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      ....
+                    </option>
                     {cities?.map((option) => (
                       <option key={option?.value} value={option?.value}>
                         {/* {isLTR ? option?.name_en : option?.name_ar} */}
@@ -197,7 +201,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                   </>
                 </SelectField>
                 <InputField
-                  label="Phone Number"
+                  label={translations?.mobileNumber as string}
                   placeholder="581955852"
                   defaultValue={globalValues.phone}
                   name="phone"
@@ -205,7 +209,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                 />
 
                 <InputField
-                  label="Company logo"
+                  label={translations?.companylogo as string}
                   type="file"
                   defaultValue={globalValues.logo}
                   name="logo"
@@ -226,7 +230,7 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
                 className="global-settings-save-button"
                 onClick={(e) => handleSubmit(e)}
               >
-                Save
+                {translations?.save as string}
               </Button>
             </GroupButtons>
           </Box>

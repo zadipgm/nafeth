@@ -54,27 +54,20 @@ export const ReturnContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
   margin-top: 20px;
-  &.summary {
-    padding-bottom: 7px;
-  }
+ 
   &.return-page {
     margin-top: 0;
   }
 `;
 export const Summary = styled.div`
   background-color: white;
-
   padding: 15px;
-  margin: 50px auto;
-  border-radius: 8px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 0px auto;
   @media (min-width: 600px) {
     width: 90%;
-    margin-bottom: 10px;
   }
   @media (min-width: 1040px) {
     width: 60%;
-    margin-bottom: 10px;
   }
 `;
 export const RentSummary = styled.div`
@@ -113,7 +106,7 @@ export const RentSummary = styled.div`
     width: 48%;
     justify-content: space-between;
     margin: 0 0 0 auto;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 2px solid #d9d9d9;
     border-bottom-style: dotted;
     border-radius: unset;
     background-color: #f4f5f3;

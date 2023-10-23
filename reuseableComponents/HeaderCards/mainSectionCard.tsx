@@ -26,7 +26,7 @@ interface IProps {
   card: ICardProps[];
 }
 const MainSectionCard = ({ card, page }: IProps) => {
-  const { locale, colors } = useTheme();
+  const { locale, colors, translations } = useTheme();
   return (
     <HeaderCardsSection>
       <CardInnerWrapper className={page}>
@@ -59,7 +59,7 @@ const MainSectionCard = ({ card, page }: IProps) => {
                   </ContentWrapper>
                 </Card>
                 <Viewmore>
-                  <p>view more</p>
+                  <p>{translations?.viewMore}</p>
                   <ArrowCircleSvg
                     width="15px"
                     height="15px"

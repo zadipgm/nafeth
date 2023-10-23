@@ -114,6 +114,10 @@ export const AccordionContainer = styled.div`
   &.mobile {
     margin: 0px 15px;
   }
+  .MuiPaper-root.group_access{
+    ${({ theme }) => theme.isLTR ? css`padding-left: 20px;` : css`padding-right: 20px;`};
+  
+  }
   & .MuiPaper-root {
     border-bottom: none;
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};

@@ -196,14 +196,14 @@ const CarRent = ({
           <DrawerComponent
             state={state}
             toggleDrawer={toggleDrawer}
-            width="850px"
+            width="600px"
           >
             <div>
               <DetailsTitle color={colors.sideBarBgColor}>
                 {translations?.carDetails}
               </DetailsTitle>
               <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
-                <DetailList>
+                <DetailList className="car_page">
                   <DetailListItem>
                     <CarRentSvg width="30px" height="30px" />
                     <Strongtext>{translations?.dailyRent}</Strongtext>

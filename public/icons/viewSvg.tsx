@@ -18,7 +18,7 @@ const ViewSvg = ({
         stroke="none"
         strokeWidth="1"
         fill={fill}
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Dribbble-Light-Preview"

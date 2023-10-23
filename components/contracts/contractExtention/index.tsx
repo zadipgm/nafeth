@@ -30,7 +30,7 @@ interface IProps {
   branches: IBranchModel;
 }
 const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
-  const { colors, locale, isLTR } = useTheme();
+  const { colors, locale, isLTR, translations } = useTheme();
   const router = useRouter();
   let obj = {
     contractNo: contract.result[0].contractNo,
@@ -96,7 +96,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
   return (
     <ExtentionContainer>
       <Title color={colors.sideBarBgColor}>
-        <h2>Contract Extention</h2>
+        <h2>{translations?.contractExtention}</h2>
       </Title>
 
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -115,15 +115,15 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
-                label="Extended date"
+                label={translations?.extendedDate as string}
                 type="date"
                 value={formattedDate(new Date())}
                 disabled={true}
               />
               <InputField
-                label="Name"
+                label={translations?.customerName as string}
                 type="text"
                 value={
                   filterCustomer(customers, contract.result[0].customerID)[0][
@@ -134,27 +134,27 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
               />
 
               <InputField
-                label="Contract Number"
+                label={translations?.ContractNumber as string}
                 type="text"
                 value={contract.result[0].contractNo}
                 disabled={true}
               />
               <InputField
-                label="Make/Model"
+                label={translations?.makemodel as string}
                 type="text"
                 value={carMakeMOdel}
                 disabled={true}
               />
 
               <InputField
-                label="Current Return Date"
+                label={translations?.currentReturnDate as string}
                 type="date"
                 value={contract.result[0].actualReturnDate}
                 disabled={true}
               />
 
               <InputField
-                label="New Return Date"
+                label={translations?.newReturnDate as string}
                 type="date"
                 name="returnDate"
                 defaultValue={data.returnDate}
@@ -163,7 +163,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
               />
 
               <InputField
-                label="Comments"
+                label={translations?.Comments as string}
                 type="text"
                 name="comments"
                 onChange={handleChange}
@@ -173,14 +173,14 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
           </FormBoxWrapper>
           <GroupButtons>
             <Button variant="contained" color="success" type="submit">
-              Save
+              {translations?.save as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

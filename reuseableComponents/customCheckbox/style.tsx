@@ -41,4 +41,5 @@ export const Checkbox = styled.input`
 export const SpanText = styled.span`
   font-size: 12px;
   margin: 10px 0px 0px 0px;
+  color: ${({ theme }) => theme.colors.gray2};
 `;

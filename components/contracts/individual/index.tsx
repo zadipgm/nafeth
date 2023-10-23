@@ -169,33 +169,33 @@ const ContractPage = ({
             <DrawerComponent
               state={state}
               toggleDrawer={toggleDrawer}
-              width={page == "return" ? "800px" : "400px"}
+              width={page == "return" ? "800px" : "500px"}
               item={details}
             >
               <div>
                 <DetailsTitle color={colors.sideBarBgColor}>
-                  Contract Details
+                  {translations?.contractDetail}
                 </DetailsTitle>
                 <DetailWrapper
                   color={isTheme().color}
                   bcolor={isTheme().bcolor}
                 >
-                  <DetailList>
+                  <DetailList className="individual">
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext>Customer ID</Strongtext>
+                        <Strongtext>{translations?.customerID}</Strongtext>
                         <Spantext>{details?.customerID}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext>Checkout time</Strongtext>
+                        <Strongtext>{translations?.checkouttime}</Strongtext>
                         <Spantext>{details?.timeOut}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext>Issue Branch</Strongtext>
+                        <Strongtext>{translations?.issueBranch}</Strongtext>
                         <Spantext>
                           {
                             filterBranch(branches, details?.issueBranchID)[0][
@@ -207,7 +207,7 @@ const ContractPage = ({
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext>Return Branch</Strongtext>
+                        <Strongtext>{translations?.returnBranch}</Strongtext>
                         <Spantext>
                           {
                             filterBranch(branches, details?.issueBranchID)[0][
@@ -219,39 +219,39 @@ const ContractPage = ({
                     )}
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext>Daily rent</Strongtext>
+                        <Strongtext>{translations?.dailyRent}</Strongtext>
                         <Spantext>{details?.dailyPrice}</Spantext>
                       </DetailListItem>
                     )}
                     <DetailListItem>
-                      <Strongtext>Advance Amount</Strongtext>
+                      <Strongtext>{translations?.advanceAmount}</Strongtext>
                       <Spantext>{details?.advanceAmount}</Spantext>
                     </DetailListItem>
                     <DetailListItem>
-                      <Strongtext>Actual Days</Strongtext>
+                      <Strongtext>{translations?.actualDays}</Strongtext>
                       <Spantext>{details?.actualTotalDays}</Spantext>
                     </DetailListItem>
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext> KM Out</Strongtext>
+                        <Strongtext>{translations?.kmout}</Strongtext>
                         <Spantext>{details?.kmOut}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext> KM In</Strongtext>
+                        <Strongtext> {translations?.kMIn}</Strongtext>
                         <Spantext>{details?.kMIn}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext> Extra KM</Strongtext>
+                        <Strongtext> {translations?.extraKM}</Strongtext>
                         <Spantext>{details?.extraKM}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext> kM Cost</Strongtext>
+                        <Strongtext>{translations?.kMCost}</Strongtext>
                         <Spantext>{details?.kMCost}</Spantext>
                       </DetailListItem>
                     )}
@@ -263,19 +263,19 @@ const ContractPage = ({
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext>Total Rent Cost</Strongtext>
+                        <Strongtext>{translations?.totalRentedCost}</Strongtext>
                         <Spantext>{details?.totalRentCost}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext>Other Cost</Strongtext>
+                        <Strongtext>{translations?.otherCost}</Strongtext>
                         <Spantext>{details?.otherCost}</Spantext>
                       </DetailListItem>
                     )}
                     {page === "return" && (
                       <DetailListItem>
-                        <Strongtext>Discount</Strongtext>
+                        <Strongtext>{translations?.discount}</Strongtext>
                         <Spantext>{details?.discount}</Spantext>
                       </DetailListItem>
                     )}
@@ -316,7 +316,7 @@ const ContractPage = ({
                       </DetailListItem>
                     )}
                     <DetailListItem>
-                      <Strongtext>Nationality</Strongtext>
+                      <Strongtext>{translations?.nationality}</Strongtext>
                       <Spantext>
                         {
                           filterCustomer(customers, details?.customerID)[0]
@@ -326,7 +326,7 @@ const ContractPage = ({
                     </DetailListItem>
                     {page === "individual" && (
                       <DetailListItem>
-                        <Strongtext> Car Type</Strongtext>
+                        <Strongtext>{translations?.carType}</Strongtext>
                         <Spantext>
                           {
                             filterCar(cars, details?.carID)[0].carType[
@@ -337,17 +337,20 @@ const ContractPage = ({
                       </DetailListItem>
                     )}
                     <DetailListItem>
-                      <Strongtext> Rental Cost</Strongtext>
+                      <Strongtext>{translations?.rentalCost}</Strongtext>
                       <Spantext>
                         {details?.dailyPrice * details?.actualTotalDays}
                       </Spantext>
                     </DetailListItem>{" "}
                     <DetailListItem>
-                      <Strongtext> Contract extensions</Strongtext>
+                      <Strongtext>
+                        {" "}
+                        {translations?.contractextensions}
+                      </Strongtext>
                       <Spantext>{"0"}</Spantext>
                     </DetailListItem>{" "}
                     <DetailListItem>
-                      <Strongtext> Issued by</Strongtext>
+                      <Strongtext>{translations?.issuedby}</Strongtext>
                       <Spantext>{details?.issueBy}</Spantext>
                     </DetailListItem>
                   </DetailList>

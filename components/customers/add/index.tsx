@@ -37,7 +37,7 @@ const AddCustomer = ({
   countries,
   pricelist,
 }: IProps) => {
-  const { colors, locale } = useTheme();
+  const { colors, locale, translations } = useTheme();
   let obj = bodyObjecCustomer;
   const [data, setData] = React.useState(obj);
   const router = useRouter();
@@ -146,9 +146,9 @@ const AddCustomer = ({
           {/*------------------------- individual & resident form -----------------*/}
 
           <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="customer-code">
+            <FormBox className="customer-code">
               <InputField
-                label="Customer Code"
+                label={translations?.customerCode as string}
                 placeholder="100000017"
                 type="text"
                 value={max_number as string}
@@ -157,13 +157,16 @@ const AddCustomer = ({
                 required={true}
               />
               <SelectField
-                label="Category"
+                label={translations?.category as string}
                 name="category"
                 onChange={handleChange}
                 defaultValue={""}
-                required
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectCategory as string}
+                  </option>
                   {category.result.map((option) => (
                     <option
                       key={option.id}
@@ -179,13 +182,16 @@ const AddCustomer = ({
               {categoryID === 1 ? (
                 <>
                   <SelectField
-                    label="IDType"
+                    label={translations?.iDType as string}
                     name="idType"
                     onChange={handleChange}
                     defaultValue={""}
-                    required
+                    required={true}
                   >
                     <>
+                      <option value={""} disabled>
+                        {translations?.pleaseSelectIdType as string}
+                      </option>
                       {IdType.result.map((option) => (
                         <option
                           key={option.id}
@@ -199,7 +205,7 @@ const AddCustomer = ({
                   </SelectField>
                   <IDValidateWrapper>
                     <InputField
-                      label="ID"
+                      label={translations?.ID as string}
                       placeholder="2529283364"
                       type="text"
                       onChange={handleChange}
@@ -218,11 +224,11 @@ const AddCustomer = ({
                       }
                       className="validateButton"
                     >
-                      Validate
+                      {translations?.validate}
                     </Button>
                     {IDTypes === 1 || IDTypes === 2 ? (
                       <InputField
-                        label="ID Version"
+                        label={translations?.iDVersionNo as string}
                         placeholder="2"
                         type="text"
                         onChange={handleChange}
@@ -235,7 +241,7 @@ const AddCustomer = ({
                     )}
                   </IDValidateWrapper>
                   <InputField
-                    label="ID Expiry Date"
+                    label={translations?.iDExpiryDate as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -244,7 +250,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Full Name En"
+                    label={translations?.fullName_en as string}
                     placeholder="zeshan"
                     type="text"
                     onChange={handleChange}
@@ -254,13 +260,16 @@ const AddCustomer = ({
                   />
                   {IDTypes === 1 || IDTypes === 2 ? (
                     <SelectField
-                      label="Issue City"
+                      label={translations?.issueCity as string}
                       name="idissuecity"
                       onChange={handleChange}
                       defaultValue={""}
-                      required
+                      required={true}
                     >
                       <>
+                        <option value={""} disabled>
+                          {translations?.pleaseSelectCity as string}
+                        </option>
                         {cities.result.map((option) => (
                           <option
                             key={option.id}
@@ -274,13 +283,16 @@ const AddCustomer = ({
                     </SelectField>
                   ) : (
                     <SelectField
-                      label="Issue Country"
+                      label={translations?.issueCountry as string}
                       name="idIssueCountry"
                       onChange={handleChange}
                       defaultValue={""}
-                      required
+                      required={true}
                     >
                       <>
+                        <option value={""} disabled>
+                          {translations?.pleaseSelectCountry as string}
+                        </option>
                         {countries.result.map((option) => (
                           <option
                             key={option.id}
@@ -294,7 +306,7 @@ const AddCustomer = ({
                     </SelectField>
                   )}
                   <InputField
-                    label="License Number"
+                    label={translations?.licenseNumber as string}
                     placeholder="2529283364"
                     type="text"
                     onChange={handleChange}
@@ -304,7 +316,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Full Name AR"
+                    label={translations?.fullName_ar as string}
                     placeholder="zeshan"
                     type="text"
                     onChange={handleChange}
@@ -313,7 +325,7 @@ const AddCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="ID Expiry Date Hijri"
+                    label={translations?.iDExpiryDateHijri as string}
                     placeholder="HijriDate 20/04/1445"
                     type="text"
                     value={data.idExpiryDate_hijri}
@@ -322,7 +334,7 @@ const AddCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="Expiry of the license (Hijri)"
+                    label={translations?.licenseExphijri as string}
                     placeholder="HijriDate 20/04/1445"
                     type="text"
                     onChange={handleChange}
@@ -332,7 +344,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Expiry of the license (Geo)"
+                    label={translations?.licenseExpiry as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -341,7 +353,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Mobile Number"
+                    label={translations?.mobileNumber as string}
                     placeholder="966581955852"
                     type="text"
                     value={data.mobileNo}
@@ -351,7 +363,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Employer"
+                    label={translations?.employer as string}
                     placeholder="zadip"
                     type="text"
                     value={data.employerName}
@@ -361,13 +373,16 @@ const AddCustomer = ({
                   />
 
                   <SelectField
-                    label="City of Residence"
+                    label={translations?.cityofresidence as string}
                     name="residentCity"
                     onChange={handleChange}
                     defaultValue={""}
                     required={true}
                   >
                     <>
+                      <option value={""} disabled>
+                        {translations?.pleaseSelectCity as string}
+                      </option>
                       {cities.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -377,13 +392,16 @@ const AddCustomer = ({
                   </SelectField>
 
                   <SelectField
-                    label="Price List"
+                    label={translations?.priceList as string}
                     name="pricelist"
                     onChange={handleChange}
                     defaultValue={""}
                     required={true}
                   >
                     <>
+                      <option value={""} disabled>
+                        {translations?.pleaseSelectPriceList as string}
+                      </option>
                       {pricelist.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -392,7 +410,7 @@ const AddCustomer = ({
                     </>
                   </SelectField>
                   <InputField
-                    label="Work Phone"
+                    label={translations?.workPhone as string}
                     placeholder="966581955852"
                     type="text"
                     value={data.workPhone}
@@ -402,7 +420,7 @@ const AddCustomer = ({
                   />
 
                   <InputField
-                    label="Email"
+                    label={translations?.email as string}
                     placeholder="zeshan@gmail.com"
                     type="email"
                     onChange={handleChange}
@@ -412,7 +430,7 @@ const AddCustomer = ({
                     required={true}
                   />
                   <SelectField
-                    label="Nationality"
+                    label={translations?.nationality as string}
                     name="nationality"
                     onChange={handleChange}
                     defaultValue={""}
@@ -420,6 +438,9 @@ const AddCustomer = ({
                     classname="customer-nationality"
                   >
                     <>
+                      <option value={""} disabled>
+                        {translations?.pleaseSelectNationality as string}
+                      </option>
                       {countries.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -429,7 +450,7 @@ const AddCustomer = ({
                   </SelectField>
 
                   <InputField
-                    label="Date of Birth Hijri"
+                    label={translations?.dateofbirthhijri as string}
                     placeholder="20/04/1445"
                     type="text"
                     onChange={handleChange}
@@ -438,7 +459,7 @@ const AddCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="Date of Birth gregorian"
+                    label={translations?.dateofBirth as string}
                     placeholder="zeshan@gmail.com"
                     type="date"
                     onChange={handleChange}
@@ -447,7 +468,7 @@ const AddCustomer = ({
                     classname="nationality"
                   />
                   <SwitchesComponent
-                    title="Active/Inactive"
+                    title={translations?.activeInactive as string}
                     info={""}
                     onchange={(e) => handleChangeStatus(e)}
                     name={"active"}
@@ -510,9 +531,13 @@ const AddCustomer = ({
                     name="Place of  issue"
                     // onChange={handleChange}
                     // value={data.cityId}
-                    required
+                    defaultValue={""}
+                    required={true}
                   >
                     <>
+                      <option value={""} disabled>
+                        Please select price list...
+                      </option>
                       {cities.result.map((option) => (
                         <option
                           key={option.id}
@@ -553,12 +578,12 @@ const AddCustomer = ({
             </FormBox>
           </FormBoxWrapper>
           <Title color={colors.sideBarBgColor}>
-            <h3>Address</h3>
+            <h3>{translations?.address as string}</h3>
           </Title>
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
-                label="Building Number"
+                label={translations?.buildingNumber as string}
                 placeholder="1234"
                 type="text"
                 onChange={handleChange}
@@ -566,7 +591,7 @@ const AddCustomer = ({
                 required={true}
               />
               <InputField
-                label="City"
+                label={translations?.city as string}
                 placeholder="Riyadh"
                 type="text"
                 onChange={handleChange}
@@ -574,7 +599,7 @@ const AddCustomer = ({
                 required={true}
               />
               <InputField
-                label="Street Name"
+                label={translations?.streetName as string}
                 placeholder="king fahad"
                 type="text"
                 onChange={handleChange}
@@ -582,7 +607,7 @@ const AddCustomer = ({
                 required={true}
               />{" "}
               <InputField
-                label="Country"
+                label={translations?.country as string}
                 placeholder="saudi arabia"
                 type="text"
                 onChange={handleChange}
@@ -590,7 +615,7 @@ const AddCustomer = ({
                 required={true}
               />
               <InputField
-                label="District"
+                label={translations?.district as string}
                 placeholder="al malaz"
                 type="text"
                 onChange={handleChange}
@@ -598,7 +623,7 @@ const AddCustomer = ({
                 required={true}
               />
               <InputField
-                label="Zip-code1"
+                label={translations?.zipcode1 as string}
                 placeholder="12664"
                 type="text"
                 onChange={handleChange}
@@ -607,7 +632,7 @@ const AddCustomer = ({
                 classname="zip-code"
               />{" "}
               <InputField
-                label="Zip-code2"
+                label={translations?.zipcode2 as string}
                 placeholder="12664"
                 type="text"
                 onChange={handleChange}
@@ -616,7 +641,7 @@ const AddCustomer = ({
                 classname="zip-code"
               />
               <InputField
-                label="Additional Information"
+                label={translations?.additionalInformation as string}
                 placeholder=""
                 type="text"
                 onChange={handleChange}
@@ -632,14 +657,14 @@ const AddCustomer = ({
               className="add-customer-save-button"
               type="submit"
             >
-              Save
+              {translations?.save as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

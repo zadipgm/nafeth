@@ -109,8 +109,9 @@ export default function GroupAddForm({ title, data }: IProps) {
               width: "100%",
               maxWidth: "100%",
             }}
-            noValidate
-            autoComplete="off"
+            noValidate={false}
+            autoComplete="on"
+            onSubmit={(e) => submitHandler(e)}
           >
             <FormBoxWrapper>
               <FormBox className="group-edit-form" color={isTheme().color}>
@@ -168,26 +169,27 @@ export default function GroupAddForm({ title, data }: IProps) {
                 </SwitchContainer>
               </FormBox>
             </FormBoxWrapper>
+
+            <SideBarAccordions
+              sideBarMenuData={data}
+              active_link={false}
+              showcheckboxes={true}
+              access_group_class={"group_access"}
+              onchange={handleMenu}
+            />
+            <GroupButtons>
+              <Button variant="contained" type="submit">
+                Save
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => router.back()}
+                color="error"
+              >
+                Cancel
+              </Button>
+            </GroupButtons>
           </Box>
-          <SideBarAccordions
-            sideBarMenuData={data}
-            active_link={false}
-            showcheckboxes={true}
-            access_group_class={"group_access"}
-            onchange={handleMenu}
-          />
-          <GroupButtons>
-            <Button variant="contained" onClick={(e) => submitHandler(e)}>
-              Save
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => router.back()}
-              color="error"
-            >
-              Cancel
-            </Button>
-          </GroupButtons>
         </FormWrapper>
       </Container>
     </>

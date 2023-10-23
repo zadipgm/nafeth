@@ -41,6 +41,8 @@ import { createPost } from "@/api/postApis/createBranch";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { NumOfDays } from "@/_helpers/getDays";
 import InputField from "@/reuseableComponents/customInputField/input";
+import { customersKeys } from "@/constants";
+import DataTable from "@/reuseableComponents/DataTable";
 interface IProps {
   customers: ICustomers;
   car: ICarModel;
@@ -80,55 +82,77 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
   };
   const [openCustomPrice, setOpenCustomPrice] = React.useState(false);
   const [isCustomerSelected, setIsCustomerSelected] = React.useState(false);
-  const [isDriverSelected, setIsDriverSelected] = React.useState(false);
-  const [isCustomerAdded, setIsCustomerAdded] = React.useState(false);
-  const [isDriverAdded, setIsDriverAdded] = React.useState(false);
+
+  const [isCustomerOpen, setIsCustomerOpen] = React.useState(false);
+  const [isDriverOpen, setIsDriverOpen] = React.useState(false);
   const [ShowContractDetials, setShowContractDetials] = React.useState(false);
   const [showPricing, setShowPricing] = React.useState(false);
   const [accessories, setAccessories] = React.useState(false);
   const [customPrice, setCustomPrice] = React.useState<Icustomprice>();
   const [caraccessories, setCaraccessories] = React.useState<string[]>([]);
-  const [customer, setCustomer] = React.useState<customer>();
-  const [driver, setDriver] = React.useState<customer>();
+  const [customer, setCustomer] = React.useState<ICustomers | any>();
+  const [driver, setDriver] = React.useState<ICustomers | any>();
   const [data, setData] = React.useState(obj);
 
-  const onCustomerSelected = (customerobj: any) => {
-    setCustomer(customerobj);
-    setIsCustomerSelected(false);
-    setIsCustomerAdded(true);
-    setShowContractDetials(false);
-    setShowPricing(false);
-    setIsDriverSelected(false);
+  //Accessory Functions-----------------
+  const handleAddAccessory = () => {
+    setAccessories(true);
   };
-  const onDriverSelected = (driver: any) => {
-    setDriver(driver);
-    setIsDriverSelected(false);
-    setIsDriverAdded(true);
+  const handleAddAccessoryClose = () => {
+    setAccessories(false);
   };
+  const getCar_accessories = (accessoriess: any) => {
+    setCaraccessories(accessoriess);
+  };
+
+  //Customer price Functions-----------------
   const handleOpenCutomPrice = () => setOpenCustomPrice(true);
   const handleCloseCutomPrice = () => setOpenCustomPrice(false);
   const getCustomPrice = (prices: any) => {
     setCustomPrice(prices);
   };
-  const hanlelOpenDriver = () => setIsDriverSelected(true);
-  const getCar_accessories = (accessoriess: any) => {
-    console.log("getCar_accessories", accessoriess);
-    setCaraccessories(accessoriess);
+
+  //customers Functions-----------------
+  const handleOpenCustomer = () => {
+    setIsCustomerOpen(true);
   };
+  const handleCloseCustomer = () => {
+    setIsCustomerOpen(false);
+  };
+  const onSelectCustomer = (number: number) => {
+    let filterCustomer = customers?.result.filter((item) => item.id === number);
+    setCustomer(filterCustomer);
+  };
+  //driver Functions-----------------
+  const handleOpenDriver = () => {
+    setIsDriverOpen(true);
+  };
+  const handleCloseDriver = () => {
+    setIsDriverOpen(false);
+  };
+  const onSelectDriver = (number: number) => {
+    let filterDriver = customers?.result.filter((item) => item.id === number);
+    setDriver(filterDriver);
+  };
+  ////input field onchange Function-----------------
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
-    console.log("handleChange", data);
   };
+
+  //submit Functions-----------------
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let userName = getName() as string;
+    let userPassword = getPassword() as string;
+    let company = getCompany() as string;
     let body = {
-      customerID: customer?.id,
-      driverID: driver?.id,
+      customerID: customer?.[0].id,
+      driverID: driver?.[0].id,
       carID: car.result[0].id,
-      pricelistID: customer?.pricelist.id,
+      pricelistID: customer?.[0].pricelist.id,
       issueDate: data.issueDate,
       timeOut: new Date().getHours() + ":" + new Date().getMinutes(),
       kmOut:
@@ -168,15 +192,12 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       actualTotalDays: NumOfDays(data.issueDate, data.actualReturnDate),
       issueComments: data.issueComments,
       issueBranchID: 1,
-      issueBy: "admin",
+      issueBy: userName,
       promotionDiscount: data.promotionDiscount,
       accessoriesID: caraccessories.toLocaleString(),
     };
-
     e.preventDefault();
-    let userName = getName() as string;
-    let userPassword = getPassword() as string;
-    let company = getCompany() as string;
+
     let url = "contracts/Individual";
     if (car.result[0].status === "RENTED") {
       Swal.fire({
@@ -202,6 +223,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       );
     }
   };
+
   //total rented cost
   let totalRentedCost =
     Number(
@@ -209,10 +231,12 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
         ? car.result[0].dailyRent
         : customPrice?.dailyRent
     ) * Number(NumOfDays(data.issueDate, data.actualReturnDate));
+
   //filter selected accessories
   let filteredAccessory = car_accessories.result.filter((item) =>
     caraccessories.includes(`${item.id}`)
   );
+
   //total accessories cost
   let totalAccesoriesCost = filteredAccessory.reduce(
     (accumulator, currentValue) => {
@@ -220,61 +244,38 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
     },
     0
   );
+
   // total cost
   let totalCost = totalRentedCost + totalAccesoriesCost;
+
   //Remaining cost
   let remianingCost = totalCost - data.advanceAmount;
 
-  console.log("data.issueDate", data.issueDate);
+  console.log("here is customer,", customer);
   return (
     <>
       <RentContainer>
         <Title color={colors.sideBarBgColor}>
           <h2>{translations?.selectedCar}</h2>
         </Title>
-
+        {/* ------------------selected Car------------------ */}
         <SelectedCar car={car} customPrice={customPrice as Icustomprice} />
       </RentContainer>
-      {accessories && (
+      {/* ------------------Add Accessory Modal------------------ */}
+      <ModalComponent
+        open={accessories}
+        handleClose={handleAddAccessoryClose}
+        size={"md"}
+      >
         <AddAccessories
           setAccessories={setAccessories}
           getCar_accessories={getCar_accessories}
           car_accessories={car_accessories}
           caraccessories={caraccessories}
+          close={handleAddAccessoryClose}
         />
-      )}
-
-      <GroupButtons className="rent-car-group-button">
-        <Button
-          variant="contained"
-          color="success"
-          className="rent-car-save-button"
-          onClick={() => setIsCustomerSelected(true)}
-          endIcon={
-            <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
-          }
-        >
-          {translations?.next}
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          className="custom-price-button"
-          onClick={() => handleOpenCutomPrice()}
-          endIcon={<CashSvg width="15px" height="15px" fill={colors.white} />}
-        >
-          {translations?.customePrice}
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          className="add-accessories-button"
-          onClick={() => setAccessories(true)}
-          endIcon={<AddIcon width="15px" height="15px" fill={colors.white} />}
-        >
-          {translations?.addAccessories}
-        </Button>
-      </GroupButtons>
+      </ModalComponent>
+      {/* ------------------Add Custom Prices------------------ */}
       <ModalComponent
         open={openCustomPrice}
         handleClose={handleCloseCutomPrice}
@@ -286,107 +287,72 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           getCustomPrice={getCustomPrice}
         />
       </ModalComponent>
-      {isCustomerSelected && (
-        <CustomersList
-          editable={true}
-          deleteable={false}
-          details={false}
-          listtype={"customer"}
+      <GroupButtons className="rent-car-group-button">
+        <Button
+          variant="contained"
+          className="arrow"
+          onClick={handleOpenCustomer}
+          endIcon={
+            <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
+          }
+        >
+          {translations?.addCustomer}
+        </Button>
+        <Button
+          variant="contained"
+          className="custom-price-button"
+          onClick={() => handleOpenCutomPrice()}
+          endIcon={<CashSvg width="15px" height="15px" fill={colors.white} />}
+        >
+          {translations?.customePrice}
+        </Button>
+        <Button
+          variant="contained"
+          className="add-accessories-button"
+          onClick={handleAddAccessory}
+          endIcon={<AddIcon width="15px" height="15px" fill={colors.white} />}
+        >
+          {translations?.addAccessories}
+        </Button>
+      </GroupButtons>
+      {/* ------------------Add Customer modal------------------ */}
+      <ModalComponent
+        open={isCustomerOpen}
+        handleClose={handleCloseCustomer}
+        size={"md"}
+      >
+        <DataTable
+          classname="small_size"
+          data={customers.result}
+          showFilter={true}
+          isDeleteAble={false}
+          isEditAble={false}
+          isViewAble={false}
+          isDuplicate={false}
           page_color={colors.sideBarBgColor}
-          title={translations?.selectCustomer as string}
-          onCustomerSelected={onCustomerSelected}
-          customers={customers}
-          isAddbutton={true}
+          size="400px"
+          showAddButton={false}
+          keys={customersKeys}
+          isSelectable={true}
+          showCloseIcon={true}
+          handleClose={handleCloseCustomer}
+          handleSelect={onSelectCustomer}
         />
-      )}
-      {isCustomerAdded && (
+      </ModalComponent>
+      {customer?.length > 0 && (
         <RentContainer>
-          <Title color={"#000000ad"}>
+          <Title color={colors.nafethBlue}>
             <h2>{translations?.selectedCustomer}</h2>
           </Title>
-          <SelectedCustomer customer={customer as customer} type={"Customer"} />
+          <SelectedCustomer customer={customer as customer} type={"customer"} />
         </RentContainer>
       )}
 
-      {isCustomerAdded && (
+      {customer?.length > 0 && (
         <GroupButtons className="rent-car-group-button">
           <Button
             variant="contained"
-            color="success"
-            className="rent-car-save-button"
-            onClick={() => setShowContractDetials(true)}
-            endIcon={
-              <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
-            }
-          >
-            {translations?.next}
-          </Button>
-          {isCustomerAdded && (
-            <Button
-              variant="contained"
-              color="info"
-              className="rent-car-Adddriver-button"
-              onClick={hanlelOpenDriver}
-              endIcon={
-                <AddIcon
-                  width="15px"
-                  height="15px"
-                  fill={colors.sideBarBgColor}
-                />
-              }
-            >
-              {translations?.addDriver}
-            </Button>
-          )}
-          <Button
-            variant="contained"
-            color="success"
-            className="custom-price-button"
-            onClick={() =>
-              router.push({
-                pathname: `/customers/edit/${customer?.id}`,
-                query: { page: "rentcar_page" },
-              })
-            }
-            endIcon={
-              <CardUserSvg
-                width="20px"
-                height="20px"
-                fill={colors.sideBarBgColor}
-              />
-            }
-          >
-            {translations?.editCustomer}
-          </Button>
-        </GroupButtons>
-      )}
-      {isDriverSelected && (
-        <CustomersList
-          editable={true}
-          deleteable={false}
-          details={false}
-          page_color={"#000000ad"}
-          listtype={"driver"}
-          title={"Select a Driver"}
-          onCustomerSelected={onDriverSelected}
-          customers={customers}
-          isAddbutton={false}
-        />
-      )}
-      {isDriverAdded && (
-        <RentContainer>
-          <Title color={colors.purple}>
-            <h2>{translations?.selectedDriver}</h2>
-          </Title>
-          <SelectedCustomer customer={driver as customer} type={"Driver"} />
-        </RentContainer>
-      )}
-      {isDriverAdded && (
-        <GroupButtons>
-          <Button
-            variant="contained"
-            color="success"
-            className="rent-car-Add-contract"
+            className="arrow"
             onClick={() => setShowContractDetials(true)}
             endIcon={
               <ArrowCircleSvg width="15px" height="15px" fill={colors.white} />
@@ -394,33 +360,78 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           >
             {translations?.addContractDetails}
           </Button>
+          <Button
+            variant="contained"
+            color="info"
+            onClick={handleOpenDriver}
+            endIcon={
+              <AddIcon
+                width="15px"
+                height="15px"
+                fill={colors.sideBarBgColor}
+              />
+            }
+          >
+            {translations?.addDriver}
+          </Button>
         </GroupButtons>
       )}
 
-      <FormWrapper
-        bcolor={isTheme().bcolor}
-        color={isTheme().color}
-        className="contract-details"
+      {/* ------------------Add Driver modal------------------ */}
+      <ModalComponent
+        open={isDriverOpen}
+        handleClose={handleCloseDriver}
+        size={"md"}
       >
-        <Box
-          component="form"
-          sx={{
-            width: "100%",
-            maxWidth: "100%",
-            padding: "15px",
-          }}
-          noValidate={false}
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          {ShowContractDetials && (
-            <>
+        <DataTable
+          classname="small_size"
+          data={customers.result}
+          showFilter={true}
+          isDeleteAble={false}
+          isEditAble={false}
+          isViewAble={false}
+          isDuplicate={false}
+          page_color={colors.sideBarBgColor}
+          size="400px"
+          showAddButton={false}
+          keys={customersKeys}
+          isSelectable={true}
+          showCloseIcon={true}
+          handleClose={handleCloseDriver}
+          handleSelect={onSelectDriver}
+        />
+      </ModalComponent>
+      {driver?.length > 0 && (
+        <RentContainer>
+          <Title color={colors.purple}>
+            <h2>{translations?.selectedDriver}</h2>
+          </Title>
+          <SelectedCustomer customer={driver as customer} type={"driver"} />
+        </RentContainer>
+      )}
+      {/* ------------------Add contract detail------------------ */}
+      {ShowContractDetials && (
+        <>
+          <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+            <Box
+              component="form"
+              sx={{
+                width: "100%",
+                maxWidth: "100%",
+                margin: "40px 0px 0px 0px",
+              }}
+              noValidate={false}
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
               <RentContainer>
                 <Title color={colors.sideBarBgColor}>
-                  <h2>{translations?.contractDetail}</h2>
+                  <h2>
+                    {translations?.contractDetail} & {translations?.pricing}
+                  </h2>
                 </Title>
 
-                <FormBox color={isTheme().color} className="contract-pricing">
+                <FormBox className="contract-pricing">
                   <InputField
                     label={translations?.fromDate as string}
                     placeholder=""
@@ -455,45 +466,15 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     name={"actualTotalDays"}
                     required={true}
                   />
-
                   <InputField
-                    label={translations?.Comments as string}
+                    label={translations?.advanceAmount as string}
                     placeholder=""
                     type="text"
+                    name={"advanceAmount"}
+                    defaultValue={0}
                     onChange={handleChange}
-                    name={"issueComments"}
-                    required={true}
+                    required={false}
                   />
-                </FormBox>
-              </RentContainer>
-
-              <GroupButtons>
-                <Button
-                  variant="contained"
-                  color="success"
-                  className="create-contract-button"
-                  onClick={() => setShowPricing(true)}
-                  endIcon={
-                    <ArrowCircleSvg
-                      width="15px"
-                      height="15px"
-                      fill={colors.white}
-                    />
-                  }
-                >
-                  {translations?.next}
-                </Button>
-              </GroupButtons>
-            </>
-          )}
-          {showPricing && (
-            <>
-              <RentContainer>
-                <Title color={colors.sideBarBgColor}>
-                  <h3>{translations?.pricing}</h3>
-                </Title>
-
-                <FormBox color={isTheme().color} className="contract-pricing">
                   <InputField
                     label={translations?.totalRentedCost as string}
                     placeholder=""
@@ -522,15 +503,6 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                   />
 
                   <InputField
-                    label={translations?.advanceAmount as string}
-                    placeholder=""
-                    type="text"
-                    name={"advanceAmount"}
-                    defaultValue={0}
-                    onChange={handleChange}
-                    required={false}
-                  />
-                  <InputField
                     label={translations?.remainingCost as string}
                     placeholder=""
                     type="text"
@@ -539,8 +511,17 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     name={"days"}
                     required={true}
                   />
+                  <InputField
+                    label={translations?.Comments as string}
+                    placeholder=""
+                    type="text"
+                    onChange={handleChange}
+                    name={"issueComments"}
+                    required={true}
+                  />
                 </FormBox>
               </RentContainer>
+
               <GroupButtons>
                 <Button
                   variant="contained"
@@ -553,10 +534,10 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                   {translations?.createContract}
                 </Button>
               </GroupButtons>
-            </>
-          )}
-        </Box>
-      </FormWrapper>
+            </Box>
+          </FormWrapper>
+        </>
+      )}
     </>
   );
 };

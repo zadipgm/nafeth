@@ -9,23 +9,27 @@ import {
   AccessoriesWrapper,
   AddAccessoriesContainer,
   ButtonWrapper,
+  ModalHeader,
 } from "../../style";
 import { Button } from "@mui/material";
 import { IAccessory } from "@/models/IAccessory";
+import { GroupButtons } from "@/components/GlobalSettings/compnaySettings/style";
+import CloseSvg from "@/public/icons/closeSvg";
 interface IProps {
   setAccessories: (param: boolean) => void;
   car_accessories: IAccessory;
   getCar_accessories: (param: any) => void;
   caraccessories: any;
+  close?: () => void;
 }
 const AddAccessories = ({
   setAccessories,
   car_accessories,
   getCar_accessories,
   caraccessories,
+  close,
 }: IProps) => {
   const { colors, locale, translations } = useTheme();
-  console.log("here is car accessories", caraccessories);
   const [allchecked, setAllChecked] = React.useState<string[]>(caraccessories);
   const handleChange = (e: { target: { checked: boolean; value: string } }) => {
     if (e.target.checked) {
@@ -37,12 +41,16 @@ const AddAccessories = ({
   const handleSave = () => {
     getCar_accessories(allchecked);
     setAccessories(false);
+    close?.();
   };
   return (
     <AddAccessoriesContainer>
-      <Title color={colors.sideBarBgColor}>
-        <h2>{translations?.addAccessories}</h2>
-      </Title>
+      <ModalHeader>
+        <span>{translations?.addAccessories}</span>
+        <div onClick={() => close?.()}>
+          <CloseSvg />
+        </div>
+      </ModalHeader>
       <AccessoriesWrapper>
         {car_accessories.result.map((acc) => {
           return (
@@ -71,11 +79,14 @@ const AddAccessories = ({
           );
         })}
       </AccessoriesWrapper>
-      <ButtonWrapper className="accessory">
+      <GroupButtons>
         <Button variant="contained" color="success" onClick={handleSave}>
-          save Accessories
+          Save
         </Button>
-      </ButtonWrapper>
+        <Button variant="contained" color="error" onClick={() => close?.()}>
+          Cancel
+        </Button>
+      </GroupButtons>
     </AddAccessoriesContainer>
   );
 };
