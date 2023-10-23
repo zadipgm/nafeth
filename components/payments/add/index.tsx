@@ -236,7 +236,7 @@ const AddPayment = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
                 label={translations?.date as string}
                 type="date"
@@ -250,7 +250,7 @@ const AddPayment = () => {
                 name="type"
                 onChange={handlePayment}
                 defaultValue={""}
-                required
+                required={true}
               >
                 <>
                   <option value="" disabled>
@@ -267,7 +267,7 @@ const AddPayment = () => {
                 label={translations?.category as string}
                 name="category"
                 onChange={handleCategoryField}
-                required
+                required={true}
                 defaultValue={""}
               >
                 <>
@@ -287,7 +287,7 @@ const AddPayment = () => {
                   name="activity"
                   onChange={handleChange}
                   defaultValue={""}
-                  required
+                  required={true}
                   disabled={
                     activity?.result[0].name_en.toLocaleLowerCase() ===
                       "contract" ||
@@ -438,9 +438,12 @@ const AddPayment = () => {
                 name="payMethod"
                 onChange={handleBankPaymentType}
                 defaultValue={""}
-                required
+                required={true}
               >
                 <>
+                  <option value={""} disabled>
+                    {translations?.pleaseSelectPaymentStatus}
+                  </option>
                   {AppDataContext?.paymentMethods?.result?.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option[`name_${locale}`]}
@@ -503,7 +506,7 @@ const AddPayment = () => {
                   name="bankId"
                   onChange={handleChange}
                   defaultValue={""}
-                  required
+                  required={true}
                 >
                   <>
                     <option value="" disabled>
@@ -561,7 +564,7 @@ const AddPayment = () => {
                   showAddButton={false}
                   handleClose={handleClose}
                   isSelectable={true}
-                  handleContractNumber={handleContractNumber}
+                  handleSelect={handleContractNumber}
                   showCloseIcon={true}
                   keys={contractKeys}
                   classname="small_size"
@@ -589,7 +592,7 @@ const AddPayment = () => {
                   showAddButton={false}
                   handleClose={handleClose}
                   isSelectable={true}
-                  handleContractNumber={handleCar}
+                  handleSelect={handleCar}
                   showCloseIcon={true}
                   keys={carKeys}
                   classname="small_size"
@@ -617,7 +620,7 @@ const AddPayment = () => {
                   showAddButton={false}
                   handleClose={handleClose}
                   isSelectable={true}
-                  handleContractNumber={handleUser}
+                  handleSelect={handleUser}
                   showCloseIcon={true}
                   keys={userKeys}
                   classname="small_size"
@@ -645,7 +648,7 @@ const AddPayment = () => {
                   showAddButton={false}
                   handleClose={handleClose}
                   isSelectable={true}
-                  handleContractNumber={handleCustomer}
+                  handleSelect={handleCustomer}
                   showCloseIcon={true}
                   keys={customersKeys}
                   classname="small_size"

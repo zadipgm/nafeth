@@ -1,4 +1,4 @@
-export const carKeys = ["id", "plateNo", "make", "model", "year"];
+export const carKeys = ["plateNo", "make", "model", "year"];
 export const customersKeys = [
   "id",
   "idNumber",
@@ -60,10 +60,10 @@ export const branchKeys = [
 ];
 export const groupKeys = [
   "groupId",
-  "description_en",
-  "description_ar",
   "name_ar",
   "name_en",
+  "description_en",
+  "description_ar",
   "active",
   "role",
 ];

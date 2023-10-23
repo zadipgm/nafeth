@@ -120,7 +120,7 @@ const AddUser = ({ manager, group, baseBranch }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
                 label="User Name"
                 placeholder="User Name"

@@ -99,6 +99,7 @@ const SideBarAccordions = ({
               key={index}
               expanded={expanded === `${index}`}
               onChange={handleChange(`${index}`)}
+              className={access_group_class}
             >
               <AccordionSummary
               // expandIcon={<ExpandMoreIcon htmlColor={colors.pageTextColor} />}
@@ -125,59 +126,51 @@ const SideBarAccordions = ({
                 </TypoWrapper>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  <PageWrapper className={access_group_class}>
-                    {item?.menu?.map((p, i) => {
-                      return (
-                        <TimelineItem
-                          key={i}
-                          onClick={() => handleClassess(p.name_en)}
-                        >
-                          <TimelineSeparator>
-                            <TimelineDot
-                              className={
-                                classname === p.name_en ? "active" : ""
-                              }
-                            />
-                            <TimelineConnector
-                              className={
-                                classname === p.name_en ? "active" : ""
-                              }
-                            />
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <PageLinkWrapper
-                              key={i}
-                              className={
-                                classname === p.name_en ? "active" : ""
-                              }
+                <PageWrapper className={access_group_class}>
+                  {item?.menu?.map((p, i) => {
+                    return (
+                      <TimelineItem
+                        key={i}
+                        onClick={() => handleClassess(p.name_en)}
+                      >
+                        <TimelineSeparator>
+                          <TimelineDot
+                            className={classname === p.name_en ? "active" : ""}
+                          />
+                          <TimelineConnector
+                            className={classname === p.name_en ? "active" : ""}
+                          />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                          <PageLinkWrapper
+                            key={i}
+                            className={classname === p.name_en ? "active" : ""}
+                          >
+                            <Link
+                              href={active_link === false ? "#" : `/${p.url}`}
+                              onClick={() => handleClickLink(`/${p.url}`)}
                             >
-                              <Link
-                                href={active_link === false ? "#" : `/${p.url}`}
-                                onClick={() => handleClickLink(`/${p.url}`)}
-                              >
-                                {isLTR ? p.name_en : p.name_ar}
-                              </Link>
-                              {showcheckboxes && (
-                                <CustomCheckbox
-                                  id={p.id}
-                                  name_en={p.name_en}
-                                  name_ar={p.name_ar}
-                                  get={p.get}
-                                  post={p.post}
-                                  put={p.put}
-                                  del={p.del}
-                                  url={p.url}
-                                  onchange={onchange}
-                                />
-                              )}
-                            </PageLinkWrapper>
-                          </TimelineContent>
-                        </TimelineItem>
-                      );
-                    })}
-                  </PageWrapper>
-                </Typography>
+                              {isLTR ? p.name_en : p.name_ar}
+                            </Link>
+                            {showcheckboxes && (
+                              <CustomCheckbox
+                                id={p.id}
+                                name_en={p.name_en}
+                                name_ar={p.name_ar}
+                                get={p.get}
+                                post={p.post}
+                                put={p.put}
+                                del={p.del}
+                                url={p.url}
+                                onchange={onchange}
+                              />
+                            )}
+                          </PageLinkWrapper>
+                        </TimelineContent>
+                      </TimelineItem>
+                    );
+                  })}
+                </PageWrapper>
               </AccordionDetails>
             </Accordion>
           );

@@ -27,12 +27,6 @@ const SideNavBar = () => {
           </a>
         </LogoContainer>
         <MenuWrapper>
-          {/* <SideIconWrapper>
-            <Link href="/profile">
-              <UsersSvg width="25px" height="25px" fill={colors.gray2} />
-              <div>{"User Profile"}</div>
-            </Link>
-          </SideIconWrapper> */}
           <SideIconWrapper>
             <Link href="/dashboard">
               <DashboardSvg fill={colors.gray2} width="25px" height="25px" />

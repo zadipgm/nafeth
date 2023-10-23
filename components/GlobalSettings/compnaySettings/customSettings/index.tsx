@@ -22,7 +22,7 @@ interface ISettings {
   custom_settings: ICompanyCustom;
 }
 const CustomSettings = ({ custom_settings }: ISettings) => {
-  const { isDark }: any = useTheme();
+  const { translations } = useTheme();
   const [customValues, setCustomValues] = React.useState(custom_settings);
 
   let coustomFreeGracehours = custom_settings.freeGracehours;
@@ -110,7 +110,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
     <>
       <FormContainer>
         <GsettingsTitle className="custom-settings" color={isTheme().color}>
-          <h2>Custom Settings</h2>
+          <h2>{translations?.customSettings as string}</h2>
         </GsettingsTitle>
         <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
           <Box
@@ -126,12 +126,16 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
             <FormBoxWrapper>
               <FormBox className="custom-settings" color={isTheme().color}>
                 <SelectField
-                  label="Hours"
+                  label={translations?.hours as string}
                   defaultValue={freeHour}
                   name="hours"
                   onChange={(e) => handleFreeHour(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      ......
+                    </option>
                     {hours.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -140,12 +144,16 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   </>
                 </SelectField>
                 <SelectField
-                  label="Minutes"
+                  label={translations?.minutes as string}
                   defaultValue={freeMinut}
                   name="minuts"
                   onChange={(e) => handleFreeMinut(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      .....
+                    </option>
                     {minutes.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -155,7 +163,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 </SelectField>
 
                 <InputField
-                  label="Maximum km adjustment"
+                  label={translations?.maximumkmadjustment as string}
                   placeholder="10"
                   defaultValue={customValues.maxKMAdjustment}
                   name="maxKMAdjustment"
@@ -163,12 +171,16 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 />
 
                 <SelectField
-                  label="Grace Day"
+                  label={translations?.graceDay as string}
                   defaultValue={customValues.graceDay}
                   name="graceDay"
                   onChange={(e) => onChangeHandler(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      ......
+                    </option>
                     {days.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -177,7 +189,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   </>
                 </SelectField>
                 <InputField
-                  label="VAT Deduction %"
+                  label={translations?.vATDeduction as string}
                   placeholder="15.00"
                   defaultValue={customValues.vat}
                   name="vat"
@@ -185,11 +197,15 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 />
 
                 <SelectField
-                  label="Grace Day hours"
+                  label={translations?.graceDayhours as string}
                   defaultValue={graceStartHour}
                   onChange={(e) => handleGraceHour(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      ....
+                    </option>
                     {hours.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -198,11 +214,15 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                   </>
                 </SelectField>
                 <SelectField
-                  label="Grace Day minutes"
+                  label={translations?.graceDayminutes as string}
                   defaultValue={graceStarMinut}
                   onChange={(e) => handleGraceMinut(e)}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      .....
+                    </option>
                     {minutes.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -212,7 +232,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 </SelectField>
 
                 <InputField
-                  label="Tax Number"
+                  label={translations?.taxNumber as string}
                   placeholder="1233212"
                   defaultValue={customValues.taxNo}
                   name="taxNo"
@@ -220,7 +240,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 />
 
                 <InputField
-                  label="English Description"
+                  label={translations?.englishDescription as string}
                   placeholder="Please enter here...."
                   name="terms_en"
                   defaultValue={customValues.terms_en}
@@ -245,7 +265,7 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
                 className="custom-settings-save-button"
                 onClick={(e) => handleSubmit(e)}
               >
-                Save
+                {translations?.save as string}
               </Button>
             </GroupButtons>
           </Box>

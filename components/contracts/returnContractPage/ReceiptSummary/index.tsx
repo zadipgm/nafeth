@@ -10,23 +10,23 @@ import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import { useTheme } from "styled-components";
 import InputField from "@/reuseableComponents/customInputField/input";
 const ReceiptSummary = () => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   return (
     <ReturnContainer className="summary">
       <Title color={colors.sideBarBgColor}>
-        <h2>Summary</h2>
+        <h2>{translations?.Summary}</h2>
       </Title>
       <Summary className="summary">
         <RentSummary className="summary">
-          <Description className="des">Description</Description>
-          <Amount className="des">Amount</Amount>
+          <Description className="des">{translations?.description}</Description>
+          <Amount className="des">{translations?.ammount}</Amount>
         </RentSummary>
         <RentSummary>
-          <Description>Rent Total</Description>
+          <Description>{translations?.totalRent}</Description>
           <Amount>395.00</Amount>
         </RentSummary>
         <RentSummary>
-          <Description>Discount</Description>
+          <Description>{translations?.discount}</Description>
           <Amount className="discount">
             <InputField
               label=""
@@ -40,27 +40,29 @@ const ReceiptSummary = () => {
           </Amount>
         </RentSummary>
         <RentSummary>
-          <Description>VAT</Description>
+          <Description>{translations?.VAT}</Description>
           <Amount>15%</Amount>
         </RentSummary>
         <RentSummary className="rent">
-          <Description>{"Rent (Inc VAT)"}</Description>
+          <Description>{translations?.rentIncVAT}</Description>
           <Amount>454.00</Amount>
         </RentSummary>
         <RentSummary className="other_charges">
-          <Description>{"Other Charges (Inc VAT)"}</Description>
+          <Description>{translations?.otherChargesIncVAT}</Description>
           <Amount className="positive">25.00</Amount>
         </RentSummary>
         <RentSummary>
-          <Description>{"Gross Total"}</Description>
+          <Description>{translations?.grossTotal}</Description>
           <Amount>479.00</Amount>
         </RentSummary>
         <RentSummary className="other_charges">
-          <Description>{"Amount Paid"}</Description>
+          <Description>{translations?.amountPaid}</Description>
           <Amount className="negetive">100.00</Amount>
         </RentSummary>
         <RentSummary className="net_total">
-          <Description className="total_amount">{"Net Total"}</Description>
+          <Description className="total_amount">
+            {translations?.netTotal}
+          </Description>
           <Amount className="total_amount">379.00</Amount>
         </RentSummary>
       </Summary>

@@ -12,11 +12,11 @@ interface IProps {
 }
 const PriceListComponent = ({ list }: IProps) => {
   console.log(list);
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   return (
     <LoyaltyContainer>
       <Title color={colors.sideBarBgColor}>
-        <h2>Price Lists</h2>
+        <h2>{translations?.priceList as string}</h2>
       </Title>
       <DataTable
         data={list.result}
@@ -29,7 +29,7 @@ const PriceListComponent = ({ list }: IProps) => {
         sideBarTitle="Pricelist Details"
         size="400px"
         showAddButton={true}
-        addButtonText="Add New List"
+        addButtonText={translations?.addNewList}
         showFilter={true}
         keys={priceListKeys}
       />

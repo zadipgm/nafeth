@@ -17,12 +17,12 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useTheme } from "styled-components";
 import Swal from "sweetalert2";
+import { Container } from "../../style";
 interface IProps {
   list: ILoyality;
 }
 const EditLoyalityList = ({ list }: IProps) => {
-  console.log("Edit Loyality", list);
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   let obj = list.result[0];
   const [data, setData] = React.useState(obj);
@@ -65,9 +65,9 @@ const EditLoyalityList = ({ list }: IProps) => {
     );
   };
   return (
-    <div>
+    <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Edit List</h2>
+        <h2>{translations?.editList as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -82,9 +82,9 @@ const EditLoyalityList = ({ list }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="PackageName"
+                label={translations?.packageName as string}
                 placeholder="Package Name"
                 type="text"
                 defaultValue={data.packageName}
@@ -93,7 +93,7 @@ const EditLoyalityList = ({ list }: IProps) => {
                 required={true}
               />
               <InputField
-                label="Rental income"
+                label={translations?.rentalIncome as string}
                 placeholder="10"
                 type="text"
                 defaultValue={data.rentalIncome}
@@ -103,7 +103,7 @@ const EditLoyalityList = ({ list }: IProps) => {
               />
 
               <InputField
-                label="Extra KM"
+                label={translations?.extraKM as string}
                 placeholder="10"
                 type="text"
                 defaultValue={data.extraKM}
@@ -112,7 +112,7 @@ const EditLoyalityList = ({ list }: IProps) => {
                 required={true}
               />
               <InputField
-                label="Extra Hours"
+                label={translations?.extraHour as string}
                 placeholder="2"
                 type="text"
                 defaultValue={data.extraHours}
@@ -122,7 +122,7 @@ const EditLoyalityList = ({ list }: IProps) => {
               />
 
               <InputField
-                label="Discount %"
+                label={translations?.discount as string}
                 placeholder="2"
                 type="text"
                 defaultValue={data.discount}
@@ -131,7 +131,7 @@ const EditLoyalityList = ({ list }: IProps) => {
                 required={true}
               />
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -148,19 +148,19 @@ const EditLoyalityList = ({ list }: IProps) => {
               className="pricelist-save-button"
               type="submit"
             >
-              Update
+              {translations?.update as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default EditLoyalityList;

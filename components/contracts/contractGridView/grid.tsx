@@ -101,8 +101,8 @@ const Grid = ({
             className="customer_full_name"
           >
             <IconComponent
-              width={"25px"}
-              height="25px"
+              width={"20px"}
+              height="20px"
               fill={colors.sideBarBgColor}
               icon={"carduserSvg"}
             />

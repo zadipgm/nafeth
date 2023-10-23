@@ -103,41 +103,41 @@ const Nodhom = ({ nozhum }: ISettings) => {
           <FormBoxWrapper>
             <FormBox className="nodhom" color={isTheme().color}>
               <InputField
-                label="Nozm - Client Alias"
+                label={translations?.nozmClientAlias as string}
                 defaultValue={nozhumValues.clientAlias}
                 name="clientAlias"
                 onChange={(e) => onChangeHandler(e)}
               />
               <InputField
-                label="Nozm - Client Secret"
+                label={translations?.nozmClientSecret as string}
                 defaultValue={nozhumValues.clientSecret}
                 name="clientSecret"
                 onChange={(e) => onChangeHandler(e)}
               />
 
               <InputField
-                label="Nozm - Client ID"
+                label={translations?.nozmClientID as string}
                 defaultValue={nozhumValues.clientId}
                 name="clientId"
                 onChange={(e) => onChangeHandler(e)}
               />
 
               <InputField
-                label="Nozm - Username"
+                label={translations?.nozmUsername as string}
                 defaultValue={nozhumValues.username}
                 name="username"
                 onChange={(e) => onChangeHandler(e)}
               />
 
               <InputField
-                label="Nozm - Password"
+                label={translations?.nozmPassword as string}
                 defaultValue={nozhumValues.password}
                 name="password"
                 onChange={(e) => onChangeHandler(e)}
               />
 
               <SwitchesComponent
-                title="Enable Nodhom System"
+                title={translations?.enableNodhomSystem as string}
                 titlewidth="67%"
                 contentwidth="27"
                 onchange={HanldeSwtiches}
@@ -153,7 +153,7 @@ const Nodhom = ({ nozhum }: ISettings) => {
               className="nodhom-save-button"
               onClick={(e) => handleSubmit(e)}
             >
-              Save
+              {translations?.save as string}
             </Button>
           </GroupButtons>
         </Box>

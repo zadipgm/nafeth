@@ -127,7 +127,7 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
                 label="User Name"
                 placeholder="User Name"

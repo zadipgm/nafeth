@@ -106,7 +106,7 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
             onSubmit={(e) => handleSubmit(e)}
           >
             <FormBoxWrapper>
-              <FormBox color={isTheme().color}>
+              <FormBox>
                 <InputField
                   label="English Name"
                   placeholder="English Name"

@@ -18,7 +18,7 @@ const GridView = ({
         stroke="none"
         strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Icon-Set-Filled"

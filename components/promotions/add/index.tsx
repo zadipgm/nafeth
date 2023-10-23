@@ -2,6 +2,7 @@ import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import { isTheme } from "@/_helpers/getTheme";
 import { createPost } from "@/api/postApis/createBranch";
 import CarRent from "@/components/CarRental";
+import { Container } from "@/components/customers/style";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import {
   FormBox,
@@ -21,7 +22,7 @@ interface IProps {
   cars: ICarModel;
 }
 const AddPromotionList = ({ cars }: IProps) => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   let obj = {
     id: 0,
@@ -100,9 +101,9 @@ const AddPromotionList = ({ cars }: IProps) => {
     }
   };
   return (
-    <div>
+    <Container>
       <Title color={colors.sideBarBgColor}>
-        <h2>Add New List</h2>
+        <h2>{translations?.addNewList as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -117,9 +118,9 @@ const AddPromotionList = ({ cars }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="Promotion name English"
+                label={translations?.fullName_en as string}
                 placeholder="name in english"
                 type="text"
                 name={"promotionName_en"}
@@ -127,7 +128,15 @@ const AddPromotionList = ({ cars }: IProps) => {
                 required={true}
               />
               <InputField
-                label="Start Date"
+                label={translations?.fullName_ar as string}
+                placeholder="name in arabic"
+                type="text"
+                name={"promotionName_ar"}
+                onChange={handleChange}
+                required={true}
+              />
+              <InputField
+                label={translations?.startDate as string}
                 placeholder=""
                 type="date"
                 name={"startDate"}
@@ -137,15 +146,7 @@ const AddPromotionList = ({ cars }: IProps) => {
               />
 
               <InputField
-                label="Promotion name Arabic"
-                placeholder="name in arabic"
-                type="text"
-                name={"promotionName_ar"}
-                onChange={handleChange}
-                required={true}
-              />
-              <InputField
-                label="End Date"
+                label={translations?.endDate as string}
                 placeholder=""
                 type="date"
                 name={"endDate"}
@@ -155,7 +156,7 @@ const AddPromotionList = ({ cars }: IProps) => {
               />
 
               <InputField
-                label="Start Time"
+                label={translations?.startTime as string}
                 placeholder="name in english"
                 type="time"
                 name={"startTime"}
@@ -165,16 +166,7 @@ const AddPromotionList = ({ cars }: IProps) => {
                 required={true}
               />
               <InputField
-                label="discount"
-                placeholder="10"
-                type="text"
-                name={"discount"}
-                onChange={handleChange}
-                required={true}
-              />
-
-              <InputField
-                label="End Time"
+                label={translations?.endTime as string}
                 placeholder=""
                 type="time"
                 name={"endTime"}
@@ -183,8 +175,17 @@ const AddPromotionList = ({ cars }: IProps) => {
                 required={true}
                 classname="date-time"
               />
+              <InputField
+                label={translations?.discount as string}
+                placeholder="10"
+                type="text"
+                name={"discount"}
+                onChange={handleChange}
+                required={true}
+              />
+
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -200,14 +201,14 @@ const AddPromotionList = ({ cars }: IProps) => {
               className="pricelist-save-button"
               onClick={() => setshowCar(!showCar)}
             >
-              Next
+              {translations?.next as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
           {showCar && (
@@ -227,21 +228,21 @@ const AddPromotionList = ({ cars }: IProps) => {
                   className="pricelist-save-button"
                   type="submit"
                 >
-                  Save
+                  {translations?.save as string}
                 </Button>
                 <Button
                   variant="contained"
                   color="error"
                   onClick={() => router.back()}
                 >
-                  Cancel
+                  {translations?.cancel as string}
                 </Button>
               </GroupButtons>
             </>
           )}
         </Box>
       </FormWrapper>
-    </div>
+    </Container>
   );
 };
 export default AddPromotionList;

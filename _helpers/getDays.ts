@@ -1,6 +1,5 @@
 export const NumOfDays = (issueDate: any, returnDate: any) => {
 
-    console.log("here is NumOfDays", issueDate, returnDate);
     // To calculate the time difference of two dates
     let Difference_In_Time =
         new Date(returnDate).getTime() - new Date(issueDate).getTime();

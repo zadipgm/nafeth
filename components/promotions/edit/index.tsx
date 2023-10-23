@@ -26,7 +26,7 @@ interface IProps {
   cars: ICarModel;
 }
 const EditPromotionList = ({ list, cars }: IProps) => {
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   const router = useRouter();
   const [showCar, setshowCar] = React.useState(false);
   const [data, setData] = React.useState(list.result[0]);
@@ -101,7 +101,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
   return (
     <div>
       <Title color={colors.sideBarBgColor}>
-        <h2>Edit List</h2>
+        <h2>{translations?.editList as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -116,9 +116,9 @@ const EditPromotionList = ({ list, cars }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputField
-                label="Promotion Name English"
+                label={translations?.fullName_en as string}
                 placeholder="name in english"
                 type="text"
                 name={"promotionName_en"}
@@ -127,7 +127,25 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 required={true}
               />
               <InputField
-                label="End Date"
+                label={translations?.fullName_ar as string}
+                placeholder="name in english"
+                type="text"
+                name={"promotionName_ar"}
+                defaultValue={data.promotionName_en}
+                onChange={handleChange}
+                required={true}
+              />
+              <InputField
+                label={translations?.startDate as string}
+                placeholder=""
+                type="text"
+                name={"startDate"}
+                defaultValue={data.startDate}
+                onChange={handleChange}
+                required={true}
+              />
+              <InputField
+                label={translations?.endDate as string}
                 placeholder=""
                 type="text"
                 name={"endDate"}
@@ -137,8 +155,8 @@ const EditPromotionList = ({ list, cars }: IProps) => {
               />
 
               <InputField
-                label="Start Time"
-                placeholder="name in english"
+                label={translations?.startTime as string}
+                placeholder="12:00"
                 type="text"
                 name={"startTime"}
                 defaultValue={data.startTime}
@@ -146,7 +164,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 required={true}
               />
               <InputField
-                label="End Time"
+                label={translations?.endTime as string}
                 placeholder=""
                 type="text"
                 name={"endTime"}
@@ -156,17 +174,7 @@ const EditPromotionList = ({ list, cars }: IProps) => {
               />
 
               <InputField
-                label="Promotion Name Arabic"
-                placeholder="name in arabic"
-                type="text"
-                name={"promotionName_ar"}
-                defaultValue={data.promotionName_ar}
-                onChange={handleChange}
-                required={true}
-              />
-
-              <InputField
-                label="discount"
+                label={translations?.discount as string}
                 placeholder="10"
                 type="text"
                 name={"discount"}
@@ -175,17 +183,8 @@ const EditPromotionList = ({ list, cars }: IProps) => {
                 required={true}
               />
 
-              <InputField
-                label="Start Date"
-                placeholder=""
-                type="text"
-                name={"startDate"}
-                defaultValue={data.startDate}
-                onChange={handleChange}
-                required={true}
-              />
               <SwitchesComponent
-                title="Active/Inactive"
+                title={translations?.activeInactive as string}
                 info={""}
                 onchange={(e) => handleChangeStatus(e)}
                 name={"active"}
@@ -211,14 +210,14 @@ const EditPromotionList = ({ list, cars }: IProps) => {
               className="pricelist-save-button"
               type="submit"
             >
-              Update
+              {translations?.update as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

@@ -1,5 +1,4 @@
 export const GetMainHeading = (heading: string) => {
-    console.log("here is heading", heading)
     let mainHeading = "Dashboard";
     if (heading.startsWith("/cars")) return mainHeading = "Cars";
     if (heading.startsWith("/branchtransfer")) return mainHeading = "Branch transfer";

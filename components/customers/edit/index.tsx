@@ -41,7 +41,7 @@ const EditCustomer = ({
   customer,
   pricelist,
 }: IProps) => {
-  const { colors, locale, isLTR } = useTheme();
+  const { colors, locale, translations } = useTheme();
   let bodyObject = {
     id: customer.result[0].id,
     category: customer.result[0].category.id,
@@ -160,8 +160,8 @@ const EditCustomer = ({
   };
   return (
     <Container>
-      <Title color={colors.green}>
-        <h2>Edit Customer</h2>
+      <Title color={colors.sideBarBgColor}>
+        <h2>{translations?.editCustomer as string}</h2>
       </Title>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
         <Box
@@ -178,9 +178,9 @@ const EditCustomer = ({
           {/*------------------------- individual & resident form -----------------*/}
 
           <FormBoxWrapper>
-            <FormBox color={isTheme().color} className="customer-code">
+            <FormBox className="customer-code">
               <InputField
-                label="Customer Code"
+                label={translations?.customerCode as string}
                 placeholder="100000017"
                 type="text"
                 defaultValue={data.id}
@@ -189,13 +189,16 @@ const EditCustomer = ({
                 required={true}
               />
               <SelectField
-                label="Category"
+                label={translations?.category as string}
                 name="category"
                 onChange={handleChange}
                 defaultValue={data.category}
-                required
+                required={true}
               >
                 <>
+                  <option value="" disabled>
+                    {translations?.pleaseSelectCategory as string}
+                  </option>
                   {category.result.map((option) => (
                     <option
                       key={option.id}
@@ -215,9 +218,12 @@ const EditCustomer = ({
                     name="idType"
                     onChange={handleChange}
                     defaultValue={data.idType}
-                    required
+                    required={true}
                   >
                     <>
+                      <option value="" disabled>
+                        {translations?.pleaseSelectIdType as string}
+                      </option>
                       {IdType.result.map((option) => (
                         <option
                           key={option.id}
@@ -231,7 +237,7 @@ const EditCustomer = ({
                   </SelectField>
                   <IDValidateWrapper>
                     <InputField
-                      label="ID"
+                      label={translations?.ID as string}
                       placeholder="2529283364"
                       type="text"
                       defaultValue={data.idNumber}
@@ -253,11 +259,11 @@ const EditCustomer = ({
                       }
                       className="validateButton"
                     >
-                      Validate
+                      {translations?.validate as string}
                     </Button>
                     {IDTypes === 1 || IDTypes === 2 ? (
                       <InputField
-                        label="ID Version"
+                        label={translations?.iDVersionNo as string}
                         placeholder="2"
                         type="text"
                         defaultValue={data.version}
@@ -270,7 +276,7 @@ const EditCustomer = ({
                     )}
                   </IDValidateWrapper>
                   <InputField
-                    label="ID Expiry Date"
+                    label={translations?.iDExpiryDate as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -280,7 +286,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Full Name En"
+                    label={translations?.fullName_en as string}
                     placeholder="zeshan"
                     type="text"
                     onChange={handleChange}
@@ -290,13 +296,16 @@ const EditCustomer = ({
                   />
                   {IDTypes === 1 || IDTypes === 2 ? (
                     <SelectField
-                      label="Issue City"
+                      label={translations?.issueCity as string}
                       name="idissuecity"
                       onChange={handleChange}
                       defaultValue={data.idissuecity}
-                      required
+                      required={true}
                     >
                       <>
+                        <option value="" disabled>
+                          {translations?.pleaseSelectCity as string}
+                        </option>
                         {cities.result.map((option) => (
                           <option
                             key={option.id}
@@ -310,13 +319,16 @@ const EditCustomer = ({
                     </SelectField>
                   ) : (
                     <SelectField
-                      label="Issue Country"
+                      label={translations?.issueCountry as string}
                       name="idIssueCountry"
                       onChange={handleChange}
                       defaultValue={data.idIssueCountry}
-                      required
+                      required={true}
                     >
                       <>
+                        <option value="" disabled>
+                          {translations?.pleaseSelectCountry as string}
+                        </option>
                         {countries.result.map((option) => (
                           <option
                             key={option.id}
@@ -330,7 +342,7 @@ const EditCustomer = ({
                     </SelectField>
                   )}
                   <InputField
-                    label="License Number"
+                    label={translations?.licenseNumber as string}
                     placeholder="2529283364"
                     type="text"
                     onChange={handleChange}
@@ -340,7 +352,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Full Name AR"
+                    label={translations?.fullName_ar as string}
                     placeholder="zeshan"
                     type="text"
                     onChange={handleChange}
@@ -349,7 +361,7 @@ const EditCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="ID Expiry Date Hijri"
+                    label={translations?.iDExpiryDateHijri as string}
                     placeholder="HijriDate 20/04/1445"
                     type="text"
                     value={data.idExpiryDate_hijri}
@@ -359,7 +371,7 @@ const EditCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="Expiry of the license (Hijri)"
+                    label={translations?.licenseExphijri as string}
                     placeholder="HijriDate 20/04/1445"
                     type="text"
                     onChange={handleChange}
@@ -369,7 +381,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Expiry of the license (Geo)"
+                    label={translations?.licenseExpiry as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -379,7 +391,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Mobile Number"
+                    label={translations?.mobileNumber as string}
                     placeholder="966581955852"
                     type="text"
                     value={data.mobileNo}
@@ -390,7 +402,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Employer"
+                    label={translations?.employer as string}
                     placeholder="zadip"
                     type="text"
                     defaultValue={data.employerName}
@@ -400,13 +412,16 @@ const EditCustomer = ({
                   />
 
                   <SelectField
-                    label="City of Residence"
+                    label={translations?.cityofresidence as string}
                     name="residentCity"
                     onChange={handleChange}
                     defaultValue={data.residentCity}
-                    required
+                    required={true}
                   >
                     <>
+                      <option value="" disabled>
+                        {translations?.pleaseSelectCity as string}
+                      </option>
                       {cities.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -416,13 +431,16 @@ const EditCustomer = ({
                   </SelectField>
 
                   <SelectField
-                    label="Price List"
+                    label={translations?.priceList as string}
                     name="pricelist"
                     onChange={handleChange}
                     defaultValue={data.pricelist}
-                    required
+                    required={true}
                   >
                     <>
+                      <option value="" disabled>
+                        {translations?.pleaseSelectPriceList as string}{" "}
+                      </option>
                       {pricelist.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -431,7 +449,7 @@ const EditCustomer = ({
                     </>
                   </SelectField>
                   <InputField
-                    label="Work Phone"
+                    label={translations?.workPhone as string}
                     placeholder="966581955852"
                     type="text"
                     defaultValue={data.workPhone}
@@ -441,7 +459,7 @@ const EditCustomer = ({
                   />
 
                   <InputField
-                    label="Email"
+                    label={translations?.email as string}
                     placeholder="zeshan@gmail.com"
                     type="email"
                     onChange={handleChange}
@@ -451,13 +469,16 @@ const EditCustomer = ({
                     required={true}
                   />
                   <SelectField
-                    label="Nationality"
+                    label={translations?.nationality as string}
                     name="nationality"
                     onChange={handleChange}
                     defaultValue={data.nationality}
                     required={true}
                   >
                     <>
+                      <option value="" disabled>
+                        {translations?.pleaseSelectNationality as string}
+                      </option>
                       {countries.result.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option[`name_${locale}`]}
@@ -467,7 +488,7 @@ const EditCustomer = ({
                   </SelectField>
 
                   <InputField
-                    label="Date of Birth Hijri"
+                    label={translations?.dateofbirthhijri as string}
                     placeholder="20/04/1445"
                     type="text"
                     onChange={handleChange}
@@ -477,7 +498,7 @@ const EditCustomer = ({
                     required={true}
                   />
                   <InputField
-                    label="Date of Birth gregorian"
+                    label={translations?.dateofBirth as string}
                     placeholder=""
                     type="date"
                     onChange={handleChange}
@@ -487,7 +508,7 @@ const EditCustomer = ({
                     classname="nationality"
                   />
                   <SwitchesComponent
-                    title="Active/Inactive"
+                    title={translations?.activeInactive as string}
                     info={""}
                     onchange={(e) => handleChangeStatus(e)}
                     name={"active"}
@@ -551,9 +572,12 @@ const EditCustomer = ({
                     name="Place of  issue"
                     // onChange={handleChange}
                     // value={data.cityId}
-                    required
+                    required={true}
                   >
                     <>
+                      <option value={""} disabled>
+                        Please select price list...
+                      </option>
                       {cities.result.map((option) => (
                         <option
                           key={option.id}
@@ -593,13 +617,13 @@ const EditCustomer = ({
               )}
             </FormBox>
           </FormBoxWrapper>
-          <Title color={colors.green}>
-            <h3>Address</h3>
+          <Title color={colors.sideBarBgColor}>
+            <h3>{translations?.address as string}</h3>
           </Title>
           <FormBoxWrapper>
-            <FormBox color={isTheme().color}>
+            <FormBox>
               <InputField
-                label="Building Number"
+                label={translations?.buildingNumber as string}
                 placeholder="1234"
                 type="text"
                 defaultValue={data.cA_buildingNo}
@@ -608,7 +632,7 @@ const EditCustomer = ({
                 required={true}
               />
               <InputField
-                label="City"
+                label={translations?.city as string}
                 placeholder="Riyadh"
                 type="text"
                 defaultValue={data.cA_City}
@@ -617,7 +641,7 @@ const EditCustomer = ({
                 required={true}
               />
               <InputField
-                label="Street Name"
+                label={translations?.streetName as string}
                 placeholder="king fahad"
                 type="text"
                 defaultValue={data.cA_StreetName}
@@ -626,7 +650,7 @@ const EditCustomer = ({
                 required={true}
               />{" "}
               <InputField
-                label="Country"
+                label={translations?.country as string}
                 placeholder="saudi arabia"
                 type="text"
                 defaultValue={data.cA_Country}
@@ -635,7 +659,7 @@ const EditCustomer = ({
                 required={true}
               />
               <InputField
-                label="District"
+                label={translations?.district as string}
                 placeholder="al malaz"
                 type="text"
                 defaultValue={data.cA_District}
@@ -644,7 +668,7 @@ const EditCustomer = ({
                 required={true}
               />
               <InputField
-                label="Zip-code1"
+                label={translations?.zipcode1 as string}
                 placeholder="12664"
                 type="text"
                 defaultValue={data.cA_PostalCode}
@@ -654,7 +678,7 @@ const EditCustomer = ({
                 classname="zip-code"
               />{" "}
               <InputField
-                label="Zip-code2"
+                label={translations?.zipcode2 as string}
                 placeholder="12664"
                 type="text"
                 defaultValue={data.cA_AdditionalPostalCode}
@@ -664,7 +688,7 @@ const EditCustomer = ({
                 classname="zip-code"
               />
               <InputField
-                label="Additional Information"
+                label={translations?.additionalInformation as string}
                 placeholder=""
                 type="text"
                 defaultValue={data.comments}
@@ -680,14 +704,14 @@ const EditCustomer = ({
               className="add-customer-save-button"
               type="submit"
             >
-              Update
+              {translations?.update as string}
             </Button>
             <Button
               variant="contained"
               color="error"
               onClick={() => router.back()}
             >
-              Cancel
+              {translations?.cancel as string}
             </Button>
           </GroupButtons>
         </Box>

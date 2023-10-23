@@ -45,7 +45,10 @@ export const DataView = styled.div`
 `;
 export const TableWrapper = styled.div`
 overflow-x: auto;
-/* padding: 20px; */
+&.rent_page{
+box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  margin: 0px 18px;
+}
  background-color: #f4f5f3;
  border-radius: 8px;
 `
@@ -88,7 +91,8 @@ white-space: nowrap;
   /* padding: 0px 8px; */
   border-top: 1px solid #9b9b9b;
   border-bottom: 1px solid #9b9b9b;
-  text-align: left;
+  
+  ${({ theme }) => theme.isLTR ? css`text-align: left;` : css`text-align: right;`}
   &.table-header {
     font-size: 14px;
     font-weight: 700;

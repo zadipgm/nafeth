@@ -46,6 +46,7 @@ import {
 } from "@/models/contractPayment";
 import ReceiptSummary from "./ReceiptSummary";
 import RentAccount from "./RentAccount/inidex";
+import RentalDetails from "./RentalDetails";
 interface IProps {
   contract: IContracts;
 }
@@ -69,7 +70,7 @@ const ReturnContract = ({ contract }: IProps) => {
   let userName = getName() as string;
   let userPassword = getPassword() as string;
   let company = getCompany() as string;
-  const { colors, locale } = useTheme();
+  const { colors, locale, translations } = useTheme();
   const router = useRouter();
   const [data, setData] = React.useState(returnobj);
   const [bill, setBill] = React.useState(billobj);
@@ -125,7 +126,6 @@ const ReturnContract = ({ contract }: IProps) => {
         setOpen(true);
       }
     });
-    console.log("contractBill", billobj, refresh);
   };
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
@@ -149,48 +149,48 @@ const ReturnContract = ({ contract }: IProps) => {
         >
           <ReturnContainer className="return-page">
             <Title color={colors.sideBarBgColor}>
-              <h2>Contract Details</h2>
+              <h2>{translations?.contractDetail}</h2>
             </Title>
             <FormBoxWrapper className="return-page">
-              <FormBox color={isTheme().color}>
+              <FormBox>
                 <InputField
-                  label="Contract Number"
+                  label={translations?.ContractNumber as string}
                   type="text"
                   value={contract.result[0].contractNo}
                   disabled={true}
                 />
                 <InputField
-                  label="Price List"
+                  label={translations?.priceList as string}
                   type="text"
                   value={12}
                   disabled={true}
                 />
                 <InputField
-                  label="Issue Branch"
+                  label={translations?.issueBranch as string}
                   type="text"
                   value={"main"}
                   disabled={true}
                 />
                 <InputField
-                  label="Customer Name"
+                  label={translations?.customerName as string}
                   type="text"
                   value={"zeshan"}
                   disabled={true}
                 />{" "}
                 <InputField
-                  label="Make/ Model"
+                  label={translations?.makemodel as string}
                   type="text"
                   value={"toyota"}
                   disabled={true}
                 />
                 <InputField
-                  label="KM Out"
+                  label={translations?.kmout as string}
                   type="text"
                   value={contract.result[0].kmOut}
                   disabled={true}
                 />
                 <InputField
-                  label="KM In"
+                  label={translations?.kMIn as string}
                   placeholder="100000017"
                   type="text"
                   onBlur={handleChange}
@@ -198,7 +198,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   required={true}
                 />
                 <InputField
-                  label="Return Date"
+                  label={translations?.returnDate as string}
                   type="date"
                   onChange={handleChange}
                   defaultValue={data.retunDate}
@@ -206,12 +206,16 @@ const ReturnContract = ({ contract }: IProps) => {
                   required={true}
                 />
                 <SelectField
-                  label="Evaluation"
+                  label={translations?.evaluation as string}
                   name="evaluation"
-                  required
+                  defaultValue={""}
                   onChange={handleChange}
+                  required={true}
                 >
                   <>
+                    <option value="" disabled>
+                      {translations?.pleaseEvaluate as string}
+                    </option>
                     {evalueation.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -220,12 +224,16 @@ const ReturnContract = ({ contract }: IProps) => {
                   </>
                 </SelectField>
                 <SelectField
-                  label="Status"
+                  label={translations?.status as string}
                   name="status"
                   required
+                  defaultValue={""}
                   onChange={handleChange}
                 >
                   <>
+                    <option value="" disabled>
+                      {translations?.pleaseSelectStatus as string}
+                    </option>
                     {status.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -236,49 +244,7 @@ const ReturnContract = ({ contract }: IProps) => {
               </FormBox>
             </FormBoxWrapper>
           </ReturnContainer>
-          <ReturnContainer>
-            <Title color={colors.sideBarBgColor}>
-              <h2>Rental Details</h2>
-            </Title>
-            <RentList className="rental-details">
-              <RentListItem>
-                <CarDetailsTitle>Daily Rent</CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].dailyPrice}
-                </CarDetailsSubTitle>
-              </RentListItem>
-              <RentListItem>
-                <CarDetailsTitle>Daily Km limit</CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].kmLimit}
-                </CarDetailsSubTitle>
-              </RentListItem>
-              <RentListItem>
-                <CarDetailsTitle>Free Hours </CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].graceHours}
-                </CarDetailsSubTitle>
-              </RentListItem>
-              <RentListItem>
-                <CarDetailsTitle>Extra hours</CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].graceHours}
-                </CarDetailsSubTitle>
-              </RentListItem>
-              <RentListItem>
-                <CarDetailsTitle>Extra hourly price</CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].graceHoursPrice}
-                </CarDetailsSubTitle>
-              </RentListItem>
-              <RentListItem>
-                <CarDetailsTitle> Extra KM Price</CarDetailsTitle>
-                <CarDetailsSubTitle>
-                  {contract.result[0].extraKmPrice}
-                </CarDetailsSubTitle>
-              </RentListItem>
-            </RentList>
-          </ReturnContainer>
+          <RentalDetails contract={contract} />
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <>
               <RentAccount />
@@ -288,7 +254,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   color="success"
                   onClick={handleOpen}
                 >
-                  Add Bill
+                  {translations?.addBill as string}
                 </Button>
               </GroupButtons>
               <ModalComponent open={open} handleClose={handleClose}>
@@ -314,7 +280,7 @@ const ReturnContract = ({ contract }: IProps) => {
                         </div>
                         <FormBox>
                           <InputField
-                            label="Date"
+                            label={translations?.date as string}
                             type="date"
                             onChange={hanldeBillChange}
                             defaultValue={formattedDate(new Date())}
@@ -322,15 +288,15 @@ const ReturnContract = ({ contract }: IProps) => {
                             required={true}
                           />
                           <SelectField
-                            label="Activity"
+                            label={translations?.activity as string}
                             name="activity"
                             required={true}
-                            defaultValue={0}
+                            defaultValue={""}
                             onChange={hanldeBillChange}
                           >
                             <>
-                              <option value={0} disabled>
-                                Select Activity..
+                              <option value={""} disabled>
+                                {translations?.pleaseSelectActivity as string}
                               </option>
                               {returnPage?.activity?.result.map((option) => (
                                 <option key={option.id} value={option.id}>
@@ -341,7 +307,7 @@ const ReturnContract = ({ contract }: IProps) => {
                           </SelectField>
 
                           <InputField
-                            label="Amount"
+                            label={translations?.ammount as string}
                             type="number"
                             onChange={hanldeBillChange}
                             defaultValue={"0"}
@@ -349,7 +315,7 @@ const ReturnContract = ({ contract }: IProps) => {
                             required={true}
                           />
                           <InputField
-                            label="Comments"
+                            label={translations?.Comments as string}
                             placeholder=""
                             type="text"
                             onChange={hanldeBillChange}
@@ -365,14 +331,14 @@ const ReturnContract = ({ contract }: IProps) => {
                           className="paylater-button"
                           type="submit"
                         >
-                          Add
+                          {translations?.add as string}
                         </Button>
                         <Button
                           variant="contained"
                           color="error"
                           onClick={handleClose}
                         >
-                          Cancel
+                          {translations?.cancel as string}
                         </Button>
                       </GroupButtons>
                     </Box>
@@ -386,7 +352,7 @@ const ReturnContract = ({ contract }: IProps) => {
               {contractBill?.result?.length! > 0 && (
                 <ReturnContainer>
                   <Title color={colors.sideBarBgColor}>
-                    <h2>Bills</h2>
+                    <h2> {translations?.Bills}</h2>
                   </Title>
                   <DataTable
                     data={contractBill?.result}
@@ -411,7 +377,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   // type="submit"
                   // onClick={(e) => handleSubmit(e)}
                 >
-                  Return With Full Payment
+                  {translations?.returnWithFullPayment}
                 </Button>
                 <Button
                   variant="contained"
@@ -419,14 +385,14 @@ const ReturnContract = ({ contract }: IProps) => {
                   className="paylater-button"
                   // type="submit"
                 >
-                  Return only
+                  {translations?.returnonly}
                 </Button>
                 <Button
                   variant="contained"
                   color="error"
                   onClick={() => router.back()}
                 >
-                  Cancel
+                  {translations?.cancel}
                 </Button>
               </GroupButtons>
             </>

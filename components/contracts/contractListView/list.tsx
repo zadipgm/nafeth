@@ -57,7 +57,7 @@ const List = ({
   editLink,
 }: IProps) => {
   const router = useRouter();
-  const { locale, colors } = useTheme();
+  const { locale, colors, translations } = useTheme();
   const carplate = {
     plateText1_ar: filterCar(cars, contract.carID)[0].plateText1_ar,
     plateText2_ar: filterCar(cars, contract.carID)[0].plateText2_ar,
@@ -321,7 +321,7 @@ const List = ({
                       />
                     }
                   >
-                    Dispute
+                    {translations?.dispute}
                   </Button>
                 )}
 
@@ -340,7 +340,7 @@ const List = ({
                       />
                     }
                   >
-                    Extention
+                    {translations?.extention}
                   </Button>
                 )}
 
@@ -359,7 +359,7 @@ const List = ({
                       />
                     }
                   >
-                    Edit
+                    {translations?.edit}
                   </Button>
                 )}
                 {isViewable && (
@@ -381,7 +381,7 @@ const List = ({
                       />
                     }
                   >
-                    Details
+                    {translations?.details}
                   </Button>
                 )}
                 {isReturnable && (
@@ -399,10 +399,10 @@ const List = ({
                       />
                     }
                   >
-                    Return
+                    {translations?.return}
                   </Button>
                 )}
-                {isPrintAble && (
+                {/* {isPrintAble && (
                   <Button
                     variant={"outlined"}
                     className="print"
@@ -415,7 +415,7 @@ const List = ({
                   >
                     Print
                   </Button>
-                )}
+                )} */}
               </ButtonWrapper>
             </CarTypeSvgWrapper>
           </GlobalListViewWrapper>

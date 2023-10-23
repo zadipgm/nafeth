@@ -7,6 +7,10 @@ export const Container = styled.div`
   &.discount{
     margin-bottom: 0;
   }
+  &.car-plate-arabic{
+    flex-basis: 50px;
+  }
+ 
 `
 export const Label = styled.label`
     font-size: 15px;

@@ -82,7 +82,7 @@ const EditAccessoryList = ({ list }: IProps) => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <FormBoxWrapper className="price-list">
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputComponent
                 label="Accessory Name in English"
                 placeholder="name in english"
@@ -102,7 +102,7 @@ const EditAccessoryList = ({ list }: IProps) => {
                 required={true}
               />
             </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputComponent
                 label="Accessory Name in Arabic"
                 placeholder="name in arabic"
@@ -122,7 +122,7 @@ const EditAccessoryList = ({ list }: IProps) => {
                 required={true}
               />
             </FormBox>
-            <FormBox color={isTheme().color} className="price-list">
+            <FormBox className="price-list">
               <InputComponent
                 label="cost"
                 placeholder="21"

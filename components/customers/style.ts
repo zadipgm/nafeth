@@ -17,9 +17,10 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin: 20px auto;
-    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     & .MuiButton-endIcon {
+      margin: 0px 4px;
       svg {
+       
         transform: rotate(90deg);
       }
     }
@@ -103,6 +104,9 @@ export const IDValidateWrapper = styled.div`
   .validateButton {
      padding: 7px 18px;
          margin-top: 18px;
+         .MuiButton-endIcon{
+          margin:0px 6px;
+         }
   }
   .validateButton-company {
     width: 30%;

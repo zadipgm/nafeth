@@ -23,6 +23,7 @@ interface ISettings {
   tajeer_portal: ICompanyTajeer;
 }
 const TajeerPortal = ({ tajeer_portal }: ISettings) => {
+  const { translations } = useTheme();
   const [tajeer_portalValues, setTajeer_portalValues] =
     React.useState(tajeer_portal);
   const onChangeHandler = (
@@ -67,7 +68,6 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
       }
     );
   };
-  const { translations } = useTheme();
   return (
     <>
       <FormContainer>
@@ -101,7 +101,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
             <FormBoxWrapper>
               <FormBox className="tajeer" color={isTheme().color}>
                 <InputField
-                  label="Tajeer Application ID"
+                  label={translations?.tajeerApplicationID as string}
                   placeholder="c49fda9f"
                   defaultValue={tajeer_portal.tajeerAppId}
                   name="tajeerAppId"
@@ -109,7 +109,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Tajeer Application Key"
+                  label={translations?.tajeerApplicationKey as string}
                   placeholder="0a0ecdd133cbda8414c36b1d9f8f8f51"
                   defaultValue={tajeer_portal.tajeerAppKey}
                   name="tajeerAppKey"
@@ -117,7 +117,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                   onChange={(e) => onChangeHandler(e)}
                 />
                 <InputField
-                  label="Tajeer User Credentials"
+                  label={translations?.tajeerUserCredentials as string}
                   placeholder="YXBpVXNlcjEwNjYzNzk6RXZpbHNpZGUwMDch"
                   defaultValue={tajeer_portal.tajeerUserCreditials}
                   name="tajeerUserCreditials"
@@ -127,9 +127,9 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
               </FormBox>
             </FormBoxWrapper>
             <FormBoxWrapper>
-              <FormBox color={isTheme().color}>
+              <FormBox>
                 <InputField
-                  label="Naql Authority License"
+                  label={translations?.naqlAuthorityLicense as string}
                   placeholder="1234542"
                   defaultValue={tajeer_portal.tajeerAuthorityLicense}
                   name="tajeerAuthorityLicense"
@@ -145,7 +145,7 @@ const TajeerPortal = ({ tajeer_portal }: ISettings) => {
                 className="tajeer-portal-details-save-button"
                 onClick={(e) => handleSubmit(e)}
               >
-                Save
+                {translations?.save as string}
               </Button>
             </GroupButtons>
           </Box>

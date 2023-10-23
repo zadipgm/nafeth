@@ -38,7 +38,6 @@ const List = ({
   car,
   page,
   hanldeSelected,
-
   handleEdit,
   toggleDrawer,
   i,
