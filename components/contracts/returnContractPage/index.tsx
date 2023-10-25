@@ -1,13 +1,6 @@
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import * as React from "react";
-import {
-  AccountTable,
-  Amount,
-  Description,
-  RentSummary,
-  ReturnContainer,
-  Summary,
-} from "../style";
+import { ReturnContainer } from "../style";
 import { useTheme } from "styled-components";
 import {
   FormBox,
@@ -17,18 +10,11 @@ import {
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
-import { bank, evalueation, payment, status } from "@/global/fakeData";
-import {
-  CarDetailsSubTitle,
-  CarDetailsTitle,
-  RentList,
-  RentListItem,
-} from "@/components/CarRental/style";
+import { evalueation, status } from "@/global/fakeData";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { IContracts } from "@/models/individualContracts";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
-import { Update } from "@/api/putApis/update";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
 import InputField from "@/reuseableComponents/customInputField/input";
 import SelectField from "@/reuseableComponents/customeSelectField/select";
@@ -38,27 +24,24 @@ import { useReturnPageData } from "@/context/returnpageContext";
 import { IReturnPageContexts } from "@/models/appContext";
 import { createPost } from "@/api/postApis/createBranch";
 import DataTable from "@/reuseableComponents/DataTable";
-import { contractKeys, contractPaymentKeys } from "@/constants";
+import { contractPaymentKeys } from "@/constants";
 import { fetchData } from "@/api/fetchapis/fetchData";
-import {
-  IContractPayment,
-  IContractPaymentResult,
-} from "@/models/contractPayment";
+import { IContractPayment } from "@/models/contractPayment";
 import ReceiptSummary from "./ReceiptSummary";
 import RentAccount from "./RentAccount/inidex";
 import RentalDetails from "./RentalDetails";
+import { IRentCalculation } from "@/models/rentCalculate";
 interface IProps {
   contract: IContracts;
 }
 const ReturnContract = ({ contract }: IProps) => {
   const returnPage: IReturnPageContexts = useReturnPageData();
   const returnobj = {
-    retunDate: formattedDate(new Date()),
-    kmIn: "",
-    evaluation: "",
-    status: "",
-    comments: "",
-    discount: "",
+    contractNo: contract.result[0].contractNo,
+    dateIn: formattedDate(new Date()),
+    kmIn: 0,
+    timeIn: "",
+    discount: 0,
   };
   const billobj = {
     amount: 0,
@@ -77,6 +60,8 @@ const ReturnContract = ({ contract }: IProps) => {
   const [open, setOpen] = React.useState(false);
   const [refresh, setRefresh] = React.useState(false);
   const [contractBill, setContractBill] = React.useState<IContractPayment>();
+  const [rentCalculation, setRentCalculation] =
+    React.useState<IRentCalculation>();
 
   const fetchContractPayments = React.useCallback(async () => {
     let url = `/contracts/Individual/${contract.result[0].contractNo}/bills`;
@@ -127,14 +112,49 @@ const ReturnContract = ({ contract }: IProps) => {
       }
     });
   };
-
+  React.useEffect(() => {
+    CalculateRent();
+  }, [data.kmIn, data.discount, data.dateIn]);
+  const CalculateRent = async () => {
+    let today = new Date();
+    let time = today.getHours() + ":" + today.getMinutes();
+    let body = {
+      contractNo: contract.result[0].contractNo,
+      dateIn: new Date(data.dateIn),
+      kmIn: Number(data?.kmIn),
+      timeIn: time,
+      discount: Number(data.discount),
+    };
+    if (data.kmIn > contract.result[0].kmOut) {
+      await createPost(
+        userName,
+        userPassword,
+        `contracts/Individual/${contract.result[0].contractNo}/calculaterent`,
+        company,
+        body
+      ).then((res: any) => {
+        if (res.data.result === null) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `Something went wrong!...${res.data.message}`,
+          });
+        } else {
+          setRentCalculation(res.data);
+        }
+      });
+    } else {
+      return;
+    }
+  };
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
+    CalculateRent();
   };
-
+  console.log(rentCalculation, "rentCalculation");
   return (
     <>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -201,8 +221,8 @@ const ReturnContract = ({ contract }: IProps) => {
                   label={translations?.returnDate as string}
                   type="date"
                   onChange={handleChange}
-                  defaultValue={data.retunDate}
-                  name={"retunDate"}
+                  defaultValue={data.dateIn}
+                  name={"dateIn"}
                   required={true}
                 />
                 <SelectField
@@ -247,7 +267,7 @@ const ReturnContract = ({ contract }: IProps) => {
           <RentalDetails contract={contract} />
           {Number(data.kmIn) > contract.result[0].kmOut && (
             <>
-              <RentAccount />
+              <RentAccount rentCalculation={rentCalculation} />
               <GroupButtons className="add-bill-button">
                 <Button
                   variant="contained"
@@ -368,7 +388,11 @@ const ReturnContract = ({ contract }: IProps) => {
                   />
                 </ReturnContainer>
               )}
-              <ReceiptSummary />
+              <ReceiptSummary
+                handleChange={handleChange}
+                discount={Number(data.discount)}
+                rentCalculation={rentCalculation}
+              />
               <GroupButtons className="return_page_buttons">
                 <Button
                   variant="contained"

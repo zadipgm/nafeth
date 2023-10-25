@@ -260,7 +260,12 @@ const TableComponent = ({
         />
       </Table>
       {state.right && (
-        <DrawerComponent state={state} toggleDrawer={toggleDrawer} width={size}>
+        <DrawerComponent
+          state={state}
+          toggleDrawer={toggleDrawer}
+          width={size}
+          item={drawerData}
+        >
           <div>
             <DetailsTitle color={page_color as string}>
               {sideBarTitle}

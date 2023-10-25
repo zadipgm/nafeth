@@ -11,12 +11,12 @@ interface IProps {
   data: IGroups;
 }
 const GroupAccessManagement = ({ data }: IProps) => {
-  const { colors }: any = useTheme();
+  const { colors, translations } = useTheme();
 
   return (
     <>
       <Title color={colors.sideBarBgColor}>
-        <h2>Group Access Management</h2>
+        <h2>{translations?.groupAccessManagement}</h2>
       </Title>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
         <DataTableWrapper>
@@ -25,13 +25,13 @@ const GroupAccessManagement = ({ data }: IProps) => {
             linkPageUrl={"groups"}
             page_color={colors.sideBarBgColor}
             isDuplicate={true}
-            sideBarTitle="Group Details"
+            sideBarTitle={translations?.groupDetails as string}
             data={data.result}
             isEditAble={true}
             isViewAble={true}
             size="600px"
             showAddButton={true}
-            addButtonText="Add Group"
+            addButtonText={translations?.addGroup}
             showFilter={true}
             keys={groupKeys}
           />

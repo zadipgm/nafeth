@@ -52,9 +52,11 @@ export const AccessoriesWrapper = styled.div`
 export const RentContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-  padding-bottom: 10px;
   &.contract-pricing {
     margin-top: 40px;
+  }
+  &.rent_summary{
+    margin-top: 20px;
   }
   &.rent_account{
     margin-top: 20px;
@@ -671,7 +673,7 @@ export const DetailList = styled.ul`
   }
 `;
 export const DetailListItem = styled.li`
-  width: 50%;
+  width: 100%;
   display: flex;
   padding: 15px;
   justify-content: space-between;
@@ -697,187 +699,17 @@ export const CarPlateInArabicWrapper = styled.div`
     width: 100%;
   }
 `;
-export const RentWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 30px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 20px;
-`;
-export const RentList = styled.ul`
-  margin: 0;
-  padding: 15px;
-  list-style-type: none;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 70%;
-  flex-wrap: wrap;
-  border-bottom-left-radius: 20px;
-  ${({ theme }) =>
-    theme.isLTR
-      ? css`
-       border-top-left-radius: 20px;
-       border-bottom-left-radius: 20px;
-          border-bottom-right-radius: 130px;
-        `
-      : css`
-       border-top-right-radius: 20px;
-       border-bottom-right-radius: 20px;
-          border-bottom-left-radius: 130px;
-        `}
-  background-color: ${({ theme }) => theme.colors.sideBarBgColor};
-  color: white;
-  flex-grow: 1;
-  flex-basis: 300px;
-  &.customer-selected {
-    background-color: #000000ad;
-  }
-  &.rental-details {
-    margin: 20px;
-    border-radius: 100px;
-    background-color: transparent;
-    color: black;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    > li {
-      width: 16%;
-      border-right: 1px solid ${({ theme }) => theme.colors.gray2};
-      span {
-        color: ${({ theme }) => theme.colors.gray1};
-      }
-    }
-  }
-  &.payment-detail {
-    background-color: transparent;
-    color: black;
-    width: 70%;
-    > li {
-      width: 14%;
-    }
-  }
-  &.payment-details {
-    background-color: transparent;
-    color: black;
-    width: 100%;
-    > li {
-      width: 11%;
-    }
-  }
-  &.custom-price {
-    background-color: transparent;
-    color: black;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 15px;
-  }
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
-export const RentListItem = styled.li`
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  flex-basis: 200px;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 
-  margin: 2px;
-  &.other-details {
-    width: 30%;
-  }
-  &.other-detail {
-    width: 30%;
-  }
-  @media (max-width: 600px) {
-    width: 48%;
-    justify-content: center;
-  }
-`;
-export const CarOtherDetails = styled.div`
-  width: 30%;
-  padding: 15px;
-  flex-grow: 1;
-  flex-basis: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  & .title {
-    > h2 {
-      margin: 0;
-      color: black;
-      font-weight: 700;
-    }
-  }
-  > svg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    margin: 0 auto;
-  }
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
-export const OtherDetailsTitleWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  & .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-  }
-`;
+
+
+
+
 export const Address = styled.span`
   font-size: 14px;
 `;
-export const BackICon = styled.div`
-  cursor: pointer;
-  svg {
-    ${({ theme }) =>
-    theme.isLTR
-      ? css`
-            transform: rotate(0deg);
-          `
-      : css`
-            transform: rotate(180deg);
-          `}
-  }
-`;
-export const CarDetailsTitle = styled.span`
-  color: ${({ theme }) => theme.colors.gray2};
-  font-size: 14px;
-  font-weight: 600;
-  &.other-detail {
-    color: ${({ theme }) => theme.colors.black1};
-  }
-  &.other-details {
-    color: ${({ theme }) => theme.colors.black1};
-  }
-`;
-export const CarDetailsSubTitle = styled.span<{ color?: string }>`
-  font-size: 18px;
-  &.other-detail {
-    font-size: 14px;
-    font-weight: 700;
-  }
-  &.other-details {
-    border: 3px solid ${({ color }) => color};
-    width: 100px;
-    text-align: center;
-    border-radius: 8px;
-    color: ${({ color }) => color};
-    background-color: ${({ theme }) => theme.colors.sideBarBgColor};
-  }
-`;
+
+
+
 export const CarPlateNumberInputWrapper = styled.div`
 display: flex;
 justify-content: flex-start;
@@ -886,33 +718,15 @@ width: 100%;
 gap: 16px;
 flex-wrap: wrap;
 `
-export const OtherDetailsList = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 15px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: black;
-`;
-export const CarplateSvgWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-`;
+
+
 export const OtherDetailsListItem = styled.li`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
 `;
-export const Colors = styled.div`
-  color: blue;
-`;
+
 export const IDIcon = styled.div`
   width: 30px;
   height: 30px;
@@ -953,6 +767,11 @@ export const SelectedListItem = styled.li`
       : css`
           border-left: 1px solid ${({ theme }) => theme.colors.gray2};
         `}
+        &.car_plate{
+          display:flex;
+          flex-direction: column;
+          gap:10px;
+        }
 `;
 export const Label = styled.div`
   font-size: 18px;
@@ -964,7 +783,14 @@ export const Label = styled.div`
 export const Value = styled.div`
   padding: 0px 12px;
   text-transform: capitalize;
-  padding:unset;
+  
+  &.car_plate{
+        width: clamp(200px, 40%, 400px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
 `;
 // ----------------------CarListView css----------------------------------------------------------------------------------------
 
@@ -1013,7 +839,7 @@ export const ContractCustomer = styled.div`
 export const ModelListViewWrapper = styled.div`
   width: 100%;
   flex-grow: 1;
-  flex-basis: 112px;
+  flex-basis: clamp(150px, 100%, 200px);
   font-size: 18px;
   display: flex;
   gap: 2px;

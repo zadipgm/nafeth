@@ -49,7 +49,8 @@ const ContractGridView = ({
             cars={cars}
             page={page}
             handleEdit={handleEdit}
-            customers={customers} // toggleDrawer={toggleDrawer}
+            customers={customers}
+            toggleDrawer={toggleDrawer}
             isViewable={isViewable}
             isEditable={isEditable}
             isExtendable={isExtendable}

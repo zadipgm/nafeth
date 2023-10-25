@@ -9,7 +9,9 @@ export function middleware(request: { cookies: { get: (arg0: string) => { (): an
             url.pathname = '/login/'
             return NextResponse.redirect(url)
         } else if (cookie === 'true') {
-            return NextResponse.next()
+            const url2 = request.nextUrl.clone()
+            url2.pathname = '/dashboard/'
+            return NextResponse.redirect(url2)
 
         }
         return NextResponse.next()

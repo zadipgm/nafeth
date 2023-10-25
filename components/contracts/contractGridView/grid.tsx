@@ -46,6 +46,7 @@ interface IProps {
   isDisputeable: boolean;
   isReturnable: boolean;
   isPrintAble: boolean;
+  toggleDrawer?: (param1: Anchor, param2: boolean, param3: any) => void;
 }
 const Grid = ({
   cars,
@@ -57,7 +58,7 @@ const Grid = ({
   isDisputeable,
   isExtendable,
   isReturnable,
-  isPrintAble,
+  toggleDrawer,
 }: IProps) => {
   const { colors, locale } = useTheme();
   const router = useRouter();
@@ -229,7 +230,7 @@ const Grid = ({
             <Button
               variant={"outlined"}
               className="details grid"
-              // onClick={() => toggleDrawer("right", true)}
+              onClick={() => toggleDrawer?.("right", true, contract)}
               endIcon={
                 <ArrowCircleSvg
                   width="15px"
@@ -259,18 +260,6 @@ const Grid = ({
               Return
             </Button>
           )}
-          {/* {isPrintAble && (
-            <Button
-              variant={"outlined"}
-              className="print"
-              onClick={() => window.print()}
-              endIcon={
-                <ReturnSvg width="15px" height="15px" fill={colors.cyan} />
-              }
-            >
-              Print
-            </Button>
-          )} */}
         </ButtonWrapper>
       </CardWrapper>
     </Grow>

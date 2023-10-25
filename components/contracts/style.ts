@@ -24,32 +24,7 @@ export const ExtentionContainer = styled.div`
 export const DetailSection = styled.div`
   width: 100%;
 `;
-export const AccountTable = styled.table`
-  border-collapse: collapse;
-  width: 100%;
-  td {
-    border: 1px solid #ddd;
-    width: 10%;
-    padding: 0px 6px;
-    &.red {
-      color: red;
-    }
-  }
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  tr:hover {
-    background-color: #ddd;
-  }
-  tr {
-    &.last-table {
-      font-weight: 700;
-      td {
-        width: 87.5%;
-      }
-    }
-  }
-`;
+
 export const ReturnContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
@@ -79,11 +54,9 @@ export const RentSummary = styled.div`
   padding: 0px 10px;
   border-radius: 6px;
   margin: 8px 0px 0px 0px;
-
   &.summary {
     background-color: #f4f5f3;
     letter-spacing: 0.6px;
-
     color: ${({ theme }) => theme.colors.black1};
     padding: 10px;
     .des {

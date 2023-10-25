@@ -39,10 +39,16 @@ import { ICountriesModel } from "@/models/country";
 import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import { createPost } from "@/api/postApis/createBranch";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
-import { NumOfDays } from "@/_helpers/getDays";
+import { GetDateFromDays, NumOfDays } from "@/_helpers/getDays";
 import InputField from "@/reuseableComponents/customInputField/input";
 import { customersKeys } from "@/constants";
 import DataTable from "@/reuseableComponents/DataTable";
+import {
+  Amount,
+  Description,
+  RentSummary,
+  Summary,
+} from "@/components/contracts/style";
 interface IProps {
   customers: ICustomers;
   car: ICarModel;
@@ -81,12 +87,13 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
     accessoriesID: 0,
   };
   const [openCustomPrice, setOpenCustomPrice] = React.useState(false);
-  const [isCustomerSelected, setIsCustomerSelected] = React.useState(false);
+  let initialReturnDate = GetDateFromDays(1);
+  const [returnDate, setReturnDate] = React.useState(initialReturnDate);
 
   const [isCustomerOpen, setIsCustomerOpen] = React.useState(false);
   const [isDriverOpen, setIsDriverOpen] = React.useState(false);
   const [ShowContractDetials, setShowContractDetials] = React.useState(false);
-  const [showPricing, setShowPricing] = React.useState(false);
+  const [totalDays, setTotalDays] = React.useState(1);
   const [accessories, setAccessories] = React.useState(false);
   const [customPrice, setCustomPrice] = React.useState<Icustomprice>();
   const [caraccessories, setCaraccessories] = React.useState<string[]>([]);
@@ -141,7 +148,21 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       [e.target.name]: e.target.value,
     });
   };
-
+  const handleChangeDays = (e: { target: { value: any } }) => {
+    let days = Number(e.target.value);
+    let newReturnDate = GetDateFromDays(days === 0 ? 1 : days);
+    setTotalDays(days);
+    setReturnDate(newReturnDate);
+  };
+  const handleChangeReturnDate = (e: { target: { value: any } }) => {
+    // debugger;
+    let date = new Date(e.target.value);
+    let newDays = NumOfDays(data.issueDate, date);
+    let truncDays = Math.trunc(newDays);
+    console.log(date, "Return", truncDays);
+    setReturnDate(`${date}`);
+    setTotalDays(truncDays);
+  };
   //submit Functions-----------------
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -188,15 +209,14 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
           ? car.result[0].perExtraKM
           : customPrice?.perExtraKM,
       advanceAmount: data.advanceAmount,
-      actualReturnDate: data.actualReturnDate,
-      actualTotalDays: NumOfDays(data.issueDate, data.actualReturnDate),
+      actualReturnDate: returnDate,
+      actualTotalDays: totalDays,
       issueComments: data.issueComments,
       issueBranchID: 1,
       issueBy: userName,
       promotionDiscount: data.promotionDiscount,
       accessoriesID: caraccessories.toLocaleString(),
     };
-    e.preventDefault();
 
     let url = "contracts/Individual";
     if (car.result[0].status === "RENTED") {
@@ -223,14 +243,13 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
       );
     }
   };
-
   //total rented cost
   let totalRentedCost =
     Number(
       customPrice?.dailyRent === undefined
         ? car.result[0].dailyRent
         : customPrice?.dailyRent
-    ) * Number(NumOfDays(data.issueDate, data.actualReturnDate));
+    ) * totalDays;
 
   //filter selected accessories
   let filteredAccessory = car_accessories.result.filter((item) =>
@@ -251,7 +270,6 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
   //Remaining cost
   let remianingCost = totalCost - data.advanceAmount;
 
-  console.log("here is customer,", customer);
   return (
     <>
       <RentContainer>
@@ -418,7 +436,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
               sx={{
                 width: "100%",
                 maxWidth: "100%",
-                margin: "40px 0px 0px 0px",
+                margin: "20px 0px",
               }}
               noValidate={false}
               autoComplete="off"
@@ -426,9 +444,7 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
             >
               <RentContainer>
                 <Title color={colors.sideBarBgColor}>
-                  <h2>
-                    {translations?.contractDetail} & {translations?.pricing}
-                  </h2>
+                  <h2>{translations?.contractDetail}</h2>
                 </Title>
 
                 <FormBox className="contract-pricing">
@@ -445,7 +461,8 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     label={translations?.toDate as string}
                     placeholder=""
                     type="date"
-                    onChange={handleChange}
+                    value={formattedDate(returnDate)}
+                    onChange={handleChangeReturnDate}
                     name={"actualReturnDate"}
                     required={true}
                   />
@@ -453,16 +470,8 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     label={translations?.days as string}
                     placeholder=""
                     type="text"
-                    onChange={handleChange}
-                    value={
-                      Math.trunc(
-                        NumOfDays(data.issueDate, data.actualReturnDate)
-                      ) === 0
-                        ? 1
-                        : Math.trunc(
-                            NumOfDays(data.issueDate, data.actualReturnDate)
-                          )
-                    }
+                    onChange={handleChangeDays}
+                    value={totalDays}
                     name={"actualTotalDays"}
                     required={true}
                   />
@@ -476,42 +485,6 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={false}
                   />
                   <InputField
-                    label={translations?.totalRentedCost as string}
-                    placeholder=""
-                    type="text"
-                    value={totalRentedCost}
-                    required={true}
-                    disabled={true}
-                  />
-                  <InputField
-                    label={translations?.totalAccessoriesCost as string}
-                    placeholder=""
-                    type="text"
-                    disabled={true}
-                    value={totalAccesoriesCost}
-                    name={"date"}
-                    required={true}
-                  />
-                  <InputField
-                    label={translations?.totalCost as string}
-                    placeholder=""
-                    type="text"
-                    value={totalCost}
-                    name={"days"}
-                    disabled={true}
-                    required={true}
-                  />
-
-                  <InputField
-                    label={translations?.remainingCost as string}
-                    placeholder=""
-                    type="text"
-                    disabled={true}
-                    value={remianingCost}
-                    name={"days"}
-                    required={true}
-                  />
-                  <InputField
                     label={translations?.Comments as string}
                     placeholder=""
                     type="text"
@@ -520,6 +493,45 @@ const RentCar = ({ customers, car, car_accessories }: IProps) => {
                     required={true}
                   />
                 </FormBox>
+              </RentContainer>
+              <RentContainer className="rent_summary">
+                <Title color={colors.sideBarBgColor}>
+                  <h2>{translations?.pricing}</h2>
+                </Title>
+                <Summary className="summary">
+                  <RentSummary className="summary">
+                    <Description className="des">
+                      {translations?.description}
+                    </Description>
+                    <Amount className="des">{translations?.ammount}</Amount>
+                  </RentSummary>
+                  <RentSummary>
+                    <Description>{translations?.totalRentedCost}</Description>
+                    <Amount>{totalRentedCost}</Amount>
+                  </RentSummary>
+                  <RentSummary>
+                    <Description>
+                      {translations?.totalAccessoriesCost}
+                    </Description>
+                    <Amount className="positive">{totalAccesoriesCost}</Amount>
+                  </RentSummary>
+                  <RentSummary className="net_total">
+                    <Description className="total_amount">
+                      {translations?.totalCost}
+                    </Description>
+                    <Amount className="total_amount">{totalCost}</Amount>
+                  </RentSummary>
+                  <RentSummary>
+                    <Description>{translations?.advanceAmount}</Description>
+                    <Amount className="negetive">{data.advanceAmount}</Amount>
+                  </RentSummary>
+                  <RentSummary className="net_total">
+                    <Description className="total_amount">
+                      {translations?.remainingCost}
+                    </Description>
+                    <Amount className="total_amount">{remianingCost}</Amount>
+                  </RentSummary>
+                </Summary>
               </RentContainer>
 
               <GroupButtons>

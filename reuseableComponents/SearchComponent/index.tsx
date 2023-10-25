@@ -66,7 +66,7 @@ const SearchComponent = ({
           type="search"
           label={
             filterKey === ""
-              ? (`Please first ${translations?.selectColumntofilter}` as string)
+              ? (`${translations?.selectColumntofilter}` as string)
               : (`${translations?.searchRecordBy} ${filterKey}` as string)
           }
           onChange={(e) =>

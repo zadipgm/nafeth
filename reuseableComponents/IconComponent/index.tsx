@@ -7,6 +7,7 @@ interface IProps {
   width?: string;
   height?: string;
   stroke?: string;
+  classname?: string;
 }
 const IconComponent: React.FC<IProps> = ({
   icon,
@@ -14,6 +15,7 @@ const IconComponent: React.FC<IProps> = ({
   width,
   height,
   stroke,
+  classname,
 }) => {
   const Icon: React.ComponentType<{
     fill: string;
@@ -26,7 +28,7 @@ const IconComponent: React.FC<IProps> = ({
     })
   );
   return (
-    <Wrapper>
+    <Wrapper className={classname}>
       <Icon
         fill={fill as string}
         width={width as string}

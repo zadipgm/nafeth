@@ -81,10 +81,10 @@ const AddAccessories = ({
       </AccessoriesWrapper>
       <GroupButtons>
         <Button variant="contained" color="success" onClick={handleSave}>
-          Save
+          {translations?.save}
         </Button>
         <Button variant="contained" color="error" onClick={() => close?.()}>
-          Cancel
+          {translations?.cancel}
         </Button>
       </GroupButtons>
     </AddAccessoriesContainer>

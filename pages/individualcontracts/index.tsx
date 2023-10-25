@@ -45,51 +45,61 @@ export const getServerSideProps: GetServerSideProps<{
   let userName = ctx.req.cookies.userName;
   let userPassword = ctx.req.cookies.userPassword;
   let company = ctx.req.cookies.company;
-  const res = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/contracts/Individual/open",
-    company as string
-  );
-  const carRes = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/cars/",
-    company as string
-  );
-  const customerRes = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/customers",
-    company as string
-  );
-  const Pricelist = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/lookup/Pricelist",
-    company as string
-  );
-  const accessories = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/cars/Accessories",
-    company as string
-  );
-  const branch = await fetchData(
-    userName as string,
-    userPassword as string,
-    "/lookup/Branches",
-    company as string
-  );
-  const data = await res;
-  return {
-    props: {
-      contracts: data,
-      cars: carRes,
-      customers: customerRes,
-      priceList: Pricelist,
-      accessories: accessories,
-      branches: branch,
-    },
-  };
+  if (userName && userPassword && company) {
+    const res = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/contracts/Individual/open",
+      company as string
+    );
+    const carRes = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/cars/",
+      company as string
+    );
+    const customerRes = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/customers",
+      company as string
+    );
+    const Pricelist = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/lookup/Pricelist",
+      company as string
+    );
+    const accessories = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/cars/Accessories",
+      company as string
+    );
+    const branch = await fetchData(
+      userName as string,
+      userPassword as string,
+      "/lookup/Branches",
+      company as string
+    );
+    const data = await res;
+    return {
+      props: {
+        contracts: data,
+        cars: carRes,
+        customers: customerRes,
+        priceList: Pricelist,
+        accessories: accessories,
+        branches: branch,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
 };

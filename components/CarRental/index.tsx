@@ -197,6 +197,7 @@ const CarRent = ({
             state={state}
             toggleDrawer={toggleDrawer}
             width="600px"
+            item={carDetails}
           >
             <div>
               <DetailsTitle color={colors.sideBarBgColor}>
@@ -205,47 +206,38 @@ const CarRent = ({
               <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
                 <DetailList className="car_page">
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />
                     <Strongtext>{translations?.dailyRent}</Strongtext>
                     <Spantext>{carDetails?.dailyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.weeklyRent}</Strongtext>
                     <Spantext>{carDetails?.weeklyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />
                     <Strongtext>{translations?.monthlyRent}</Strongtext>
                     <Spantext>{carDetails?.monthlyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarManageSvg width="30px" height="30px" />
                     <Strongtext>{translations?.dailyKMLimit}</Strongtext>
                     <Spantext>{carDetails?.dailyKMlimit}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarMileageSvg width="30px" height="30px" />
                     <Strongtext>{translations?.perExtraKM}</Strongtext>
                     <Spantext>{carDetails?.perExtraKM}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarInsuranceSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.insuranceProvider}</Strongtext>
                     <Spantext>{carDetails?.insurance.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarPlateSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.plateType}</Strongtext>
                     <Spantext>{carDetails?.plateType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <EconomicSvg width="30px" height="30px" />
                     <Strongtext>{translations?.carType}</Strongtext>
                     <Spantext>{carDetails?.carType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarPetrolSvg width="30px" height="30px" />
                     <Strongtext>{translations?.fuelType}</Strongtext>
                     <Spantext>{carDetails?.fuelType.name_en}</Spantext>
                   </DetailListItem>

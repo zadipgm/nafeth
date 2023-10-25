@@ -13,13 +13,12 @@ interface IProps {
   payments: IPayments;
 }
 const Payments = ({ payments }: IProps) => {
-  console.log("here is payment", payments);
-  const { locale, colors }: any = useTheme();
+  const { translations, colors } = useTheme();
 
   return (
     <PaymentContainer>
       <Title color={colors.sideBarBgColor}>
-        <h2>Payments</h2>
+        <h2>{translations?.Payments}</h2>
       </Title>
       <Container>
         <DataTable
@@ -30,8 +29,9 @@ const Payments = ({ payments }: IProps) => {
           isViewAble={false}
           page_color={colors.sideBarBgColor}
           size="600px"
+          linkPageUrl="payments"
           showAddButton={true}
-          addButtonText="Add Receipt"
+          addButtonText={translations?.addReceipt}
           showFilter={true}
           paymentButton={false}
           keys={paymentKeys}
