@@ -58,6 +58,7 @@ const AddCar = ({
       [e.target.name]: e.target.checked === true ? "Y" : "N",
     });
   };
+  console.log("userName", "userPassword", company);
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
       ...data,
