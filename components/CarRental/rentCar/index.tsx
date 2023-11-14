@@ -41,6 +41,8 @@ import {
   RentSummary,
   Summary,
 } from "@/components/contracts/style";
+<<<<<<< HEAD
+=======
 import { rentObj } from "@/global/fakeData";
 import SelectField from "@/reuseableComponents/customeSelectField/select";
 import { useRentCarData } from "@/context/rentPageLookup";
@@ -50,6 +52,7 @@ import CarSignature from "./CarSignature";
 import CloseSvg from "@/public/icons/closeSvg";
 import OTPInput from "../otpComponent";
 import SwitchesComponent from "@/reuseableComponents/toggleButton";
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
 interface IProps {
   car: ICarModel;
 }
@@ -65,6 +68,10 @@ const RentCar = ({ car }: IProps) => {
   const [openCustomPrice, setOpenCustomPrice] = React.useState(false);
   let initialReturnDate = GetDateFromDays(1);
   const [returnDate, setReturnDate] = React.useState(initialReturnDate);
+<<<<<<< HEAD
+
+=======
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   const [isCustomerOpen, setIsCustomerOpen] = React.useState(false);
   const [isDriverOpen, setIsDriverOpen] = React.useState(false);
   const [ShowContractDetials, setShowContractDetials] = React.useState(false);
@@ -148,6 +155,12 @@ const RentCar = ({ car }: IProps) => {
     let date = new Date(e.target.value);
     let newDays = NumOfDays(data.issueDate, date);
     let truncDays = Math.trunc(newDays);
+<<<<<<< HEAD
+    console.log(date, "Return", truncDays);
+    setReturnDate(`${date}`);
+    setTotalDays(truncDays);
+  };
+=======
     setReturnDate(`${date}`);
     setTotalDays(truncDays);
   };
@@ -177,6 +190,7 @@ const RentCar = ({ car }: IProps) => {
       [e.target.name]: e.target.checked === true ? "Y" : "N",
     });
   };
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   //submit Functions-----------------
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -224,7 +238,11 @@ const RentCar = ({ car }: IProps) => {
           ? car.result[0].perExtraKM
           : customPrice?.perExtraKM,
       advanceAmount: data.advanceAmount,
+<<<<<<< HEAD
+      actualReturnDate: returnDate,
+=======
       actualReturnDate: formattedDate(returnDate),
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       actualTotalDays: totalDays,
       issueComments: data.issueComments,
       issueBranchID: 1,
@@ -259,6 +277,10 @@ const RentCar = ({ car }: IProps) => {
       tajeer_nafethsign: inNafeth ? "Y" : "N",
       paymentmethod: " 2",
     };
+<<<<<<< HEAD
+
+=======
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
     let url = "contracts/Individual";
     if (car.result[0].status === "RENTED") {
       Swal.fire({
@@ -297,6 +319,10 @@ const RentCar = ({ car }: IProps) => {
         ? car.result[0].dailyRent
         : customPrice?.dailyRent
     ) * totalDays;
+<<<<<<< HEAD
+
+=======
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   //filter selected accessories
   let filteredAccessory = RentPageContext?.accessories.result.filter((item) =>
     caraccessories.includes(`${item.id}`)
@@ -312,6 +338,10 @@ const RentCar = ({ car }: IProps) => {
   let totalCost = totalRentedCost + totalAccesoriesCost;
   //Remaining cost
   let remianingCost = totalCost - data.advanceAmount;
+<<<<<<< HEAD
+
+=======
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   return (
     <>
       <RentContainer>
@@ -333,6 +363,19 @@ const RentCar = ({ car }: IProps) => {
         // onSubmit={(e) => hanldelSubmitBill(e)}
       >
         <>
+<<<<<<< HEAD
+          <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
+            <Box
+              component="form"
+              sx={{
+                width: "100%",
+                maxWidth: "100%",
+                margin: "20px 0px",
+              }}
+              noValidate={false}
+              autoComplete="off"
+              onSubmit={handleSubmit}
+=======
           <SelectedCar
             car={car}
             customPrice={customPrice as Icustomprice}
@@ -383,6 +426,7 @@ const RentCar = ({ car }: IProps) => {
                   fill={colors.white}
                 />
               }
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
             >
               {translations?.addCustomer}
             </Button>
@@ -566,6 +610,8 @@ const RentCar = ({ car }: IProps) => {
                     onChange={handleChange}
                     required={false}
                   />
+<<<<<<< HEAD
+=======
 
                   <SelectField
                     label={translations?.contractType as string}
@@ -651,6 +697,7 @@ const RentCar = ({ car }: IProps) => {
                   {inNafeth && (
                     <CarSignature hanldeCarSignature={hanldeCarSignature} />
                   )}
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
                   <InputField
                     label={translations?.Comments as string}
                     placeholder=""
@@ -700,6 +747,9 @@ const RentCar = ({ car }: IProps) => {
                   </RentSummary>
                 </Summary>
               </RentContainer>
+<<<<<<< HEAD
+
+=======
               <SwitchesComponent
                 title={"Send Data to Tajeer" as string}
                 info={""}
@@ -709,6 +759,7 @@ const RentCar = ({ car }: IProps) => {
                 classname="tajeer-send"
                 defaultChecked={data.tajeer_send === "Y" ? true : false}
               />
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
               <GroupButtons>
                 <Button
                   variant="contained"

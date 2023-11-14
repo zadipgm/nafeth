@@ -6,12 +6,15 @@ import { useRouter } from "next/router";
 import { ICarModel } from "@/models/carmodel";
 import IconComponent from "@/reuseableComponents/IconComponent";
 import { Icustomprice } from "@/models/customerPrice";
+<<<<<<< HEAD
+=======
 import SelectField from "@/reuseableComponents/customeSelectField/select";
 import { bank } from "@/global/fakeData";
 import InputField from "@/reuseableComponents/customInputField/input";
 import { ILookUp } from "@/models/lookup";
 import { FormWrapper } from "@/components/GlobalSettings/compnaySettings/style";
 import { Box } from "@mui/material";
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
 
 interface IProps {
   car: ICarModel;
@@ -46,7 +49,11 @@ const SelectedCar = ({
     plateText3_en: car.result[0].plateText3_en,
   };
   return (
+<<<<<<< HEAD
+    <SelectedList>
+=======
     <SelectedList className="selected_car">
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       <SelectedListItem>
         <Label>{translations?.carID}</Label>
         <Value>{car.result[0].id}</Value>
@@ -172,6 +179,8 @@ const SelectedCar = ({
         <Label>{translations?.color}</Label>
         <Value>{car.result[0].color[`name_${locale}`]}</Value>
       </SelectedListItem>
+<<<<<<< HEAD
+=======
 
       <SelectedListItem>
         <SelectField
@@ -448,6 +457,7 @@ const SelectedCar = ({
         </SelectField>
       </SelectedListItem>
 
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       <SelectedListItem className="car_plate">
         <Label>{translations?.carType}</Label>
         <Value>
@@ -462,7 +472,11 @@ const SelectedCar = ({
         </Value>
       </SelectedListItem>
       <SelectedListItem className="car_plate">
+<<<<<<< HEAD
+        <Label>Car Plate</Label>
+=======
         <Label>{translations?.carPlateNumber}</Label>
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
         <Value className="car_plate">
           <CarPlate car={carPlate} />
         </Value>
