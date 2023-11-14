@@ -10,7 +10,8 @@ pipeline {
     stages {
             stage('Cloning our Git') {
                 steps {
-                git 'https://github.com/zadipgm/nafeth.git'
+                 checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+                 userRemoteConfigs: [[url: 'https://github.com/zadipgm/nafeth.git']]])
                 sh 'npm install'
                 }
             }
