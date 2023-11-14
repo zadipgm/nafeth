@@ -174,15 +174,12 @@ export const AccessoriesWrapper = styled.div`
 export const RentContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
-<<<<<<< HEAD
-=======
   &.contract-details{
     margin-top: 15px;
   }
   &.driver-container{
     margin:15px 0px;
   }
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   &.contract-pricing {
     margin-top: 40px;
   }
