@@ -110,6 +110,7 @@ const SideBarAccordions = ({
                     width="25px"
                     height="25px"
                     fill={colors.gray2}
+                    classname="sidebar-icon"
                   />
 
                   <Typography
@@ -118,6 +119,7 @@ const SideBarAccordions = ({
                       flexShrink: 0,
                       margin: "0px 10px",
                       color: `${colors.gray2}`,
+                      letterSpacing: ".8px",
                     }}
                     component={"div"}
                   >

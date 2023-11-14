@@ -55,6 +55,13 @@ export const FormBox = styled.div`
 
   &.contract-pricing{
     padding: 15px;
+    background-color: white;
+    border-bottom-left-radius: 8px;
+ border-bottom-right-radius: 8px;
+    & .place-mark{
+          height: 40px;
+    margin-top: 35px;
+    }
   }
   .car-plate-number {
     flex-grow: 1;
@@ -76,6 +83,9 @@ export const FormBoxWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  &.custome-price{
+    padding: 15px;
+  }
   &.return-page{
     padding: 15px;
   }
@@ -116,7 +126,11 @@ export const GroupButtons = styled.div`
 }
   &.rent-car-group-button{
     .arrow{
+<<<<<<< HEAD
       width: 350px;
+=======
+      width: 400px;
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       .MuiButton-endIcon{
         transform: rotate(90deg);
       }

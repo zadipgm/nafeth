@@ -55,7 +55,6 @@ const AddAccessoryList = () => {
           );
           router.push("/caraccessories");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

@@ -10,6 +10,12 @@ export const Container = styled.div`
   &.car-plate-arabic{
     flex-basis: 50px;
   }
+  &.signature{
+    flex-basis:400px
+  }
+  &.otp-class{
+    padding: 15px 43px;
+  }
  
 `
 export const Label = styled.label`

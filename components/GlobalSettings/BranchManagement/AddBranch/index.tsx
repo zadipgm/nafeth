@@ -88,7 +88,6 @@ const AddBranch = ({ countries, cities, regions }: IProps) => {
           Swal.fire("Thank you!", "Branch has been Created!.", "success");
           router.push("/branches");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

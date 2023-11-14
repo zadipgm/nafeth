@@ -96,7 +96,6 @@ const EditDisputeContracts = ({
       disputedBranchID: branchID,
       disputedBy: getName(),
     };
-    console.log("here is body", body);
     let userName = getName() as string;
     let userPassword = getPassword() as string;
     let company = getCompany() as string;

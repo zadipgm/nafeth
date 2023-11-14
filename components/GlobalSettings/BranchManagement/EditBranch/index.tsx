@@ -71,12 +71,10 @@ const EditBranch = ({ branches, countries, cities, regions }: IProps) => {
 
     await Update(userName, userPassword, url, company, body).then(
       (res: any) => {
-        console.log("updated", res.data.message);
         if (res.data.message === "Success") {
           Swal.fire("Thank you!", "Branch has been Updated!.", "success");
           router.push("/branches");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

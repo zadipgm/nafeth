@@ -85,7 +85,6 @@ const AddUser = ({ manager, group, baseBranch }: IProps) => {
             Swal.fire("Thank you!", "User has been Created!.", "success");
             router.push("/Users");
           } else {
-            console.log(res);
             Swal.fire({
               icon: "error",
               title: "Oops...",

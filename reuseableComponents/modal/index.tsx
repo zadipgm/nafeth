@@ -33,7 +33,7 @@ export default function ModalComponent({
   classname,
 }: IProps) {
   return (
-    <Wrapper>
+    <Wrapper className={classname}>
       <Dialog
         className={classname}
         open={open}

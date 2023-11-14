@@ -30,6 +30,8 @@ import { filterBranch, filterCar, filterCustomer } from "@/_helpers/filters";
 import { IBranchModel } from "@/models/branch";
 import ContractGridView from "../contractGridView";
 import { contractKeys } from "@/constants";
+import HeaderCard from "@/reuseableComponents/HeaderCards";
+import { contract_header_card, header_card_dashboard } from "@/global/fakeData";
 
 interface IProps {
   contracts: IContracts;
@@ -102,6 +104,13 @@ const ContractPage = ({
   };
   return (
     <>
+      <HeaderCard
+        title={""}
+        card={contract_header_card.slice(0, 4)}
+        chart_data={[]}
+        chartTitle=""
+        page="contract"
+      />
       <Container>
         <ListWrapper bcolor={isTheme()?.bcolor} color={isTheme()?.color}>
           <Title

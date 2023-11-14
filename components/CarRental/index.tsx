@@ -26,7 +26,6 @@ import CarPlateSvg from "@/public/icons/carPlateSvg";
 import CarManageSvg from "@/public/icons/carManageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
 import CarRentSvg from "@/public/icons/cars";
-import EconomicSvg from "@/public/icons/Economic";
 import { SearchTabsWrapper } from "../contracts/style";
 import CarListView from "./ListView";
 import CarGridView from "./gridView";
@@ -70,7 +69,6 @@ const CarRent = ({
   const [grid, setGrid] = React.useState(false);
 
   const toggleDrawer = (anchor: Anchor, open: boolean, car?: any) => {
-    console.log("toggleDrawer", car);
     setCarDetails(car);
     setState({ ...state, [anchor]: open });
   };
@@ -102,11 +100,18 @@ const CarRent = ({
   };
   return (
     <>
-      <Container>
-        {page === "dashboard" ||
+      {/* ||
         page === "promotions" ||
-        page === "promotions_active" ? (
-          ""
+        page === "promotions_active" */}
+      <Container>
+        {page === "dashboard" ? (
+          <HeaderCard
+            title={""}
+            card={header_card_dashboard.slice(0, 4)}
+            chart_data={Car_chart_data}
+            chartTitle="Car summary"
+            page="das"
+          />
         ) : (
           <HeaderCard
             title={""}
@@ -115,18 +120,6 @@ const CarRent = ({
             chartTitle="Car summary"
             page="car-management"
           />
-        )}
-        {page === "dashboard" ? (
-          <>
-            <MainSectionCard page={"dashboard"} card={header_card_dashboard} />
-            <MUIPaiChart
-              chart_data={Car_chart_data}
-              title={"chartTitle"}
-              classname={page}
-            />
-          </>
-        ) : (
-          ""
         )}
 
         <CardListWrapper
@@ -252,7 +245,7 @@ const CarRent = ({
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {cars?.result?.length > 4 && (
+          {cars.result?.length > 4 && (
             <Button
               variant={"contained"}
               onClick={() => hanldeShowMore(4)}

@@ -52,7 +52,7 @@ const AddAccessories = ({
         </div>
       </ModalHeader>
       <AccessoriesWrapper>
-        {car_accessories.result.map((acc) => {
+        {car_accessories?.result.map((acc) => {
           return (
             <AccessoriesContainer key={acc.id}>
               <FormGroup>

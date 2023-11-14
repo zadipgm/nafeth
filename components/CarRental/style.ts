@@ -5,6 +5,128 @@ export const AddAccessoriesContainer = styled.div`
   border-radius: 8px;
   padding-bottom: 10px;
 `;
+export const SignatureWrapper = styled.div`
+& .sigCanvas{
+  border:1px solid ${({ theme }) => theme.colors.gray2};
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 85%;
+    height: 50%;
+    border-radius: 8px;
+}
+`
+export const OTPSent = styled.p`
+font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px; 
+`
+export const OTPPhone = styled.div`
+
+`
+export const OTPText = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+`
+export const OTpWrapper = styled.div`
+.otpContainer{
+  margin: 5% auto;
+    width: 94%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+.otpInput{
+  width: 3rem !important;
+  height: 3rem;
+  margin: 0 1rem;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+}
+`
+export const CheckListWrapper = styled.div`
+`
+export const Instruction = styled.div`
+padding: 15px;
+`
+export const MarkerImageWapper = styled.div <{ borderColor: string }>`
+    border: 3px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all.5s;
+    background: white;
+  
+    flex-basis: 150px;
+    flex-grow: 1;
+    &.avtive{
+      transition: all.5s;
+      border: 3px solid ${({ borderColor }) => borderColor};
+    }
+img>{
+  
+  /* border: 1px solid ${({ theme }) => theme.colors.sideBarBgColor}; */
+}
+`
+export const CustomTabsImage = styled.div`
+display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: ${({ theme }) => theme.colors.sideBarBgColor};
+    padding: 10px;
+    margin: 0px 16px;
+    border-radius: 8px;
+`
+export const InstructionList = styled.ul`
+    color: ${({ theme }) => theme.colors.gray2};
+    background-color:${({ theme }) => theme.colors.sideBarBgColor};
+    border-color: #bce8f1;
+    border-radius: 8px;
+   margin: 0;
+   padding: 10px;
+    list-style-type: none;
+`
+export const InstructionListItem = styled.li`
+list-style-type: disclosure-closed;
+margin: 0px 25px;
+`
+export const MarkerImage = styled.img<{ left: number, top: number }>`
+position: absolute;
+left: ${({ left }) => `${left}px`};
+top: ${({ top }) => `${top}px`};
+z-index: 9999;
+`
+export const CheckListBgImageWrapper = styled.div`
+position: relative;
+`
+export const CheckListBgImage = styled.div`
+background-image: url('/images/checklistmarker.jpg');
+width: 893px;
+    height: 429px;
+     border:1px solid ${({ theme }) => theme.colors.gray2};
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 8px;
+`
 export const SlectedAccessoriesContainer = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -52,6 +174,15 @@ export const AccessoriesWrapper = styled.div`
 export const RentContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 8px;
+<<<<<<< HEAD
+=======
+  &.contract-details{
+    margin-top: 15px;
+  }
+  &.driver-container{
+    margin:15px 0px;
+  }
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   &.contract-pricing {
     margin-top: 40px;
   }
@@ -69,13 +200,15 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 18px;
   padding: 10px;
   > div {
     cursor: pointer;
   }
   > span {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
+    text-transform: capitalize;
   }
 `;
 export const CardListWrapper = styled.div<{ bcolor: string; color: string }>`
@@ -749,6 +882,17 @@ export const SelectedList = styled.ul`
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  &.selected-customer{
+    background-color: white;
+    border-bottom-left-radius: 8px;
+ border-bottom-right-radius: 8px;
+  }
+  &.selected_car{
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ border-bottom-left-radius: 8px;
+ border-bottom-right-radius: 8px;
+ background-color: white;
+  }
   &.return_list{
     >li{
       flex-basis: 200px;
@@ -806,7 +950,7 @@ export const GlobalListViewWrapper = styled.div`
   }
   border-radius: 20px;
   display: flex;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   background-color: ${({ theme }) => theme.colors.white};
   justify-content: space-between;
   align-items: flex-end;

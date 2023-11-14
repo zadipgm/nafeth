@@ -13,10 +13,7 @@ interface IProps {
   list: IAccessory;
 }
 const CarAccessoryList = ({ list }: IProps) => {
-  console.log(list, "list");
-  console.log(list);
   const { colors } = useTheme();
-
   return (
     <Container>
       <Title color={colors.sideBarBgColor}>

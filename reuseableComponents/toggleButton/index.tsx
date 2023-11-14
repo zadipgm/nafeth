@@ -36,7 +36,9 @@ export default function SwitchesComponent({
   };
   return (
     <Wrapper className={classname}>
-      <Title titlewidth={titlewidth}>{title}</Title>
+      <Title titlewidth={titlewidth} className={classname}>
+        {title}
+      </Title>
       <Content contentwidth={contentwidth}>
         <Switch
           checked={checked}

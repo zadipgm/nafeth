@@ -73,7 +73,6 @@ const EditPromotionList = ({ list, cars }: IProps) => {
           );
           router.push("/promotions");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -85,7 +84,6 @@ const EditPromotionList = ({ list, cars }: IProps) => {
   };
   const hanldeSelected = (car: any) => {
     const selectedCar = car?.id as any;
-    console.log(typeof selectedCar);
     let arrayCopy = [...array] as any;
     if (arrayCopy.includes(`${selectedCar}`)) {
       const index = arrayCopy.indexOf(`${selectedCar}`);
@@ -97,7 +95,6 @@ const EditPromotionList = ({ list, cars }: IProps) => {
     }
   };
 
-  console.log("here is array", array);
   return (
     <div>
       <Title color={colors.sideBarBgColor}>

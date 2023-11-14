@@ -5,23 +5,23 @@ import { ICustomers, IPriceList } from "@/models/customers";
 import { IUser } from "@/models/userModel";
 
 export const filterCar = (cars: ICarModel, id: number) => {
-    let filterCar = cars.result.filter((item) => item.id === id);
+    let filterCar = cars?.result?.filter((item) => item.id === id);
     return filterCar
 }
 export const filterCustomer = (customers: ICustomers, id: number) => {
-    let filterCustomer = customers.result.filter((item) => item.id === id);
+    let filterCustomer = customers?.result?.filter((item) => item.id === id);
     return filterCustomer
 }
 export const filterBranch = (branches: IBranchModel, id: number) => {
-    let filterBranch = branches.result.filter((item) => item.id === id);
+    let filterBranch = branches?.result?.filter((item) => item.id === id);
     return filterBranch
 }
 export const filterPriceList = (price: IPriceList, id: number) => {
-    let filterPrice = price.result.filter((item) => item.id === id);
+    let filterPrice = price?.result?.filter((item) => item.id === id);
     return filterPrice
 }
 export const filterAccessory = (accessories: any, accessoriesID: string) => {
-    let acc = accessories.result.filter((item: any) => {
+    let acc = accessories?.result?.filter((item: any) => {
         return accessoriesID
             .split(",")
             .includes(item.id.toString());
@@ -37,14 +37,14 @@ export const filterAccessory = (accessories: any, accessoriesID: string) => {
 }
 export const filterUser =
     (user: IUser, id: number) => {
-        let filterU = user.result.filter((item) => item.id === id);
+        let filterU = user?.result?.filter((item) => item.id === id);
         return filterU
 
     }
 export const filterUserByName =
     (user: IUser, name: string) => {
-        let filterUName = user.result.filter((item) => item.username.toLocaleLowerCase() === name.toLocaleLowerCase());
-        console.log(`filterUserByName`, filterUName)
+        let filterUName = user?.result?.filter((item) => item.username.toLocaleLowerCase() === name.toLocaleLowerCase());
+
         return filterUName
 
     }

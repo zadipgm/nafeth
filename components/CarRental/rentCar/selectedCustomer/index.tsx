@@ -12,7 +12,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
   return (
     <>
       {type === "customer" && (
-        <SelectedList>
+        <SelectedList className="selected-customer">
           <SelectedListItem>
             <Label>{translations?.customerID}</Label>
             <Value>{customer?.[0].idNumber}</Value>
@@ -62,7 +62,7 @@ const SelectedCustomer = ({ customer, type }: IProps) => {
         </SelectedList>
       )}
       {type === "driver" && (
-        <SelectedList>
+        <SelectedList className="selected-customer">
           <SelectedListItem>
             <Label>{translations?.driverID}</Label>
             <Value>{customer?.[0].idNumber}</Value>

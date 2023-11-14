@@ -59,13 +59,13 @@ const List = ({
   const router = useRouter();
   const { locale, colors, translations } = useTheme();
   const carplate = {
-    plateText1_ar: filterCar(cars, contract.carID)[0].plateText1_ar,
-    plateText2_ar: filterCar(cars, contract.carID)[0].plateText2_ar,
-    plateText3_ar: filterCar(cars, contract.carID)[0].plateText3_ar,
-    plateNo: filterCar(cars, contract.carID)[0].plateNo,
-    plateText1_en: filterCar(cars, contract.carID)[0].plateText1_en,
-    plateText2_en: filterCar(cars, contract.carID)[0].plateText2_en,
-    plateText3_en: filterCar(cars, contract.carID)[0].plateText3_en,
+    plateText1_ar: filterCar(cars, contract?.carID)?.[0].plateText1_ar,
+    plateText2_ar: filterCar(cars, contract?.carID)?.[0].plateText2_ar,
+    plateText3_ar: filterCar(cars, contract?.carID)?.[0].plateText3_ar,
+    plateNo: filterCar(cars, contract.carID)?.[0].plateNo,
+    plateText1_en: filterCar(cars, contract.carID)?.[0].plateText1_en,
+    plateText2_en: filterCar(cars, contract.carID)?.[0].plateText2_en,
+    plateText3_en: filterCar(cars, contract.carID)?.[0].plateText3_en,
   };
   return (
     <ListViewContainer>
@@ -290,19 +290,22 @@ const List = ({
             </ReuseAbleList>
             <CarTypeSvgWrapper>
               <span className="make-model">
-                {filterCar(cars, contract.carID)[0].make[`name_${locale}`]}{" "}
-                {filterCar(cars, contract.carID)[0].model[`name_${locale}`]} /{" "}
+                {filterCar(cars, contract.carID)?.[0].make[`name_${locale}`]}{" "}
+                {filterCar(cars, contract.carID)?.[0].model[`name_${locale}`]} /{" "}
                 <span className="color">
-                  {filterCar(cars, contract.carID)[0].year}
+                  {filterCar(cars, contract.carID)?.[0].year}
                 </span>
               </span>
 
               <IconComponent
                 width="100px"
                 height="100px"
-                fill={filterCar(cars, contract.carID)[0].color.name_en}
+                fill={filterCar(cars, contract.carID)?.[0].color.name_en}
                 stroke={colors.gray1}
-                icon={filterCar(cars, contract.carID)[0].carType.name_en.trim()}
+                icon={filterCar(
+                  cars,
+                  contract.carID
+                )?.[0].carType.name_en.trim()}
               />
 
               <ButtonWrapper>

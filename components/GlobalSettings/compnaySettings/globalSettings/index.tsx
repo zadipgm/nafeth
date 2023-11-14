@@ -64,7 +64,6 @@ const GlobalSettings = ({ global_settinigs }: ISettings) => {
             "success"
           );
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

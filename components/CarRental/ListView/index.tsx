@@ -22,7 +22,7 @@ const CarListView = ({
 }: ICarProps) => {
   return (
     <ListViewContainer>
-      {cars.slice(0, show)?.map((car: any, i: any) => {
+      {cars?.slice(0, show)?.map((car: any, i: any) => {
         return (
           <List
             key={i}

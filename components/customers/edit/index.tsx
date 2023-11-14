@@ -123,7 +123,6 @@ const EditCustomer = ({
             router.push("/customers");
           }
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -147,7 +146,6 @@ const EditCustomer = ({
           title: "Thank you!",
           text: `${res.result}`,
         });
-        console.log("res", res);
       } else {
         setCheckID(false);
         Swal.fire({

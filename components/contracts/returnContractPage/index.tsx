@@ -31,13 +31,24 @@ import ReceiptSummary from "./ReceiptSummary";
 import RentAccount from "./RentAccount/inidex";
 import RentalDetails from "./RentalDetails";
 import { IRentCalculation } from "@/models/rentCalculate";
+<<<<<<< HEAD
+=======
+import TajeerDetails from "./TajeerDetails";
+import { useRentCarData } from "@/context/rentPageLookup";
+import { IRentPageContext } from "@/models/IRentPageContext";
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
 interface IProps {
   contract: IContracts;
 }
 const ReturnContract = ({ contract }: IProps) => {
+  const ReturnPageContext: IRentPageContext = useRentCarData();
   const returnPage: IReturnPageContexts = useReturnPageData();
   const returnobj = {
+<<<<<<< HEAD
     contractNo: contract.result[0].contractNo,
+=======
+    contractNo: contract?.result?.[0]?.contractNo,
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
     dateIn: formattedDate(new Date()),
     kmIn: 0,
     timeIn: "",
@@ -64,7 +75,7 @@ const ReturnContract = ({ contract }: IProps) => {
     React.useState<IRentCalculation>();
 
   const fetchContractPayments = React.useCallback(async () => {
-    let url = `/contracts/Individual/${contract.result[0].contractNo}/bills`;
+    let url = `/contracts/Individual/${contract.result?.[0].contractNo}/bills`;
     const res = await fetchData(userName, userPassword, url, company);
     setContractBill(res);
   }, [contractBill, bill]);
@@ -84,7 +95,7 @@ const ReturnContract = ({ contract }: IProps) => {
     e.preventDefault();
     let body = {
       amount: bill.amount,
-      contractNo: contract.result[0].contractNo,
+      contractNo: contract.result?.[0].contractNo,
       activity: bill.activity,
       date: bill.date,
       comments: bill.comments,
@@ -92,7 +103,7 @@ const ReturnContract = ({ contract }: IProps) => {
     await createPost(
       userName,
       userPassword,
-      `contracts/Individual/${contract.result[0].contractNo}/bills`,
+      `contracts/Individual/${contract.result?.[0].contractNo}/bills`,
       company,
       body
     ).then((res: any) => {
@@ -102,7 +113,6 @@ const ReturnContract = ({ contract }: IProps) => {
         Swal.fire("Thank you!", "New Bill has been Added!.", "success");
         setOpen(false);
       } else {
-        console.log(res);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -119,12 +129,17 @@ const ReturnContract = ({ contract }: IProps) => {
     let today = new Date();
     let time = today.getHours() + ":" + today.getMinutes();
     let body = {
+<<<<<<< HEAD
       contractNo: contract.result[0].contractNo,
+=======
+      contractNo: contract.result?.[0].contractNo,
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       dateIn: new Date(data.dateIn),
       kmIn: Number(data?.kmIn),
       timeIn: time,
       discount: Number(data.discount),
     };
+<<<<<<< HEAD
     if (data.kmIn > contract.result[0].kmOut) {
       await createPost(
         userName,
@@ -134,6 +149,17 @@ const ReturnContract = ({ contract }: IProps) => {
         body
       ).then((res: any) => {
         if (res.data.result === null) {
+=======
+    if (data.kmIn > contract.result?.[0].kmOut) {
+      await createPost(
+        userName,
+        userPassword,
+        `contracts/Individual/${contract.result?.[0].contractNo}/calculaterent`,
+        company,
+        body
+      ).then((res: any) => {
+        if (res.data?.result === null) {
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -154,7 +180,10 @@ const ReturnContract = ({ contract }: IProps) => {
     });
     CalculateRent();
   };
+<<<<<<< HEAD
   console.log(rentCalculation, "rentCalculation");
+=======
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   return (
     <>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -176,7 +205,7 @@ const ReturnContract = ({ contract }: IProps) => {
                 <InputField
                   label={translations?.ContractNumber as string}
                   type="text"
-                  value={contract.result[0].contractNo}
+                  value={contract.result?.[0].contractNo}
                   disabled={true}
                 />
                 <InputField
@@ -206,13 +235,13 @@ const ReturnContract = ({ contract }: IProps) => {
                 <InputField
                   label={translations?.kmout as string}
                   type="text"
-                  value={contract.result[0].kmOut}
+                  value={contract.result?.[0].kmOut}
                   disabled={true}
                 />
                 <InputField
                   label={translations?.kMIn as string}
                   placeholder="100000017"
-                  type="text"
+                  type="number"
                   onBlur={handleChange}
                   name={"kmIn"}
                   required={true}
@@ -247,7 +276,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   label={translations?.status as string}
                   name="status"
                   required
-                  defaultValue={""}
+                  defaultValue={"Stolen"}
                   onChange={handleChange}
                 >
                   <>
@@ -265,8 +294,22 @@ const ReturnContract = ({ contract }: IProps) => {
             </FormBoxWrapper>
           </ReturnContainer>
           <RentalDetails contract={contract} />
-          {Number(data.kmIn) > contract.result[0].kmOut && (
+          {Number(data.kmIn) > contract.result?.[0].kmOut && (
             <>
+<<<<<<< HEAD
+=======
+              <TajeerDetails
+                data={contract.result?.[0]}
+                tajeerData={ReturnPageContext?.tajeerDropdownLookupData}
+                speedometer_Keys={ReturnPageContext?.speedometer_Keys}
+                fuelType={ReturnPageContext?.fuelType}
+                availableFuel={ReturnPageContext?.availableFuel}
+                carSeats={ReturnPageContext?.carSeats}
+                acStereoData={ReturnPageContext?.acStereoData}
+                tajeer_branch={ReturnPageContext?.tajeer_Branches}
+                tajeerMainClosure={ReturnPageContext?.tajeerMainClosure}
+              />
+>>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
               <RentAccount rentCalculation={rentCalculation} />
               <GroupButtons className="add-bill-button">
                 <Button
@@ -367,7 +410,7 @@ const ReturnContract = ({ contract }: IProps) => {
               </ModalComponent>
             </>
           )}
-          {Number(data.kmIn) > contract.result[0].kmOut && (
+          {Number(data.kmIn) > contract.result?.[0].kmOut && (
             <>
               {contractBill?.result?.length! > 0 && (
                 <ReturnContainer>
@@ -398,7 +441,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   variant="contained"
                   color="success"
                   className="add-customer-save-button"
-                  // type="submit"
+                  type="submit"
                   // onClick={(e) => handleSubmit(e)}
                 >
                   {translations?.returnWithFullPayment}
@@ -407,7 +450,7 @@ const ReturnContract = ({ contract }: IProps) => {
                   variant="contained"
                   color="success"
                   className="paylater-button"
-                  // type="submit"
+                  type="submit"
                 >
                   {translations?.returnonly}
                 </Button>

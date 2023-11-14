@@ -176,7 +176,6 @@ const DataTable = ({
     });
   };
   const handleSelectedContract = (id: number) => {
-    console.log("handleSelected", id);
     handleSelect?.(id);
     setTimeout(() => {
       handleClose?.();
@@ -189,7 +188,6 @@ const DataTable = ({
     let url = `cars/Accessories/${id}`;
     Delete(userName, userPassWord, url, company).then((res: any) => {
       if (res.status == 200) {
-        console.log(res, "reeeee");
         Swal.fire("Thank you!", "Accessory  has been Deleted!.", "success");
       } else {
         console.log(res);

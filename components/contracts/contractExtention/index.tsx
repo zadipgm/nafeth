@@ -53,7 +53,7 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
     let userPassword = getPassword() as string;
     let company = getCompany() as string;
     let url = `contracts/Individual/${contract.result[0].contractNo}/extend`;
-    console.log(data, "here");
+
     await Update(userName, userPassword, url, company, data).then(
       (res: any) => {
         if (res.status == 200) {
@@ -92,7 +92,6 @@ const ContractExtention = ({ contract, cars, customers, branches }: IProps) => {
     plateText2_en: filterCar(cars, contract.result[0].carID)[0].plateText2_en,
     plateText3_en: filterCar(cars, contract.result[0].carID)[0].plateText3_en,
   };
-  console.log(contract.result[0].actualReturnDate);
   return (
     <ExtentionContainer>
       <Title color={colors.sideBarBgColor}>

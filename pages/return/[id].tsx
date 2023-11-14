@@ -12,12 +12,15 @@ import ReturnContract from "@/components/contracts/returnContractPage";
 import { IBranchModel } from "@/models/branch";
 import { IAccessory } from "@/models/IAccessory";
 import { AppDataProvider } from "@/context/returnpageContext";
+import { RentCarDataProvider } from "@/context/rentPageLookup";
 
 const Page: NextPageWithLayout = (props: any) => {
   return (
-    <AppDataProvider>
-      <ReturnContract contract={props.contract} />
-    </AppDataProvider>
+    <RentCarDataProvider>
+      <AppDataProvider>
+        <ReturnContract contract={props.contract} />
+      </AppDataProvider>
+    </RentCarDataProvider>
   );
 };
 Page.getLayout = function getLayout(page: ReactElement) {

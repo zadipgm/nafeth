@@ -128,7 +128,6 @@ const AddCar = ({
           Swal.fire("Thank you!", "car has been Created!.", "success");
           router.push("/cars");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

@@ -47,5 +47,29 @@ export interface Contract {
     issueBy: string,
     promotionDiscount: number,
     accessoriesID: string,
-    status: string
+    status: string,
+    tajeer_FuelType: string
+    tajeer_FuelLevel: string
+    tajeer_OilType: string
+    tajeer_OilchangeDate: string,
+    tajeer_OilChangeKM: number,
+    tajeer_Odometer: number,
+    tajeer_AC: string
+    tajeer_Stereo: string
+    tajeer_Screen: string
+    tajeer_Speedometer: string
+    tajeer_CarSeat: string
+    tajeer_SpareTire: string
+    tajeer_SpareTireTools: string
+    tajeer_Tires: string
+    tajeer_FirstAid: string
+    tajeer_Keys: string
+    tajeer_FireExtinguisher: string
+    tajeer_SafetyTriangle: string
+    tajeer_ContractType: string
+    tajeer_RentPolicy: string
+    tajeer_GeographicalArea: string
+    tajeer_Returnbranch: string
+    tajeer_CheckList: string
+    tajeer_Signature: string
 }
