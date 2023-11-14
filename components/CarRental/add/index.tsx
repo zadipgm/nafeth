@@ -58,7 +58,6 @@ const AddCar = ({
       [e.target.name]: e.target.checked === true ? "Y" : "N",
     });
   };
-  console.log("userName", "userPassword", company);
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setData({
       ...data,
@@ -129,7 +128,6 @@ const AddCar = ({
           Swal.fire("Thank you!", "car has been Created!.", "success");
           router.push("/cars");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

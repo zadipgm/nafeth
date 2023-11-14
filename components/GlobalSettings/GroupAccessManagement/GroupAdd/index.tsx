@@ -25,7 +25,7 @@ interface IProps {
   data: IModuleTypes[];
 }
 export default function GroupAddForm({ title, data }: IProps) {
-  const { colors } = useTheme();
+  const { colors, translations, locale } = useTheme();
   const router = useRouter();
   let getMenu = data.map((item) => item.menu);
   let getMenuInOneArray = getMenu.flatMap((menu) => menu);
@@ -96,7 +96,7 @@ export default function GroupAddForm({ title, data }: IProps) {
     <>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
         <Title color={colors.sideBarBgColor}>
-          <h2>{title}</h2>
+          <h2>{translations?.addGroup}</h2>
         </Title>
         <FormWrapper
           className="group-edit-list-form"
@@ -116,14 +116,14 @@ export default function GroupAddForm({ title, data }: IProps) {
             <FormBoxWrapper>
               <FormBox className="group-edit-form" color={isTheme().color}>
                 <InputField
-                  label="English Name"
+                  label={translations?.fullName_en as string}
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
                   classname="group-edit-form"
                 />
                 <InputField
-                  label="اسم عربي"
+                  label={translations?.fullName_en as string}
                   placeholder="زيشان"
                   onChange={hanldeFormData}
                   name="name_ar"
@@ -136,7 +136,7 @@ export default function GroupAddForm({ title, data }: IProps) {
                 color={isTheme().color}
               >
                 <InputField
-                  label="English Description"
+                  label={translations?.englishDescription as string}
                   placeholder="Please enter here...."
                   onChange={hanldeFormData}
                   name="description_en"
@@ -157,10 +157,10 @@ export default function GroupAddForm({ title, data }: IProps) {
                       return (
                         <div key={key}>
                           <SwitchesComponent
-                            title={item.title}
-                            info={item.info}
+                            title={item[`title_${locale}`].trim()}
+                            info={item[`info_${locale}`].trim()}
                             onchange={HanldeSwtiches}
-                            name={item.name}
+                            name={item[`name_${locale}`].trim()}
                           />
                         </div>
                       );
@@ -179,14 +179,14 @@ export default function GroupAddForm({ title, data }: IProps) {
             />
             <GroupButtons>
               <Button variant="contained" type="submit">
-                Save
+                {translations?.save}
               </Button>
               <Button
                 variant="contained"
                 onClick={() => router.back()}
                 color="error"
               >
-                Cancel
+                {translations?.cancel}
               </Button>
             </GroupButtons>
           </Box>

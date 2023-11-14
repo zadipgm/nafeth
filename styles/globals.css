@@ -20,9 +20,11 @@ body{
   font-family: 'Cairo', sans-serif !important;
 }
 .MuiModal-root.MuiPaper-root{
-
   overflow: auto;
- 
+}
+.MuiModal-root.otp-modal .MuiDialog-container .MuiPaper-root{
+  border-radius: 20px;
+  padding-bottom: 20px;
 }
 .MuiModal-root.MuiDialog-root.mobile-modal .MuiDialog-container{
   all: unset;

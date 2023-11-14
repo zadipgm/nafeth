@@ -21,24 +21,24 @@ const RentalDetails = ({ contract }: IProps) => {
       <SelectedList className="return_list">
         <SelectedListItem>
           <Label> {translations?.dailyRent}</Label>
-          <Value>{contract.result[0].dailyPrice}</Value>
+          <Value>{contract.result?.[0].dailyPrice}</Value>
         </SelectedListItem>
         <SelectedListItem>
           <Label> {translations?.dailyKMLimit}</Label>
-          <Value>{contract.result[0].kmLimit}</Value>
+          <Value>{contract.result?.[0].kmLimit}</Value>
         </SelectedListItem>
 
         <SelectedListItem>
           <Label> {translations?.graceHours}</Label>
-          <Value>{contract.result[0].graceHours}</Value>
+          <Value>{contract.result?.[0].graceHours}</Value>
         </SelectedListItem>
         <SelectedListItem>
           <Label> {translations?.graceCharge}</Label>
-          <Value>{contract.result[0].graceHoursPrice}</Value>
+          <Value>{contract.result?.[0].graceHoursPrice}</Value>
         </SelectedListItem>
         <SelectedListItem>
           <Label> {translations?.extraKmPrice}</Label>
-          <Value>{contract.result[0].extraKmPrice}</Value>
+          <Value>{contract.result?.[0].extraKmPrice}</Value>
         </SelectedListItem>
       </SelectedList>
     </RentContainer>

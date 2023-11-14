@@ -216,17 +216,17 @@ const List = ({
               {page === "car-management" ? (
                 <Status
                   color={
-                    car.status === "Return"
+                    car.status === "RENTED"
                       ? colors.darkYellow
                       : car.status === "AVAILABLE"
                       ? colors.green
-                      : car.status === "disputed"
+                      : car.status === "DISPUTED"
                       ? colors.red
                       : colors.sideBarBgColor
                   }
                 >
-                  {car.status === "Return"
-                    ? translations?.return
+                  {car.status === "RENTED"
+                    ? translations?.rented
                     : translations?.available}
                 </Status>
               ) : (

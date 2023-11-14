@@ -56,7 +56,6 @@ const AddLoyalityList = () => {
           );
           router.push("/loyalty");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

@@ -96,7 +96,6 @@ const CustomSettings = ({ custom_settings }: ISettings) => {
             "success"
           );
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

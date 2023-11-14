@@ -50,7 +50,6 @@ const AddList = () => {
           Swal.fire("Thank you!", "Price List has been Created!.", "success");
           router.push("/pricelist");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

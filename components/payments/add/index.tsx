@@ -113,7 +113,6 @@ const AddPayment = () => {
   };
   // filter user and set state----------
   const handleUser = (number: number) => {
-    console.log(number);
     let filterUser = AppDataContext.user?.result.filter(
       (item) => item.id === number
     );
@@ -121,7 +120,6 @@ const AddPayment = () => {
   };
   // filter customer and set state----------
   const handleCustomer = (number: number) => {
-    console.log(number);
     let filterCustomer = AppDataContext.Customers?.result.filter(
       (item) => item.id === number
     );
@@ -129,11 +127,9 @@ const AddPayment = () => {
   };
   // filter car and set state----------
   const handleCar = (number: number) => {
-    console.log(number);
     let filterCar = AppDataContext.cars?.result.filter(
       (item) => item.id === number
     );
-    console.log(filterCar);
     setC_car(filterCar);
   };
   // payment methods type bank cheuq cash ------------
@@ -207,7 +203,6 @@ const AddPayment = () => {
           Swal.fire("Thank you!", "Payment has been Created!.", "success");
           router.push("/payments");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -216,7 +211,6 @@ const AddPayment = () => {
         }
       }
     );
-    console.log("here is iddd", body);
   };
   return (
     <AddPaymentContainer>

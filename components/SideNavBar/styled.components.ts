@@ -32,12 +32,12 @@ export const MenuWrapper = styled.div`
   padding-top: 20px;
 `;
 export const CloseIconLangButton = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-padding: 5px 10px;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+`;
 export const SideIconWrapper = styled.div`
   display: flex;
   padding: 12px 0px;
@@ -46,6 +46,8 @@ export const SideIconWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   > a {
+    letter-spacing: 0.8px;
+
     color: ${({ theme }) => theme.colors.gray2};
     text-decoration: none;
     line-height: 30px;
@@ -58,6 +60,17 @@ export const SideIconWrapper = styled.div`
 
     text-transform: uppercase;
     font-family: "Cairo", sans-serif !important;
+    > svg {
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+        rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+        rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+        rgba(0, 0, 0, 0.09) 0px 32px 16px;
+      border: 1px solid ${({ theme }) => theme.colors.gray2};
+      padding: 8px;
+      border-radius: 10px;
+    }
   }
   :hover {
     cursor: pointer;
@@ -70,8 +83,19 @@ export const SideIconWrapper = styled.div`
     }
   }
   &.mobile {
-    margin: 12px;
+    margin: 0px 12px;
     gap: 12px;
+    > svg {
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+        rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+        rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+        rgba(0, 0, 0, 0.09) 0px 32px 16px;
+      border: 1px solid ${({ theme }) => theme.colors.gray2};
+      padding: 8px;
+      border-radius: 10px;
+    }
   }
 `;
 export const IconWrapper = styled.div`
@@ -110,15 +134,22 @@ export const IconWrapper = styled.div`
 `;
 
 export const AccordionContainer = styled.div`
-  margin: 0px 4px 100px 7px;
+  margin: 0px 14px 100px 14px;
   &.mobile {
-    margin: 0px 15px;
+    margin: 0px 26px;
   }
-  .MuiPaper-root.group_access{
-    ${({ theme }) => theme.isLTR ? css`padding-left: 20px;` : css`padding-right: 20px;`};
-  
+  .MuiPaper-root.group_access {
+    ${({ theme }) =>
+    theme.isLTR
+      ? css`
+            padding-left: 20px;
+          `
+      : css`
+            padding-right: 20px;
+          `};
   }
   & .MuiPaper-root {
+    position: unset;
     border-bottom: none;
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     box-shadow: none;
@@ -146,14 +177,14 @@ export const AccordionContainer = styled.div`
           ${({ theme }) =>
     theme.isLTR
       ? css`
-                  border-right: 17px solid #dddddd;
+                  border-right: 17px solid ${({ theme }) => theme.colors.pagebgcolor};
 
-                  right: -19px;
+                  right: -29px;
                 `
       : css`
-                  border-left: 17px solid #dddddd;
+                  border-left: 17px solid ${({ theme }) => theme.colors.pagebgcolor};
 
-                  right: 264px;
+                  right: 254px;
                 `}
         }
       }

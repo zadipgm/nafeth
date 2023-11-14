@@ -33,7 +33,6 @@ export const RequestSearch = (
         }
 
     })
-    console.log("filteredRows", filteredRows)
     if (searchedVal.length < 1) {
         setSearchvalue(currentRecords);
     } else {

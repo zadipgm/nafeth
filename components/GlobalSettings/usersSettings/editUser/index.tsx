@@ -92,7 +92,6 @@ const EditUser = ({ result, manager, baseBranch, group }: IEdit) => {
             Swal.fire("Thank you!", "User has been updated!.", "success");
             router.push("/Users");
           } else {
-            console.log(res);
             Swal.fire({
               icon: "error",
               title: "Oops...",

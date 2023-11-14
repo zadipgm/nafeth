@@ -129,10 +129,8 @@ const TableComponent = ({
     let url = `cars/Accessories/${id}`;
     Delete(userName, userPassWord, url, company).then((res: any) => {
       if (res.status == 200) {
-        console.log(res, "reeeee");
         Swal.fire("Thank you!", "Accessory  has been Deleted!.", "success");
       } else {
-        console.log(res);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -260,7 +258,12 @@ const TableComponent = ({
         />
       </Table>
       {state.right && (
-        <DrawerComponent state={state} toggleDrawer={toggleDrawer} width={size}>
+        <DrawerComponent
+          state={state}
+          toggleDrawer={toggleDrawer}
+          width={size}
+          item={drawerData}
+        >
           <div>
             <DetailsTitle color={page_color as string}>
               {sideBarTitle}

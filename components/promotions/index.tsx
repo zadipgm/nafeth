@@ -12,13 +12,12 @@ interface IProps {
   list: IPromotions;
 }
 const PromotionsList = ({ list }: IProps) => {
-  console.log(list);
-  const { colors } = useTheme();
+  const { colors, translations } = useTheme();
   return (
     <DataTableContainer>
       <div></div>
       <Title color={colors.sideBarBgColor}>
-        <h2>Promotion List</h2>
+        <h2>{translations?.promotionList}</h2>
       </Title>
       <DataTable
         data={list.result}
@@ -32,7 +31,7 @@ const PromotionsList = ({ list }: IProps) => {
         sideBarTitle="Promotions Details"
         size="800px"
         showAddButton={true}
-        addButtonText="Add New List"
+        addButtonText={translations?.addNewList}
         keys={promotionKeys}
         classname="small_size"
       />

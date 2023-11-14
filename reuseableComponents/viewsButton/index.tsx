@@ -10,10 +10,10 @@ interface IProps {
   grid: boolean;
 }
 const ViewButton = ({ handleView, list, grid }: IProps) => {
-  const { colors } = useTheme();
+  const { colors, isLTR } = useTheme();
   return (
     <ViewsWrapper>
-      <Tooltip content={"Grid View"} color={"success"}>
+      <Tooltip content={isLTR ? "Grid View" : "عرض الشبكة"} color={"success"}>
         <GridViewWrapper
           onClick={() => handleView("grid")}
           className={grid ? "active" : ""}
@@ -21,7 +21,7 @@ const ViewButton = ({ handleView, list, grid }: IProps) => {
           <GridView width="30px" height="30px" fill={colors.sideBarBgColor} />
         </GridViewWrapper>
       </Tooltip>
-      <Tooltip content={"List View"} color={"success"}>
+      <Tooltip content={isLTR ? "List View" : "عرض القائمة"} color={"success"}>
         <ListViewWrapper
           onClick={() => handleView("list")}
           className={list ? "active" : ""}

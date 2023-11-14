@@ -115,7 +115,6 @@ const AddCustomer = ({
           title: "Thank you!",
           text: `${res.result}`,
         });
-        console.log("res", res);
       } else {
         setCheckID(false);
         Swal.fire({

@@ -18,6 +18,7 @@ import Link from "next/link";
 import LangaugeButtons from "@/reuseableComponents/LangButton";
 import LogoutSvg from "@/public/icons/logoutSvg";
 import Cookies from "js-cookie";
+import HomeSvg from "@/public/icons/homeSvg";
 
 const MobileHeader = () => {
   const { locale, colors } = useTheme();
@@ -74,7 +75,7 @@ const MobileHeader = () => {
             />
           </CloseIconLangButton>
           <SideIconWrapper className="mobile">
-            <DashboardSvg fill={colors.white} width="23px" height="23px" />
+            <HomeSvg fill={colors.white} width="40px" height="40px" />
             <Link href="/dashboard">{"Dashboard"}</Link>
           </SideIconWrapper>
           <SideBarAccordions

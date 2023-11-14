@@ -18,9 +18,9 @@ const CarPlate = ({ car, classname }: IProps) => {
             </TD>
             <TD className="border-bottom">
               <div>
-                <span>{car.plateText1_ar}</span>
-                <span>{car.plateText2_ar}</span>
-                <span>{car.plateText3_ar}</span>
+                <span>{car.plateText1_ar.trim()}</span>
+                <span>{car.plateText2_ar.trim()}</span>
+                <span>{car.plateText3_ar.trim()}</span>
               </div>
             </TD>
             <TD className="alsaudia" color={isTheme().color}>
@@ -34,9 +34,9 @@ const CarPlate = ({ car, classname }: IProps) => {
             <TD>{car.plateNo}</TD>
             <TD>
               <EnglishCar>
-                <span>{car.plateText1_en}</span>
-                <span>{car.plateText2_en}</span>
-                <span>{car.plateText3_en}</span>
+                <span>{car.plateText1_en.trim()}</span>
+                <span>{car.plateText2_en.trim()}</span>
+                <span>{car.plateText3_en.trim()}</span>
               </EnglishCar>
             </TD>
             <TD className="KSA">

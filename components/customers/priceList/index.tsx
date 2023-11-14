@@ -11,7 +11,6 @@ interface IProps {
   list: IPrices;
 }
 const PriceListComponent = ({ list }: IProps) => {
-  console.log(list);
   const { colors, translations } = useTheme();
   return (
     <LoyaltyContainer>

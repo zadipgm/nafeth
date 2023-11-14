@@ -101,7 +101,6 @@ const AddCar = ({
     });
   };
   const handleChange = (e: { target: { name: any; value: any } }) => {
-    console.log(e.target.name, e.target.value);
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -131,7 +130,6 @@ const AddCar = ({
           Swal.fire("Thank you!", "car has been Updated!.", "success");
           router.push("/cars");
         } else {
-          console.log(res);
           Swal.fire({
             icon: "error",
             title: "Oops...",

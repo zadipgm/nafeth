@@ -99,7 +99,7 @@ const DataTable = ({
   handleSelect,
   keys,
 }: IProps) => {
-  const { colors, locale, translations } = useTheme();
+  const { colors, locale, translations, isLTR } = useTheme();
   const router = useRouter();
   const [searchvalue, setSearchvalue] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -176,7 +176,6 @@ const DataTable = ({
     });
   };
   const handleSelectedContract = (id: number) => {
-    console.log("handleSelected", id);
     handleSelect?.(id);
     setTimeout(() => {
       handleClose?.();
@@ -189,7 +188,6 @@ const DataTable = ({
     let url = `cars/Accessories/${id}`;
     Delete(userName, userPassWord, url, company).then((res: any) => {
       if (res.status == 200) {
-        console.log(res, "reeeee");
         Swal.fire("Thank you!", "Accessory  has been Deleted!.", "success");
       } else {
         console.log(res);
@@ -239,6 +237,7 @@ const DataTable = ({
                 borderRadius: "8px",
                 flexGrow: "1",
                 flexBasis: "250px",
+                fontSize: `${isLTR ? "16px" : "18px"}`,
               }}
               onClick={() => router.push(`/${linkPageUrl}/add` as string)}
             >
@@ -271,7 +270,7 @@ const DataTable = ({
                             return (
                               <TableData key={i}>
                                 {`${typeof item[key]}` === "object"
-                                  ? `${item[key][`name_${locale}`]}`
+                                  ? `${item[key]?.[`name_${locale}`]}`
                                   : `${item[key]}`}{" "}
                               </TableData>
                             );
@@ -358,8 +357,13 @@ const DataTable = ({
           </Table>
         </TableWrapper>
       )}
-      {state.right && (
-        <DrawerComponent state={state} toggleDrawer={toggleDrawer} width={size}>
+      {drawerData && (
+        <DrawerComponent
+          state={state}
+          toggleDrawer={toggleDrawer}
+          width={size}
+          item={drawerData}
+        >
           <div>
             <DetailsTitle color={page_color as string}>
               {sideBarTitle}

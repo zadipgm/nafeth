@@ -8,7 +8,11 @@ import {
 } from "../../style";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
 import { useTheme } from "styled-components";
-const RentAccount = () => {
+import { IRentCalculation } from "@/models/rentCalculate";
+interface IProps {
+  rentCalculation?: IRentCalculation;
+}
+const RentAccount = ({ rentCalculation }: IProps) => {
   const { colors, translations } = useTheme();
   return (
     <ReturnContainer className="summary">
@@ -22,82 +26,88 @@ const RentAccount = () => {
         </RentSummary>
         <RentSummary>
           <Description>{translations?.returnDate}</Description>
-          <Amount>2023-10-18</Amount>
+          <Amount>{rentCalculation?.result?.dateIn}</Amount>
         </RentSummary>
 
         <RentSummary>
           <Description>{translations?.issueDate}</Description>
-          <Amount>2023-02-13</Amount>
+          <Amount>{rentCalculation?.result?.dateOut}</Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.NumberofDays}</Description>
-          <Amount>14</Amount>
+          <Amount>{rentCalculation?.result?.totalDays}</Amount>
         </RentSummary>
         <RentSummary className="net_total">
           <Description className="total_amount">
             {translations?.price}
           </Description>
-          <Amount className="total_amount">575.00</Amount>
+          <Amount className="total_amount">
+            {rentCalculation?.result?.dayCost}
+          </Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.checkInTime}</Description>
-          <Amount>15:31</Amount>
+          <Amount>{rentCalculation?.result?.timeIn}</Amount>
         </RentSummary>
 
         <RentSummary>
           <Description>{translations?.checkOutTime}</Description>
-          <Amount>11:37</Amount>
+          <Amount>{rentCalculation?.result?.timeOut}</Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.ExtraTime}</Description>
-          <Amount>03:54:00</Amount>
+          <Amount>{rentCalculation?.result?.extratime}</Amount>
         </RentSummary>
         <RentSummary className="net_total">
           <Description className="total_amount">
             {translations?.price}
           </Description>
-          <Amount className="total_amount">33.33</Amount>
+          <Amount className="total_amount">
+            {rentCalculation?.result?.timeCost}
+          </Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.kMIn}</Description>
-          <Amount>15</Amount>
+          <Amount>{rentCalculation?.result?.kmIn}</Amount>
         </RentSummary>
 
         <RentSummary>
           <Description>{translations?.kmout}</Description>
-          <Amount>17</Amount>
+          <Amount>{rentCalculation?.result?.kmOut}</Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.extraKM}</Description>
-          <Amount>2</Amount>
+          <Amount>{rentCalculation?.result?.extraKM}</Amount>
         </RentSummary>
         <RentSummary className="net_total">
           <Description className="total_amount">
             {translations?.price}
           </Description>
-          <Amount className="total_amount">12.00</Amount>
+          <Amount className="total_amount">
+            {rentCalculation?.result?.kmCost}
+          </Amount>
         </RentSummary>
 
-        <RentSummary className="net_total">
-          <Description className="total_amount">
-            {translations?.total}
-          </Description>
-          <Amount className="total_amount">620.33</Amount>
-        </RentSummary>
         <RentSummary>
           <Description>{translations?.accessories}</Description>
-          <Amount className="positive">32.00</Amount>
+          <Amount className="positive">
+            {rentCalculation?.result?.accessoriesCost}
+          </Amount>
         </RentSummary>
         <RentSummary>
           <Description>{translations?.loyalityPricelist}</Description>
-          <Amount className="negetive">247.33</Amount>
+          <Amount className="negetive">
+            {rentCalculation?.result?.pricelistDiscount}
+          </Amount>
         </RentSummary>
 
         <RentSummary className="net_total">
           <Description className="total_amount">
             {translations?.totalRent}
           </Description>
-          <Amount className="total_amount">395.00</Amount>
+          <Amount className="total_amount">
+            {rentCalculation?.result?.rentalTotal}
+          </Amount>
         </RentSummary>
       </Summary>
     </ReturnContainer>

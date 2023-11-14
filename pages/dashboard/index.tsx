@@ -1,10 +1,10 @@
 import type { ReactElement } from "react";
 import Layout from "@/PageLayout";
 import { NextPageWithLayout } from "@/pages/_app";
-import Dashboard from "@/components/dashboard";
 import { ICarModel } from "@/models/carmodel";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { GetServerSideProps } from "next";
+import Dashboard from "@/components/DashboardComponent";
 const Page: NextPageWithLayout = (result: any) => {
   return <Dashboard cars={result} />;
 };

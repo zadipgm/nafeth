@@ -8,6 +8,7 @@ import { GlobalUserContext } from "@/context";
 
 import { LogoContainer } from "../header/styled.components";
 import Image from "next/image";
+import HomeSvg from "@/public/icons/homeSvg";
 
 const SideNavBar = () => {
   const { menu } = React.useContext(GlobalUserContext);
@@ -29,7 +30,7 @@ const SideNavBar = () => {
         <MenuWrapper>
           <SideIconWrapper>
             <Link href="/dashboard">
-              <DashboardSvg fill={colors.gray2} width="25px" height="25px" />
+              <HomeSvg fill={colors.gray2} width="40px" height="40px" />
               <div>{translations?.dashboard}</div>
             </Link>
           </SideIconWrapper>

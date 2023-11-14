@@ -31,11 +31,13 @@ const HeaderCard = ({ card, title, chart_data, page, chartTitle }: IProps) => {
       <DashboardTitle>{title}</DashboardTitle>
       <HeaderContainer>
         <MainSectionCard card={card} page={page} />
-        <MUIPaiChart
-          chart_data={chart_data}
-          title={chartTitle}
-          classname={page}
-        />
+        {page === "car-management" && (
+          <MUIPaiChart
+            chart_data={chart_data}
+            title={chartTitle}
+            classname={page}
+          />
+        )}
       </HeaderContainer>
     </>
   );

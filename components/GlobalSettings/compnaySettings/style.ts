@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 
 export const Container = styled.div``;
 
@@ -7,7 +7,7 @@ export const FormContainer = styled.div`
   border-radius: 8px;
   margin-top:20px ;
 `;
-export const FormWrapper = styled.div<{ bcolor: string; color: string }>`
+export const FormWrapper = styled.div<{ bcolor?: string; color?: string }>`
  
   
 
@@ -55,6 +55,13 @@ export const FormBox = styled.div`
 
   &.contract-pricing{
     padding: 15px;
+    background-color: white;
+    border-bottom-left-radius: 8px;
+ border-bottom-right-radius: 8px;
+    & .place-mark{
+          height: 40px;
+    margin-top: 35px;
+    }
   }
   .car-plate-number {
     flex-grow: 1;
@@ -76,6 +83,9 @@ export const FormBoxWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  &.custome-price{
+    padding: 15px;
+  }
   &.return-page{
     padding: 15px;
   }
@@ -116,6 +126,7 @@ export const GroupButtons = styled.div`
 }
   &.rent-car-group-button{
     .arrow{
+      width: 400px;
       .MuiButton-endIcon{
         transform: rotate(90deg);
       }
@@ -130,7 +141,7 @@ export const GroupButtons = styled.div`
   & .MuiButtonBase-root {
     width: 250px;
     gap: 12px;
-    font-size: 16px;
+    ${({ theme }) => theme.isLTR ? css`font-size:16px;` : css`font-size:18px;`};
     background-color: ${({ theme }) => theme.colors.sideBarBgColor};
     &.pricelist-save-button {
       background-color: ${({ theme }) => theme.colors.sideBarBgColor};

@@ -356,6 +356,7 @@ const CustomersList = ({
               open={open}
               toggleDrawer={toggleDrawer}
               width={"800px"}
+              item={customerDetail}
             >
               <div>
                 <DetailsTitle color={colors.sideBarBgColor as string}>

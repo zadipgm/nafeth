@@ -26,7 +26,6 @@ import CarPlateSvg from "@/public/icons/carPlateSvg";
 import CarManageSvg from "@/public/icons/carManageSvg";
 import CarInsuranceSvg from "@/public/icons/carInsuranceSvg";
 import CarRentSvg from "@/public/icons/cars";
-import EconomicSvg from "@/public/icons/Economic";
 import { SearchTabsWrapper } from "../contracts/style";
 import CarListView from "./ListView";
 import CarGridView from "./gridView";
@@ -70,7 +69,6 @@ const CarRent = ({
   const [grid, setGrid] = React.useState(false);
 
   const toggleDrawer = (anchor: Anchor, open: boolean, car?: any) => {
-    console.log("toggleDrawer", car);
     setCarDetails(car);
     setState({ ...state, [anchor]: open });
   };
@@ -102,11 +100,18 @@ const CarRent = ({
   };
   return (
     <>
-      <Container>
-        {page === "dashboard" ||
+      {/* ||
         page === "promotions" ||
-        page === "promotions_active" ? (
-          ""
+        page === "promotions_active" */}
+      <Container>
+        {page === "dashboard" ? (
+          <HeaderCard
+            title={""}
+            card={header_card_dashboard.slice(0, 4)}
+            chart_data={Car_chart_data}
+            chartTitle="Car summary"
+            page="das"
+          />
         ) : (
           <HeaderCard
             title={""}
@@ -115,18 +120,6 @@ const CarRent = ({
             chartTitle="Car summary"
             page="car-management"
           />
-        )}
-        {page === "dashboard" ? (
-          <>
-            <MainSectionCard page={"dashboard"} card={header_card_dashboard} />
-            <MUIPaiChart
-              chart_data={Car_chart_data}
-              title={"chartTitle"}
-              classname={page}
-            />
-          </>
-        ) : (
-          ""
         )}
 
         <CardListWrapper
@@ -197,6 +190,7 @@ const CarRent = ({
             state={state}
             toggleDrawer={toggleDrawer}
             width="600px"
+            item={carDetails}
           >
             <div>
               <DetailsTitle color={colors.sideBarBgColor}>
@@ -205,47 +199,38 @@ const CarRent = ({
               <DetailWrapper color={isTheme().color} bcolor={isTheme().bcolor}>
                 <DetailList className="car_page">
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />
                     <Strongtext>{translations?.dailyRent}</Strongtext>
                     <Spantext>{carDetails?.dailyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.weeklyRent}</Strongtext>
                     <Spantext>{carDetails?.weeklyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarRentSvg width="30px" height="30px" />
                     <Strongtext>{translations?.monthlyRent}</Strongtext>
                     <Spantext>{carDetails?.monthlyRent}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarManageSvg width="30px" height="30px" />
                     <Strongtext>{translations?.dailyKMLimit}</Strongtext>
                     <Spantext>{carDetails?.dailyKMlimit}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarMileageSvg width="30px" height="30px" />
                     <Strongtext>{translations?.perExtraKM}</Strongtext>
                     <Spantext>{carDetails?.perExtraKM}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarInsuranceSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.insuranceProvider}</Strongtext>
                     <Spantext>{carDetails?.insurance.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarPlateSvg width="30px" height="30px" />{" "}
                     <Strongtext>{translations?.plateType}</Strongtext>
                     <Spantext>{carDetails?.plateType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <EconomicSvg width="30px" height="30px" />
                     <Strongtext>{translations?.carType}</Strongtext>
                     <Spantext>{carDetails?.carType.name_en}</Spantext>
                   </DetailListItem>
                   <DetailListItem>
-                    <CarPetrolSvg width="30px" height="30px" />
                     <Strongtext>{translations?.fuelType}</Strongtext>
                     <Spantext>{carDetails?.fuelType.name_en}</Spantext>
                   </DetailListItem>
@@ -260,7 +245,7 @@ const CarRent = ({
               </DetailWrapper>
             </div>
           </DrawerComponent>
-          {cars?.result?.length > 4 && (
+          {cars.result?.length > 4 && (
             <Button
               variant={"contained"}
               onClick={() => hanldeShowMore(4)}

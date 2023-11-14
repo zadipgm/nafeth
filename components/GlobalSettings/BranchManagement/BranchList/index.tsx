@@ -13,14 +13,13 @@ interface IProps {
   branches: IBranchModel;
 }
 const BranchList = ({ branches }: IProps) => {
-  const { locale, colors } = useTheme();
+  const { translations, colors } = useTheme();
 
   return (
     <>
       <Title color={colors.sideBarBgColor}>
-        <h2>Branch List</h2>
+        <h2>{translations?.branchList}</h2>
       </Title>
-
       <DataTable
         data={branches.result}
         isDeleteAble={false}
@@ -29,10 +28,10 @@ const BranchList = ({ branches }: IProps) => {
         isViewAble={true}
         linkPageUrl={"branches"}
         page_color={colors.sideBarBgColor}
-        sideBarTitle="Branch Details"
-        size="600px"
+        sideBarTitle={translations?.branchDetails as string}
+        size="500px"
         showAddButton={true}
-        addButtonText="Add Branch"
+        addButtonText={translations?.addBranch as string}
         showFilter={true}
         keys={branchKeys}
       />

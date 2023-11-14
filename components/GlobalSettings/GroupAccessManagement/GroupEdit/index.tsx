@@ -24,7 +24,7 @@ interface IProps {
   result: any[];
 }
 export default function GroupEditForm({ title, result }: IProps) {
-  const { colors } = useTheme();
+  const { colors, translations, locale } = useTheme();
   const router = useRouter();
   let getMenu = result[0].menu;
   let getFlatArrayFromMenu = getMenu.map((i: any) => i.menu);
@@ -47,7 +47,7 @@ export default function GroupEditForm({ title, result }: IProps) {
     menu: getMenuInOneArray,
   };
   const [formData, setFormData] = React.useState(addGroupObj);
-  React.useEffect(() => {}, [formData]);
+
   const HanldeSwtiches = (e: { target: { name: any; checked: any } }) => {
     setFormData({
       ...formData,
@@ -100,7 +100,7 @@ export default function GroupEditForm({ title, result }: IProps) {
     <>
       <Container color={isTheme().color} bcolor={isTheme().bcolor}>
         <Title color={colors.sideBarBgColor}>
-          <h2>{title}</h2>
+          <h2>{translations?.editGroup}</h2>
         </Title>
         <FormWrapper
           className="group-edit-list-form"
@@ -119,7 +119,7 @@ export default function GroupEditForm({ title, result }: IProps) {
             <FormBoxWrapper>
               <FormBox className="group-edit-form" color={isTheme().color}>
                 <InputField
-                  label="English Name"
+                  label={translations?.fullName_en as string}
                   placeholder="zeshan"
                   onChange={hanldeFormData}
                   name="name_en"
@@ -128,7 +128,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                   value={formData.name_en}
                 />
                 <InputField
-                  label="اسم عربي"
+                  label={translations?.fullName_ar as string}
                   placeholder="زيشان"
                   onChange={hanldeFormData}
                   name="name_ar"
@@ -138,7 +138,7 @@ export default function GroupEditForm({ title, result }: IProps) {
                 />
 
                 <InputField
-                  label="English Description"
+                  label={translations?.englishDescription as string}
                   placeholder="Please enter here...."
                   onChange={hanldeFormData}
                   name="description_en"
@@ -161,12 +161,12 @@ export default function GroupEditForm({ title, result }: IProps) {
                       return (
                         <div key={key}>
                           <SwitchesComponent
-                            title={item.title}
-                            info={item.info}
+                            title={item[`title_${locale}`]}
+                            info={item[`info_${locale}`]}
                             onchange={HanldeSwtiches}
-                            name={item.name}
+                            name={item.name_en}
                             defaultChecked={
-                              result[0][item.name] === "Y" ? true : false
+                              result[0][item?.name_en] === "Y" ? true : false
                             }
                           />
                         </div>
@@ -186,14 +186,14 @@ export default function GroupEditForm({ title, result }: IProps) {
           />
           <GroupButtons>
             <Button variant="contained" onClick={(e) => submitHandler(e)}>
-              Update
+              {translations?.update}
             </Button>
             <Button
               variant="contained"
               onClick={() => router.back()}
               color="error"
             >
-              Cancel
+              {translations?.cancel}
             </Button>
           </GroupButtons>
         </FormWrapper>
