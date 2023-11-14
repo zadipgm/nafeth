@@ -10,7 +10,7 @@ pipeline {
     stages {
             stage('Cloning our Git') {
                 steps {
-                git 'http://10.90.0.1/NafethReactApp.git/'
+                git 'https://github.com/zadipgm/nafeth.git'
                 sh 'npm install'
                 }
             }
