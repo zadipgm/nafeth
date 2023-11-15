@@ -27,8 +27,3 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/pages ./pages
 
 CMD yarn dev
-
-FROM base as dev
-ENV NODE_ENV=development
-COPY . .
-CMD yarn dev
