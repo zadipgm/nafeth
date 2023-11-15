@@ -30,6 +30,5 @@ CMD yarn dev
 
 FROM base as dev
 ENV NODE_ENV=development
-RUN yarn install --production --ignore-engines 
 COPY . .
 CMD yarn dev
