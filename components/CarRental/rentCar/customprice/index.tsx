@@ -37,11 +37,7 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
       [e.target.name]: e.target.value,
     });
   };
-<<<<<<< HEAD
-  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
-=======
   const handleSave = (e: any) => {
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
     e.preventDefault();
     let newobjec = data;
     getCustomPrice(newobjec);
@@ -55,19 +51,6 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
           <CloseSvg />
         </div>
       </ModalHeader>
-<<<<<<< HEAD
-      <FormWrapper>
-        <Box
-          component="form"
-          sx={{
-            width: "100%",
-            maxWidth: "100%",
-            padding: "15px",
-          }}
-          noValidate={false}
-          autoComplete="on"
-          onSubmit={(e) => handleSave(e)}
-=======
       <FormBoxWrapper className="custome-price">
         <FormBox>
           <InputField
@@ -165,114 +148,13 @@ const CustomPrice = ({ handleClose, car, getCustomPrice }: IProps) => {
           variant="contained"
           color="success"
           onClick={(e) => handleSave(e)}
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
         >
-          <FormBoxWrapper>
-            <FormBox>
-              <InputField
-                type="text"
-                label={translations?.dailyRent as string}
-                defaultValue={data.dailyRent}
-                name="dailyRent"
-                onChange={handleChange}
-                required
-              />
-              <InputField
-                type="text"
-                label={translations?.weeklyRent as string}
-                defaultValue={data.weeklyRent}
-                name="weeklyRent"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.monthlyRent as string}
-                defaultValue={data.monthlyRent}
-                name="monthlyRent"
-                onChange={handleChange}
-                required
-              />
-              <InputField
-                type="text"
-                label={translations?.minRate as string}
-                defaultValue={data.minDailyRent}
-                name="minDailyRent"
-                onChange={handleChange}
-                disabled={true}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.fullTankPrice as string}
-                defaultValue={data.fullFuelCost}
-                name="fullFuelCost"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.graceHours as string}
-                defaultValue={data.graceHours}
-                name="graceHours"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.extraperHour as string}
-                defaultValue={data.graceCharge}
-                name="graceCharge"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.perkMprice as string}
-                defaultValue={data.perExtraKM}
-                name="perExtraKM"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.dailyKMLimit as string}
-                defaultValue={data.dailyKMlimit}
-                name="dailyKMlimit"
-                onChange={handleChange}
-                required
-              />
-
-              <InputField
-                type="text"
-                label={translations?.kmout as string}
-                defaultValue={data.mileage}
-                name="mileage"
-                onChange={handleChange}
-                required
-              />
-            </FormBox>
-          </FormBoxWrapper>
-          <GroupButtons>
-            <Button variant="contained" color="success" type="submit">
-              {translations?.save}
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => handleClose()}
-            >
-              {translations?.cancel}
-            </Button>
-          </GroupButtons>
-        </Box>
-      </FormWrapper>
+          {translations?.save}
+        </Button>
+        <Button variant="contained" color="error" onClick={() => handleClose()}>
+          {translations?.cancel}
+        </Button>
+      </GroupButtons>
     </>
   );
 };

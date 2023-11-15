@@ -14,4 +14,4 @@ services:
         - /app/pages
         - /app/public
     ports:
-      - "3033:3033"
+      - "3000:3000"

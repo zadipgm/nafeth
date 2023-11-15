@@ -32,4 +32,4 @@ FROM base as dev
 ENV NODE_ENV=development
 RUN yarn 
 COPY . .
-CMD yarn run start:prod
+CMD yarn dev

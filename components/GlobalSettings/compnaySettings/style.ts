@@ -126,11 +126,7 @@ export const GroupButtons = styled.div`
 }
   &.rent-car-group-button{
     .arrow{
-<<<<<<< HEAD
-      width: 350px;
-=======
       width: 400px;
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       .MuiButton-endIcon{
         transform: rotate(90deg);
       }
