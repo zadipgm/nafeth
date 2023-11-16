@@ -22,7 +22,6 @@ const DisputedContracts = ({
   accessories,
   branches,
 }: IProps) => {
-  console.log("here is obh", contracts);
   return (
     <DisputedContainer>
       <ContractPage
