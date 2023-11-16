@@ -29,18 +29,18 @@ pipeline {
                     }
                 }
             stage('Deploying Docker Image to Dockerhub') {
-                steps {
+               
                     steps {
                     sh 'docker push nafeth/nafeth_app'
                     }
-                }
+                
             }
             stage("Log out Docker"){
-                post {
-                always {
-                sh 'docker logout'
+                steps {
+                  
+                    sh 'docker logout'
+                    
                 }
-            }
             }
              
 
