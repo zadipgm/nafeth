@@ -237,7 +237,7 @@ const List = ({
                 height="100px"
                 fill={car.color.name_en}
                 stroke={colors.gray1}
-                icon={car.carType.name_en.trim()}
+                icon={car.carType.name_en.toLowerCase().trim()}
               />
             </CarStatus>
             <ButtonWrapper className={page}>

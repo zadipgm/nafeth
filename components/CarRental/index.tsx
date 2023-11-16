@@ -92,7 +92,7 @@ const CarRent = ({
     if (cars?.result?.length > show) {
       let diffrence = cars.result.length - show;
       if (diffrence >= 4) {
-        setShow((prev) => prev + val);
+        setShow((prev: number) => prev + val);
       } else {
         setShow(cars.result.length);
       }

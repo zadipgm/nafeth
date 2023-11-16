@@ -45,27 +45,31 @@ const MyApp = ({
 
   themeMode.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
   const isLogin = Cookies.get("isLogin");
-  React.useEffect(() => {
-    if (isLogin === "true") {
-      const handleStart = () => {
-        setLoading(true);
-      };
-      const handleComplete = () => {
-        setLoading(false);
-      };
-      router.events.on("routeChangeStart", handleStart);
-      router.events.on("routeChangeComplete", handleComplete);
-      router.events.on("routeChangeError", handleComplete);
-      return () => {
-        router.events.off("routeChangeStart", handleStart);
-        router.events.off("routeChangeComplete", handleComplete);
-        router.events.off("routeChangeError", handleComplete);
-      };
-    } else {
-      router.push({ pathname: "/login" });
-      setLoading(false);
-    }
-  }, [isLogin, router]);
+  console.log("here is login", router.asPath);
+  // if (router.asPath === "/") {
+  //   router.push("/login");
+  // }
+  // React.useEffect(() => {
+  //   if (isLogin === "true") {
+  //     const handleStart = () => {
+  //       setLoading(true);
+  //     };
+  //     const handleComplete = () => {
+  //       setLoading(false);
+  //     };
+  //     router.events.on("routeChangeStart", handleStart);
+  //     router.events.on("routeChangeComplete", handleComplete);
+  //     router.events.on("routeChangeError", handleComplete);
+  //     return () => {
+  //       router.events.off("routeChangeStart", handleStart);
+  //       router.events.off("routeChangeComplete", handleComplete);
+  //       router.events.off("routeChangeError", handleComplete);
+  //     };
+  //   } else {
+  //     router.push({ pathname: "/login" });
+  //     setLoading(false);
+  //   }
+  // }, [isLogin, router]);
 
   return getLayout(
     <>

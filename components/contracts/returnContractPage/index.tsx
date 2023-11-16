@@ -31,12 +31,9 @@ import ReceiptSummary from "./ReceiptSummary";
 import RentAccount from "./RentAccount/inidex";
 import RentalDetails from "./RentalDetails";
 import { IRentCalculation } from "@/models/rentCalculate";
-<<<<<<< HEAD
-=======
 import TajeerDetails from "./TajeerDetails";
 import { useRentCarData } from "@/context/rentPageLookup";
 import { IRentPageContext } from "@/models/IRentPageContext";
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
 interface IProps {
   contract: IContracts;
 }
@@ -44,11 +41,7 @@ const ReturnContract = ({ contract }: IProps) => {
   const ReturnPageContext: IRentPageContext = useRentCarData();
   const returnPage: IReturnPageContexts = useReturnPageData();
   const returnobj = {
-<<<<<<< HEAD
-    contractNo: contract.result[0].contractNo,
-=======
     contractNo: contract?.result?.[0]?.contractNo,
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
     dateIn: formattedDate(new Date()),
     kmIn: 0,
     timeIn: "",
@@ -129,27 +122,12 @@ const ReturnContract = ({ contract }: IProps) => {
     let today = new Date();
     let time = today.getHours() + ":" + today.getMinutes();
     let body = {
-<<<<<<< HEAD
-      contractNo: contract.result[0].contractNo,
-=======
       contractNo: contract.result?.[0].contractNo,
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
       dateIn: new Date(data.dateIn),
       kmIn: Number(data?.kmIn),
       timeIn: time,
       discount: Number(data.discount),
     };
-<<<<<<< HEAD
-    if (data.kmIn > contract.result[0].kmOut) {
-      await createPost(
-        userName,
-        userPassword,
-        `contracts/Individual/${contract.result[0].contractNo}/calculaterent`,
-        company,
-        body
-      ).then((res: any) => {
-        if (res.data.result === null) {
-=======
     if (data.kmIn > contract.result?.[0].kmOut) {
       await createPost(
         userName,
@@ -159,7 +137,6 @@ const ReturnContract = ({ contract }: IProps) => {
         body
       ).then((res: any) => {
         if (res.data?.result === null) {
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -180,10 +157,6 @@ const ReturnContract = ({ contract }: IProps) => {
     });
     CalculateRent();
   };
-<<<<<<< HEAD
-  console.log(rentCalculation, "rentCalculation");
-=======
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
   return (
     <>
       <FormWrapper bcolor={isTheme().bcolor} color={isTheme().color}>
@@ -296,8 +269,6 @@ const ReturnContract = ({ contract }: IProps) => {
           <RentalDetails contract={contract} />
           {Number(data.kmIn) > contract.result?.[0].kmOut && (
             <>
-<<<<<<< HEAD
-=======
               <TajeerDetails
                 data={contract.result?.[0]}
                 tajeerData={ReturnPageContext?.tajeerDropdownLookupData}
@@ -309,7 +280,6 @@ const ReturnContract = ({ contract }: IProps) => {
                 tajeer_branch={ReturnPageContext?.tajeer_Branches}
                 tajeerMainClosure={ReturnPageContext?.tajeerMainClosure}
               />
->>>>>>> e36af8fdde2b7bcd4aae9626346100a96686392a
               <RentAccount rentCalculation={rentCalculation} />
               <GroupButtons className="add-bill-button">
                 <Button
