@@ -23,26 +23,19 @@ pipeline {
      
                 }
             }
-            stage('Login') {
-                steps {
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    }
-                }
-            stage('Deploying Docker Image to Dockerhub') {
-               
-                    steps {
-                    sh 'docker push nafeth/nafeth_app'
-                    }
-                
-            }
-            stage("Log out Docker"){
-                steps {
-                  
-                    sh 'docker logout'
-                    
-                }
-            }
-             
-
+             stage('Deploy') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+          sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
+          sh 'docker push $DOCKER_NAFETH_IMAGE'
         }
+      }
+    }
+           
+        }
+        post {
+    always {
+      sh 'docker logout'
+    }
+  }
     }
