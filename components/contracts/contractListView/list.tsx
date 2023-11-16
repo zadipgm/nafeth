@@ -302,10 +302,9 @@ const List = ({
                 height="100px"
                 fill={filterCar(cars, contract.carID)?.[0].color.name_en}
                 stroke={colors.gray1}
-                icon={filterCar(
-                  cars,
-                  contract.carID
-                )?.[0].carType.name_en.trim()}
+                icon={filterCar(cars, contract.carID)?.[0]
+                  .carType.name_en.toLowerCase()
+                  .trim()}
               />
 
               <ButtonWrapper>
