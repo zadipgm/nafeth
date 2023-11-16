@@ -35,16 +35,14 @@ pipeline {
                     }
                 }
             }
-             post {
+            stage("Log out Docker"){
+                post {
                 always {
                 sh 'docker logout'
                 }
-  }
+            }
+            }
+             
 
-            // stage('Cleaning Up') {
-            //     steps{
-            //       sh "docker rmi --force $registry:$BUILD_NUMBER"
-            //     }
-            // }
         }
     }
