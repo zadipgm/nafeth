@@ -11,7 +11,7 @@ import {
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Container } from "@/components/GlobalSettings/usersSettings/style";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
-import { CarPlateInArabicWrapper, CarPlateNumberInputWrapper } from "../style";
+import { CarPlateNumberInputWrapper } from "../style";
 import { ILookUp } from "@/models/lookup";
 import { fetchData } from "@/api/fetchapis/fetchData";
 import { getCompany, getName, getPassword } from "@/_helpers/getName";
@@ -19,7 +19,6 @@ import SwitchesComponent from "@/reuseableComponents/toggleButton";
 import Swal from "sweetalert2";
 import { Update } from "@/api/putApis/update";
 import { ICarModel } from "@/models/carmodel";
-import { formattedDate } from "@/_helpers/monthdayYearFormat";
 import InputField from "@/reuseableComponents/customInputField/input";
 import SelectField from "@/reuseableComponents/customeSelectField/select";
 interface IProps {
