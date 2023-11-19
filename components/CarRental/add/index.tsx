@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useTheme } from "styled-components";
-import { Box, Button, MenuItem } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { isTheme } from "@/_helpers/getTheme";
 import { useRouter } from "next/router";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@/components/GlobalSettings/compnaySettings/style";
 import { Container } from "@/components/GlobalSettings/usersSettings/style";
 import { Title } from "@/components/GlobalSettings/BranchManagement/style";
-import { CarPlateInArabicWrapper, CarPlateNumberInputWrapper } from "../style";
+import { CarPlateNumberInputWrapper } from "../style";
 import { bodyObjectCar } from "@/global/fakeData";
 import { ILookUp } from "@/models/lookup";
 import { fetchData } from "@/api/fetchapis/fetchData";
