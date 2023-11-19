@@ -4,7 +4,6 @@ pipeline {
     registryCredential = 'dockerhub'
     dockerImage = ''
     }
-
     agent any
   tools {nodejs "nafeth" }
     stages {
@@ -15,12 +14,9 @@ pipeline {
                 sh 'npm install'
                 }
             }
-
             stage('Building Docker Image') {
                 steps {
-                   
       	            sh "docker build -t nafeth/nafeth_app:$BUILD_NUMBER ."
-     
                 }
             }
              stage('Deploy') {
@@ -31,7 +27,6 @@ pipeline {
         }
       }
     }
-           
         }
         post {
     always {
