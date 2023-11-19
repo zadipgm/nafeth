@@ -49,7 +49,6 @@ const CarCheckList = ({ hanldeCarMarker }: IProps) => {
     setMarkerType(marker);
   };
   const hanldeImageClick = (item: any) => {
-    console.log(item);
     let filterMarker = marker.filter((m) => m.x != item.x && m.y != item.y);
     let removeEmptyMarker = filterMarker.filter((m) => m.x != "" && m.y != "");
 
