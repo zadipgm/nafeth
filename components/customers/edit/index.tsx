@@ -103,7 +103,6 @@ const EditCustomer = ({
       [e.target.name]: e.target.value,
     });
   };
-  console.log("dasd", router.query.page?.includes("/cars"));
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let userName = getName() as string;
