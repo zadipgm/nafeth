@@ -45,7 +45,6 @@ const MyApp = ({
 
   themeMode.locale = locale === "en-US" || locale === "en" ? "en" : "ar";
   const isLogin = Cookies.get("isLogin");
-  console.log("here is login", router.asPath);
   if (router.asPath === "/") {
     router.push("/login");
   }
