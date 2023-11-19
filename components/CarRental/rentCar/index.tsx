@@ -56,11 +56,7 @@ interface IProps {
 const RentCar = ({ car }: IProps) => {
   const { colors, translations, locale } = useTheme();
   const RentPageContext: IRentPageContext = useRentCarData();
-  console.log(
-    RentPageContext &&
-      JSON.parse(RentPageContext?.tajeerrentpolicy.result.value),
-    "RentPageContext.tajeerrentpolicy"
-  );
+
   const router = useRouter();
   const [openCustomPrice, setOpenCustomPrice] = React.useState(false);
   let initialReturnDate = GetDateFromDays(1);
