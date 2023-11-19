@@ -10,9 +10,6 @@ const Dashboard = ({ cars }: ICarProps) => {
   const { colors, translations } = useTheme();
   return (
     <>
-      {/* <Title color={colors.darkBlue}>
-        <h2>{translations?.welcomeNote}</h2>
-      </Title> */}
       <CarRent cars={cars} page={"dashboard"} title={"Available Cars"} />
     </>
   );
